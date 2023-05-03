@@ -117,6 +117,15 @@ footer .f-flex .footer .socials {
 footer .f-flex .footer .socials a {
   margin: 0 5px;
 }
+footer .f-flex .footer .socials a .bi {
+  font-size: 2em;
+  color: #f44b3a;
+  transition: all 0.3s ease-in-out;
+}
+footer .f-flex .footer .socials a .bi:hover {
+  color: #fffdff;
+  transition: all 0.3s ease-in-out;
+}
 footer .f-flex hr {
   width: 100%;
   border: 1px solid #f44b3a;
