@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
@@ -16,9 +18,13 @@ class Category
     #[ORM\Column(length: 50)]
     private ?string $label = null;
 
-    #[ORM\ManyToOne(inversedBy: 'categories')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Plateform $plateform = null;
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Plateform::class, orphanRemoval: true)]
+    private Collection $plateforms;
+
+    public function __construct()
+    {
+        $this->plateforms = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -37,14 +43,32 @@ class Category
         return $this;
     }
 
-    public function getPlateform(): ?Plateform
+    /**
+     * @return Collection<int, Plateform>
+     */
+    public function getPlateforms(): Collection
     {
-        return $this->plateform;
+        return $this->plateforms;
     }
 
-    public function setPlateform(?Plateform $plateform): self
+    public function addPlateform(Plateform $plateform): self
     {
-        $this->plateform = $plateform;
+        if (!$this->plateforms->contains($plateform)) {
+            $this->plateforms->add($plateform);
+            $plateform->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlateform(Plateform $plateform): self
+    {
+        if ($this->plateforms->removeElement($plateform)) {
+            // set the owning side to null (unless already changed)
+            if ($plateform->getCategory() === $this) {
+                $plateform->setCategory(null);
+            }
+        }
 
         return $this;
     }

@@ -21,13 +21,13 @@ class Plateform
     #[ORM\ManyToMany(targetEntity: Game::class, mappedBy: 'game_plateform')]
     private Collection $games;
 
-    #[ORM\OneToMany(mappedBy: 'plateform', targetEntity: Category::class, orphanRemoval: true)]
-    private Collection $categories;
+    #[ORM\ManyToOne(inversedBy: 'plateforms')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
 
     public function __construct()
     {
         $this->games = new ArrayCollection();
-        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -74,32 +74,14 @@ class Plateform
         return $this;
     }
 
-    /**
-     * @return Collection<int, Category>
-     */
-    public function getCategories(): Collection
+    public function getCategory(): ?Category
     {
-        return $this->categories;
+        return $this->category;
     }
 
-    public function addCategory(Category $category): self
+    public function setCategory(?Category $category): self
     {
-        if (!$this->categories->contains($category)) {
-            $this->categories->add($category);
-            $category->setPlateform($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Category $category): self
-    {
-        if ($this->categories->removeElement($category)) {
-            // set the owning side to null (unless already changed)
-            if ($category->getPlateform() === $this) {
-                $category->setPlateform(null);
-            }
-        }
+        $this->category = $category;
 
         return $this;
     }
