@@ -29,7 +29,7 @@ INNER JOIN game_genre gg ON g.id = gg.id_game
 WHERE gg.id_genre = 9
 
 -- Liste des stocks globale :
-SELECT s.id, s.license_key, s.date_availability, s.is_available, s.id_order, s.id_game
+SELECT s.id, s.license_key, s.date_availability, s.is_available, s.id_purchase, s.id_game
 FROM stock s
 
 -- Liste des stocks par jeu :
@@ -43,14 +43,14 @@ SELECT u.username,
 	     o.created_at AS dateOrder,
 		 s.license_key,
 		 s.date_availability,
-		 s.id_order,
+		 s.id_purchase,
 		 g.label
 FROM stock s
-INNER JOIN `order` o ON s.id_order = o.id
-INNER JOIN `user` u ON o.id_user = u.id
+INNER JOIN purchase p ON s.id_purchase = p.id
+INNER JOIN user u ON p.id_user = u.id
 INNER JOIN game g ON s.id_game = g.id
 WHERE u.id = 2
-order BY o.created_at DESC
+ORDER BY o.created_at DESC
 
 -- Liste des genre :
 SELECT g.label
@@ -67,11 +67,36 @@ SELECT p.label, COUNT(gp.id_game) AS NbJeux
 FROM game_plateform gp
 INNER JOIN plateform p ON gp.id_platform = p.id
 GROUP BY p.label
-order BY NbJeux DESC
+ORDER BY NbJeux DESC
 
 -- Nombre de jeux par genre (ordre décroissant)
 SELECT g.label, COUNT(gg.id_game) AS NbJeux
 FROM game_genre gg
 INNER JOIN genre g ON gg.id_genre = g.id
 GROUP BY g.label
-order BY NbJeux DESC
+ORDER BY NbJeux DESC
+
+-- Nombre de commande par client (ordre décroissant)
+SELECT u.username, COUNT(p.id) AS nbCmd
+FROM `purchase` p
+INNER JOIN user u ON p.id_user = u.id
+GROUP BY u.username
+ORDER BY nbCmd DESC
+
+-- Liste des clients qui ont au moins 3 commandes
+SELECT u.username, COUNT(p.id) AS nbCmd
+FROM `purchase` p
+INNER JOIN user u ON p.id_user = u.id
+GROUP BY u.username
+HAVING COUNT(p.id) >= 3
+ORDER BY nbCmd DESC
+
+-- Les 3 jeux les plus vendus
+SELECT g.label, g.price, COUNT(s.id) AS NbGame
+FROM game g
+INNER JOIN stock s ON s.id_game = g.id
+INNER JOIN purchase p ON s.id_purchase = p.id
+GROUP BY g.label, g.price
+HAVING COUNT(s.id)
+ORDER BY NbGame DESC
+LIMIT 3
