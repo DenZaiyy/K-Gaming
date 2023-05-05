@@ -37,6 +37,9 @@ class Game
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: Stock::class)]
     private Collection $stocks;
 
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $cover = null;
+
     public function __construct()
     {
         $this->genres = new ArrayCollection();
@@ -171,6 +174,18 @@ class Game
                 $stock->setGame(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCover(): ?string
+    {
+        return $this->cover;
+    }
+
+    public function setCover(string $cover): self
+    {
+        $this->cover = $cover;
 
         return $this;
     }
