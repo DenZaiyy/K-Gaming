@@ -61,3 +61,17 @@ SELECT p.label
 FROM plateform p
 INNER JOIN category c ON p.id_category = c.id
 WHERE p.id_category = 1
+
+-- Nombre de jeux par plateforme (ordre décroissant)
+SELECT p.label, COUNT(gp.id_game) AS NbJeux
+FROM game_plateform gp
+INNER JOIN plateform p ON gp.id_platform = p.id
+GROUP BY p.label
+order BY NbJeux DESC
+
+-- Nombre de jeux par genre (ordre décroissant)
+SELECT g.label, COUNT(gg.id_game) AS NbJeux
+FROM game_genre gg
+INNER JOIN genre g ON gg.id_genre = g.id
+GROUP BY g.label
+order BY NbJeux DESC
