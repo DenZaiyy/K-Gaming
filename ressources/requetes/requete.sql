@@ -55,3 +55,9 @@ order BY o.created_at DESC
 -- Liste des genre :
 SELECT g.label
 FROM genre g
+
+-- Liste des plateformes par catégorie
+SELECT p.label
+FROM plateform p
+INNER JOIN category c ON p.id_category = c.id
+WHERE p.id_category = 1
