@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Hôte:                         127.0.0.1
--- Version du serveur:           8.0.30 - MySQL Community Server - GPL
--- SE du serveur:                Win64
--- HeidiSQL Version:             12.1.0.6537
+-- Version du serveur:           8.0.32 - MySQL Community Server - GPL
+-- SE du serveur:                macos13
+-- HeidiSQL Version:             12.4.0.6659
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -19,7 +19,7 @@
 CREATE DATABASE IF NOT EXISTS `kg-test` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `kg-test`;
 
--- Listage de la structure de table kg-test. category
+-- Listage de la structure de la table kg-test. category
 CREATE TABLE IF NOT EXISTS `category` (
   `id` int NOT NULL AUTO_INCREMENT,
   `label` varchar(50) NOT NULL,
@@ -32,7 +32,7 @@ INSERT IGNORE INTO `category` (`id`, `label`) VALUES
 	(2, 'PlayStation'),
 	(3, 'Xbox');
 
--- Listage de la structure de table kg-test. game
+-- Listage de la structure de la table kg-test. game
 CREATE TABLE IF NOT EXISTS `game` (
   `id` int NOT NULL AUTO_INCREMENT,
   `label` varchar(50) NOT NULL,
@@ -51,7 +51,7 @@ INSERT IGNORE INTO `game` (`id`, `label`, `price`, `description`, `date_release`
 	(5, 'Test', 30.99, 'test ', '2023-06-04'),
 	(6, 'Call of duty : POOP', 80, 'Jeu nulle', '2024-11-01');
 
--- Listage de la structure de table kg-test. game_genre
+-- Listage de la structure de la table kg-test. game_genre
 CREATE TABLE IF NOT EXISTS `game_genre` (
   `id_genre` int NOT NULL,
   `id_game` int NOT NULL,
@@ -70,7 +70,7 @@ INSERT IGNORE INTO `game_genre` (`id_genre`, `id_game`) VALUES
 	(9, 3),
 	(10, 4);
 
--- Listage de la structure de table kg-test. game_plateform
+-- Listage de la structure de la table kg-test. game_plateform
 CREATE TABLE IF NOT EXISTS `game_plateform` (
   `id_platform` int NOT NULL,
   `id_game` int NOT NULL,
@@ -96,7 +96,7 @@ INSERT IGNORE INTO `game_plateform` (`id_platform`, `id_game`) VALUES
 	(9, 3),
 	(1, 4);
 
--- Listage de la structure de table kg-test. genre
+-- Listage de la structure de la table kg-test. genre
 CREATE TABLE IF NOT EXISTS `genre` (
   `id` int NOT NULL AUTO_INCREMENT,
   `label` varchar(50) NOT NULL,
@@ -116,26 +116,7 @@ INSERT IGNORE INTO `genre` (`id`, `label`) VALUES
 	(9, 'Cross-Plateforme'),
 	(10, 'Survie');
 
--- Listage de la structure de table kg-test. order
-CREATE TABLE IF NOT EXISTS `order` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `firstname` varchar(50) NOT NULL,
-  `lastname` varchar(50) NOT NULL,
-  `billing_address` varchar(255) NOT NULL,
-  `billing_cp` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `billing_city` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `id_user` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_order_user` (`id_user`),
-  CONSTRAINT `FK_order_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- Listage des données de la table kg-test.order : ~1 rows (environ)
-INSERT IGNORE INTO `order` (`id`, `firstname`, `lastname`, `billing_address`, `billing_cp`, `billing_city`, `created_at`, `id_user`) VALUES
-	(1, 'Kevin', 'GRISCHKO', '29 rue du ban', '68200', 'Mulhouse', '2023-05-04 13:43:20', 2);
-
--- Listage de la structure de table kg-test. plateform
+-- Listage de la structure de la table kg-test. plateform
 CREATE TABLE IF NOT EXISTS `plateform` (
   `id` int NOT NULL AUTO_INCREMENT,
   `label` varchar(50) NOT NULL,
@@ -157,30 +138,63 @@ INSERT IGNORE INTO `plateform` (`id`, `label`, `id_category`) VALUES
 	(8, 'PlayStation 5', 2),
 	(9, 'Xbox One', 3);
 
--- Listage de la structure de table kg-test. stock
+-- Listage de la structure de la table kg-test. purchase
+CREATE TABLE IF NOT EXISTS `purchase` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(50) NOT NULL,
+  `lastname` varchar(50) NOT NULL,
+  `billing_address` varchar(255) NOT NULL,
+  `billing_cp` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `billing_city` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_user` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_order_user` (`id_user`),
+  CONSTRAINT `FK_order_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Listage des données de la table kg-test.purchase : ~6 rows (environ)
+INSERT IGNORE INTO `purchase` (`id`, `firstname`, `lastname`, `billing_address`, `billing_cp`, `billing_city`, `created_at`, `id_user`) VALUES
+	(1, 'Kevin', 'GRISCHKO', '29 rue du ban', '68200', 'Mulhouse', '2023-05-04 13:43:20', 2),
+	(2, 'Abdel', 'Test', '123 rue du test', '68000', 'Colmar', '2023-05-05 11:51:58', 3),
+	(3, 'Kevin', 'GRISCHKO', '29 rue du ban', '68200', 'Mulhouse', '2023-05-05 11:54:19', 2),
+	(4, 'Gerard', 'Gerard', '123 rue du test', '68000', 'Colmar', '2023-05-05 11:55:17', 4),
+	(5, 'Gerard', 'Gerard', '123 rue du test', '68000', 'Colmar', '2023-05-05 11:55:17', 4),
+	(6, 'Gerard', 'Gerard', '123 rue du test', '68000', 'Colmar', '2023-05-05 11:55:17', 4),
+	(7, 'Gerard', 'Gerard', '123 rue du test', '68000', 'Colmar', '2023-05-05 11:55:17', 4);
+
+-- Listage de la structure de la table kg-test. stock
 CREATE TABLE IF NOT EXISTS `stock` (
   `id` int NOT NULL AUTO_INCREMENT,
   `license_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `date_availability` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_available` tinyint(1) NOT NULL DEFAULT '1',
-  `id_order` int DEFAULT NULL,
+  `id_purchase` int DEFAULT NULL,
   `id_game` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_stock_order` (`id_order`),
   KEY `FK_stock_game` (`id_game`),
+  KEY `FK_stock_order` (`id_purchase`) USING BTREE,
   CONSTRAINT `FK_stock_game` FOREIGN KEY (`id_game`) REFERENCES `game` (`id`),
-  CONSTRAINT `FK_stock_order` FOREIGN KEY (`id_order`) REFERENCES `order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `FK_stock_order` FOREIGN KEY (`id_purchase`) REFERENCES `purchase` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Listage des données de la table kg-test.stock : ~5 rows (environ)
-INSERT IGNORE INTO `stock` (`id`, `license_key`, `date_availability`, `is_available`, `id_order`, `id_game`) VALUES
-	(1, 'gpVLwyvNnXwwBCD9', '2023-05-04 00:00:00', 1, 1, 3),
-	(2, 'EhNN1XhxvTG3aW5u', '2023-05-04 00:00:00', 1, NULL, 3),
+INSERT IGNORE INTO `stock` (`id`, `license_key`, `date_availability`, `is_available`, `id_purchase`, `id_game`) VALUES
+	(1, 'gpVLwyvNnXwwBCD9', '2023-05-04 00:00:00', 0, 1, 3),
+	(2, 'EhNN1XhxvTG3aW5u', '2023-05-04 00:00:00', 0, 7, 3),
 	(3, 'swIrU5tyTDwNXJzA', '2023-05-04 00:00:00', 1, NULL, 3),
-	(4, 'L9HdBMINi9vifxyz', '2023-05-04 00:00:00', 1, 1, 2),
-	(5, 'vUO9yRnl3BU6NWvu', '2023-05-04 00:00:00', 1, NULL, 2);
+	(4, 'L9HdBMINi9vifxyz', '2023-05-04 00:00:00', 0, 1, 2),
+	(5, 'vUO9yRnl3BU6NWvu', '2023-05-04 00:00:00', 0, 6, 2),
+	(6, 'DFSFSFSFSFSDFSFDFS', '2023-05-05 14:16:56', 0, 2, 2),
+	(7, 'DFSFSFSFSFSDFSFDFS', '2023-05-05 14:16:56', 0, 2, 2),
+	(8, 'DFSFSFSFSFSDFSFDFS', '2023-05-05 14:16:56', 0, 2, 2),
+	(9, 'DFSFSFSFSFSDFSFDFS', '2023-05-05 14:16:56', 0, 2, 2),
+	(10, 'DFSFSFSFSFSDFSFDFS', '2023-05-05 14:16:56', 0, 2, 2),
+	(11, 'DFSFSFSFSFSDFSFDFS', '2023-05-05 14:16:56', 0, 3, 4),
+	(12, 'DFSFSFSFSFSDFSFDFS', '2023-05-05 14:16:56', 0, 3, 4),
+	(13, 'DFSFSFSFSFSDFSFDFS', '2023-05-05 14:16:56', 0, 3, 1);
 
--- Listage de la structure de table kg-test. user
+-- Listage de la structure de la table kg-test. user
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
@@ -190,11 +204,13 @@ CREATE TABLE IF NOT EXISTS `user` (
   `role` json NOT NULL,
   `is_verified` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Listage des données de la table kg-test.user : ~1 rows (environ)
 INSERT IGNORE INTO `user` (`id`, `username`, `password`, `email`, `avatar`, `role`, `is_verified`) VALUES
-	(2, 'denz', 'denz', 'denz@denz.com', NULL, '["ROLE_USER"]', 0);
+	(2, 'denz', 'denz', 'denz@denz.com', NULL, '["ROLE_USER"]', 0),
+	(3, 'abdel', 'abdel', 'abdel@abdel.com', NULL, '["ROLE_USER"]', 0),
+	(4, 'gerard', 'gerard', 'lea@lea.com', NULL, '["ROLE_USER"]', 0);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
