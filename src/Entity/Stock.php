@@ -15,39 +15,46 @@ class Stock
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $game_key = null;
+    private ?string $license_key = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date_stock = null;
+    private ?\DateTimeInterface $date_availability = null;
 
     #[ORM\Column]
     private ?bool $is_available = null;
+
+    #[ORM\ManyToOne(inversedBy: 'stocks')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Game $game = null;
+
+    #[ORM\ManyToOne(inversedBy: 'stock')]
+    private ?Purchase $purchase = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getGameKey(): ?string
+    public function getLicenseKey(): ?string
     {
-        return $this->game_key;
+        return $this->license_key;
     }
 
-    public function setGameKey(string $game_key): self
+    public function setLicenseKey(string $license_key): self
     {
-        $this->game_key = $game_key;
+        $this->license_key = $license_key;
 
         return $this;
     }
 
-    public function getDateStock(): ?\DateTimeInterface
+    public function getDateAvailability(): ?\DateTimeInterface
     {
-        return $this->date_stock;
+        return $this->date_availability;
     }
 
-    public function setDateStock(\DateTimeInterface $date_stock): self
+    public function setDateAvailability(\DateTimeInterface $date_availability): self
     {
-        $this->date_stock = $date_stock;
+        $this->date_availability = $date_availability;
 
         return $this;
     }
@@ -60,6 +67,30 @@ class Stock
     public function setIsAvailable(bool $is_available): self
     {
         $this->is_available = $is_available;
+
+        return $this;
+    }
+
+    public function getGame(): ?Game
+    {
+        return $this->game;
+    }
+
+    public function setGame(?Game $game): self
+    {
+        $this->game = $game;
+
+        return $this;
+    }
+
+    public function getPurchase(): ?Purchase
+    {
+        return $this->purchase;
+    }
+
+    public function setPurchase(?Purchase $purchase): self
+    {
+        $this->purchase = $purchase;
 
         return $this;
     }

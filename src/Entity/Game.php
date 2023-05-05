@@ -16,7 +16,7 @@ class Game
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 50)]
     private ?string $label = null;
 
     #[ORM\Column]
@@ -29,15 +29,19 @@ class Game
     private ?\DateTimeInterface $date_release = null;
 
     #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: 'games')]
-    private Collection $game_genre;
+    private Collection $genres;
 
     #[ORM\ManyToMany(targetEntity: Plateform::class, inversedBy: 'games')]
-    private Collection $game_plateform;
+    private Collection $plateforms;
+
+    #[ORM\OneToMany(mappedBy: 'game', targetEntity: Stock::class)]
+    private Collection $stocks;
 
     public function __construct()
     {
-        $this->game_genre = new ArrayCollection();
-        $this->game_plateform = new ArrayCollection();
+        $this->genres = new ArrayCollection();
+        $this->plateforms = new ArrayCollection();
+        $this->stocks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -96,23 +100,23 @@ class Game
     /**
      * @return Collection<int, Genre>
      */
-    public function getGameGenre(): Collection
+    public function getGenres(): Collection
     {
-        return $this->game_genre;
+        return $this->genres;
     }
 
-    public function addGameGenre(Genre $gameGenre): self
+    public function addGenre(Genre $genre): sself
     {
-        if (!$this->game_genre->contains($gameGenre)) {
-            $this->game_genre->add($gameGenre);
+        if (!$this->genres->contains($genre)) {
+            $this->genres->add($genre);
         }
 
         return $this;
     }
 
-    public function removeGameGenre(Genre $gameGenre): self
+    public function removeGenre(Genre $genre): self
     {
-        $this->game_genre->removeElement($gameGenre);
+        $this->genres->removeElement($genre);
 
         return $this;
     }
@@ -120,23 +124,53 @@ class Game
     /**
      * @return Collection<int, Plateform>
      */
-    public function getGamePlateform(): Collection
+    public function getPlateforms(): Collection
     {
-        return $this->game_plateform;
+        return $this->plateforms;
     }
 
-    public function addGamePlateform(Plateform $gamePlateform): self
+    public function addPlateform(Plateform $plateform): self
     {
-        if (!$this->game_plateform->contains($gamePlateform)) {
-            $this->game_plateform->add($gamePlateform);
+        if (!$this->plateforms->contains($plateform)) {
+            $this->plateforms->add($plateform);
         }
 
         return $this;
     }
 
-    public function removeGamePlateform(Plateform $gamePlateform): self
+    public function removePlateform(Plateform $plateform): self
     {
-        $this->game_plateform->removeElement($gamePlateform);
+        $this->plateforms->removeElement($plateform);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Stock>
+     */
+    public function getStocks(): Collection
+    {
+        return $this->stocks;
+    }
+
+    public function addStock(Stock $stock): self
+    {
+        if (!$this->stocks->contains($stock)) {
+            $this->stocks->add($stock);
+            $stock->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStock(Stock $stock): self
+    {
+        if ($this->stocks->removeElement($stock)) {
+            // set the owning side to null (unless already changed)
+            if ($stock->getGame() === $this) {
+                $stock->setGame(null);
+            }
+        }
 
         return $this;
     }

@@ -18,12 +18,12 @@ class Plateform
     #[ORM\Column(length: 50)]
     private ?string $label = null;
 
-    #[ORM\ManyToMany(targetEntity: Game::class, mappedBy: 'game_plateform')]
-    private Collection $games;
-
     #[ORM\ManyToOne(inversedBy: 'plateforms')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
+
+    #[ORM\ManyToMany(targetEntity: Game::class, mappedBy: 'plateforms')]
+    private Collection $games;
 
     public function __construct()
     {
@@ -47,6 +47,18 @@ class Plateform
         return $this;
     }
 
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Game>
      */
@@ -59,7 +71,7 @@ class Plateform
     {
         if (!$this->games->contains($game)) {
             $this->games->add($game);
-            $game->addGamePlateform($this);
+            $game->addPlateform($this);
         }
 
         return $this;
@@ -68,20 +80,8 @@ class Plateform
     public function removeGame(Game $game): self
     {
         if ($this->games->removeElement($game)) {
-            $game->removeGamePlateform($this);
+            $game->removePlateform($this);
         }
-
-        return $this;
-    }
-
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): self
-    {
-        $this->category = $category;
 
         return $this;
     }

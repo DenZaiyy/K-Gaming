@@ -18,7 +18,7 @@ class Genre
     #[ORM\Column(length: 50)]
     private ?string $label = null;
 
-    #[ORM\ManyToMany(targetEntity: Game::class, mappedBy: 'game_genre')]
+    #[ORM\ManyToMany(targetEntity: Game::class, mappedBy: 'genre')]
     private Collection $games;
 
     public function __construct()
@@ -55,7 +55,7 @@ class Genre
     {
         if (!$this->games->contains($game)) {
             $this->games->add($game);
-            $game->addGameGenre($this);
+            $game->addGenre($this);
         }
 
         return $this;
@@ -64,7 +64,7 @@ class Genre
     public function removeGame(Game $game): self
     {
         if ($this->games->removeElement($game)) {
-            $game->removeGameGenre($this);
+            $game->removeGenre($this);
         }
 
         return $this;
