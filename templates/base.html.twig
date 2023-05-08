@@ -20,6 +20,9 @@
 	{% endblock %}
 	
 	{% block javascripts %}
+		<script src="https://code.jquery.com/jquery-3.6.4.js"
+		        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+		<script src="{{ asset('js/app.js') }}"></script>
 		{{ encore_entry_script_tags('app') }}
 	{% endblock %}
 </head>
@@ -31,36 +34,71 @@
 		</a>
 	</div>
 	<nav>
-		<ul class="nav-flex">
-			<li>
-				<a href="">
-					PC <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f44b3a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-				</a>
-			</li>
-			<li>
-				<a href="">
-					PlayStation <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f44b3a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-				</a>
-			</li>
-			<li>
-				<a href="">
-					Xbox <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f44b3a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-				</a>
-			</li>
-		</ul>
+		<div class="dropdown">
+			<button class="dropBtn">
+				PC
+				<i class="bi bi-chevron-down"></i>
+			</button>
+			<div class="dropdown-menu">
+				<a href="">Steam</a>
+				<a href="">Origin</a>
+				<a href="">Battle.net</a>
+				<a href="">Epic Games</a>
+				<a href="">Ubisoft</a>
+			</div>
+		</div>
+		<div class="dropdown">
+			<button class="dropBtn">
+				PlayStation
+				<i class="bi bi-chevron-down"></i>
+			</button>
+			<div class="dropdown-menu">
+				<a href="">PlayStation 4</a>
+				<a href="">PlayStation 5</a>
+			</div>
+		</div>
+		<div class="dropdown">
+			<button class="dropBtn">
+				Xbox
+				<i class="bi bi-chevron-down"></i>
+			</button>
+			<div class="dropdown-menu">
+				<a href="">Xbox One</a>
+				<a href="">Xbox Series X|S</a>
+			</div>
+		</div>
 	</nav>
 	<div class="icons">
-		<a href="">
-			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#f44b3a" class="bi bi-cart4" viewBox="0 0 16 16">
-				<path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
-			</svg>
-		</a>
-		<a href="">
-			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#f44b3a" class="bi bi-person-circle" viewBox="0 0 16 16">
-				<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-				<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-			</svg>
-		</a>
+		<div class="dropdown">
+			<button class="dropBtn">
+				<i class="bi bi-bag-check"></i>
+			</button>
+			{#<div class="dropdown-menu">
+			
+			</div>#}
+		</div>
+		<div class="dropdown">
+			<button class="dropBtn">
+				<i class="bi bi-person-fill-gear"></i>
+			</button>
+			<div class="dropdown-menu right">
+				{% if app.user %}
+					{% if is_granted("ROLE_ADMIN") %}
+						<a href="{{ path('app_admin') }}">Administration</a>
+						<hr class="dropdown-divider">
+					{% endif %}
+					<a href="">Mon compte</a>
+					<a href="">Mes commandes</a>
+					<hr class="dropdown-divider">
+					<a href="" class="disconnect">Déconnexion</a>
+				
+				{% else %}
+					<a href="{{ path('app_login') }}">Connexion</a>
+					<a href="{{ path('app_register') }}">Inscription</a>
+				{% endif %}
+			
+			</div>
+		</div>
 	</div>
 </header>
 
@@ -79,6 +117,7 @@
 			</div>
 			<div class="links">
 				<a href="">Politique de confidentialité</a>
+				-
 				<a href="">Conditions de vente</a>
 			</div>
 			<div class="socials">
@@ -94,7 +133,7 @@
 			</div>
 		</div>
 		<hr>
-		<small>K-GAMING © {{ 'now'|date('Y') }} - Tous droits réservés</small>
+		<small>K-GAMING &copy; {{ 'now'|date('Y') }} - Tous droits réservés</small>
 	</div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
