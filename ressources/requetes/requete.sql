@@ -91,7 +91,7 @@ GROUP BY u.username
 HAVING COUNT(p.id) >= 3
 ORDER BY nbCmd DESC
 
--- Les 3 jeux les plus vendus
+-- Les 6 jeux les plus vendus
 SELECT g.label, g.price, COUNT(s.id) AS NbGame
 FROM game g
 INNER JOIN stock s ON s.id_game = g.id
@@ -99,4 +99,4 @@ INNER JOIN purchase p ON s.id_purchase = p.id
 GROUP BY g.label, g.price
 HAVING COUNT(s.id)
 ORDER BY NbGame DESC
-LIMIT 3
+LIMIT 6
