@@ -9,6 +9,7 @@
 
 html, body {
   height: 100%;
+  margin: 0;
 }
 
 .header-flex {
@@ -30,41 +31,196 @@ html, body {
 }
 .header-flex nav {
   height: max-content;
-}
-.header-flex nav .nav-flex {
   display: flex;
   flex-direction: row;
+  gap: 50px;
   margin: 0;
   padding: 0;
 }
-.header-flex nav .nav-flex li {
-  list-style: none;
-  margin: 0 25px;
+.header-flex .dropdown {
+  position: relative;
+  display: inline-block;
 }
-.header-flex nav .nav-flex li a {
-  text-decoration: none;
+.header-flex .dropdown .dropBtn {
+  border: none;
+  background: transparent;
   color: #263f5d;
   font-family: "Quicksand Book", sans-serif;
   font-size: 1.2em;
   transition: all 0.3s ease-in-out;
 }
-.header-flex nav .nav-flex li a:hover {
+.header-flex .dropdown .dropBtn:hover {
   color: #f44b3a;
   transition: all 0.3s ease-in-out;
 }
+.header-flex .dropdown .dropBtn .bi-chevron-down, .header-flex .dropdown .dropBtn .bi-chevron-up {
+  color: #f44b3a;
+}
+.header-flex .dropdown .dropdown-menu {
+  position: absolute;
+  min-width: 160px;
+  width: max-content;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.1s ease-out, transform 0.2s ease-out;
+  transform-origin: top center;
+}
+.header-flex .dropdown .dropdown-menu a {
+  display: block;
+  text-decoration: none;
+  color: #263f5d;
+  font-family: "Quicksand Book", sans-serif;
+  font-size: 1em;
+  padding: 10px 20px;
+  transition: all 0.3s ease-in-out;
+}
+.header-flex .dropdown .dropdown-menu a:hover {
+  background-color: #f44b3a;
+  color: #fffdff;
+  transition: all 0.3s ease-in-out;
+}
+.header-flex .dropdown .show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+.header-flex .dropdown .right {
+  right: 0;
+}
 .header-flex .icons {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  gap: 10px;
 }
-.header-flex .icons a {
-  margin: 0 5px;
+.header-flex .icons a i {
+  font-size: 2em;
+  color: #f44b3a;
+  transition: all 0.2s linear;
+}
+.header-flex .icons a i:hover {
+  color: #263f5d;
+  transition: all 0.2s linear;
+}
+.header-flex .icons .dropdown .dropBtn {
+  font-size: 2em;
+  color: #f44b3a;
+  transition: all 0.2s linear;
+  height: max-content;
+}
+.header-flex .icons .dropdown .dropBtn:hover {
+  color: #263f5d;
+  transition: all 0.2s linear;
 }
 
 h2 {
   text-transform: uppercase;
-  font-family: "Quicksand Bold", sans-serif;
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
   font-size: 1.5em;
+  margin-bottom: 30px;
+}
+
+main {
+  text-align: center;
+}
+main .hero-image {
+  position: relative;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/accueil.jpg");
+  height: 25vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+main .hero-image .hero-text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fffdff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+main .header-img {
+  position: relative;
+}
+main .header-img img {
+  width: 100%;
+  max-height: 300px;
+  background-size: cover;
+  background-position: center;
+}
+main .header-img figcaption {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: max-content;
+}
+main .header-img figcaption h2, main .header-img figcaption p {
+  color: #fffdff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+main .tendencies {
+  margin-top: 30px;
+}
+main .tendencies .cards {
+  display: flex;
+  gap: 30px 50px;
+  justify-content: center;
+}
+main .tendencies .cards .gameCard {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+main .tendencies .cards .gameCard .cover-img {
+  border-radius: 10px;
+  max-height: 200px;
+  width: 100%;
+  overflow: hidden;
+}
+main .tendencies .cards .gameCard .cover-img img {
+  max-width: 300px;
+  height: max-content;
+  border-radius: 10px;
+  background-size: auto;
+  background-position: center;
+}
+main .tendencies .cards .gameCard .infos {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5px;
+}
+main .tendencies .cards .gameCard .infos .label {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1em;
+  color: #263f5d;
+}
+main .tendencies .cards .gameCard .infos .price {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: bold;
+  font-size: 1em;
+  color: #263f5d;
+}
+main .tendencies .cards .gameCard .preco {
+  display: flex;
+  color: #f44b3a;
+  gap: 5px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: bold;
+  font-size: 0.8em;
+}
+main .tendencies .cards .gameCard .preco .badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 5px;
+  border: 1px solid #f44b3a;
+  border-radius: 5px;
+  color: #f44b3a;
+}
+main .tendencies .cards .gameCard:hover {
+  transition: all 0.3s ease-in-out;
+  transform: scale(1.05);
 }
 
 footer .f-flex {
@@ -97,19 +253,24 @@ footer .f-flex .footer .logo a:hover {
   color: #fffdff;
   transition: all 0.3s ease-in-out;
 }
+footer .f-flex .footer .links {
+  color: #fffdff;
+}
 footer .f-flex .footer .links a {
   color: #fffdff;
   transition: all 0.3s ease-in-out;
   font-family: "Source Sans Pro", sans-serif;
+  /*&:not(:first-child) {
+  	&::before {
+  		content: '|';
+  		margin: 0 5px;
+  		color: $white;
+  	}
+  }*/
 }
 footer .f-flex .footer .links a:hover {
   transition: all 0.3s ease-in-out;
   color: #f44b3a;
-}
-footer .f-flex .footer .links a:not(:first-child)::before {
-  content: "|";
-  margin: 0 5px;
-  color: #fffdff;
 }
 footer .f-flex .footer .socials {
   display: flex;
