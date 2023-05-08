@@ -93,6 +93,13 @@ class Game
         return $this->date_release;
     }
 
+	public function getDateFR(\DateTime $date): ?string
+	{
+		$formatter = new \IntlDateFormatter('fr_FR', \IntlDateFormatter::LONG, \IntlDateFormatter::NONE);
+
+		return $formatter->format($date);
+	}
+
     public function setDateRelease(\DateTimeInterface $date_release): self
     {
         $this->date_release = $date_release;
