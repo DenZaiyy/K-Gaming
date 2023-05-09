@@ -22,9 +22,6 @@ class Game
     #[ORM\Column]
     private ?float $price = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $description = null;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date_release = null;
 
@@ -36,9 +33,6 @@ class Game
 
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: Stock::class)]
     private Collection $stocks;
-
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $cover = null;
 
     public function __construct()
     {
@@ -72,18 +66,6 @@ class Game
     public function setPrice(float $price): self
     {
         $this->price = $price;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
 
         return $this;
     }
@@ -181,18 +163,6 @@ class Game
                 $stock->setGame(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getCover(): ?string
-    {
-        return $this->cover;
-    }
-
-    public function setCover(string $cover): self
-    {
-        $this->cover = $cover;
 
         return $this;
     }
