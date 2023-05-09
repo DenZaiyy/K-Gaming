@@ -203,6 +203,7 @@ main {
 		
 		.cards {
 			display: flex;
+			flex-wrap: wrap;
 			//grid-template-columns: 0fr 0fr 0fr;
 			gap: 30px 50px;
 			justify-content: center;
@@ -213,9 +214,7 @@ main {
 				
 				.cover-img {
 					border-radius: 10px;
-					max-height: 200px;
 					width: 100%;
-					overflow: hidden;
 					
 					img {
 						max-width: 300px;
@@ -275,6 +274,11 @@ main {
 }
 
 footer {
+	user-select: none;
+	
+	img {
+		user-select: none;
+	}
 	.f-flex {
 		display: flex;
 		flex-direction: column;

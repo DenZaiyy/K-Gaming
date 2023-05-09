@@ -12,17 +12,17 @@
 	<section class="tendencies">
 		<h2>Tendances</h2>
 		<div class="cards">
-			{% for game in tendencies %}
+			{% for tendency in tendencies %}
 				<div class="gameCard">
 					<div class="cover-img">
-						<img src="{{ game.cover }}" alt="cover for game: {{ game.label }}">
+						<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\HomeController::getInfosGame', { gameLabel: tendency.label })) }}.jpg" alt="cover for game: {{ tendency.label }}">
 					</div>
 					<div class="infos">
 						<div class="label">
-							{{ game.label }}
+							{{ tendency.label }}
 						</div>
 						<div class="price">
-							{{ game.price }} €
+							{{ tendency.price }} €
 						</div>
 					</div>
 				</div>
@@ -30,7 +30,7 @@
 		</div>
 	</section>
 	
-	<section class="precommands">
+	{#<section class="precommands">
 		<h2>Précommandes</h2>
 		<div class="cards">
 			{% for tendency in tendencies %}
@@ -55,5 +55,5 @@
 				</div>
 			{% endfor %}
 		</div>
-	</section>
+	</section>#}
 {% endblock %}

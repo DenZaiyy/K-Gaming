@@ -165,6 +165,7 @@ main .tendencies {
 }
 main .tendencies .cards {
   display: flex;
+  flex-wrap: wrap;
   gap: 30px 50px;
   justify-content: center;
 }
@@ -174,9 +175,7 @@ main .tendencies .cards .gameCard {
 }
 main .tendencies .cards .gameCard .cover-img {
   border-radius: 10px;
-  max-height: 200px;
   width: 100%;
-  overflow: hidden;
 }
 main .tendencies .cards .gameCard .cover-img img {
   max-width: 300px;
@@ -223,6 +222,12 @@ main .tendencies .cards .gameCard:hover {
   transform: scale(1.05);
 }
 
+footer {
+  user-select: none;
+}
+footer img {
+  user-select: none;
+}
 footer .f-flex {
   display: flex;
   flex-direction: column;
