@@ -41,7 +41,7 @@ html, body {
   position: relative;
   display: inline-block;
 }
-.header-flex .dropdown .dropBtn {
+.header-flex .dropdown .dropdown-toggle {
   border: none;
   background: transparent;
   color: #263f5d;
@@ -49,11 +49,11 @@ html, body {
   font-size: 1.2em;
   transition: all 0.3s ease-in-out;
 }
-.header-flex .dropdown .dropBtn:hover {
+.header-flex .dropdown .dropdown-toggle:hover {
   color: #f44b3a;
   transition: all 0.3s ease-in-out;
 }
-.header-flex .dropdown .dropBtn .bi-chevron-down, .header-flex .dropdown .dropBtn .bi-chevron-up {
+.header-flex .dropdown .dropdown-toggle .bi-chevron-down, .header-flex .dropdown .dropdown-toggle .bi-chevron-up {
   color: #f44b3a;
 }
 .header-flex .dropdown .dropdown-menu {
@@ -64,7 +64,6 @@ html, body {
   z-index: 1;
   opacity: 0;
   transition: opacity 0.1s ease-out, transform 0.2s ease-out;
-  transform-origin: top center;
 }
 .header-flex .dropdown .dropdown-menu a {
   display: block;
@@ -83,7 +82,6 @@ html, body {
 .header-flex .dropdown .show {
   display: block;
   opacity: 1;
-  transform: translateY(0);
 }
 .header-flex .dropdown .right {
   right: 0;
@@ -102,6 +100,8 @@ html, body {
   transition: all 0.2s linear;
 }
 .header-flex .icons .dropdown .dropBtn {
+  border: none;
+  background: transparent;
   font-size: 2em;
   color: #f44b3a;
   transition: all 0.2s linear;
