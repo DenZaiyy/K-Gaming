@@ -1,28 +1,32 @@
-$(document).ready(function () {
-	$(".dropdown").each(function () {
+/*
+$(document).ready(function() {
+	$(".dropdown").each(function() {
 		var $dropdown = $(this);
-		
-		$($dropdown).on("click", function (e) {
-			e.preventDefault();
-			
+
+		$($dropdown).on("click", function(event) {
+			event.stopPropagation();
 			var $dropdownMenu = $('.dropdown-menu', $dropdown);
-			var $dropDownBtn = $('.dropBtn', $dropdown);
-			var $icon = $dropDownBtn.find(".bi");
-			
-			if ($icon.hasClass("bi-chevron-down")) {
-				$icon.removeClass("bi-chevron-down").addClass("bi-chevron-up");
-			} else if ($icon.hasClass("bi-chevron-up")) {
-				$icon.removeClass("bi-chevron-up").addClass("bi-chevron-down");
+			var $dropDownBtn = $('.bi', $dropdown);
+
+			if ($($dropDownBtn).hasClass("bi-chevron-down")) {
+				$($dropDownBtn).removeClass("bi-chevron-down");
+				$($dropDownBtn).addClass("bi-chevron-up");
+			} else if ($($dropDownBtn).hasClass("bi-chevron-up")) {
+				$($dropDownBtn).removeClass("bi-chevron-up");
+				$($dropDownBtn).addClass("bi-chevron-down");
 			}
-			
-			// Collapse other dropdown menus and reset their icons
-			$(".dropdown-menu.show").not($dropdownMenu).removeClass("show").slideUp(200, function () {
-				$(this).prev(".dropBtn").find(".bi").removeClass("bi-chevron-up").addClass("bi-chevron-down");
-			});
-			
-			$dropdownMenu.slideToggle(200, function() {
-				$dropdownMenu.toggleClass("show");
-			});
+
+			if ($($dropdownMenu).hasClass("show")) {
+				$($dropdownMenu).removeClass("show");
+			} else {
+				$($dropdownMenu).addClass("show");
+			}
 		});
 	});
-});
+
+	// Close dropdown menus on click outside
+	$(document).on("click", function() {
+		$(".dropdown-menu").removeClass("show");
+		$(".bi").removeClass("bi-chevron-up").addClass("bi-chevron-down");
+	});
+});*/
