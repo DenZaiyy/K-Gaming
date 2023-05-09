@@ -22,6 +22,7 @@
 	{% block javascripts %}
 		<script src="https://code.jquery.com/jquery-3.6.4.js"
 		        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js" integrity="sha512-i9cEfJwUwViEPFKdC1enz4ZRGBj8YQo6QByFTF92YXHi7waCqyexvRD75S5NVTsSiTv7rKWqG9Y5eFxmRsOn0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 		<script src="{{ asset('js/app.js') }}"></script>
 		{{ encore_entry_script_tags('app') }}
 	{% endblock %}
@@ -35,62 +36,56 @@
 	</div>
 	<nav>
 		<div class="dropdown">
-			<button class="dropBtn">
+			<button class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownPC">
 				PC
-				<i class="bi bi-chevron-down"></i>
 			</button>
-			<div class="dropdown-menu">
-				<a href="">Steam</a>
-				<a href="">Origin</a>
-				<a href="">Battle.net</a>
-				<a href="">Epic Games</a>
-				<a href="">Ubisoft</a>
+			<div class="dropdown-menu" aria-labelledby="dropdownPC">
+				<a href="#" class="dropdown-item">Steam</a>
+				<a href="#" class="dropdown-item">Origin</a>
+				<a href="#" class="dropdown-item">Battle.net</a>
+				<a href="#" class="dropdown-item">Epic Games</a>
+				<a href="#" class="dropdown-item">Ubisoft</a>
 			</div>
 		</div>
 		<div class="dropdown">
-			<button class="dropBtn">
+			<button class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownPS">
 				PlayStation
-				<i class="bi bi-chevron-down"></i>
 			</button>
-			<div class="dropdown-menu">
-				<a href="">PlayStation 4</a>
-				<a href="">PlayStation 5</a>
+			<div class="dropdown-menu" aria-labelledby="dropdownPS">
+				<a href="#" class="dropdown-item">PlayStation 4</a>
+				<a href="#" class="dropdown-item">PlayStation 5</a>
 			</div>
 		</div>
 		<div class="dropdown">
-			<button class="dropBtn">
+			<button class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownXB">
 				Xbox
-				<i class="bi bi-chevron-down"></i>
 			</button>
-			<div class="dropdown-menu">
-				<a href="">Xbox One</a>
-				<a href="">Xbox Series X|S</a>
+			<div class="dropdown-menu" aria-labelledby="dropdownXB">
+				<a href="#" class="dropdown-item">Xbox One</a>
+				<a href="#" class="dropdown-item">Xbox Series X|S</a>
 			</div>
 		</div>
 	</nav>
 	<div class="icons">
 		<div class="dropdown">
-			<button class="dropBtn">
+			<button class="dropBtn" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownCart">
 				<i class="bi bi-cart4"></i>
 			</button>
-			{#<div class="dropdown-menu">
-			
-			</div>#}
 		</div>
 		<div class="dropdown">
-			<button class="dropBtn">
+			<button class="dropBtn" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownUser">
 				<i class="bi bi-person-fill-gear"></i>
 			</button>
-			<div class="dropdown-menu right">
+			<div class="dropdown-menu text-small shadow right" aria-labelledby="dropdownUser">
 				{% if app.user %}
 					{% if is_granted("ROLE_ADMIN") %}
 						<a href="{{ path('app_admin') }}">Administration</a>
 						<hr class="dropdown-divider">
 					{% endif %}
-					<a href="">Mon compte</a>
-					<a href="">Mes commandes</a>
+					<a href="#">Mon compte</a>
+					<a href="#">Mes commandes</a>
 					<hr class="dropdown-divider">
-					<a href="" class="disconnect">Déconnexion</a>
+					<a href="#" class="disconnect">Déconnexion</a>
 				
 				{% else %}
 					<a href="{{ path('app_login') }}">Connexion</a>
@@ -136,11 +131,11 @@
 		<small>K-GAMING &copy; {{ 'now'|date('Y') }} - Tous droits réservés</small>
 	</div>
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+{#<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>#}
 </body>
 </html>
