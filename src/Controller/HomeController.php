@@ -28,7 +28,7 @@ class HomeController extends AbstractController
 	#[Route('/getGameInfos/{gameLabel}', name: 'app_get_game_infos')]
 	public function getInfosGame($gameLabel): Response
 	{
-		return $this->render('home/game_infos.html.twig', [
+		return $this->render('home/_game_infos.html.twig', [
 			'gameInfos' => $this->callApiService->callApi($gameLabel),
 			'gameName' => $gameLabel,
 		]);
