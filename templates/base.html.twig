@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="h-100">
 <head>
 	<meta charset="UTF-8">
 	<title>K-GAMING - {% block title %}{% endblock %}</title>
@@ -29,7 +29,7 @@
 		{{ encore_entry_script_tags('app') }}
 	{% endblock %}
 </head>
-<body>
+<body class="d-flex flex-column h-100">
 <nav class="header-flex">
 	<div class="logo">
 		<a href="{{ path('app_home') }}">
@@ -109,7 +109,7 @@
 	{% block body %}{% endblock %}
 </main>
 
-<footer>
+<footer class="footer mt-auto">
 	<img src="{{ asset('img/wave.svg') }}" alt="wave for footer">
 	<div class="f-flex">
 		<div class="footer">
