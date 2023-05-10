@@ -7,7 +7,7 @@ use IntlDateFormatter;
 use Twig\TwigFunction;
 use Twig\Extension\AbstractExtension;
 
-class dateToFR extends AbstractExtension
+class DateFullToFR extends AbstractExtension
 {
 	//	getFunctions permet de récupérer dans le fichier twig le nom de la fonction et la fonction à appeler (dateFR)
 	public function getFunctions()
