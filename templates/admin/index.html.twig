@@ -17,117 +17,23 @@
 </head>
 <body>
 <header>
-	{# <!-- Sidebar -->
-	<nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
-		<div class="position-sticky">
-			<div class="list-group list-group-flush mx-3 mt-4">
-				<a href="#" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-					<i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Main dashboard</span>
-				</a>
-				<a href="#"
-				   class="list-group-item list-group-item-action py-2 ripple"
-				><i class="fas fa-lock fa-fw me-3"></i><span>Password</span></a
-				>
-				<a href="#"
-				   class="list-group-item list-group-item-action py-2 ripple"
-				><i class="fas fa-chart-line fa-fw me-3"></i
-					><span>Analytics</span></a
-				>
-				<a href="#"
-				   class="list-group-item list-group-item-action py-2 ripple"
-				>
-					<i class="fas fa-chart-pie fa-fw me-3"></i><span>SEO</span>
-				</a>
-				<a href="#"
-				   class="list-group-item list-group-item-action py-2 ripple"
-				><i class="fas fa-chart-bar fa-fw me-3"></i><span>Orders</span></a
-				>
-				<a href="#"
-				   class="list-group-item list-group-item-action py-2 ripple"
-				><i class="fas fa-globe fa-fw me-3"></i
-					><span>International</span></a
-				>
-				<a href="#"
-				   class="list-group-item list-group-item-action py-2 ripple"
-				><i class="fas fa-building fa-fw me-3"></i
-					><span>Partners</span></a
-				>
-				<a href="#"
-				   class="list-group-item list-group-item-action py-2 ripple"
-				><i class="fas fa-users fa-fw me-3"></i><span>Users</span></a
-				>
-				<a href="#"
-				   class="list-group-item list-group-item-action py-2 ripple"
-				><i class="fas fa-calendar fa-fw me-3"></i
-					><span>Games</span></a
-				>
-				<a href="#"
-				   class="list-group-item list-group-item-action py-2 ripple"
-				><i class="fas fa-money-bill fa-fw me-3"></i><span>Sales</span></a
-				>
-			</div>
-			<div class="border-top my-4">
-				<a href="{{ path('app_home') }}">Retour</a>
-			</div>
-		</div>
-	</nav>
-	<!-- Sidebar --> #}
-	
-	{# <div class="nav flex-column nav-pills" id="tab" role="tablist" aria-orientation="vertical">
-		<a class="nav-link active" id="home-tab" data-toggle="pill" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
-		<a class="nav-link" id="profile-tab" data-toggle="pill" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
-		<a class="nav-link" id="messages-tab" data-toggle="pill" href="#messages" role="tab" aria-controls="messages" aria-selected="false">Messages</a>
-		<a class="nav-link" id="settings-tab" data-toggle="pill" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Settings</a>
-	</div> #}
-	
 	<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px; height: 100vh;">
-		<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-			<svg class="bi me-2" width="40" height="32">
-				<use xlink:href="#bootstrap"></use>
-			</svg>
-			<span class="fs-4">Sidebar</span>
+		<a href="{{ path('app_home') }}" class="mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+			<span class="fs-4">K-GAMING</span>
 		</a>
 		<hr>
 		<ul class="nav nav-pills flex-column mb-auto">
-			<li class="nav-item">
-				<a href="#" class="nav-link active" aria-current="page">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#home"></use>
-					</svg>
-					Home
-				</a>
+			<li>
+				<a href="#" class="nav-link active text-white">Tableau de bord</a>
 			</li>
 			<li>
-				<a href="#" class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#speedometer2"></use>
-					</svg>
-					Dashboard
-				</a>
+				<a href="#" class="nav-link text-white">Commandes</a>
 			</li>
 			<li>
-				<a href="#" class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#table"></use>
-					</svg>
-					Orders
-				</a>
+				<a href="#" class="nav-link text-white">Jeux</a>
 			</li>
 			<li>
-				<a href="#" class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#grid"></use>
-					</svg>
-					Products
-				</a>
-			</li>
-			<li>
-				<a href="#" class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#people-circle"></use>
-					</svg>
-					Customers
-				</a>
+				<a href="#" class="nav-link text-white">Clients</a>
 			</li>
 		</ul>
 		<hr>
@@ -139,13 +45,12 @@
 					<strong>{{ app.user.username }}</strong>
 				</a>
 				<ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-					<li><a class="dropdown-item" href="#">New project...</a></li>
-					<li><a class="dropdown-item" href="#">Settings</a></li>
-					<li><a class="dropdown-item" href="#">Profile</a></li>
+					<li><a class="dropdown-item" href="#">Paramètres</a></li>
+					<li><a class="dropdown-item" href="#">Profil</a></li>
 					<li>
 						<hr class="dropdown-divider">
 					</li>
-					<li><a class="dropdown-item" href="#">Sign out</a></li>
+					<li><a class="dropdown-item" href="{{path('app_logout') }}">Se déconnecter</a></li>
 				</ul>
 			</div>
 		{% endif %}
@@ -154,7 +59,7 @@
 </header>
 <main>
 	<div class="container pt-4">
-	
+	test
 	</div>
 </main>
 </body>
