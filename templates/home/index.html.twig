@@ -15,7 +15,9 @@
 			{% for tendency in tendencies %}
 				<div class="gameCard">
 					<div class="cover-img">
-						<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\HomeController::getInfosGame', { gameLabel: tendency.label })) }}.jpg" alt="cover for game: {{ tendency.label }}">
+						<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\HomeController::getInfosGame', { gameLabel: tendency.label })) }}.jpg"
+						     draggable="false"
+						     alt="cover for game: {{ tendency.label }}">
 					</div>
 					<div class="infos">
 						<div class="label">
@@ -30,30 +32,93 @@
 		</div>
 	</section>
 	
-	{#<section class="precommands">
+	<section class="rating">
+		<div class="stars">
+			<div class="star">
+				<i class="bi bi-star-fill"></i>
+			</div>
+			<div class="star">
+				<i class="bi bi-star-fill"></i>
+			</div>
+			<div class="star">
+				<i class="bi bi-star-fill"></i>
+			</div>
+			<div class="star">
+				<i class="bi bi-star-fill"></i>
+			</div>
+			<div class="star">
+				<i class="bi bi-star-fill"></i>
+			</div>
+		</div>
+		<div class="text-content">
+			Avez-vous déjà consulté les avis des utilisateurs sur K-GAMING ? Nos clients sont ravis de partager leur
+			expérience d'achat de clés de jeux en dématérialisé sur notre site. Venez découvrir leurs témoignages et
+			rejoignez notre communauté de joueurs satisfaits !
+		</div>
+		<div class="btn-ratings">
+			<a href="#">Voir les avis utilisateurs</a>
+		</div>
+	</section>
+	
+	<section class="preorders">
 		<h2>Précommandes</h2>
 		<div class="cards">
-			{% for tendency in tendencies %}
+			{% for preorder in preorders %}
 				<div class="gameCard">
 					<div class="cover-img">
-						<img src="{{ game.cover }}" alt="cover for game: {{ game.label }}">
+						<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\HomeController::getInfosGame', { gameLabel: preorder.label })) }}.jpg"
+						     alt="cover for game: {{ preorder.label }}">
 					</div>
 					<div class="infos">
 						<div class="label">
-							{{ game.label }}
+							{{ preorder.label }}
 						</div>
 						<div class="price">
-							{{ game.price }} €
+							{{ preorder.price }} €
 						</div>
 					</div>
 					<div class="preco">
 						<div class="badge">Préco</div>
 						<div class="date">
-							{{ game.dateRelease(game.dateRelease) }}
+							{{ dateFR(preorder.date_release) }}
 						</div>
 					</div>
 				</div>
 			{% endfor %}
 		</div>
-	</section>#}
+	</section>
+	
+	<section class="newsletter">
+		<div class="icon">
+			<i class="bi bi-envelope-at-fill"></i>
+		</div>
+		<div class="text-content">
+			Ne manquez pas nos offres exclusives et nos dernières nouveautés sur
+			K-GAMING ! Rejoignez notre communauté de joueurs passionnés et profitez de nos produits de qualité à des
+			prix imbattables. Abonnez-vous dès maintenant pour recevoir toutes nos actualités et nos promotions en
+			avant-première.
+		</div>
+		<div class="btn-ratings">
+			<a href="#">S'inscrire !</a>
+		</div>
+	</section>
+	
+	<section class="genres">
+		<h2>Genres</h2>
+		<div class="cards">
+			{% for genre in genres %}
+				<div class="genreCard">
+					<div class="cover-img">
+						<img src=""
+						     alt="cover for genre: {{ genre.label }}">
+					</div>
+					<div class="infos">
+						<div class="label">
+							{{ genre.label|upper }}
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</section>
 {% endblock %}
