@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Game;
+use App\Entity\Genre;
 use App\Entity\Stock;
 use App\Service\CallApiService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,10 +22,12 @@ class HomeController extends AbstractController
 	{
 		$tendencies = $em->getRepository(Stock::class)->findGamesInTendencies();
 		$preorders = $em->getRepository(Game::class)->findGamesInPreOrders();
+		$genres = $em->getRepository(Genre::class)->findGenres();
 
 		return $this->render('home/index.html.twig', [
 			'tendencies' => $tendencies,
 			'preorders' => $preorders,
+			'genres' => $genres,
 		]);
 	}
 
