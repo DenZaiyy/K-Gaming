@@ -7,7 +7,7 @@ use IntlDateFormatter;
 use Twig\TwigFunction;
 use Twig\Extension\AbstractExtension;
 
-class changeDateToFR extends AbstractExtension
+class dateToFR extends AbstractExtension
 {
 	//	getFunctions permet de récupérer dans le fichier twig le nom de la fonction et la fonction à appeler (dateFR)
 	public function getFunctions()
@@ -17,7 +17,7 @@ class changeDateToFR extends AbstractExtension
 		];
 	}
 
-	// function to change the date format to french
+	// fonction permettant de formater la date en français et en toute lettre
 	public function dateFR(DateTime $date)
 	{
 		$formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::LONG, IntlDateFormatter::NONE);
