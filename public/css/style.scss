@@ -15,11 +15,6 @@ $textShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	box-sizing: border-box;
 }
 
-html, body {
-	height: 100%;
-	margin: 0;
-}
-
 .header-flex {
 	display: flex;
 	flex-direction: row;
@@ -135,6 +130,15 @@ html, body {
 				transition: $animationLinear;
 				height: max-content;
 				
+				.profilePicture {
+					width: 36px;
+					height: 36px;
+					border-radius: 50%;
+					object-fit: cover;
+					outline: .5px solid $orange;
+					box-shadow: $textShadow;
+				}
+				
 				&:hover {
 					color: $blue;
 					transition: $animationLinear;
@@ -159,7 +163,7 @@ main {
 		position: relative;
 		background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/accueil.jpg");
 		
-		height: calc(100vh - 75vh);
+		height: calc(100vh - 70vh);
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;
@@ -175,31 +179,7 @@ main {
 		}
 	}
 	
-	.header-img {
-		position: relative;
-		
-		img {
-			width: 100%;
-			max-height: 300px;
-			background-size: cover;
-			background-position: center;
-		}
-		
-		figcaption {
-			position: absolute;
-			top: 50%;
-			left: 0;
-			width: 100%;
-			height: max-content;
-			
-			h2, p {
-				color: $white;
-				text-shadow: $textShadow;
-			}
-		}
-	}
-	
-	.tendencies {
+	.tendencies, .preorders {
 		margin-top: 30px;
 		
 		.cards {
@@ -217,12 +197,19 @@ main {
 					border-radius: 10px;
 					width: 100%;
 					
+					box-shadow: 5px -5px 5px 0px rgba(0,0,0,0.34);
+					-webkit-box-shadow: 5px -5px 5px 0px rgba(0,0,0,0.34);
+					-moz-box-shadow: 5px -5px 5px 0px rgba(0,0,0,0.34);
+					
 					img {
 						max-width: 300px;
 						height: max-content;
 						border-radius: 10px;
-						background-size: auto;
-						background-position: center;
+						
+						user-select: none;
+						-moz-user-select: none;
+						-webkit-user-select: none;
+						-ms-user-select: none;
 					}
 				}
 				
@@ -231,23 +218,21 @@ main {
 					justify-content: space-between;
 					padding: 0 5px;
 					
-					.label {
+					.label, .price {
 						font-family: "Source Sans Pro", sans-serif;
 						font-size: 1em;
 						color: $blue;
 					}
 					
 					.price {
-						font-family: "Source Sans Pro", sans-serif;
 						font-weight: bold;
-						font-size: 1em;
-						color: $blue;
 					}
 				}
 				
 				.preco {
 					display: flex;
 					color: $orange;
+					padding: 0 5px;
 					gap: 5px;
 					
 					font-family: "Source Sans Pro", sans-serif;
@@ -268,6 +253,71 @@ main {
 				&:hover {
 					transition: $animation;
 					transform: scale(1.05);
+				}
+			}
+		}
+	}
+	
+	.rating, .newsletter {
+		margin-top: 50px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		background-color: $blue;
+		color: $white;
+		padding: 50px;
+		gap: 5px;
+		
+		.icon {
+			font-size: 2em;
+			color: $orange;
+		}
+		
+		.stars {
+			display: flex;
+			gap: 5px;
+			
+			.star {
+				color: $orange;
+				cursor: pointer;
+				font-size: 1.2em;
+			}
+		}
+		
+		.text-content {
+			margin-top: 10px;
+			width: 60%;
+			text-align: center;
+			font-family: "Source Sans Pro", sans-serif;
+			font-size: 1em;
+			text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+		}
+		
+		.btn-ratings {
+			margin-top: 20px;
+			
+			
+			a {
+				border: none;
+				background: transparent;
+				color: $orange;
+				font-family: "Source Sans Pro", sans-serif;
+				font-weight: bold;
+				font-size: 1em;
+				text-decoration: none;
+				padding: 10px 20px;
+				border: 1px solid $orange;
+				border-radius: 5px;
+				transition: $animation;
+				
+				box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.34);
+				-webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.34);
+				-moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.34);
+				
+				&:hover {
+					background-color: $orange;
+					color: $white;
+					transition: $animation;
 				}
 			}
 		}
