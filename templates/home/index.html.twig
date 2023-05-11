@@ -5,29 +5,39 @@
 {% block body %}
 	<div class="hero-image">
 		<div class="hero-text">
-			<h1>Bienvenue sur K-GAMING</h1>
-			<p>Vous trouverez ici tout les jeux que vous souhaitez a prix réduit !</p>
+			<h1>K-gaming : La plateforme incontournable pour les gamers</h1>
+			<p>K-gaming est la destination de choix pour tous les passionnés de jeux vidéo. Avec une large sélection
+				de
+				clés de jeux dématérialisées à des prix compétitifs, nous sommes la plateforme incontournable pour
+				tous
+				les gamers. Faites l'expérience de notre service client de qualité supérieure et de notre rapidité
+				de
+				livraison exceptionnelle. Rejoignez la communauté K-gaming dès maintenant et découvrez notre
+				sélection
+				de jeux !</p>
 		</div>
 	</div>
 	<section class="tendencies">
 		<h2>Tendances</h2>
 		<div class="cards">
 			{% for tendency in tendencies %}
-				<div class="gameCard">
-					<div class="cover-img">
-						<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\HomeController::getInfosGame', { gameLabel: tendency.label })) }}.jpg"
-						     draggable="false"
-						     alt="cover for game: {{ tendency.label }}">
-					</div>
-					<div class="infos">
-						<div class="label">
-							{{ tendency.label }}
+				<a href="{{ path('app_show_game', {gameID: tendency.id }) }}">
+					<div class="gameCard">
+						<div class="cover-img">
+							<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\HomeController::getInfosGame', { gameLabel: tendency.label })) }}.jpg"
+							     draggable="false"
+							     alt="cover for game: {{ tendency.label }}">
 						</div>
-						<div class="price">
-							{{ tendency.price }} €
+						<div class="infos">
+							<div class="label">
+								{{ tendency.label }}
+							</div>
+							<div class="price">
+								{{ tendency.price }} €
+							</div>
 						</div>
 					</div>
-				</div>
+				</a>
 			{% endfor %}
 		</div>
 	</section>
@@ -64,26 +74,28 @@
 		<h2>Précommandes</h2>
 		<div class="cards">
 			{% for preorder in preorders %}
-				<div class="gameCard">
-					<div class="cover-img">
-						<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\HomeController::getInfosGame', { gameLabel: preorder.label })) }}.jpg"
-						     alt="cover for game: {{ preorder.label }}">
-					</div>
-					<div class="infos">
-						<div class="label">
-							{{ preorder.label }}
+				<a href="{{ path('app_show_game', {gameID: preorder.id }) }}">
+					<div class="gameCard">
+						<div class="cover-img">
+							<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\HomeController::getInfosGame', { gameLabel: preorder.label })) }}.jpg"
+							     alt="cover for game: {{ preorder.label }}">
 						</div>
-						<div class="price">
-							{{ preorder.price }} €
+						<div class="infos">
+							<div class="label">
+								{{ preorder.label }}
+							</div>
+							<div class="price">
+								{{ preorder.price }} €
+							</div>
+						</div>
+						<div class="preco">
+							<div class="badge">Préco</div>
+							<div class="date">
+								{{ dateFR(preorder.date_release) }}
+							</div>
 						</div>
 					</div>
-					<div class="preco">
-						<div class="badge">Préco</div>
-						<div class="date">
-							{{ dateFR(preorder.date_release) }}
-						</div>
-					</div>
-				</div>
+				</a>
 			{% endfor %}
 		</div>
 	</section>
