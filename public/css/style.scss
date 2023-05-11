@@ -34,7 +34,7 @@ $textShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 		}
 	}
 	
-	nav {
+	.menus {
 		height: max-content;
 		display: flex;
 		flex-direction: row;
@@ -53,7 +53,7 @@ $textShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 			background: transparent;
 			color: $blue;
 			font-family: "Quicksand Book", sans-serif;
-			font-size: 1.2em;
+			font-size: 1em;
 			transition: $animation;
 			
 			&:hover {
@@ -81,7 +81,7 @@ $textShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 				text-decoration: none;
 				color: $blue;
 				font-family: "Quicksand Book", sans-serif;
-				font-size: 1em;
+				font-size: .8em;
 				padding: 10px 20px;
 				transition: $animation;
 				
@@ -148,7 +148,7 @@ $textShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	}
 }
 
-h2 {
+h2, h1 {
 	text-transform: uppercase;
 	font-family: "Quicksand", sans-serif;
 	font-weight: bold;
@@ -163,7 +163,7 @@ main {
 		position: relative;
 		background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/accueil.jpg");
 		
-		height: calc(100vh - 70vh);
+		height: calc(100vh - 65vh);
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;
@@ -174,8 +174,15 @@ main {
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
+			width: 70%;
 			color: $white;
 			text-shadow: $textShadow;
+			
+			p {
+				font-family: "Quicksand Book", sans-serif;
+				font-size: .9em;
+				margin: auto;
+			}
 		}
 	}
 	
@@ -189,70 +196,74 @@ main {
 			gap: 30px 50px;
 			justify-content: center;
 			
-			.gameCard {
-				cursor: pointer;
-				transition: $animation;
+			a {
+				text-decoration: none;
 				
-				.cover-img {
-					border-radius: 10px;
-					width: 100%;
-					
-					box-shadow: 5px -5px 5px 0px rgba(0,0,0,0.34);
-					-webkit-box-shadow: 5px -5px 5px 0px rgba(0,0,0,0.34);
-					-moz-box-shadow: 5px -5px 5px 0px rgba(0,0,0,0.34);
-					
-					img {
-						max-width: 300px;
-						height: max-content;
-						border-radius: 10px;
-						
-						user-select: none;
-						-moz-user-select: none;
-						-webkit-user-select: none;
-						-ms-user-select: none;
-					}
-				}
-				
-				.infos {
-					display: flex;
-					justify-content: space-between;
-					padding: 0 5px;
-					
-					.label, .price {
-						font-family: "Source Sans Pro", sans-serif;
-						font-size: 1em;
-						color: $blue;
-					}
-					
-					.price {
-						font-weight: bold;
-					}
-				}
-				
-				.preco {
-					display: flex;
-					color: $orange;
-					padding: 0 5px;
-					gap: 5px;
-					
-					font-family: "Source Sans Pro", sans-serif;
-					font-weight: bold;
-					font-size: .8em;
-					
-					.badge {
-						display: flex;
-						align-items: center;
-						justify-content: center;
-						padding: 2px 5px;
-						border: 1px solid $orange;
-						border-radius: 5px;
-						color: $orange;
-					}
-				}
-				
-				&:hover {
+				.gameCard {
+					cursor: pointer;
 					transition: $animation;
-					transform: scale(1.05);
+					
+					.cover-img {
+						border-radius: 10px;
+						width: 100%;
+						
+						box-shadow: 5px -5px 5px 0px rgba(0, 0, 0, 0.34);
+						-webkit-box-shadow: 5px -5px 5px 0px rgba(0, 0, 0, 0.34);
+						-moz-box-shadow: 5px -5px 5px 0px rgba(0, 0, 0, 0.34);
+						
+						img {
+							max-width: 300px;
+							height: max-content;
+							border-radius: 10px;
+							
+							user-select: none;
+							-moz-user-select: none;
+							-webkit-user-select: none;
+							-ms-user-select: none;
+						}
+					}
+					
+					.infos {
+						display: flex;
+						justify-content: space-between;
+						padding: 0 5px;
+						
+						.label, .price {
+							font-family: "Source Sans Pro", sans-serif;
+							font-size: 1em;
+							color: $blue;
+						}
+						
+						.price {
+							font-weight: bold;
+						}
+					}
+					
+					.preco {
+						display: flex;
+						color: $orange;
+						padding: 0 5px;
+						gap: 5px;
+						
+						font-family: "Source Sans Pro", sans-serif;
+						font-weight: bold;
+						font-size: .8em;
+						
+						.badge {
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							padding: 2px 5px;
+							border: 1px solid $orange;
+							border-radius: 5px;
+							color: $orange;
+						}
+					}
+					
+					&:hover {
+						transition: $animation;
+						transform: scale(1.05);
+					}
 				}
 			}
 		}
@@ -290,7 +301,7 @@ main {
 			text-align: center;
 			font-family: "Source Sans Pro", sans-serif;
 			font-size: 1em;
-			text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+			text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 		}
 		
 		.btn-ratings {
@@ -310,9 +321,9 @@ main {
 				border-radius: 5px;
 				transition: $animation;
 				
-				box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.34);
-				-webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.34);
-				-moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.34);
+				box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.34);
+				-webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.34);
+				-moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.34);
 				
 				&:hover {
 					background-color: $orange;
@@ -321,6 +332,10 @@ main {
 				}
 			}
 		}
+	}
+	
+	.genres {
+		margin-top: 30px;
 	}
 }
 

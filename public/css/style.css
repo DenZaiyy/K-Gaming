@@ -24,7 +24,7 @@
   text-decoration: none;
   color: #f44b3a;
 }
-.header-flex nav {
+.header-flex .menus {
   height: max-content;
   display: flex;
   flex-direction: row;
@@ -41,7 +41,7 @@
   background: transparent;
   color: #263f5d;
   font-family: "Quicksand Book", sans-serif;
-  font-size: 1.2em;
+  font-size: 1em;
   transition: all 0.3s ease-in-out;
 }
 .header-flex .dropdown .dropdown-toggle:hover {
@@ -65,7 +65,7 @@
   text-decoration: none;
   color: #263f5d;
   font-family: "Quicksand Book", sans-serif;
-  font-size: 1em;
+  font-size: 0.8em;
   padding: 10px 20px;
   transition: all 0.3s ease-in-out;
 }
@@ -115,7 +115,7 @@
   transition: all 0.2s linear;
 }
 
-h2 {
+h2, h1 {
   text-transform: uppercase;
   font-family: "Quicksand", sans-serif;
   font-weight: bold;
@@ -129,7 +129,7 @@ main {
 main .hero-image {
   position: relative;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/accueil.jpg");
-  height: 30vh;
+  height: 35vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -140,8 +140,14 @@ main .hero-image .hero-text {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 70%;
   color: #fffdff;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+main .hero-image .hero-text p {
+  font-family: "Quicksand Book", sans-serif;
+  font-size: 0.9em;
+  margin: auto;
 }
 main .tendencies, main .preorders {
   margin-top: 30px;
@@ -152,18 +158,21 @@ main .tendencies .cards, main .preorders .cards {
   gap: 30px 50px;
   justify-content: center;
 }
-main .tendencies .cards .gameCard, main .preorders .cards .gameCard {
+main .tendencies .cards a, main .preorders .cards a {
+  text-decoration: none;
+}
+main .tendencies .cards a .gameCard, main .preorders .cards a .gameCard {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
-main .tendencies .cards .gameCard .cover-img, main .preorders .cards .gameCard .cover-img {
+main .tendencies .cards a .gameCard .cover-img, main .preorders .cards a .gameCard .cover-img {
   border-radius: 10px;
   width: 100%;
   box-shadow: 5px -5px 5px 0px rgba(0, 0, 0, 0.34);
   -webkit-box-shadow: 5px -5px 5px 0px rgba(0, 0, 0, 0.34);
   -moz-box-shadow: 5px -5px 5px 0px rgba(0, 0, 0, 0.34);
 }
-main .tendencies .cards .gameCard .cover-img img, main .preorders .cards .gameCard .cover-img img {
+main .tendencies .cards a .gameCard .cover-img img, main .preorders .cards a .gameCard .cover-img img {
   max-width: 300px;
   height: max-content;
   border-radius: 10px;
@@ -172,20 +181,20 @@ main .tendencies .cards .gameCard .cover-img img, main .preorders .cards .gameCa
   -webkit-user-select: none;
   -ms-user-select: none;
 }
-main .tendencies .cards .gameCard .infos, main .preorders .cards .gameCard .infos {
+main .tendencies .cards a .gameCard .infos, main .preorders .cards a .gameCard .infos {
   display: flex;
   justify-content: space-between;
   padding: 0 5px;
 }
-main .tendencies .cards .gameCard .infos .label, main .tendencies .cards .gameCard .infos .price, main .preorders .cards .gameCard .infos .label, main .preorders .cards .gameCard .infos .price {
+main .tendencies .cards a .gameCard .infos .label, main .tendencies .cards a .gameCard .infos .price, main .preorders .cards a .gameCard .infos .label, main .preorders .cards a .gameCard .infos .price {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 1em;
   color: #263f5d;
 }
-main .tendencies .cards .gameCard .infos .price, main .preorders .cards .gameCard .infos .price {
+main .tendencies .cards a .gameCard .infos .price, main .preorders .cards a .gameCard .infos .price {
   font-weight: bold;
 }
-main .tendencies .cards .gameCard .preco, main .preorders .cards .gameCard .preco {
+main .tendencies .cards a .gameCard .preco, main .preorders .cards a .gameCard .preco {
   display: flex;
   color: #f44b3a;
   padding: 0 5px;
@@ -194,7 +203,7 @@ main .tendencies .cards .gameCard .preco, main .preorders .cards .gameCard .prec
   font-weight: bold;
   font-size: 0.8em;
 }
-main .tendencies .cards .gameCard .preco .badge, main .preorders .cards .gameCard .preco .badge {
+main .tendencies .cards a .gameCard .preco .badge, main .preorders .cards a .gameCard .preco .badge {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -203,7 +212,7 @@ main .tendencies .cards .gameCard .preco .badge, main .preorders .cards .gameCar
   border-radius: 5px;
   color: #f44b3a;
 }
-main .tendencies .cards .gameCard:hover, main .preorders .cards .gameCard:hover {
+main .tendencies .cards a .gameCard:hover, main .preorders .cards a .gameCard:hover {
   transition: all 0.3s ease-in-out;
   transform: scale(1.05);
 }
@@ -261,6 +270,9 @@ main .rating .btn-ratings a:hover, main .newsletter .btn-ratings a:hover {
   background-color: #f44b3a;
   color: #fffdff;
   transition: all 0.3s ease-in-out;
+}
+main .genres {
+  margin-top: 30px;
 }
 
 footer {
