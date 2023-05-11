@@ -42,11 +42,11 @@ class StockRepository extends ServiceEntityRepository
 	public function findGamesInTendencies(): array
 	{
 		return $this->createQueryBuilder('s')
-			->select('g.label', 'g.price', 'g.date_release')
+			->select('g.id', 'g.label', 'g.price', 'g.date_release')
 			->leftJoin('s.game', 'g')
 			->leftJoin('s.purchase', 'p')
 			->Where('s.is_available = false')
-			->groupBy('g.label', 'g.price', 'g.date_release')
+			->groupBy('g.id', 'g.label', 'g.price', 'g.date_release')
 			->orderBy('COUNT(s.id)', 'DESC')
 			->setMaxResults(6)
 			->getQuery()
