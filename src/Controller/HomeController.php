@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Game;
 use App\Entity\Genre;
+use App\Entity\Plateform;
 use App\Entity\Stock;
 use App\Service\CallApiService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,6 +30,18 @@ class HomeController extends AbstractController
 			'tendencies' => $tendencies,
 			'preorders' => $preorders,
 			'genres' => $genres,
+		]);
+	}
+
+	#[Route('/navBar', name: 'app_nav_bar')]
+	public function navBar(EntityManagerInterface $em): Response
+	{
+		$categories = $em->getRepository(Category::class)->findAll();
+		$plateforms = $em->getRepository(Plateform::class)->findAll();
+
+		return $this->render('components/_header.html.twig', [
+			'categories' => $categories,
+			'plateforms' => $plateforms,
 		]);
 	}
 
