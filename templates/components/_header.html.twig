@@ -1,0 +1,62 @@
+<header>
+	<nav class="header-flex">
+		<div class="logo">
+			<a href="{{ path('app_home') }}">
+				K-GAMING
+			</a>
+		</div>
+		<div class="menus">
+			{% for category in categories %}
+				<div class="dropdown">
+					<button class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
+					        id="dropdown{{ category.label }}">
+						{{ category.label }}
+					</button>
+					<div class="dropdown-menu" aria-labelledby="dropdown{{ category.label }}">
+						{% for plateform in plateforms %}
+							{% if plateform.category.label == category.label %}
+								<a href="#" class="dropdown-item">{{ plateform.label }}</a>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		<div class="icons">
+			<div class="dropdown">
+				<button class="dropBtn" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownCart">
+					<i class="bi bi-cart4"></i>
+				</button>
+			</div>
+			<div class="dropdown">
+				<button class="dropBtn" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownUser">
+					{% if app.user %}
+						{% if app.user.avatar %}
+							<img src="{{ app.user.avatar }}" class="profilePicture"
+							     alt="profil image of {{ app.user.username }}">
+						{% endif %}
+					{% else %}
+						<i class="bi bi-person-fill-gear"></i>
+					{% endif %}
+				</button>
+				<div class="dropdown-menu text-small shadow right" aria-labelledby="dropdownUser">
+					{% if app.user %}
+						{% if is_granted("ROLE_ADMIN") %}
+							<a href="{{ path('app_admin') }}">Administration</a>
+							<hr class="dropdown-divider">
+						{% endif %}
+						<a href="#">Mon compte</a>
+						<a href="#">Mes commandes</a>
+						<hr class="dropdown-divider">
+						<a href="{{ path('app_logout') }}" class="disconnect">Déconnexion</a>
+					
+					{% else %}
+						<a href="{{ path('app_login') }}">Connexion</a>
+						<a href="{{ path('app_register') }}">Inscription</a>
+					{% endif %}
+				
+				</div>
+			</div>
+		</div>
+	</nav>
+</header>
