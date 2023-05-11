@@ -33,7 +33,10 @@ class StockCrudController extends AbstractCrudController
 	public function configureFilters(Filters $filters): Filters
 	{
 		return $filters
-			->add(EntityFilter::new('stock'));
+			->add(EntityFilter::new('game'))
+			->add(EntityFilter::new('purchase'))
+			->add('is_available')
+			->add('date_availability');
 	}
 
 
