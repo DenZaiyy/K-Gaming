@@ -50,7 +50,7 @@ class RegistrationController extends AbstractController
 				$avatarFileName = $fileUploader->upload($avatarFile);
 				$user->setAvatar($avatarFileName);
 			} else {
-				$user->setAvatar('img/default.png');
+				$user->setAvatar('/img/default.png');
 			}
 
             $entityManager->persist($user);
