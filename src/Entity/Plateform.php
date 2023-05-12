@@ -25,9 +25,13 @@ class Plateform
     #[ORM\ManyToMany(targetEntity: Game::class, mappedBy: 'plateforms')]
     private Collection $games;
 
+    #[ORM\OneToMany(mappedBy: 'plateform', targetEntity: Stock::class)]
+    private Collection $stocks;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
+        $this->stocks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -81,6 +85,36 @@ class Plateform
     {
         if ($this->games->removeElement($game)) {
             $game->removePlateform($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Stock>
+     */
+    public function getStocks(): Collection
+    {
+        return $this->stocks;
+    }
+
+    public function addStock(Stock $stock): self
+    {
+        if (!$this->stocks->contains($stock)) {
+            $this->stocks->add($stock);
+            $stock->setPlateform($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStock(Stock $stock): self
+    {
+        if ($this->stocks->removeElement($stock)) {
+            // set the owning side to null (unless already changed)
+            if ($stock->getPlateform() === $this) {
+                $stock->setPlateform(null);
+            }
         }
 
         return $this;
