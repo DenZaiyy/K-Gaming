@@ -41,10 +41,10 @@ class Game
         $this->stocks = new ArrayCollection();
     }
 
-	public function __toString(): string
-	{
-		return $this->label;
-	}
+    public function __toString(): string
+    {
+        return $this->label;
+    }
 
     public function getId(): ?int
     {
@@ -95,7 +95,7 @@ class Game
         return $this->genres;
     }
 
-    public function addGenre(Genre $genre): sself
+    public function addGenre(Genre $genre): self
     {
         if (!$this->genres->contains($genre)) {
             $this->genres->add($genre);
