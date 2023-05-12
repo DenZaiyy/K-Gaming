@@ -25,6 +25,7 @@
   color: #f44b3a;
 }
 .header-flex .menus {
+  height: -moz-max-content;
   height: max-content;
   display: flex;
   flex-direction: row;
@@ -54,6 +55,7 @@
 .header-flex .dropdown .dropdown-menu {
   position: absolute;
   min-width: 160px;
+  width: -moz-max-content;
   width: max-content;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
@@ -100,13 +102,15 @@
   font-size: 2em;
   color: #f44b3a;
   transition: all 0.2s linear;
+  height: -moz-max-content;
   height: max-content;
 }
 .header-flex .icons .dropdown .dropBtn .profilePicture {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   outline: 0.5px solid #f44b3a;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
@@ -174,6 +178,7 @@ main .tendencies .cards a .gameCard .cover-img, main .preorders .cards a .gameCa
 }
 main .tendencies .cards a .gameCard .cover-img img, main .preorders .cards a .gameCard .cover-img img {
   max-width: 300px;
+  height: -moz-max-content;
   height: max-content;
   border-radius: 10px;
   user-select: none;
@@ -274,12 +279,34 @@ main .rating .btn-ratings a:hover, main .newsletter .btn-ratings a:hover {
 main .genres {
   margin-top: 30px;
 }
+main .coverDesc {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: auto;
+  gap: 50px;
+}
+main .coverDesc .cover {
+  width: auto;
+}
+main .coverDesc .desc {
+  display: flex;
+  flex-direction: column;
+}
+main .coverDesc .desc .infos {
+  display: flex;
+  gap: 10px;
+}
 
 footer {
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 footer img {
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 footer .f-flex {
   display: flex;
@@ -353,6 +380,4 @@ footer .f-flex small {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 1em;
   color: #fffdff;
-}
-
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */

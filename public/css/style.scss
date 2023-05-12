@@ -337,6 +337,28 @@ main {
 	.genres {
 		margin-top: 30px;
 	}
+
+	.coverDesc {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		height: auto;
+		gap: 50px;
+
+		.cover {
+			width: auto;
+		}
+		
+		.desc {
+			display: flex;
+			flex-direction: column;
+
+			.infos {
+				display: flex;
+				gap: 10px;
+			}
+		}
+	}
 }
 
 footer {
