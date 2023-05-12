@@ -31,6 +31,10 @@ class Stock
 	#[ORM\ManyToOne(inversedBy: 'stock')]
 	private ?Purchase $purchase = null;
 
+	#[ORM\ManyToOne(inversedBy: 'stocks')]
+	#[ORM\JoinColumn(nullable: false)]
+	private ?Plateform $plateform = null;
+
 	public function __toString(): string
 	{
 		return $this->license_key;
@@ -97,6 +101,18 @@ class Stock
 	public function setPurchase(?Purchase $purchase): self
 	{
 		$this->purchase = $purchase;
+
+		return $this;
+	}
+
+	public function getPlateform(): ?Plateform
+	{
+		return $this->plateform;
+	}
+
+	public function setPlateform(?Plateform $plateform): self
+	{
+		$this->plateform = $plateform;
 
 		return $this;
 	}
