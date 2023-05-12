@@ -16,7 +16,7 @@ class DashboardController extends AbstractDashboardController
 	#[Route('/admin', name: 'app_admin')]
 	public function index(): Response
 	{
-//        return parent::index();
+		//        return parent::index();
 
 		$routeBuilder = $this->container->get(AdminUrlGenerator::class);
 		$url = $routeBuilder->setController(GameCrudController::class)->generateUrl();
@@ -42,14 +42,14 @@ class DashboardController extends AbstractDashboardController
 	public function configureDashboard(): Dashboard
 	{
 		return Dashboard::new()
-			->setTitle('K Gaming');
+			->setTitle('K-Gaming');
 	}
 
 	public function configureMenuItems(): iterable
 	{
 		yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-		yield MenuItem::linkToCrud('Game', 'fa fa-home', Game::class);
-		yield MenuItem::linkToCrud('Stock', 'fa fa-home', Stock::class);
+		yield MenuItem::linkToCrud('Game', 'fa-solid fa-gamepad', Game::class);
+		yield MenuItem::linkToCrud('Stock', 'fa-solid fa-shop', Stock::class);
 		// yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
 	}
 }
