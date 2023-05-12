@@ -8,14 +8,13 @@
 		<div class="menus">
 			{% for category in categories %}
 				<div class="dropdown">
-					<button class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
-					        id="dropdown{{ category.label }}">
+					<button class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="dropdown{{ category.label }}">
 						{{ category.label }}
 					</button>
 					<div class="dropdown-menu" aria-labelledby="dropdown{{ category.label }}">
 						{% for plateform in plateforms %}
 							{% if plateform.category.label == category.label %}
-								<a href="#" class="dropdown-item">{{ plateform.label }}</a>
+								<a href="" id="{{ plateform.id }}" class="dropdown-item">{{ plateform.label }}</a>
 							{% endif %}
 						{% endfor %}
 					</div>
@@ -32,8 +31,7 @@
 				<button class="dropBtn" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownUser">
 					{% if app.user %}
 						{% if app.user.avatar %}
-							<img src="{{ app.user.avatar }}" class="profilePicture"
-							     alt="profil image of {{ app.user.username }}">
+							<img src="{{ app.user.avatar }}" class="profilePicture" alt="profil image of {{ app.user.username }}">
 						{% endif %}
 					{% else %}
 						<i class="bi bi-person-fill-gear"></i>
@@ -49,12 +47,12 @@
 						<a href="#">Mes commandes</a>
 						<hr class="dropdown-divider">
 						<a href="{{ path('app_logout') }}" class="disconnect">Déconnexion</a>
-					
+
 					{% else %}
 						<a href="{{ path('app_login') }}">Connexion</a>
 						<a href="{{ path('app_register') }}">Inscription</a>
 					{% endif %}
-				
+
 				</div>
 			</div>
 		</div>
