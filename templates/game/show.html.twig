@@ -1,12 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ game.label }}{% endblock %}
+{% block title %}
+	{{ game.label }}
+{% endblock %}
 
 {% block body %}
 	<h1>Detail produit</h1>
 	<div class="container">
-		.
-		<div class="cover"></div>
+		<div class="coverDesc">
+			<div class="cover">
+				<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\HomeController::getInfosGame', { gameLabel: game.label })) }}.jpg" draggable="false" alt="cover for game: {{ game.label }}">
+			</div>
+			<div class="desc">
+				<h2>{{ game.label }}</h2>
+				<div class="infos">
+					<div class="plateform">
+						{{ gameStock[0].plateform }}
+					</div>
+					<div class="stock">
+						{% if gameStock[0].total > 0 %}
+							<p>
+								<i class="bi bi-check-lg text-success"></i>
+								En stock ({{ gameStock[0].total }}
+								{% if gameStock[0].total > 1 %}
+									disponibles
+								{% else %}
+									disponible
+								{% endif %})</p>
+						{% else %}
+							<p>
+								<i class="bi bi-x-lg text-danger"></i>
+								En rupture de stock</p>
+						{% endif %}
+					</div>
+					<div class="download">
+						<i class="bi bi-check-lg text-success"></i>
+						Téléchargement digital
+					</div>
+				</div>
+				<select name="plateform" id="plateform">
+					{% for plateform in game.plateforms %}
+						<option value="{{ plateform.id }}">{{ plateform.label }}</option>
+					{% endfor %}
+				</select>
+				<p>{{ game.price }}
+					€</p>
+				<div class="btns">
+					<a href="{{ path('app_home', {'id': game.id}) }}" class="btn btn-primary">Ajouter au panier</a>
+					<a href="{{ path('app_home', {'id': game.id}) }}" class="btn btn-primary">Acheter</a>
+				</div>
+			</div>
+		</div>
 	</div>
-	{{ game.label }}
 {% endblock %}
