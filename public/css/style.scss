@@ -77,13 +77,15 @@ $textShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 			//transform-origin: top center;
 			
 			a {
-				display: block;
+				display: flex;
+				align-items: center;
 				text-decoration: none;
 				color: $blue;
 				font-family: "Quicksand Book", sans-serif;
 				font-size: .8em;
 				padding: 10px 20px;
 				transition: $animation;
+				gap: 10px;
 				
 				&:hover {
 					background-color: $orange;
@@ -352,11 +354,23 @@ main {
 		.desc {
 			display: flex;
 			flex-direction: column;
-
+			
 			.infos {
 				display: flex;
 				gap: 10px;
 			}
+			
+			.plateform-price, .btns {
+				display: flex;
+				gap: 10px;
+			}
+			
+			.plateform-price {
+				.plateforms {
+					border-radius: 5px;
+				}
+			}
+			
 		}
 	}
 }
@@ -413,14 +427,6 @@ footer {
 						transition: $animation;
 						color: $orange;
 					}
-					
-					/*&:not(:first-child) {
-						&::before {
-							content: '|';
-							margin: 0 5px;
-							color: $white;
-						}
-					}*/
 				}
 				
 				
