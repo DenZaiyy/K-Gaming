@@ -44,6 +44,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Purchase::class)]
     private Collection $purchase;
 
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private ?\DateTimeImmutable $createAt = null;
+
     public function __construct()
     {
         $this->purchase = new ArrayCollection();
@@ -181,6 +184,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $purchase->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreateAt(): ?\DateTimeImmutable
+    {
+        return $this->createAt;
+    }
+
+    public function setCreateAt(\DateTimeImmutable $createAt): self
+    {
+        $this->createAt = $createAt;
 
         return $this;
     }
