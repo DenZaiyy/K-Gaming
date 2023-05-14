@@ -14,7 +14,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Listage des données de la table kgaming.category : ~0 rows (environ)
+-- Listage des données de la table kgaming.category : ~3 rows (environ)
 DELETE FROM `category`;
 INSERT INTO `category` (`id`, `label`) VALUES
 	(1, 'PC'),
@@ -26,7 +26,7 @@ DELETE FROM `doctrine_migration_versions`;
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 	('DoctrineMigrations\\Version20230505133924', '2023-05-05 16:47:20', 388);
 
--- Listage des données de la table kgaming.game : ~0 rows (environ)
+-- Listage des données de la table kgaming.game : ~4 rows (environ)
 DELETE FROM `game`;
 INSERT INTO `game` (`id`, `label`, `price`, `date_release`) VALUES
 	(1, 'Rocket League', 19.99, '2024-05-05 21:56:31'),
@@ -34,7 +34,7 @@ INSERT INTO `game` (`id`, `label`, `price`, `date_release`) VALUES
 	(3, 'New World', 38.99, '2021-09-28 00:00:00'),
 	(4, 'Raft', 19.99, '2022-06-20 00:00:00');
 
--- Listage des données de la table kgaming.game_genre : ~0 rows (environ)
+-- Listage des données de la table kgaming.game_genre : ~6 rows (environ)
 DELETE FROM `game_genre`;
 INSERT INTO `game_genre` (`game_id`, `genre_id`) VALUES
 	(1, 6),
@@ -44,7 +44,7 @@ INSERT INTO `game_genre` (`game_id`, `genre_id`) VALUES
 	(3, 9),
 	(4, 10);
 
--- Listage des données de la table kgaming.game_plateform : ~0 rows (environ)
+-- Listage des données de la table kgaming.game_plateform : ~13 rows (environ)
 DELETE FROM `game_plateform`;
 INSERT INTO `game_plateform` (`game_id`, `plateform_id`) VALUES
 	(1, 1),
@@ -61,7 +61,7 @@ INSERT INTO `game_plateform` (`game_id`, `plateform_id`) VALUES
 	(3, 9),
 	(4, 1);
 
--- Listage des données de la table kgaming.genre : ~0 rows (environ)
+-- Listage des données de la table kgaming.genre : ~10 rows (environ)
 DELETE FROM `genre`;
 INSERT INTO `genre` (`id`, `label`) VALUES
 	(1, 'FPS'),
@@ -78,20 +78,20 @@ INSERT INTO `genre` (`id`, `label`) VALUES
 -- Listage des données de la table kgaming.messenger_messages : ~0 rows (environ)
 DELETE FROM `messenger_messages`;
 
--- Listage des données de la table kgaming.plateform : ~0 rows (environ)
+-- Listage des données de la table kgaming.plateform : ~9 rows (environ)
 DELETE FROM `plateform`;
-INSERT INTO `plateform` (`id`, `category_id`, `label`) VALUES
-	(1, 1, 'Steam'),
-	(2, 1, 'Origin'),
-	(3, 1, 'Battle.net'),
-	(4, 1, 'Epic Games'),
-	(5, 1, 'Ubisoft'),
-	(6, 2, 'PlayStation 4'),
-	(7, 3, 'Xbox Serie X/S'),
-	(8, 2, 'PlayStation 5'),
-	(9, 3, 'Xbox One');
+INSERT INTO `plateform` (`id`, `category_id`, `label`, `logo`) VALUES
+	(1, 1, 'Steam', 'https://www.svgrepo.com/show/452107/steam.svg'),
+	(2, 1, 'Origin', 'https://www.svgrepo.com/show/354154/origin.svg'),
+	(3, 1, 'Battle.net', 'https://eu.shop.battle.net/static/favicon-32x32.png'),
+	(4, 1, 'Epic Games', 'https://www.svgrepo.com/show/341792/epic-games.svg'),
+	(5, 1, 'Ubisoft', 'https://www.svgrepo.com/show/342320/ubisoft.svg'),
+	(6, 2, 'PlayStation 4', 'https://www.svgrepo.com/show/473756/playstation4.svg'),
+	(7, 3, 'Xbox Serie X/S', 'https://upload.wikimedia.org/wikipedia/commons/a/af/Xbox_Series_X_logo.svg'),
+	(8, 2, 'PlayStation 5', 'https://www.svgrepo.com/show/473757/playstation5.svg'),
+	(9, 3, 'Xbox One', 'https://www.svgrepo.com/show/303464/xbox-one-3-logo.svg');
 
--- Listage des données de la table kgaming.purchase : ~0 rows (environ)
+-- Listage des données de la table kgaming.purchase : ~6 rows (environ)
 DELETE FROM `purchase`;
 INSERT INTO `purchase` (`id`, `user_id`, `firstname`, `lastname`, `billing_address`, `billing_cp`, `billing_city`, `created_at`) VALUES
 	(1, 1, 'Kévin', 'GRISCHKO', '29 rue du ban', '68200', 'Mulhouse', '2023-05-08 15:49:58'),
@@ -126,7 +126,7 @@ INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_ke
 	(16, 1, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
 	(17, 1, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1);
 
--- Listage des données de la table kgaming.user : ~0 rows (environ)
+-- Listage des données de la table kgaming.user : ~2 rows (environ)
 DELETE FROM `user`;
 INSERT INTO `user` (`id`, `username`, `roles`, `password`, `email`, `avatar`, `is_verified`) VALUES
 	(1, 'denz', '["ROLE_ADMIN"]', '$2y$13$jjQF4rgjxHoO6gHwK/It/ekENtEV8mJnzqyQAWmsM58Ch.Xs9nVJS', 'admin@kgaming.com', '/img/default.png', 1),
