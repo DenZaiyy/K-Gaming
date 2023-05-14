@@ -22,7 +22,7 @@ class Game
     #[ORM\Column]
     private ?float $price = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_release = null;
 
     #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: 'games')]
