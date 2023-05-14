@@ -31,7 +31,7 @@ class Purchase
     #[ORM\Column(length: 50)]
     private ?string $billing_city = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeInterface $created_at = null;
 
     #[ORM\OneToMany(mappedBy: 'purchase', targetEntity: Stock::class)]

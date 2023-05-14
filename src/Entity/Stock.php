@@ -18,7 +18,7 @@ class Stock
 	#[ORM\Column(length: 255)]
 	private ?string $license_key = null;
 
-	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
+	#[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
 	private ?DateTimeInterface $date_availability = null;
 
 	#[ORM\Column]
