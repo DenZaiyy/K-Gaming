@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PlateformRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PlateformRepository::class)]
@@ -28,10 +29,18 @@ class Plateform
     #[ORM\OneToMany(mappedBy: 'plateform', targetEntity: Stock::class)]
     private Collection $stocks;
 
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $logo = null;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
         $this->stocks = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->label;
     }
 
     public function getId(): ?int
@@ -116,6 +125,18 @@ class Plateform
                 $stock->setPlateform(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLogo(): ?string
+    {
+        return $this->logo;
+    }
+
+    public function setLogo(string $logo): self
+    {
+        $this->logo = $logo;
 
         return $this;
     }
