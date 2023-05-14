@@ -3,9 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Game;
-use App\Entity\Plateform;
 use App\Entity\Stock;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +16,7 @@ class GameController extends AbstractController
     {
         $game = $em->getRepository(Game::class)->findOneBy(['id' => $gameID]);
 
-        $gameStock = $em->getRepository(Stock::class)->findStockGameByPlateform($gameID, 1);
+        $gameStock = $em->getRepository(Stock::class)->findStockGameByPlateform($gameID, 3);
         // dd($gameStock);
         // $gamePlateforms = $em->getRepository(Plateform::class)->findPlateformsByGameID($gameID);
 
@@ -27,15 +25,6 @@ class GameController extends AbstractController
             'game' => $game,
             'gameStock' => $gameStock,
             // 'gamePlateforms' => $gamePlateforms
-        ]);
-    }
-
-    public function plateformStock(EntityManagerInterface $em, $gameID, $plateformID): Response
-    {
-        $gameStock = $em->getRepository(Stock::class)->findStockGameByPlateform($gameID, $plateformID);
-
-        return $this->render('game/plateformStock.html.twig', [
-            'gameStock' => $gameStock
         ]);
     }
 }
