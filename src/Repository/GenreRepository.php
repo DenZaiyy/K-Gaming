@@ -42,7 +42,6 @@ class GenreRepository extends ServiceEntityRepository
 	public function findGenres()
 	{
 		return $this->createQueryBuilder('g')
-			->select('g.id', 'g.label')
 			->setMaxResults(6)
 			->getQuery()
 			->getResult();
