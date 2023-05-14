@@ -50,16 +50,12 @@ class GameRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findOneGameInPlatforms($gameID, $plateformID): array
+    public function findGamesInPlatform($plateformID): array
     {
         return $this->createQueryBuilder('g')
-            ->select('g.id', 'g.label', 'g.price', 'g.date_release')
-            ->leftJoin('game_plateform', 'gp', 'ON', 'g.id = gp.game_id')
-            ->leftJoin('plateform', 'p', 'ON', 'p.id = gp.plateform_id')
-            ->where('gp.plateform_id = :plateformID')
-            ->andWhere('gp.game_id = :gameID')
+            ->leftJoin('App\Entity\Plateform', 'p')
+            ->where('p.id = :plateformID')
             ->setParameter('plateformID', $plateformID)
-            ->setParameter('gameID', $gameID)
             ->getQuery()
             ->getResult();
     }
