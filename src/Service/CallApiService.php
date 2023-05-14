@@ -22,7 +22,7 @@ class CallApiService extends AbstractController
 					'Client-ID' => $this->getParameter('app.client_id'),
 					'Authorization' => $this->getParameter('app.authorization')
 				],
-				'body' => 'fields id, name, cover.image_id, summary; search "' . $game . '";'
+				'body' => 'fields id, name, cover.image_id, summary; where name = "' . $game . '";'
 			]
 
 		);
