@@ -14,7 +14,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Listage des données de la table kgaming.category : ~3 rows (environ)
+-- Listage des données de la table kgaming.category : ~2 rows (environ)
 DELETE FROM `category`;
 INSERT INTO `category` (`id`, `label`) VALUES
 	(1, 'PC'),
@@ -29,10 +29,10 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 -- Listage des données de la table kgaming.game : ~4 rows (environ)
 DELETE FROM `game`;
 INSERT INTO `game` (`id`, `label`, `price`, `date_release`) VALUES
-	(1, 'Rocket League', 19.99, '2024-05-05 21:56:31'),
-	(2, 'Rust', 39.99, '2023-05-08 10:57:06'),
-	(3, 'New World', 38.99, '2021-09-28 00:00:00'),
-	(4, 'Raft', 19.99, '2022-06-20 00:00:00');
+	(1, 'Rocket League', 19.99, '2015-07-06'),
+	(2, 'Rust', 39.99, '2023-05-08'),
+	(3, 'New World', 38.99, '2021-09-28'),
+	(4, 'Raft', 19.99, '2022-06-20');
 
 -- Listage des données de la table kgaming.game_genre : ~6 rows (environ)
 DELETE FROM `game_genre`;
@@ -105,7 +105,7 @@ INSERT INTO `purchase` (`id`, `user_id`, `firstname`, `lastname`, `billing_addre
 -- Listage des données de la table kgaming.reset_password_request : ~0 rows (environ)
 DELETE FROM `reset_password_request`;
 
--- Listage des données de la table kgaming.stock : ~17 rows (environ)
+-- Listage des données de la table kgaming.stock : ~10 rows (environ)
 DELETE FROM `stock`;
 INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_key`, `date_availability`, `is_available`) VALUES
 	(1, 1, 1, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
@@ -128,10 +128,10 @@ INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_ke
 
 -- Listage des données de la table kgaming.user : ~2 rows (environ)
 DELETE FROM `user`;
-INSERT INTO `user` (`id`, `username`, `roles`, `password`, `email`, `avatar`, `is_verified`) VALUES
-	(1, 'denz', '["ROLE_ADMIN"]', '$2y$13$jjQF4rgjxHoO6gHwK/It/ekENtEV8mJnzqyQAWmsM58Ch.Xs9nVJS', 'admin@kgaming.com', '/img/default.png', 1),
-	(2, 'test', '[]', '$2y$13$99yvYFVngTHU0WmhOTP/dO0qzPJn80PfYjANek6PvFG9xw7YpxkMK', 'test@test.com', NULL, 1),
-	(6, 'testAvatar', '["ROLE_ADMIN"]', '$2y$13$CNSyDNHYgqVttbFybY/WmeYUw0ok1Pi3UyfoIg4O/oUtsfXgHKd/6', 'testAvatar@testAvatar.com', '/img/default.png', 1);
+INSERT INTO `user` (`id`, `username`, `roles`, `password`, `email`, `avatar`, `is_verified`, `create_at`) VALUES
+	(1, 'denz', '["ROLE_ADMIN"]', '$2y$13$jjQF4rgjxHoO6gHwK/It/ekENtEV8mJnzqyQAWmsM58Ch.Xs9nVJS', 'admin@kgaming.com', '/img/default.png', 1, '2023-05-14 20:43:59'),
+	(2, 'test', '[]', '$2y$13$99yvYFVngTHU0WmhOTP/dO0qzPJn80PfYjANek6PvFG9xw7YpxkMK', 'test@test.com', NULL, 1, '2023-05-14 20:43:59'),
+	(6, 'testAvatar', '["ROLE_ADMIN"]', '$2y$13$CNSyDNHYgqVttbFybY/WmeYUw0ok1Pi3UyfoIg4O/oUtsfXgHKd/6', 'testAvatar@testAvatar.com', '/img/default.png', 1, '2023-05-14 20:43:59');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
