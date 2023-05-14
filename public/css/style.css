@@ -1,6 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap");
+html {
+  background-color: var(--white);
+  --white: #fffdff;
+  --orange: #f44b3a;
+  --blue: #263f5d;
+  --waves: invert(21%) sepia(37%) saturate(779%) hue-rotate(173deg) brightness(93%) contrast(91%);
+  --animation: all .3s ease-in-out;
+  --animationLinear: all .2s linear;
+  --textShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  --lightBtn: #FE016C;
+}
+html .transition, html .transition *, html .transition *::before, html .transition *::after {
+  transition: cubic-bezier(0.68, -0.55, 0.27, 1.55) 420ms !important;
+  transition-delay: 0s !important;
+}
+
+html[data-theme=dark] {
+  background-color: var(--white);
+  --white: #263f5d;
+  --blue: #fffdff;
+  --waves: invert(92%) sepia(64%) saturate(83%) hue-rotate(267deg) brightness(102%) contrast(101%);
+  --lightBtn: #FFBD07;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -8,6 +32,7 @@
 }
 
 .header-flex {
+  background-color: var(--white);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -17,12 +42,12 @@
 .header-flex .logo {
   font-family: "Saira Stencil One", cursive;
   font-size: 2em;
-  color: #f44b3a;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  color: var(--orange);
+  text-shadow: var(--textShadow);
 }
 .header-flex .logo a {
   text-decoration: none;
-  color: #f44b3a;
+  color: var(--orange);
 }
 .header-flex .menus {
   height: max-content;
@@ -39,19 +64,20 @@
 .header-flex .dropdown .dropdown-toggle {
   border: none;
   background: transparent;
-  color: #263f5d;
+  color: var(--blue);
   font-family: "Quicksand Book", sans-serif;
   font-size: 1em;
-  transition: all 0.3s ease-in-out;
+  transition: var(--animation);
 }
 .header-flex .dropdown .dropdown-toggle:hover {
-  color: #f44b3a;
-  transition: all 0.3s ease-in-out;
+  color: var(--orange);
+  transition: var(--animation);
 }
 .header-flex .dropdown .dropdown-toggle .bi-chevron-down, .header-flex .dropdown .dropdown-toggle .bi-chevron-up {
-  color: #f44b3a;
+  color: var(--orange);
 }
 .header-flex .dropdown .dropdown-menu {
+  background-color: var(--white);
   position: absolute;
   min-width: 160px;
   width: max-content;
@@ -64,17 +90,17 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #263f5d;
+  color: var(--blue);
   font-family: "Quicksand Book", sans-serif;
   font-size: 0.8em;
   padding: 10px 20px;
-  transition: all 0.3s ease-in-out;
+  transition: var(--animation);
   gap: 10px;
 }
 .header-flex .dropdown .dropdown-menu a:hover {
-  background-color: #f44b3a;
-  color: #fffdff;
-  transition: all 0.3s ease-in-out;
+  background-color: var(--orange);
+  color: var(--white);
+  transition: var(--animation);
 }
 .header-flex .dropdown .show {
   display: block;
@@ -89,19 +115,19 @@
 }
 .header-flex .icons a i {
   font-size: 2em;
-  color: #f44b3a;
-  transition: all 0.2s linear;
+  color: var(--orange);
+  transition: var(--animationLinear);
 }
 .header-flex .icons a i:hover {
-  color: #263f5d;
-  transition: all 0.2s linear;
+  color: var(--blue);
+  transition: var(--animationLinear);
 }
 .header-flex .icons .dropdown .dropBtn {
   border: none;
   background: transparent;
   font-size: 2em;
-  color: #f44b3a;
-  transition: all 0.2s linear;
+  color: var(--orange);
+  transition: var(--animationLinear);
   height: max-content;
 }
 .header-flex .icons .dropdown .dropBtn .profilePicture {
@@ -109,12 +135,59 @@
   height: 36px;
   border-radius: 50%;
   object-fit: cover;
-  outline: 0.5px solid #f44b3a;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  outline: 0.5px solid var(--orange);
 }
 .header-flex .icons .dropdown .dropBtn:hover {
-  color: #263f5d;
-  transition: all 0.2s linear;
+  color: var(--blue);
+  transition: var(--animationLinear);
+}
+.header-flex .icons .toggle-container {
+  display: flex;
+}
+.header-flex .icons .toggle-container .container_toggle {
+  height: 0;
+  width: 0;
+  display: none;
+  visibility: hidden;
+}
+.header-flex .icons .toggle-container .container_toggle:checked + label {
+  background: #FFBD07;
+}
+.header-flex .icons .toggle-container .container_toggle:checked + label::after {
+  left: calc(100% - 5px);
+  -webkit-transform: translateX(-100%);
+  -moz-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  -o-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+.header-flex .icons .toggle-container label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 55px;
+  height: 30px;
+  background: var(--lightBtn);
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+  position: relative;
+}
+.header-flex .icons .toggle-container label::after {
+  content: "";
+  background: #fff;
+  width: 20px;
+  height: 20px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  position: absolute;
+  top: 5px;
+  left: 4px;
+  transition: cubic-bezier(0.68, -0.55, 0.27, 1.55) 320ms;
 }
 
 h2, h1 {
@@ -123,6 +196,7 @@ h2, h1 {
   font-weight: bold;
   font-size: 1.5em;
   margin-bottom: 30px;
+  color: var(--blue);
 }
 
 main {
@@ -143,16 +217,21 @@ main .hero-image .hero-text {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 70%;
+  color: var(--white);
+  text-shadow: var(--textShadow);
+}
+main .hero-image .hero-text h1 {
   color: #fffdff;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 main .hero-image .hero-text p {
   font-family: "Quicksand Book", sans-serif;
   font-size: 0.9em;
   margin: auto;
+  color: #fffdff;
 }
 main .tendencies, main .preorders {
-  margin-top: 30px;
+  padding: 30px 0;
+  background-color: var(--white);
 }
 main .tendencies .cards, main .preorders .cards {
   display: flex;
@@ -165,7 +244,7 @@ main .tendencies .cards a, main .preorders .cards a {
 }
 main .tendencies .cards a .gameCard, main .preorders .cards a .gameCard {
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  transition: var(--animation);
 }
 main .tendencies .cards a .gameCard .cover-img, main .preorders .cards a .gameCard .cover-img {
   border-radius: 10px;
@@ -191,14 +270,14 @@ main .tendencies .cards a .gameCard .infos, main .preorders .cards a .gameCard .
 main .tendencies .cards a .gameCard .infos .label, main .tendencies .cards a .gameCard .infos .price, main .preorders .cards a .gameCard .infos .label, main .preorders .cards a .gameCard .infos .price {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 1em;
-  color: #263f5d;
+  color: var(--blue);
 }
 main .tendencies .cards a .gameCard .infos .price, main .preorders .cards a .gameCard .infos .price {
   font-weight: bold;
 }
 main .tendencies .cards a .gameCard .preco, main .preorders .cards a .gameCard .preco {
   display: flex;
-  color: #f44b3a;
+  color: var(--orange);
   padding: 0 5px;
   gap: 5px;
   font-family: "Source Sans Pro", sans-serif;
@@ -210,34 +289,33 @@ main .tendencies .cards a .gameCard .preco .badge, main .preorders .cards a .gam
   align-items: center;
   justify-content: center;
   padding: 2px 5px;
-  border: 1px solid #f44b3a;
+  border: 1px solid var(--orange);
   border-radius: 5px;
-  color: #f44b3a;
+  color: var(--orange);
 }
 main .tendencies .cards a .gameCard:hover, main .preorders .cards a .gameCard:hover {
-  transition: all 0.3s ease-in-out;
+  transition: var(--animation);
   transform: scale(1.05);
 }
 main .rating, main .newsletter {
-  margin-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #263f5d;
-  color: #fffdff;
+  background-color: var(--blue);
+  color: var(--white);
   padding: 50px;
   gap: 5px;
 }
 main .rating .icon, main .newsletter .icon {
   font-size: 2em;
-  color: #f44b3a;
+  color: var(--orange);
 }
 main .rating .stars, main .newsletter .stars {
   display: flex;
   gap: 5px;
 }
 main .rating .stars .star, main .newsletter .stars .star {
-  color: #f44b3a;
+  color: var(--orange);
   cursor: pointer;
   font-size: 1.2em;
 }
@@ -255,23 +333,23 @@ main .rating .btn-ratings, main .newsletter .btn-ratings {
 main .rating .btn-ratings a, main .newsletter .btn-ratings a {
   border: none;
   background: transparent;
-  color: #f44b3a;
+  color: var(--orange);
   font-family: "Source Sans Pro", sans-serif;
   font-weight: bold;
   font-size: 1em;
   text-decoration: none;
   padding: 10px 20px;
-  border: 1px solid #f44b3a;
+  border: 1px solid var(--orange);
   border-radius: 5px;
-  transition: all 0.3s ease-in-out;
+  transition: var(--animation);
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.34);
   -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.34);
   -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.34);
 }
 main .rating .btn-ratings a:hover, main .newsletter .btn-ratings a:hover {
-  background-color: #f44b3a;
-  color: #fffdff;
-  transition: all 0.3s ease-in-out;
+  background-color: var(--orange);
+  color: var(--white);
+  transition: var(--animation);
 }
 main .genres {
   margin-top: 30px;
@@ -305,15 +383,16 @@ main .coverDesc .desc .plateform-price .plateforms {
 footer {
   user-select: none;
 }
-footer img {
+footer .wave-filter {
   user-select: none;
+  filter: var(--waves);
 }
 footer .f-flex {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #263f5d;
+  background-color: var(--blue);
   padding: 10px 30px;
 }
 footer .f-flex .footer {
@@ -326,29 +405,29 @@ footer .f-flex .footer {
 footer .f-flex .footer .logo {
   font-family: "Saira Stencil One", cursive;
   font-size: 2em;
-  color: #f44b3a;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  color: var(--orange);
+  text-shadow: var(--textShadow);
 }
 footer .f-flex .footer .logo a {
   text-decoration: none;
-  color: #f44b3a;
-  transition: all 0.3s ease-in-out;
+  color: var(--orange);
+  transition: var(--animation);
 }
 footer .f-flex .footer .logo a:hover {
-  color: #fffdff;
-  transition: all 0.3s ease-in-out;
+  color: var(--white);
+  transition: var(--animation);
 }
 footer .f-flex .footer .links {
-  color: #fffdff;
+  color: var(--white);
 }
 footer .f-flex .footer .links a {
-  color: #fffdff;
-  transition: all 0.3s ease-in-out;
+  color: var(--white);
+  transition: var(--animation);
   font-family: "Source Sans Pro", sans-serif;
 }
 footer .f-flex .footer .links a:hover {
-  transition: all 0.3s ease-in-out;
-  color: #f44b3a;
+  transition: var(--animation);
+  color: var(--orange);
 }
 footer .f-flex .footer .socials {
   display: flex;
@@ -358,21 +437,21 @@ footer .f-flex .footer .socials a {
 }
 footer .f-flex .footer .socials a .bi {
   font-size: 2em;
-  color: #f44b3a;
-  transition: all 0.3s ease-in-out;
+  color: var(--orange);
+  transition: var(--animation);
 }
 footer .f-flex .footer .socials a .bi:hover {
-  color: #fffdff;
-  transition: all 0.3s ease-in-out;
+  color: var(--white);
+  transition: var(--animation);
 }
 footer .f-flex hr {
   width: 100%;
-  border: 1px solid #f44b3a;
+  border: 1px solid var(--orange);
 }
 footer .f-flex small {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 1em;
-  color: #fffdff;
+  color: var(--white);
 }
 
 /*# sourceMappingURL=style.css.map */

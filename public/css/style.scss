@@ -2,12 +2,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap');
 
-$white: #fffdff;
-$orange: #f44b3a;
-$blue: #263f5d;
-$animation: all .3s ease-in-out;
-$animationLinear: all .2s linear;
-$textShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+html {
+	background-color: var(--white);
+	--white: #fffdff;
+	--orange: #f44b3a;
+	--blue: #263f5d;
+	--waves: invert(21%) sepia(37%) saturate(779%) hue-rotate(173deg) brightness(93%) contrast(91%);
+	--animation: all .3s ease-in-out;
+	--animationLinear: all .2s linear;
+	--textShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	--lightBtn: #FE016C;
+	
+	.transition, .transition *, .transition *::before, .transition *::after {
+		transition: cubic-bezier(0.68, -0.55, 0.27, 01.55) 420ms !important;
+		transition-delay: 0s !important;
+	}
+}
+
+html[data-theme='dark'] {
+	background-color: var(--white);
+	--white: #263f5d;
+	--blue: #fffdff;
+	--waves: invert(92%) sepia(64%) saturate(83%) hue-rotate(267deg) brightness(102%) contrast(101%);
+	--lightBtn: #FFBD07;
+}
+
 
 * {
 	margin: 0;
@@ -16,6 +35,7 @@ $textShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .header-flex {
+	background-color: var(--white);
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -25,12 +45,12 @@ $textShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	.logo {
 		font-family: 'Saira Stencil One', cursive;
 		font-size: 2em;
-		color: $orange;
-		text-shadow: $textShadow;
+		color: var(--orange);
+		text-shadow: var(--textShadow);
 		
 		a {
 			text-decoration: none;
-			color: $orange;
+			color: var(--orange);
 		}
 	}
 	
@@ -51,22 +71,23 @@ $textShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 		.dropdown-toggle {
 			border: none;
 			background: transparent;
-			color: $blue;
+			color: var(--blue);
 			font-family: "Quicksand Book", sans-serif;
 			font-size: 1em;
-			transition: $animation;
+			transition: var(--animation);
 			
 			&:hover {
-				color: $orange;
-				transition: $animation;
+				color: var(--orange);
+				transition: var(--animation);
 			}
 			
 			.bi-chevron-down, .bi-chevron-up {
-				color: $orange;
+				color: var(--orange);
 			}
 		}
 		
 		.dropdown-menu {
+			background-color: var(--white);
 			position: absolute;
 			min-width: 160px;
 			width: max-content;
@@ -74,23 +95,23 @@ $textShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 			z-index: 1;
 			opacity: 0;
 			transition: opacity 0.1s ease-out, transform 0.2s ease-out;
-			//transform-origin: top center;
+			
 			
 			a {
 				display: flex;
 				align-items: center;
 				text-decoration: none;
-				color: $blue;
+				color: var(--blue);
 				font-family: "Quicksand Book", sans-serif;
 				font-size: .8em;
 				padding: 10px 20px;
-				transition: $animation;
+				transition: var(--animation);
 				gap: 10px;
 				
 				&:hover {
-					background-color: $orange;
-					color: $white;
-					transition: $animation;
+					background-color: var(--orange);
+					color: var(--white);
+					transition: var(--animation);
 				}
 			}
 		}
@@ -98,7 +119,6 @@ $textShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 		.show {
 			display: block;
 			opacity: 1;
-			//transform: translateY(0);
 		}
 		
 		.right {
@@ -113,12 +133,12 @@ $textShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 		a {
 			i {
 				font-size: 2em;
-				color: $orange;
-				transition: $animationLinear;
+				color: var(--orange);
+				transition: var(--animationLinear);
 				
 				&:hover {
-					color: $blue;
-					transition: $animationLinear;
+					color: var(--blue);
+					transition: var(--animationLinear);
 				}
 			}
 		}
@@ -128,8 +148,8 @@ $textShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 				border: none;
 				background: transparent;
 				font-size: 2em;
-				color: $orange;
-				transition: $animationLinear;
+				color: var(--orange);
+				transition: var(--animationLinear);
 				height: max-content;
 				
 				.profilePicture {
@@ -137,13 +157,67 @@ $textShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 					height: 36px;
 					border-radius: 50%;
 					object-fit: cover;
-					outline: .5px solid $orange;
-					box-shadow: $textShadow;
+					outline: .5px solid var(--orange);
 				}
 				
 				&:hover {
-					color: $blue;
-					transition: $animationLinear;
+					color: var(--blue);
+					transition: var(--animationLinear);
+				}
+			}
+		}
+		
+		.toggle-container {
+			display: flex;
+			.container_toggle {
+				height: 0;
+				width: 0;
+				display: none;
+				visibility: hidden;
+				
+				&:checked {
+					& + label {
+						background: #FFBD07;
+						
+						&::after {
+							left: calc(100% - 5px);
+							-webkit-transform: translateX(-100%);
+							-moz-transform: translateX(-100%);
+							-ms-transform: translateX(-100%);
+							-o-transform: translateX(-100%);
+							transform: translateX(-100%);
+						}
+					}
+				}
+			}
+			
+			label {
+				cursor: pointer;
+				text-indent: -9999px;
+				width: 55px;
+				height: 30px;
+				background: var(--lightBtn);
+				margin: 0 auto;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				-webkit-border-radius: 100px;
+				-moz-border-radius: 100px;
+				border-radius: 100px;
+				position: relative;
+				
+				&::after {
+					content: '';
+					background: #fff;
+					width: 20px;
+					height: 20px;
+					-webkit-border-radius: 50%;
+					-moz-border-radius: 50%;
+					border-radius: 50%;
+					position: absolute;
+					top: 5px;
+					left: 4px;
+					transition: cubic-bezier(0.68, -0.55, 0.27, 01.55) 320ms;
 				}
 			}
 		}
@@ -156,6 +230,7 @@ h2, h1 {
 	font-weight: bold;
 	font-size: 1.5em;
 	margin-bottom: 30px;
+	color: var(--blue);
 }
 
 main {
@@ -177,19 +252,25 @@ main {
 			left: 50%;
 			transform: translate(-50%, -50%);
 			width: 70%;
-			color: $white;
-			text-shadow: $textShadow;
+			color: var(--white);
+			text-shadow: var(--textShadow);
+			
+			h1 {
+				color: #fffdff;
+			}
 			
 			p {
 				font-family: "Quicksand Book", sans-serif;
 				font-size: .9em;
 				margin: auto;
+				color: #fffdff;
 			}
 		}
 	}
 	
 	.tendencies, .preorders {
-		margin-top: 30px;
+		padding: 30px 0;
+		background-color: var(--white);
 		
 		.cards {
 			display: flex;
@@ -203,7 +284,7 @@ main {
 				
 				.gameCard {
 					cursor: pointer;
-					transition: $animation;
+					transition: var(--animation);
 					
 					.cover-img {
 						border-radius: 10px;
@@ -233,7 +314,7 @@ main {
 						.label, .price {
 							font-family: "Source Sans Pro", sans-serif;
 							font-size: 1em;
-							color: $blue;
+							color: var(--blue);
 						}
 						
 						.price {
@@ -243,7 +324,7 @@ main {
 					
 					.preco {
 						display: flex;
-						color: $orange;
+						color: var(--orange);
 						padding: 0 5px;
 						gap: 5px;
 						
@@ -256,14 +337,14 @@ main {
 							align-items: center;
 							justify-content: center;
 							padding: 2px 5px;
-							border: 1px solid $orange;
+							border: 1px solid var(--orange);
 							border-radius: 5px;
-							color: $orange;
+							color: var(--orange);
 						}
 					}
 					
 					&:hover {
-						transition: $animation;
+						transition: var(--animation);
 						transform: scale(1.05);
 					}
 				}
@@ -272,18 +353,17 @@ main {
 	}
 	
 	.rating, .newsletter {
-		margin-top: 50px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		background-color: $blue;
-		color: $white;
+		background-color: var(--blue);
+		color: var(--white);
 		padding: 50px;
 		gap: 5px;
 		
 		.icon {
 			font-size: 2em;
-			color: $orange;
+			color: var(--orange);
 		}
 		
 		.stars {
@@ -291,7 +371,7 @@ main {
 			gap: 5px;
 			
 			.star {
-				color: $orange;
+				color: var(--orange);
 				cursor: pointer;
 				font-size: 1.2em;
 			}
@@ -313,24 +393,24 @@ main {
 			a {
 				border: none;
 				background: transparent;
-				color: $orange;
+				color: var(--orange);
 				font-family: "Source Sans Pro", sans-serif;
 				font-weight: bold;
 				font-size: 1em;
 				text-decoration: none;
 				padding: 10px 20px;
-				border: 1px solid $orange;
+				border: 1px solid var(--orange);
 				border-radius: 5px;
-				transition: $animation;
+				transition: var(--animation);
 				
 				box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.34);
 				-webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.34);
 				-moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.34);
 				
 				&:hover {
-					background-color: $orange;
-					color: $white;
-					transition: $animation;
+					background-color: var(--orange);
+					color: var(--white);
+					transition: var(--animation);
 				}
 			}
 		}
@@ -339,14 +419,14 @@ main {
 	.genres {
 		margin-top: 30px;
 	}
-
+	
 	.coverDesc {
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
 		height: auto;
 		gap: 50px;
-
+		
 		.cover {
 			width: auto;
 		}
@@ -378,8 +458,9 @@ main {
 footer {
 	user-select: none;
 	
-	img {
+	.wave-filter {
 		user-select: none;
+		filter: var(--waves);
 	}
 	
 	.f-flex {
@@ -387,7 +468,7 @@ footer {
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		background-color: $blue;
+		background-color: var(--blue);
 		padding: 10px 30px;
 		
 		.footer {
@@ -400,32 +481,32 @@ footer {
 			.logo {
 				font-family: 'Saira Stencil One', cursive;
 				font-size: 2em;
-				color: $orange;
-				text-shadow: $textShadow;
+				color: var(--orange);
+				text-shadow: var(--textShadow);
 				
 				a {
 					text-decoration: none;
-					color: $orange;
-					transition: $animation;
+					color: var(--orange);
+					transition: var(--animation);
 					
 					&:hover {
-						color: $white;
-						transition: $animation;
+						color: var(--white);
+						transition: var(--animation);
 					}
 				}
 			}
 			
 			.links {
-				color: $white;
+				color: var(--white);
 				
 				a {
-					color: $white;
-					transition: $animation;
+					color: var(--white);
+					transition: var(--animation);
 					font-family: "Source Sans Pro", sans-serif;
 					
 					&:hover {
-						transition: $animation;
-						color: $orange;
+						transition: var(--animation);
+						color: var(--orange);
 					}
 				}
 				
@@ -440,12 +521,12 @@ footer {
 					
 					.bi {
 						font-size: 2em;
-						color: $orange;
-						transition: $animation;
+						color: var(--orange);
+						transition: var(--animation);
 						
 						&:hover {
-							color: $white;
-							transition: $animation;
+							color: var(--white);
+							transition: var(--animation);
 						}
 					}
 				}
@@ -454,13 +535,13 @@ footer {
 		
 		hr {
 			width: 100%;
-			border: 1px solid $orange;
+			border: 1px solid var(--orange);
 		}
 		
 		small {
 			font-family: 'Source Sans Pro', sans-serif;
 			font-size: 1em;
-			color: $white;
+			color: var(--white);
 		}
 	}
 }
