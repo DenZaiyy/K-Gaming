@@ -26,7 +26,7 @@ class StockCrudController extends AbstractCrudController
 		return $crud
 			->setEntityLabelInSingular('Game Stock')
 			->setEntityLabelInPlural('Game Stock')
-			->setSearchFields(['id', 'game_id', 'purchase_id', 'license_key', 'date_availability', 'is_available'])
+			->setSearchFields(['id', 'game_id', 'purchase_id', 'plateform_id', 'license_key', 'date_availability', 'is_available'])
 			->setDefaultSort(['date_availability' => 'DESC']);
 	}
 
@@ -34,7 +34,8 @@ class StockCrudController extends AbstractCrudController
 	{
 		return $filters
 			->add(EntityFilter::new('game'))
-			->add(EntityFilter::new('purchase'))
+            ->add(EntityFilter::new('purchase'))
+            ->add(EntityFilter::new('plateform'))
 			->add('is_available')
 			->add('date_availability');
 	}
@@ -43,7 +44,8 @@ class StockCrudController extends AbstractCrudController
 	public function configureFields(string $pageName): iterable
 	{
 		yield AssociationField::new('game');
-		yield AssociationField::new('purchase');
+        yield AssociationField::new('purchase');
+        yield AssociationField::new('plateform');
 		yield TextField::new('license_key');
 		yield BooleanField::new('is_available');
 
