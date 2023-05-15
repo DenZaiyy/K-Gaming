@@ -14,7 +14,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Listage des données de la table kgaming.category : ~2 rows (environ)
+-- Listage des données de la table kgaming.category : ~3 rows (environ)
 DELETE FROM `category`;
 INSERT INTO `category` (`id`, `label`) VALUES
 	(1, 'PC'),
@@ -26,13 +26,15 @@ DELETE FROM `doctrine_migration_versions`;
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 	('DoctrineMigrations\\Version20230505133924', '2023-05-05 16:47:20', 388);
 
--- Listage des données de la table kgaming.game : ~4 rows (environ)
+-- Listage des données de la table kgaming.game : ~6 rows (environ)
 DELETE FROM `game`;
 INSERT INTO `game` (`id`, `label`, `price`, `date_release`) VALUES
 	(1, 'Rocket League', 19.99, '2015-07-06'),
 	(2, 'Rust', 39.99, '2023-05-08'),
 	(3, 'New World', 38.99, '2021-09-28'),
-	(4, 'Raft', 19.99, '2022-06-20');
+	(4, 'Raft', 19.99, '2022-06-20'),
+	(6, 'Counter-Strike 2', 19.99, '2025-06-20'),
+	(7, 'Diablo IV', 19.99, '2023-06-06');
 
 -- Listage des données de la table kgaming.game_genre : ~6 rows (environ)
 DELETE FROM `game_genre`;
@@ -44,7 +46,7 @@ INSERT INTO `game_genre` (`game_id`, `genre_id`) VALUES
 	(3, 9),
 	(4, 10);
 
--- Listage des données de la table kgaming.game_plateform : ~13 rows (environ)
+-- Listage des données de la table kgaming.game_plateform : ~15 rows (environ)
 DELETE FROM `game_plateform`;
 INSERT INTO `game_plateform` (`game_id`, `plateform_id`) VALUES
 	(1, 1),
@@ -55,11 +57,13 @@ INSERT INTO `game_plateform` (`game_id`, `plateform_id`) VALUES
 	(1, 9),
 	(2, 1),
 	(3, 1),
-	(3, 6),
-	(3, 7),
-	(3, 8),
-	(3, 9),
-	(4, 1);
+	(4, 1),
+	(6, 1),
+	(7, 1),
+	(7, 6),
+	(7, 7),
+	(7, 8),
+	(7, 9);
 
 -- Listage des données de la table kgaming.genre : ~10 rows (environ)
 DELETE FROM `genre`;
@@ -91,7 +95,7 @@ INSERT INTO `plateform` (`id`, `category_id`, `label`, `logo`) VALUES
 	(8, 2, 'PlayStation 5', 'https://www.svgrepo.com/show/473757/playstation5.svg'),
 	(9, 3, 'Xbox One', 'https://www.svgrepo.com/show/303464/xbox-one-3-logo.svg');
 
--- Listage des données de la table kgaming.purchase : ~6 rows (environ)
+-- Listage des données de la table kgaming.purchase : ~7 rows (environ)
 DELETE FROM `purchase`;
 INSERT INTO `purchase` (`id`, `user_id`, `firstname`, `lastname`, `billing_address`, `billing_cp`, `billing_city`, `created_at`) VALUES
 	(1, 1, 'Kévin', 'GRISCHKO', '29 rue du ban', '68200', 'Mulhouse', '2023-05-08 15:49:58'),
@@ -105,7 +109,7 @@ INSERT INTO `purchase` (`id`, `user_id`, `firstname`, `lastname`, `billing_addre
 -- Listage des données de la table kgaming.reset_password_request : ~0 rows (environ)
 DELETE FROM `reset_password_request`;
 
--- Listage des données de la table kgaming.stock : ~10 rows (environ)
+-- Listage des données de la table kgaming.stock : ~19 rows (environ)
 DELETE FROM `stock`;
 INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_key`, `date_availability`, `is_available`) VALUES
 	(1, 1, 1, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
@@ -124,9 +128,11 @@ INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_ke
 	(14, 1, NULL, 6, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
 	(15, 1, NULL, 8, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
 	(16, 1, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
-	(17, 1, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1);
+	(17, 1, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
+	(18, 1, NULL, 4, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
+	(19, 1, NULL, 4, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1);
 
--- Listage des données de la table kgaming.user : ~2 rows (environ)
+-- Listage des données de la table kgaming.user : ~3 rows (environ)
 DELETE FROM `user`;
 INSERT INTO `user` (`id`, `username`, `roles`, `password`, `email`, `avatar`, `is_verified`, `create_at`) VALUES
 	(1, 'denz', '["ROLE_ADMIN"]', '$2y$13$jjQF4rgjxHoO6gHwK/It/ekENtEV8mJnzqyQAWmsM58Ch.Xs9nVJS', 'admin@kgaming.com', '/img/default.png', 1, '2023-05-14 20:43:59'),
