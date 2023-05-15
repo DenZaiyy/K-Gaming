@@ -25,6 +25,10 @@ html[data-theme=dark] {
   --lightBtn: #FFBD07;
 }
 
+body {
+  background-color: var(--bgColor);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -361,6 +365,11 @@ main .rating .btn-ratings a:hover, main .newsletter .btn-ratings a:hover {
 main .genres {
   margin-top: 30px;
 }
+main .genres .cards {
+  display: grid;
+  grid-template-columns: 0fr 0fr 0fr;
+  gap: 50px;
+}
 main .detail {
   margin-top: 30px;
 }
@@ -377,6 +386,13 @@ main .detail .coverDesc .cover {
 main .detail .coverDesc .desc {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+}
+main .detail .coverDesc .desc .flex-content {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  gap: 30px;
 }
 main .detail .coverDesc .desc .infos {
   display: flex;
@@ -385,13 +401,59 @@ main .detail .coverDesc .desc .infos {
 }
 main .detail .coverDesc .desc .plateform-price, main .detail .coverDesc .desc .btns {
   display: flex;
+}
+main .detail .coverDesc .desc .btns {
   gap: 10px;
 }
 main .detail .coverDesc .desc .plateform-price {
+  flex-direction: column;
+  gap: 20px;
   color: var(--blue);
 }
 main .detail .coverDesc .desc .plateform-price .plateforms {
   border-radius: 5px;
+}
+main .detail .coverDesc .desc .plateform-price p {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 2em;
+  font-weight: bold;
+  margin: 0;
+}
+main .about {
+  margin-top: 30px;
+  background-color: var(--white);
+}
+main .about .content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 50px;
+}
+main .about .content .description {
+  width: 50%;
+  text-align: justify;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1em;
+  font-weight: lighter;
+  text-shadow: var(--textShadow);
+}
+main .about .content .infos {
+  display: flex;
+  flex-direction: column;
+}
+main .about .content .infos .release, main .about .content .infos .genres {
+  margin: 0;
+  display: flex;
+  gap: 5px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1em;
+  color: var(--blue);
+}
+main .about .content .infos .release strong, main .about .content .infos .genres strong {
+  font-weight: normal;
+}
+main .about .content .infos .release p, main .about .content .infos .genres p {
+  font-weight: lighter;
 }
 
 footer {
