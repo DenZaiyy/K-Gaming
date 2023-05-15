@@ -14,7 +14,7 @@
 					<div class="dropdown-menu" aria-labelledby="dropdown{{ category.label }}">
 						{% for plateform in plateforms %}
 							{% if plateform.category.label == category.label %}
-								<a href="{{ path('app_game_plateform', {plateformID: plateform.id}) }}" class="dropdown-item"><img src="{{ plateform.logo }}" alt="logo of {{ plateform.label }}" height="32" width="32">{{ plateform.label }}</a>
+								<a href="{{ path('app_game_platform', {platformID: plateform.id}) }}" class="dropdown-item"><img src="{{ plateform.logo }}" alt="logo of {{ plateform.label }}" height="32" width="32">{{ plateform.label }}</a>
 							{% endif %}
 						{% endfor %}
 					</div>
