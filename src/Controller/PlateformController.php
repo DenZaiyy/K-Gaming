@@ -11,13 +11,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PlateformController extends AbstractController
 {
-    #[Route('/plateform/{plateformID}', name: 'app_game_plateform')]
-    public function index(EntityManagerInterface $em, $plateformID): Response
+    #[Route('/platform/{platformID}', name: 'app_game_platform')]
+    public function index(EntityManagerInterface $em, $platformID): Response
     {
-        $gamePlateform = $em->getRepository(Game::class)->findGamesInPlatform($plateformID);
+        $gamePlatform = $em->getRepository(Game::class)->findGamesInPlatform($platformID);
+//        dd($gamePlatform);
+        $platform = $em->getRepository(Plateform::class)->findOneBy(['id' => $platformID]);
 
-        return $this->render('plateform/index.html.twig', [
-            'gamePlateform' => '$gamePlateform',
+        return $this->render('platform/index.html.twig', [
+            'games' => $gamePlatform,
+            'platform' => $platform,
         ]);
     }
 }
