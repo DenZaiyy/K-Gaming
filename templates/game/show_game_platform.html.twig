@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ game.label }}
+    {{ gamePlatform[0].label }} - {{ gamePlatform[0].platform_label }}
 {% endblock %}
 
 {% block body %}
@@ -9,27 +9,25 @@
         <h1>Detail produit</h1>
         <div class="coverDesc">
             <div class="cover">
-                <img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\HomeController::getInfosGame', { gameLabel: game.label })) }}.jpg"
-                     draggable="false" alt="cover for game: {{ game.label }}">
+                <img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\HomeController::getInfosGame', { gameLabel: gamePlatform[0].label })) }}.jpg"
+                     draggable="false" alt="cover for game: {{ gamePlatform[0].label }}">
             </div>
             <div class="desc">
-                <h2>{{ game.label }}</h2>
+                <h2>{{ gamePlatform[0].label }}</h2>
                 <div class="infos">
                     <div class="plateform">
-                        <img src="{{ gameStock[0].logo }}" alt="logo of {{ gameStock[0].platform }}" height="32"
+                        <img src="{{ gamePlatform[0].platform_logo }}"
+                             alt="logo of {{ gamePlatform[0].platform_label }}" height="32"
                              width="32">
-                        {{ gameStock[0].platform }}
+                        {{ gamePlatform[0].platform_label }}
                     </div>
                     <div class="stock">
                         {% if gameStock[0].total > 0 %}
                             <p>
                                 <i class="bi bi-check-lg text-success"></i>
-                                En stock ({{ gameStock[0].total }}
-                                {% if gameStock[0].total > 1 %}
-                                disponibles
-                            {% else %}
-                                disponible
-                                {% endif %})</p>
+                                En stock
+                                ({{ gameStock[0].total }} {{ (gameStock[0].total > 1) ? 'disponibles' : 'disponible' }})
+                            </p>
                         {% else %}
                             <p>
                                 <i class="bi bi-x-lg text-danger"></i>
@@ -42,19 +40,48 @@
                     </div>
                 </div>
                 <div class="plateform-price">
-                    <select class="plateforms" name="plateform" id="plateform">
-                        {% for plateform in game.plateforms %}
-                            <option value="{{ plateform.id }}">{{ plateform.label }}</option>
-                        {% endfor %}
-                    </select>
-                    <p>{{ game.price }}
-                        €</p>
+                    {% if game.plateforms %}
+                        <div class="plateforms">
+                            <label for="plateform">Plateforme :</label>
+                            <select class="plateforms" name="plateform" id="plateform">
+                                {% for plateform in game.plateforms %}
+                                    <option value="{{ plateform.id }}">{{ plateform.label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    {% endif %}
+                    <p>{{ game.price }} €</p>
                 </div>
                 <div class="btns">
                     <a href="{{ path('app_home', {'id': game.id}) }}" class="btn btn-primary"><i
                                 class="bi bi-bag-plus"></i></a>
                     <a href="{{ path('app_home', {'id': game.id}) }}" class="btn btn-primary w-100">Acheter
                         maintenant</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <h2>A propos</h2>
+        <div class="content">
+            <div class="description">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad assumenda cum deserunt
+                dolores eveniet excepturi, illo, in, magni maxime natus non obcaecati porro provident saepe? Aperiam
+                nam nobis voluptatum.
+            </div>
+            <div class="infos">
+                <div class="release">
+                    <strong>Date de sortie :</strong>
+                    <p>{{ dateFR(game.dateRelease) }}</p>
+                </div>
+                <div class="genres">
+                    <strong>Genres :</strong>
+                    <p>
+                        {% for genre in game.genres %}
+                            {{ genre.label }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
                 </div>
             </div>
         </div>
