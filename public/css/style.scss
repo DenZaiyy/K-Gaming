@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap');
 
 html {
-	background-color: var(--white);
+	--bgColor: #fffdff;
 	--white: #fffdff;
 	--orange: #f44b3a;
 	--blue: #263f5d;
@@ -20,7 +20,7 @@ html {
 }
 
 html[data-theme='dark'] {
-	background-color: var(--white);
+	--bgColor: #263D5D;
 	--white: #263f5d;
 	--blue: #fffdff;
 	--waves: invert(92%) sepia(64%) saturate(83%) hue-rotate(267deg) brightness(102%) contrast(101%);
@@ -91,6 +91,7 @@ html[data-theme='dark'] {
 			position: absolute;
 			min-width: 160px;
 			width: max-content;
+			border: 1px solid var(--orange);
 			box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 			z-index: 1;
 			opacity: 0;
@@ -235,6 +236,7 @@ h2, h1 {
 
 main {
 	text-align: center;
+	background-color: var(--bgColor);
 	
 	.hero-image {
 		position: relative;
@@ -268,87 +270,94 @@ main {
 		}
 	}
 	
-	.tendencies, .preorders {
-		padding: 30px 0;
-		background-color: var(--white);
+	.cards {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 30px 50px;
+		justify-content: center;
 		
-		.cards {
-			display: flex;
-			flex-wrap: wrap;
-			//grid-template-columns: 0fr 0fr 0fr;
-			gap: 30px 50px;
-			justify-content: center;
+		a {
+			text-decoration: none;
 			
-			a {
-				text-decoration: none;
+			.gameCard {
+				cursor: pointer;
+				transition: var(--animation);
 				
-				.gameCard {
-					cursor: pointer;
-					transition: var(--animation);
+				.cover-img {
+					border-radius: 10px;
+					width: 100%;
 					
-					.cover-img {
+					box-shadow: 5px -5px 5px 0px rgba(0, 0, 0, 0.34);
+					-webkit-box-shadow: 5px -5px 5px 0px rgba(0, 0, 0, 0.34);
+					-moz-box-shadow: 5px -5px 5px 0px rgba(0, 0, 0, 0.34);
+					
+					img {
+						max-width: 300px;
+						height: max-content;
 						border-radius: 10px;
-						width: 100%;
 						
-						box-shadow: 5px -5px 5px 0px rgba(0, 0, 0, 0.34);
-						-webkit-box-shadow: 5px -5px 5px 0px rgba(0, 0, 0, 0.34);
-						-moz-box-shadow: 5px -5px 5px 0px rgba(0, 0, 0, 0.34);
-						
-						img {
-							max-width: 300px;
-							height: max-content;
-							border-radius: 10px;
-							
-							user-select: none;
-							-moz-user-select: none;
-							-webkit-user-select: none;
-							-ms-user-select: none;
-						}
-					}
-					
-					.infos {
-						display: flex;
-						justify-content: space-between;
-						padding: 0 5px;
-						
-						.label, .price {
-							font-family: "Source Sans Pro", sans-serif;
-							font-size: 1em;
-							color: var(--blue);
-						}
-						
-						.price {
-							font-weight: bold;
-						}
-					}
-					
-					.preco {
-						display: flex;
-						color: var(--orange);
-						padding: 0 5px;
-						gap: 5px;
-						
-						font-family: "Source Sans Pro", sans-serif;
-						font-weight: bold;
-						font-size: .8em;
-						
-						.badge {
-							display: flex;
-							align-items: center;
-							justify-content: center;
-							padding: 2px 5px;
-							border: 1px solid var(--orange);
-							border-radius: 5px;
-							color: var(--orange);
-						}
-					}
-					
-					&:hover {
-						transition: var(--animation);
-						transform: scale(1.05);
+						user-select: none;
+						-moz-user-select: none;
+						-webkit-user-select: none;
+						-ms-user-select: none;
 					}
 				}
+				
+				.infos {
+					display: flex;
+					justify-content: space-between;
+					padding: 0 5px;
+					
+					.label, .price {
+						font-family: "Source Sans Pro", sans-serif;
+						font-size: 1em;
+						color: var(--blue);
+					}
+					
+					.price {
+						font-weight: bold;
+					}
+				}
+				
+				.preco {
+					display: flex;
+					color: var(--orange);
+					padding: 0 5px;
+					gap: 5px;
+					
+					font-family: "Source Sans Pro", sans-serif;
+					font-weight: bold;
+					font-size: .8em;
+					
+					.badge {
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						padding: 2px 5px;
+						border: 1px solid var(--orange);
+						border-radius: 5px;
+						color: var(--orange);
+					}
+				}
+				
+				&:hover {
+					transition: var(--animation);
+					transform: scale(1.05);
+				}
 			}
+		}
+	}
+	
+	.tendencies, .preorders, .listGames {
+		padding: 30px 0;
+		background-color: var(--white);
+	}
+	
+	.listGames {
+		.cards {
+			display: grid;
+			grid-template-columns: 0fr 0fr 0fr;
+			gap: 30px;
 		}
 	}
 	
@@ -420,43 +429,49 @@ main {
 		margin-top: 30px;
 	}
 	
-	.coverDesc {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		height: auto;
-		gap: 50px;
-		
-		.cover {
-			width: auto;
-		}
-		
-		.desc {
+	.detail {
+		margin-top: 30px;
+		.coverDesc {
 			display: flex;
-			flex-direction: column;
+			flex-direction: row;
+			justify-content: center;
+			height: auto;
+			gap: 50px;
 			
-			.infos {
-				display: flex;
-				gap: 10px;
+			.cover {
+				width: auto;
 			}
 			
-			.plateform-price, .btns {
+			.desc {
 				display: flex;
-				gap: 10px;
-			}
-			
-			.plateform-price {
-				.plateforms {
-					border-radius: 5px;
+				flex-direction: column;
+				
+				.infos {
+					display: flex;
+					gap: 10px;
+					color: var(--blue);
 				}
+				
+				.plateform-price, .btns {
+					display: flex;
+					gap: 10px;
+				}
+				
+				.plateform-price {
+					color: var(--blue);
+					.plateforms {
+						border-radius: 5px;
+					}
+				}
+				
 			}
-			
 		}
 	}
 }
 
 footer {
 	user-select: none;
+	background-color: var(--bgColor);
 	
 	.wave-filter {
 		user-select: none;
