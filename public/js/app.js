@@ -11,7 +11,7 @@ $(document).ready(function () {
 	
 	document.documentElement.setAttribute("data-theme", $theme);
 	
-	if($theme == "dark") {
+	if($theme === "dark") {
 		$checkbox.prop('checked', true)
 	} else {
 		$checkbox.prop('checked', false)
