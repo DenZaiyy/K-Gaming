@@ -3,13 +3,11 @@
 {% block title %}Liste de jeux {{ platform.label }}{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <section class="listGames">
 
+        <h1>{{ platform.label }}</h1>
 
-        <section class="listGames">
-
-            <h1>{{ platform.label }}</h1>
-
+        {% if games %}
             <div class="cards">
                 {% for game in games %}
                     <a href="{{ path('app_show_game_platform', {gameID: game.id, platformID: platform.id }) }}">
@@ -31,6 +29,8 @@
                     </a>
                 {% endfor %}
             </div>
-        </section>
-    </div>
+        {% else %}
+            <p>Aucun jeu pour cette plateforme</p>
+        {% endif %}
+    </section>
 {% endblock %}
