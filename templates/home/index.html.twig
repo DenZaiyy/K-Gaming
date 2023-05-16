@@ -21,10 +21,10 @@
 		<h2>Tendances</h2>
 		<div class="cards">
 			{% for tendency in tendencies %}
-				<a href="{{ path('app_show_game', {gameID: tendency.id }) }}">
+				<a href="{{ path('app_show_game', {gameID: tendency.id}) }}">
 					<div class="gameCard">
 						<div class="cover-img">
-							<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\HomeController::getInfosGame', { gameLabel: tendency.label })) }}.jpg"
+							<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: tendency.label })) }}.jpg"
 							     draggable="false"
 							     alt="cover for game: {{ tendency.label }}">
 						</div>
@@ -77,7 +77,7 @@
 				<a href="{{ path('app_show_game', {gameID: preorder.id }) }}">
 					<div class="gameCard">
 						<div class="cover-img">
-							<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\HomeController::getInfosGame', { gameLabel: preorder.label })) }}.jpg"
+							<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: preorder.label })) }}.jpg"
 							     alt="cover for game: {{ preorder.label }}">
 						</div>
 						<div class="infos">
