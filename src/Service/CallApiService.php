@@ -12,9 +12,9 @@ class CallApiService extends AbstractController
 
 	}
 
-	public function callApi($game): array
+	public function getInfosGame($game): array
 	{
-		$reponse = $this->client->request(
+		$response = $this->client->request(
 			'POST',
 			'https://api.igdb.com/v4/games/',
 			[
@@ -27,6 +27,6 @@ class CallApiService extends AbstractController
 
 		);
 
-		return $reponse->toArray();
+		return $response->toArray();
 	}
 }
