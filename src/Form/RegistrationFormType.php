@@ -46,7 +46,7 @@ class RegistrationFormType extends AbstractType
 			->add('avatar', DropzoneType::class, [
 				'label' => 'Avatar',
 				'attr' => [
-					'placeholder' => 'Glisser/déposer un fichier ou cliquer pour le chercher',
+					'placeholder' => 'Glisser un fichier ou cliquer pour le chercher'
 				],
 				'mapped' => false,
 				'required' => false,
