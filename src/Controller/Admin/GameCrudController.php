@@ -3,10 +3,12 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Game;
+use DateTime;
 use DateTimeZone;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -19,40 +21,45 @@ class GameCrudController extends AbstractCrudController
         return Game::class;
     }
 
-	public function configureCrud(Crud $crud): Crud
-	{
-		return $crud
-			->setEntityLabelInSingular('Game')
-			->setEntityLabelInPlural('Game')
-			->setSearchFields(['id', 'label', 'price', 'date_release'])
-			->setDefaultSort(['date_release' => 'DESC']);
-	}
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInSingular('Game')
+            ->setEntityLabelInPlural('Game')
+            ->setSearchFields(['id', 'label', 'price', 'date_release']);
+    }
 
-	public function configureFilters(Filters $filters): Filters
-	{
-		return $filters
-			->add('label')
-			->add('price')
-			->add('date_release');
-	}
-
-
-	public function configureFields(string $pageName): iterable
-	{
-		yield TextField::new('label');
-		yield NumberField::new('price');
-
-		$dateRelease = DateTimeField::new('date_release')->setFormTypeOptions([
-			'data' => new \DateTime('now', new DateTimeZone('Europe/Paris')), // default data
-			'widget' => 'single_text',
-		]);
-
-		if (Crud::PAGE_EDIT === $pageName) {
-			yield $dateRelease->setFormTypeOption('disabled', true);
-		} else {
-			yield $dateRelease;
-		}
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add('label')
+            ->add('price')
+            ->add('date_release')
+            ->add(EntityFilter::new('plateforms'))
+            ->add(EntityFilter::new('genres'));
+    }
 
 
-	}
+    public function configureFields(string $pageName): iterable
+    {
+        yield TextField::new('label');
+        yield NumberField::new('price');
+        yield AssociationField::new('plateforms');
+        yield AssociationField::new('genres');
+
+        $dateRelease = DateTimeField::new('date_release')
+            ->setFormTypeOptions([
+                'data' => new DateTime('now', new DateTimeZone('Europe/Paris')), // default data
+                'widget' => 'single_text',
+            ])
+            ->setFormat('dd-MM-yyyy');
+
+        if (Crud::PAGE_EDIT === $pageName) {
+            yield $dateRelease->setFormTypeOption('disabled', true);
+        } else {
+            yield $dateRelease;
+        }
+
+
+    }
 }
