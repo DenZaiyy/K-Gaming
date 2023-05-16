@@ -21,6 +21,11 @@ class Genre
     #[ORM\ManyToMany(targetEntity: Game::class, mappedBy: 'genre')]
     private Collection $games;
 
+    public function __toString(): string
+    {
+        return $this->label;
+    }
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
