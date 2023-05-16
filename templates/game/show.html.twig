@@ -9,42 +9,62 @@
         <h1>Detail produit</h1>
         <div class="coverDesc">
             <div class="cover">
-                <img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\HomeController::getInfosGame', { gameLabel: game.label })) }}.jpg"
+                <img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: game.label })) }}.jpg"
                      draggable="false" alt="cover for game: {{ game.label }}">
             </div>
             <div class="desc">
                 <h2>{{ game.label }}</h2>
                 <div class="flex-content">
                     <div class="infos">
-                        <div class="plateform">
-                            <img src="{{ gameStock[0].logo }}" alt="logo of {{ gameStock[0].platform }}" height="32"
-                                 width="32">
-                            {{ gameStock[0].platform }}
-                        </div>
-                        <div class="stock">
-                            {% if gameStock[0].total > 0 %}
-                                <p>
-                                    <i class="bi bi-check-lg text-success"></i>
-                                    En stock
-                                    ({{ gameStock[0].total }} {{ (gameStock[0].total > 1) ? 'disponibles' : 'disponible' }}
-                                    )</p>
-                            {% else %}
-                                <p>
-                                    <i class="bi bi-x-lg text-danger"></i>
-                                    En rupture de stock</p>
-                            {% endif %}
-                        </div>
-                        <div class="download">
-                            <i class="bi bi-check-lg text-success"></i>
-                            Téléchargement digital
-                        </div>
+                        {% if gameStock %}
+                            <div class="plateform">
+                                <img src="{{ gameStock[0].logo }}" alt="logo of {{ gameStock[0].platform }}" height="32"
+                                     width="32">
+                                {{ gameStock[0].platform }}
+                            </div>
+                            <div class="stock">
+                                {% if gameStock[0].total > 0 %}
+                                    <p>
+                                        <i class="bi bi-check-lg text-success"></i>
+                                        En stock
+                                        ({{ gameStock[0].total }} {{ (gameStock[0].total > 1) ? 'disponibles' : 'disponible' }}
+                                        )</p>
+                                {% else %}
+                                    <p>
+                                        <i class="bi bi-x-lg text-danger"></i>
+                                        En rupture de stock</p>
+                                {% endif %}
+                            </div>
+                            <div class="download">
+                                <i class="bi bi-check-lg text-success"></i>
+                                Téléchargement digital
+                            </div>
+                        {% else %}
+                            <div class="plateform">
+                                <img src="{{ game.plateforms[0].logo }}" alt="logo of {{ game.plateforms[0].label }}"
+                                     height="32" width="32">
+                                {{ game.plateforms[0].label }}
+                            </div>
+                            <div class="stock">
+
+                            </div>
+                            <div class="download">
+                                <i class="bi bi-check-lg text-success"></i>
+                                Téléchargement digital
+                            </div>
+                        {% endif %}
+
                     </div>
                     <div class="plateform-price">
-                        <select class="plateforms" name="plateform" id="plateform">
-                            {% for plateform in game.plateforms %}
-                                <option value="{{ plateform.id }}">{{ plateform.label }}</option>
-                            {% endfor %}
-                        </select>
+                        <form action="" method="post">
+                            <select class="plateforms" name="plateform" id="plateform">
+                                <option value="" selected disabled hidden>Selectionner une plateforme</option>
+                                {% for plateform in game.plateforms %}
+                                    <option value="{{ plateform.id }}">{{ plateform.label }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit">Actualiser</button>
+                        </form>
                         <p>{{ game.price }}
                             €</p>
                     </div>
@@ -58,4 +78,41 @@
             </div>
         </div>
     </section>
+
+    <section class="about mt-5">
+        <h2>A propos</h2>
+        <div class="content mb-5">
+            <div class="description">
+                {{ render(controller('App\\Controller\\GameController::getSummaryGame', { gameLabel: game.label })) }}
+            </div>
+            <div class="infos">
+                <div class="release">
+                    <strong>Date de sortie :</strong>
+                    <p>{{ dateFR(game.dateRelease) }}</p>
+                </div>
+                <div class="genres">
+                    <strong>Genres :</strong>
+                    <p>
+                        {% for genre in game.genres %}
+                            {{ genre.label }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        let selectVal = document.getElementById("plateform").value
+        let selectInput = document.getElementById("plateform");
+
+		selectInput.addEventListener("change", function() {
+			selectVal = selectInput.value
+
+			let path = "{{ path('app_show_game_platform', {'platformID': 'myId', 'gameID': game.id})|escape('js') }}"
+            path = path.replace("myId", selectVal)
+
+            console.log(path)
+        })
+    </script>
 {% endblock %}
+
