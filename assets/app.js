@@ -20,38 +20,6 @@ let trans = () => {
 }
 
 $(document).ready(function () {
-	
-	// // START PLATFORM SWITCHER
-	const $platform = $("#plateform");
-	var path = "{{ path(app_show_game_platform, {'platform': 'platform'}) }}";
-	
-	function fetchData() {
-		var selectVal = $("#plateform").val();
-		console.log(selectVal);
-		
-		if (selectVal === '') {
-			$(".infos").css('display', 'none');
-		}
-		
-		$.ajax({
-			type: "POST",
-			url: path,
-			data: {
-				platform: selectVal
-			},
-			success: function (data) {
-				$(".infos").css('display', 'block');
-				$(".flex-content .infos .plateform").html(data);
-				// console.log(data);
-			}
-		});
-		
-	}
-	
-	$("#plateform").on('change', fetchData);
-	// // END PLATFORM SWITCHER
-	
-	
 	// START THEME SWITCHER
 	const $checkbox = $("#switch");
 	let $theme = localStorage.getItem("data-theme");
