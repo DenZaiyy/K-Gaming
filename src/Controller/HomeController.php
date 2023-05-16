@@ -7,7 +7,6 @@ use App\Entity\Game;
 use App\Entity\Genre;
 use App\Entity\Plateform;
 use App\Entity\Stock;
-use App\Service\CallApiService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,10 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-	public function __construct(private CallApiService $callApiService)
-	{
-	}
-
 	#[Route('/', name: 'app_home')]
 	public function index(EntityManagerInterface $em): Response
 	{
@@ -42,15 +37,6 @@ class HomeController extends AbstractController
 		return $this->render('components/_header.html.twig', [
 			'categories' => $categories,
 			'plateforms' => $plateforms,
-		]);
-	}
-
-	#[Route('/getGameInfos/{gameLabel}', name: 'app_get_game_infos')]
-	public function getInfosGame($gameLabel): Response
-	{
-		return $this->render('home/_game_infos.html.twig', [
-			'gameInfos' => $this->callApiService->callApi($gameLabel),
-			'gameName' => $gameLabel,
 		]);
 	}
 }
