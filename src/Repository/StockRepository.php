@@ -46,6 +46,7 @@ class StockRepository extends ServiceEntityRepository
             ->leftJoin('s.game', 'g')
             ->leftJoin('s.purchase', 'p')
             ->Where('s.is_available = false')
+            ->andWhere('s.purchase IS NOT NULL')
             ->groupBy('g.id', 'g.label', 'g.price', 'g.date_release')
             ->orderBy('COUNT(s.id)', 'DESC')
             ->setMaxResults(6)
@@ -60,9 +61,9 @@ class StockRepository extends ServiceEntityRepository
             ->leftJoin('s.game', 'g')
             ->leftJoin('s.plateform', 'p')
             ->where('g.id = :gameID')
-            ->setParameter('gameID', $gameID)
-            ->andWhere('p.id = 1')
             ->andwhere('s.is_available = true')
+            ->groupBy('g.label', 'p.label', 'p.logo')
+            ->setParameter('gameID', $gameID)
             ->getQuery()
             ->getResult();
     }
