@@ -37,6 +37,10 @@ body {
 	box-sizing: border-box;
 }
 
+.card {
+	background-color: var(--bgColor);
+}
+
 .header-flex {
 	background-color: var(--white);
 	display: flex;
@@ -244,7 +248,7 @@ main {
 	
 	.hero-image {
 		position: relative;
-		background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/accueil.jpg");
+		background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../public/img/accueil.jpg");
 		
 		height: calc(100vh - 65vh);
 		background-position: center;
@@ -461,7 +465,6 @@ main {
 				.flex-content {
 					display: flex;
 					flex-direction: column;
-					height: auto;
 					gap: 30px;
 				}
 				
@@ -501,6 +504,7 @@ main {
 	
 	.about {
 		margin-top: 30px;
+		padding: 30px;
 		background-color: var(--white);
 		
 		.content {
@@ -515,6 +519,7 @@ main {
 				font-family: "Source Sans Pro", sans-serif;
 				font-size: 1em;
 				font-weight: lighter;
+				color: var(--blue);
 				text-shadow: var(--textShadow);
 			}
 			
@@ -536,6 +541,7 @@ main {
 					
 					p {
 						font-weight: lighter;
+						margin: 0;
 					}
 				}
 			}
