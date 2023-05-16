@@ -3,49 +3,49 @@
 {% block title %}S'inscrire{% endblock %}
 
 {% block body %}
-	{% for flash_error in app.flashes('verify_email_error') %}
-		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-	{% endfor %}
-	
-	<div class="container-md">
-		
-			<h1 class="mb-3 mt-3 font-weight-normal">S'inscrire</h1>
-			{{ form_start(registrationForm) }}
-			<div class="card-body">
-				<div class="form-floating mb-3">
-					{{ form_widget(registrationForm.username) }}
-					<label for="registration_form_username">Pseudo</label>
-					{#            {{ form_row(registrationForm.username) }} #}
-				</div>
-				<div class="form-floating mb-3">
-					{{ form_widget(registrationForm.email) }}
-					<label for="registration_form_email">Email</label>
-				</div>
-				
-				<div class="row g-2 mb-3">
-					<div class="form-floating col">
-						{{ form_widget(registrationForm.plainPassword.first) }}
-						{{ form_label(registrationForm.plainPassword.first) }}
-					</div>
-					<div class="form-floating col">
-						{{ form_widget(registrationForm.plainPassword.second) }}
-						{{ form_label(registrationForm.plainPassword.second) }}
-					</div>
-				</div>
-				
-				<div class="input-group mb-3">
-					{{ form_widget(registrationForm.avatar) }}
-				</div>
-				
-				<div class="checkbox mb-3">
-					<label>{{ form_widget(registrationForm.agreeTerms) }} Accepter les conditions</label>
-				</div>
-				
-				
-				<button type="submit" class="btn btn-lg btn-primary">S'inscrire</button>
-			</div>
-			{{ form_end(registrationForm) }}
-		
-	</div>
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    <div class="container mt-5 mb-5" style="max-width: 600px;">
+        <div class="card p-5 rounded">
+            <h1 class="mb-3 font-weight-normal">S'inscrire</h1>
+            {{ form_start(registrationForm) }}
+            <div class="card-body">
+                <div class="form-floating mb-3">
+                    {{ form_widget(registrationForm.username) }}
+                    <label for="registration_form_username">Pseudo</label>
+                    {#            {{ form_row(registrationForm.username) }} #}
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form_widget(registrationForm.email) }}
+                    <label for="registration_form_email">Email</label>
+                </div>
+
+                <div class="row g-2 mb-3">
+                    <div class="form-floating col">
+                        {{ form_widget(registrationForm.plainPassword.first) }}
+                        {{ form_label(registrationForm.plainPassword.first) }}
+                    </div>
+                    <div class="form-floating col">
+                        {{ form_widget(registrationForm.plainPassword.second) }}
+                        {{ form_label(registrationForm.plainPassword.second) }}
+                    </div>
+                </div>
+
+                <div class="mb-3 w-100">
+                    {{ form_widget(registrationForm.avatar) }}
+                </div>
+
+                <div class="checkbox mb-3">
+                    <label>{{ form_widget(registrationForm.agreeTerms) }} Accepter les conditions</label>
+                </div>
+
+
+                <button type="submit" class="btn btn-lg btn-primary">S'inscrire</button>
+            </div>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
 
 {% endblock %}
