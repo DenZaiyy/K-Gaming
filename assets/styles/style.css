@@ -375,13 +375,13 @@ main .genres .cards {
   gap: 50px;
 }
 main .detail {
-  margin-top: 30px;
+  padding: 30px;
 }
 main .detail .coverDesc {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
-  height: auto;
   gap: 50px;
 }
 main .detail .coverDesc .cover {
@@ -423,12 +423,15 @@ main .detail .coverDesc .desc .plateform-price p {
   margin: 0;
 }
 main .about {
-  margin-top: 30px;
   padding: 30px;
-  background-color: var(--white);
+  background-color: var(--blue);
+}
+main .about h2 {
+  color: var(--white);
 }
 main .about .content {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
   gap: 50px;
@@ -439,7 +442,7 @@ main .about .content .description {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 1em;
   font-weight: lighter;
-  color: var(--blue);
+  color: var(--white);
   text-shadow: var(--textShadow);
 }
 main .about .content .infos {
@@ -452,7 +455,7 @@ main .about .content .infos .release, main .about .content .infos .genres {
   gap: 5px;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 1em;
-  color: var(--blue);
+  color: var(--white);
 }
 main .about .content .infos .release strong, main .about .content .infos .genres strong {
   font-weight: normal;
