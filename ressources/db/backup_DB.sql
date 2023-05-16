@@ -21,7 +21,7 @@ INSERT INTO `category` (`id`, `label`) VALUES
 	(2, 'PlayStation'),
 	(3, 'Xbox');
 
--- Listage des données de la table kgaming.doctrine_migration_versions : ~0 rows (environ)
+-- Listage des données de la table kgaming.doctrine_migration_versions : ~1 rows (environ)
 DELETE FROM `doctrine_migration_versions`;
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 	('DoctrineMigrations\\Version20230505133924', '2023-05-05 16:47:20', 388);
@@ -42,11 +42,12 @@ INSERT INTO `game_genre` (`game_id`, `genre_id`) VALUES
 	(1, 6),
 	(1, 7),
 	(1, 9),
+	(1, 11),
 	(2, 5),
 	(3, 9),
 	(4, 10);
 
--- Listage des données de la table kgaming.game_plateform : ~15 rows (environ)
+-- Listage des données de la table kgaming.game_plateform : ~13 rows (environ)
 DELETE FROM `game_plateform`;
 INSERT INTO `game_plateform` (`game_id`, `plateform_id`) VALUES
 	(1, 1),
@@ -56,7 +57,12 @@ INSERT INTO `game_plateform` (`game_id`, `plateform_id`) VALUES
 	(1, 8),
 	(1, 9),
 	(2, 1),
+	(2, 6),
+	(2, 7),
+	(2, 8),
+	(2, 9),
 	(3, 1),
+	(3, 8),
 	(4, 1),
 	(6, 1),
 	(7, 1),
@@ -77,7 +83,8 @@ INSERT INTO `genre` (`id`, `label`) VALUES
 	(7, 'Action'),
 	(8, 'PVP En ligne'),
 	(9, 'Cross-Plateforme'),
-	(10, 'Survie');
+	(10, 'Survie'),
+	(11, 'Multijoueur');
 
 -- Listage des données de la table kgaming.messenger_messages : ~0 rows (environ)
 DELETE FROM `messenger_messages`;
@@ -109,7 +116,7 @@ INSERT INTO `purchase` (`id`, `user_id`, `firstname`, `lastname`, `billing_addre
 -- Listage des données de la table kgaming.reset_password_request : ~0 rows (environ)
 DELETE FROM `reset_password_request`;
 
--- Listage des données de la table kgaming.stock : ~19 rows (environ)
+-- Listage des données de la table kgaming.stock : ~17 rows (environ)
 DELETE FROM `stock`;
 INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_key`, `date_availability`, `is_available`) VALUES
 	(1, 1, 1, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
@@ -130,7 +137,10 @@ INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_ke
 	(16, 1, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
 	(17, 1, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
 	(18, 1, NULL, 4, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
-	(19, 1, NULL, 4, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1);
+	(19, 1, NULL, 4, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
+	(20, 2, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
+	(21, 2, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
+	(22, 2, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1);
 
 -- Listage des données de la table kgaming.user : ~3 rows (environ)
 DELETE FROM `user`;
