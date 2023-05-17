@@ -10,48 +10,22 @@ import './styles/style.css';
 
 // start the Stimulus application
 import './bootstrap';
-
-
-let trans = () => {
-	document.documentElement.classList.add("transition");
-	window.setTimeout(() => {
-		document.documentElement.classList.remove("transition");
-	}, 1000)
-}
+import './carousel';
+import './themeSwitch';
 
 $(document).ready(function () {
-	// START THEME SWITCHER
-	const $checkbox = $("#switch");
-	let $theme = localStorage.getItem("data-theme");
 	
-	document.documentElement.setAttribute("data-theme", $theme);
+	// START PLATEFORME CHANGE
+	const plateform = document.getElementById("plateform");
 	
-	if ($theme === "dark") {
-		$checkbox.prop('checked', true)
-	} else {
-		$checkbox.prop('checked', false)
+	if (plateform) {
+		plateform.addEventListener("change", function () {
+			var idPlateform = plateform.value;
+			var url = window.location.pathname;
+			var idGame = url.substring(url.lastIndexOf("/") + 1);
+			
+			window.location.href = "/platform/" + idPlateform + "/game/" + idGame;
+		})
 	}
-	
-	const $changeThemeToDark = () => {
-		document.documentElement.setAttribute("data-theme", "dark");
-		localStorage.setItem("data-theme", "dark");
-		trans();
-	}
-	
-	const $changeThemeToLight = () => {
-		document.documentElement.setAttribute("data-theme", "light");
-		trans();
-		localStorage.setItem("data-theme", "light");
-	}
-	
-	$checkbox.change(function () {
-		if (this.checked) {
-			$changeThemeToDark()
-			$checkbox.prop('checked', true)
-		} else {
-			$changeThemeToLight()
-			$checkbox.prop('checked', false)
-		}
-	})
-	// END THEME SWITCHER
+	// END PLATEFORME CHANGE
 })
