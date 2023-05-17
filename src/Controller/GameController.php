@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Game;
+use App\Entity\Plateform;
 use App\Entity\Stock;
 use App\Service\CallApiService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class GameController extends AbstractController
 {
-    public function __construct(private CallApiService $callApiService)
+    public function __construct(private readonly CallApiService $callApiService)
     {
     }
 
@@ -26,6 +27,7 @@ class GameController extends AbstractController
         return $this->render('game/show.html.twig', [
             'game' => $game,
             'gameStock' => $gameStock,
+            'platform' => null,
         ]);
     }
 
@@ -33,14 +35,14 @@ class GameController extends AbstractController
     public function showGameInPlatform(EntityManagerInterface $em, $gameID, $platformID): Response
     {
         $game = $em->getRepository(Game::class)->findOneBy(['id' => $gameID]);
-//        dd($game);
+        $platform = $em->getRepository(Plateform::class)->findOneBy(['id' => $platformID]);
+//        dd($platform);
         $gamePlatform = $em->getRepository(Game::class)->findOneGameInPlatform($gameID, $platformID);
-//        dd($gamePlatform[0]);
         $gameStock = $em->getRepository(Stock::class)->findAvailableGameStockByPlatform($gameID, $platformID);
-//        dd($gameStock[0]);
 
         return $this->render('game/show.html.twig', [
             'game' => $game,
+            'platform' => $platform,
             'gamePlatform' => $gamePlatform,
             'gameStock' => $gameStock,
         ]);
@@ -49,16 +51,32 @@ class GameController extends AbstractController
     #[Route('/getGameInfos/{gameLabel}', name: 'app_get_game_infos')]
     public function getImageIDGame($gameLabel): Response
     {
-        return $this->render('components/_game_image_id.html.twig', [
-            'gameInfos' => $this->callApiService->getInfosGame($gameLabel)
+        return $this->render('components/game/_game_image_id.html.twig', [
+            'gameInfos' => $this->callApiService->getCoverByGame($gameLabel)
         ]);
     }
 
     #[Route('/getGameSummary/{gameLabel}', name: 'app_get_game_summary')]
     public function getSummaryGame($gameLabel): Response
     {
-        return $this->render('components/_game_summary.html.twig', [
-            'gameInfos' => $this->callApiService->getInfosGame($gameLabel)
+        return $this->render('components/game/_game_summary.html.twig', [
+            'gameInfos' => $this->callApiService->getSummaryByGame($gameLabel)
+        ]);
+    }
+
+    #[Route('/getGameScreenshots/{gameLabel}', name: 'app_get_game_screenshots')]
+    public function getScreenshotsGame($gameLabel): Response
+    {
+        return $this->render('components/game/_game_screenshots.html.twig', [
+            'gameInfos' => $this->callApiService->getScreenshotByGame($gameLabel)
+        ]);
+    }
+
+    #[Route('/getGameVideos/{gameLabel}', name: 'app_get_game_videos')]
+    public function getVideosGame($gameLabel): Response
+    {
+        return $this->render('components/game/_game_videos.html.twig', [
+            'gameInfos' => $this->callApiService->getVideosByGame($gameLabel)
         ]);
     }
 }
