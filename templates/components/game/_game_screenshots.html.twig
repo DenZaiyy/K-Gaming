@@ -1,0 +1,9 @@
+{% for gameInfo in gameInfos %}
+    {% for screenshot in gameInfo.screenshots %}
+        <div class="carousel-item">
+            <img src="https://images.igdb.com/igdb/image/upload/t_screenshot_huge/{{ screenshot.image_id }}.jpg"
+                 alt="photo du jeu {{ gameInfo.name }}"
+                 draggable="false">
+        </div>
+    {% endfor %}
+{% endfor %}
