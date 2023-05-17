@@ -16,58 +16,56 @@
                 <h2>{{ game.label }}</h2>
                 <div class="flex-content">
                     <div class="infos">
-                        {% if gameStock %}
+
+                        {% if platform %}
                             <div class="plateform">
-                                <img src="{{ gameStock[0].logo }}" alt="logo of {{ gameStock[0].platform }}" height="32"
+                                <img src="{{ platform.logo }}" alt="logo of {{ platform.label }}" height="32"
                                      width="32">
-                                {{ gameStock[0].platform }}
+                                {{ platform.label }}
                             </div>
-                            <div class="stock">
+                        {% else %}
+                            {% if gameStock %}
+                                <div class="plateform">
+                                    <img src="{{ gameStock[0].logo }}" alt="logo of {{ gameStock[0].platform }}"
+                                         height="32" width="32">
+                                    {{ gameStock[0].platform }}
+                                </div>
+                            {% endif %}
+                        {% endif %}
+
+                        <div class="stock">
+                            {% if gameStock %}
                                 {% if gameStock[0].total > 0 %}
                                     <p>
                                         <i class="bi bi-check-lg text-success"></i>
                                         En stock
                                         ({{ gameStock[0].total }} {{ (gameStock[0].total > 1) ? 'disponibles' : 'disponible' }}
                                         )</p>
-                                {% else %}
-                                    <p>
-                                        <i class="bi bi-x-lg text-danger"></i>
-                                        En rupture de stock</p>
                                 {% endif %}
-                            </div>
-                            <div class="download">
-                                <i class="bi bi-check-lg text-success"></i>
-                                Téléchargement digital
-                            </div>
-                        {% else %}
-                            <div class="plateform">
-                                <img src="{{ game.plateforms[0].logo }}" alt="logo of {{ game.plateforms[0].label }}"
-                                     height="32" width="32">
-                                {{ game.plateforms[0].label }}
-                            </div>
-                            <div class="stock">
+                            {% else %}
+                                <p>
+                                    <i class="bi bi-x-lg text-danger"></i>
+                                    En rupture de stock</p>
+                            {% endif %}
+                        </div>
 
-                            </div>
-                            <div class="download">
-                                <i class="bi bi-check-lg text-success"></i>
-                                Téléchargement digital
-                            </div>
-                        {% endif %}
-
+                        <div class="download">
+                            <i class="bi bi-check-lg text-success"></i>
+                            Téléchargement digital
+                        </div>
                     </div>
+
                     <div class="plateform-price">
-                        <form action="" method="post">
-                            <select class="plateforms" name="plateform" id="plateform">
-                                <option value="" selected disabled hidden>Selectionner une plateforme</option>
-                                {% for plateform in game.plateforms %}
-                                    <option value="{{ plateform.id }}">{{ plateform.label }}</option>
-                                {% endfor %}
-                            </select>
-                            <button type="submit">Actualiser</button>
-                        </form>
+                        <select class="plateforms" name="plateform" id="plateform">
+                            <option value="" selected disabled hidden>Selectionner une plateforme</option>
+                            {% for plateform in game.plateforms %}
+                                <option value="{{ plateform.id }}">{{ plateform.label }}</option>
+                            {% endfor %}
+                        </select>
                         <p>{{ game.price }}
                             €</p>
                     </div>
+
                     <div class="btns">
                         <a href="{{ path('app_home', {'id': game.id}) }}" class="btn btn-primary"><i
                                     class="bi bi-bag-plus"></i></a>
@@ -101,18 +99,24 @@
             </div>
         </div>
     </section>
-    <script>
-        let selectVal = document.getElementById("plateform").value
-        let selectInput = document.getElementById("plateform");
 
-		selectInput.addEventListener("change", function() {
-			selectVal = selectInput.value
+    <section class="screenshots">
+        <h2>Photos</h2>
+        <div class="carousel slide carousel-fade w-auto">
+            <div class="carousel-inner">
+                {{ render(controller('App\\Controller\\GameController::getScreenshotsGame', { gameLabel: game.label })) }}
+            </div>
+        </div>
+    </section>
 
-			let path = "{{ path('app_show_game_platform', {'platformID': 'myId', 'gameID': game.id})|escape('js') }}"
-            path = path.replace("myId", selectVal)
-
-            console.log(path)
-        })
-    </script>
+{#    <section class="videos">
+        <h2>Vidéos (trailer)</h2>
+        {{ render(controller('App\\Controller\\GameController::getVideosGame', { gameLabel: game.label })) }}
+        <div class="carousel slide carousel-fade w-auto">
+            <div class="carousel-inner">
+                {{ render(controller('App\\Controller\\GameController::getVideosGame', { gameLabel: game.label })) }}
+            </div>
+        </div>
+    </section>#}
 {% endblock %}
 
