@@ -29,7 +29,7 @@ body {
   background-color: var(--bgColor);
 }
 
-* {
+*, ::before, ::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -463,6 +463,81 @@ main .about .content .infos .release strong, main .about .content .infos .genres
 main .about .content .infos .release p, main .about .content .infos .genres p {
   font-weight: lighter;
   margin: 0;
+}
+main .screenshots {
+  padding: 30px;
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+main .screenshots .carousel {
+  margin: 0 auto;
+  max-width: 1000px;
+}
+main .screenshots .carousel .carousel-item {
+  border-radius: 10px;
+  overflow: hidden;
+  display: none;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+main .screenshots .carousel .carousel-item img {
+  width: 100%;
+  height: auto;
+}
+main .screenshots .carousel .carousel-item__selected {
+  display: block;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  opacity: 1;
+}
+main .screenshots .carousel .carousel-nav {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  position: absolute;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
+}
+main .screenshots .carousel .carousel-nav .carousel-button {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  background-color: var(--blue);
+  border: 1px solid var(--white);
+  margin: 0 5px;
+  cursor: pointer;
+  transition: var(--animation);
+}
+main .screenshots .carousel .carousel-nav .carousel-button:hover {
+  background-color: var(--white);
+  transition: var(--animation);
+}
+main .screenshots .carousel .carousel-nav .carousel-button__selected {
+  background-color: var(--white);
+  transition: var(--animation);
 }
 
 footer {
