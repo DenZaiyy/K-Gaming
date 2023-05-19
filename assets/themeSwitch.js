@@ -3,7 +3,7 @@ let theme = localStorage.getItem("data-theme");
 
 
 document.addEventListener("DOMContentLoaded", () => {
-	!theme ? theme = "light" : null
+	!theme ? theme = "light" : theme
 	document.documentElement.setAttribute("data-theme", theme);
 })
 
