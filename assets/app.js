@@ -28,4 +28,20 @@ $(document).ready(function () {
 		})
 	}
 	// END PLATEFORME CHANGE
+	
+	// FIXME: Faire en sorte de pouvoir changer la quantité dans le panier grace au select sans avoir à recharger la page
+	// START QUANTITY CHANGE IN CART
+	const quantity = document.querySelectorAll("#qtt");
+	const cartId = document.querySelectorAll("#gameCart");
+	
+	quantity.forEach(function (qtt) {
+		const idGame = qtt.getAttribute("data-game");
+		const idPlatform = qtt.getAttribute("data-platform");
+		
+		qtt.addEventListener("change", function () {
+			window.location.href = "/cart/add/game/" + idGame + "/platform/" + idPlatform;
+		})
+		
+	})
+	// END QUANTITY CHANGE IN CART
 })
