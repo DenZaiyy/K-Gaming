@@ -57,12 +57,12 @@ class StockRepository extends ServiceEntityRepository
     public function findStockByGameID($gameID): array
     {
         return $this->createQueryBuilder('s')
-            ->select('g.label', 'COUNT(s.game) AS total', 'p.label AS platform', 'p.logo')
+            ->select('p.id AS platform_id', 'g.id AS game_id', 'g.label', 'COUNT(s.game) AS total', 'p.label AS platform_label', 'p.logo')
             ->leftJoin('s.game', 'g')
             ->leftJoin('s.plateform', 'p')
             ->where('g.id = :gameID')
             ->andwhere('s.is_available = true')
-            ->groupBy('g.label', 'p.label', 'p.logo')
+            ->groupBy('g.label', 'p.label', 'p.logo', 'p.id')
             ->setParameter('gameID', $gameID)
             ->getQuery()
             ->getResult();
@@ -71,14 +71,16 @@ class StockRepository extends ServiceEntityRepository
     public function findAvailableGameStockByPlatform($gameID, $platformID): array
     {
         return $this->createQueryBuilder('s')
-            ->select('COUNT(s.game) AS total', 'p.label AS platform', 'p.logo')
+            ->select('p.id AS platform_id', 'g.id AS game_id', 'g.label', 'p.label AS platform_label', 'COUNT(s.game) AS total')
             ->leftJoin('s.game', 'g')
             ->leftJoin('s.plateform', 'p')
             ->where('g.id = :gameID')
             ->andWhere('p.id = :platformID')
             ->andWhere('s.is_available = true')
-            ->setParameter('gameID', $gameID)
-            ->setParameter('platformID', $platformID)
+            ->setParameters([
+                'gameID' => $gameID,
+                'platformID' => $platformID
+            ])
             ->getQuery()
             ->getResult();
     }
