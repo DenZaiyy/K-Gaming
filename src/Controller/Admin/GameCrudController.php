@@ -48,11 +48,11 @@ class GameCrudController extends AbstractCrudController
         yield AssociationField::new('genres');
 
         $dateRelease = DateTimeField::new('date_release')
+            ->setFormat('dd-MM-yyyy')
             ->setFormTypeOptions([
                 'data' => new DateTime('now', new DateTimeZone('Europe/Paris')), // default data
                 'widget' => 'single_text',
-            ])
-            ->setFormat('dd-MM-yyyy');
+            ]);
 
         if (Crud::PAGE_EDIT === $pageName) {
             yield $dateRelease->setFormTypeOption('disabled', true);
