@@ -36,7 +36,7 @@ INSERT INTO `game` (`id`, `label`, `price`, `date_release`) VALUES
 	(6, 'Counter-Strike 2', 19.99, '2025-06-20'),
 	(7, 'Diablo IV', 19.99, '2023-06-06');
 
--- Listage des données de la table kgaming.game_genre : ~6 rows (environ)
+-- Listage des données de la table kgaming.game_genre : ~7 rows (environ)
 DELETE FROM `game_genre`;
 INSERT INTO `game_genre` (`game_id`, `genre_id`) VALUES
 	(1, 6),
@@ -47,7 +47,7 @@ INSERT INTO `game_genre` (`game_id`, `genre_id`) VALUES
 	(3, 9),
 	(4, 10);
 
--- Listage des données de la table kgaming.game_plateform : ~13 rows (environ)
+-- Listage des données de la table kgaming.game_plateform : ~20 rows (environ)
 DELETE FROM `game_plateform`;
 INSERT INTO `game_plateform` (`game_id`, `plateform_id`) VALUES
 	(1, 1),
@@ -109,14 +109,14 @@ INSERT INTO `purchase` (`id`, `user_id`, `firstname`, `lastname`, `billing_addre
 	(2, 1, 'Kévin', 'GRISCHKO', '29 rue du ban', '68200', 'Mulhouse', '2023-05-08 15:49:58'),
 	(3, 1, 'Kévin', 'GRISCHKO', '29 rue du ban', '68200', 'Mulhouse', '2023-05-08 15:49:58'),
 	(4, 1, 'Kévin', 'GRISCHKO', '29 rue du ban', '68200', 'Mulhouse', '2023-05-08 15:49:58'),
-	(5, 2, 'Test', 'BAHOUI', '123 rue du test', '68000', 'Colmar', '2023-05-08 15:50:36'),
-	(6, 2, 'Test', 'BAHOUI', '123 rue du test', '68000', 'Colmar', '2023-05-08 15:50:36'),
-	(7, 2, 'Test', 'BAHOUI', '123 rue du test', '68000', 'Colmar', '2023-05-08 15:50:36');
+	(5, 6, 'Test', 'BAHOUI', '123 rue du test', '68000', 'Colmar', '2023-05-08 15:50:36'),
+	(6, 6, 'Test', 'BAHOUI', '123 rue du test', '68000', 'Colmar', '2023-05-08 15:50:36'),
+	(7, 6, 'Test', 'BAHOUI', '123 rue du test', '68000', 'Colmar', '2023-05-08 15:50:36');
 
 -- Listage des données de la table kgaming.reset_password_request : ~0 rows (environ)
 DELETE FROM `reset_password_request`;
 
--- Listage des données de la table kgaming.stock : ~17 rows (environ)
+-- Listage des données de la table kgaming.stock : ~22 rows (environ)
 DELETE FROM `stock`;
 INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_key`, `date_availability`, `is_available`) VALUES
 	(1, 1, 1, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
@@ -142,12 +142,11 @@ INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_ke
 	(21, 2, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
 	(22, 2, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1);
 
--- Listage des données de la table kgaming.user : ~3 rows (environ)
+-- Listage des données de la table kgaming.user : ~2 rows (environ)
 DELETE FROM `user`;
-INSERT INTO `user` (`id`, `username`, `roles`, `password`, `email`, `avatar`, `is_verified`, `create_at`) VALUES
-	(1, 'denz', '["ROLE_ADMIN"]', '$2y$13$jjQF4rgjxHoO6gHwK/It/ekENtEV8mJnzqyQAWmsM58Ch.Xs9nVJS', 'admin@kgaming.com', '/img/default.png', 1, '2023-05-14 20:43:59'),
-	(2, 'test', '[]', '$2y$13$99yvYFVngTHU0WmhOTP/dO0qzPJn80PfYjANek6PvFG9xw7YpxkMK', 'test@test.com', NULL, 1, '2023-05-14 20:43:59'),
-	(6, 'testAvatar', '["ROLE_ADMIN"]', '$2y$13$CNSyDNHYgqVttbFybY/WmeYUw0ok1Pi3UyfoIg4O/oUtsfXgHKd/6', 'testAvatar@testAvatar.com', '/img/default.png', 1, '2023-05-14 20:43:59');
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `avatar`, `roles`, `is_verified`, `create_at`) VALUES
+	(1, 'denz', '$2y$13$jjQF4rgjxHoO6gHwK/It/ekENtEV8mJnzqyQAWmsM58Ch.Xs9nVJS', 'admin@kgaming.com', '/img/default.png', '["ROLE_ADMIN"]', 1, '2023-05-14 20:43:59'),
+	(6, 'testAvatar', '$2y$13$CNSyDNHYgqVttbFybY/WmeYUw0ok1Pi3UyfoIg4O/oUtsfXgHKd/6', 'testAvatar@testAvatar.com', '/img/default.png', '["ROLE_ADMIN"]', 1, '2023-05-14 20:43:59');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
