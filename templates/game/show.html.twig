@@ -58,12 +58,10 @@
 
                         <div class="btns">
                             {% if gameStock[0].total > 0 %}
-                                <a href="{{ path('app_add_cart', {'id': game.id, 'idPlatform': gamePlatform[0].platform_id}) }}"
+                                <a href="{{ path('app_add_cart', {id: game.id, idPlatform: gamePlatform[0].platform_id}) }}"
                                    class="btn btn-primary"><i
                                             class="bi bi-bag-plus"></i></a>
-                                <a href="{{ path('app_home', {'id': game.id}) }}"
-                                   class="btn btn-primary w-100">Acheter
-                                    maintenant</a>
+                                <a href="{{ path('app_home', {'id': game.id}) }}" class="btn btn-primary w-100">Acheter maintenant</a>
                             {% else %}
                                 <a class="btn btn-primary disabled"><i class="bi bi-bag-plus"></i></a>
                                 <a class="btn btn-primary w-100 disabled">Acheter maintenant</a>
