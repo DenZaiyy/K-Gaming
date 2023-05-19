@@ -22,12 +22,12 @@ class GameController extends AbstractController
     {
         $game = $em->getRepository(Game::class)->findOneBy(['id' => $gameID]);
         $gameStock = $em->getRepository(Stock::class)->findStockByGameID($gameID);
-//        dd($gameStock);
+        $gamePlatform = $em->getRepository(Game::class)->findOneGameInPlatform($gameID, $gameStock[0]['platform_id']);
 
         return $this->render('game/show.html.twig', [
             'game' => $game,
             'gameStock' => $gameStock,
-            'platform' => null,
+            'gamePlatform' => $gamePlatform,
         ]);
     }
 
@@ -35,14 +35,11 @@ class GameController extends AbstractController
     public function showGameInPlatform(EntityManagerInterface $em, $gameID, $platformID): Response
     {
         $game = $em->getRepository(Game::class)->findOneBy(['id' => $gameID]);
-        $platform = $em->getRepository(Plateform::class)->findOneBy(['id' => $platformID]);
-//        dd($platform);
         $gamePlatform = $em->getRepository(Game::class)->findOneGameInPlatform($gameID, $platformID);
         $gameStock = $em->getRepository(Stock::class)->findAvailableGameStockByPlatform($gameID, $platformID);
 
         return $this->render('game/show.html.twig', [
             'game' => $game,
-            'platform' => $platform,
             'gamePlatform' => $gamePlatform,
             'gameStock' => $gameStock,
         ]);
