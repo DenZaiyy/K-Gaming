@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon panier{% endblock %}
+
+{% block body %}
+    {% if cart|length > 0 %}
+        {{ dump(cart) }}
+        {% set total = null %}
+
+        <div class="cart d-flex justify-content-center text-start gap-5">
+            <div class="cart-item">
+                <h2>Panier</h2>
+                <div class="card d-flex gap-1 p-4">
+                    {% for item in cart %}
+                        {% set total = total + (item.game.price * item.quantity) %}
+                        <div class="game d-flex flex-wrap justify-content-between gap-2" id="gameCart" data-id="{{ loop.index0 }}">
+                            <div class="about d-flex flex-wrap gap-3">
+                                <div class="image">
+                                    <img src="https://images.igdb.com/igdb/image/upload/t_cover_med/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: item.game.label })) }}.jpg"
+                                         draggable="false" alt="cover for game: {{ item.game.label }}">
+                                </div>
+                                <div class="infos d-flex flex-column justify-content-center">
+                                    <div class="game-platform d-flex gap-2">
+                                        <div class="plateform-logo">
+                                            <img src="{{ item.platform.logo }}"
+                                                 draggable="false"
+                                                 alt="plateforme {{ item.platform.label }}"
+                                                 height="32" width="32">
+                                        </div>
+                                        <div class="game-name">
+                                            <a href="{{ path('app_show_game_platform', {platformID: item.platform.id, gameID: item.game.id}) }}"><span>{{ item.game.label }}</span></a>
+                                        </div>
+                                    </div>
+                                    <div class="delete-icon">
+                                        <a href="{{ path('app_remove_cart', {'id': item.game.id}) }}"><i class="bi bi-trash3-fill"></i> Retirer</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="price d-flex align-items-center gap-2">
+                                <select name="qtt" id="qtt" class="form-select" data-game="{{ item.game.id }}" data-platform="{{ item.platform.id }}">
+                                    {% for i in range(1, 10) %}
+                                        {% if i  == item.quantity %}
+                                        <option value="{{ i }}" selected>{{ i }}</option>
+                                        {% else %}
+                                        <option value="{{ i }}">{{ i }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                                {# <a href="{{ path('app_decrease_cart', {id: item.game.id}) }}" class="btn"><i class="bi bi-dash"></i></a>
+                                    <label>
+                                        <input type="number" readonly class="form-control number" value="{{ item.quantity }}">
+                                    </label>
+                                    <a href="{{ path('app_add_cart', {id: item.game.id, idPlatform: item.platform.id}) }}" class="btn"><i class="bi bi-plus"></i></a> #}
+                                <strong>{{ item.game.price }} €</strong>
+                            </div>
+                        </div>
+                        {% if not loop.last %}
+                            <hr>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="summary w-25">
+                <h2>Récapitulatif</h2>
+                <div class="card p-4 d-flex gap-1">
+                    <div class="details mb-2">
+                        <strong class="d-flex justify-content-between align-items-center">Sous-total <span
+                                    class="fs-5">{{ total }} €</span></strong>
+                    </div>
+                    <div class="btns w-100">
+                        <a href="" class="btn btn-outline-primary w-100">Passer la commande</a>
+                        <hr>
+                        <a href="{{ path('app_home') }}" class="btn btn-outline-secondary w-100">Continuer mes
+                            achats</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="container d-flex flex-column justify-content-center align-items-center">
+            <h1>Votre panier est vide</h1>
+            <a href="{{ path('app_home') }}" class="btn btn-primary">Retour à l'accueil</a>
+        </div>
+    {% endif %}
+{% endblock %}
