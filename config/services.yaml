@@ -7,6 +7,8 @@ parameters:
     file_directory: '%kernel.project_dir%/public/uploads'
     app.client_id: '%env(CLIENT_ID)%'
     app.authorization: '%env(AUTHORIZATION)%'
+    app.stripe_private_key: '%env(STRIPE_PRIVATE_KEY)%'
+    app.stripe_public_key: '%env(STRIPE_PUBLIC_KEY)%'
 
 services:
     # default configuration for services in *this* file
