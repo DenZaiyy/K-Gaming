@@ -19,12 +19,15 @@ class CartService extends AbstractController
     public function addToCart(int $id, $idPlatform): void
     {
         $cart = $this->getSession()->get('cart', []);
+        $game = $this->em->getRepository(Game::class)->find($id);
+        $platform = $this->em->getRepository(Plateform::class)->find($idPlatform);
 
         $found = false;
         foreach ($cart as $item) {
-            if ($item['game'] === $id && $item['platform'] === $idPlatform) {
+            if ($item['game'] == $id && $item['platform'] == $idPlatform) {
                 $item['quantity']++;
                 $found = true;
+                break;
             }
         }
 
@@ -39,12 +42,12 @@ class CartService extends AbstractController
         $this->getSession()->set('cart', $cart);
     }
 
-    public function removeToCart(int $id): void
+    public function removeToCart(int $id, int $idPlatform): void
     {
         $cart = $this->getSession()->get('cart', []);
 
         foreach ($cart as $key => $item) {
-            if ($item['game'] === $id) {
+            if ($item['game'] === $id && $item['platform'] === $idPlatform) {
                 unset($cart[$key]);
             }
         }
@@ -52,25 +55,12 @@ class CartService extends AbstractController
         $this->getSession()->set('cart', $cart);
     }
 
-    public function increase(int $id): void
+    public function changeQtt($id, $qtt): void
     {
         $cart = $this->getSession()->get('cart', []);
 
-        if ($cart[$id]['quantity'] > 1) {
-            $cart[$id]['quantity']++;
-        } else {
-            unset($cart[$id]);
-        }
-
-        $this->getSession()->set('cart', $cart);
-    }
-
-    public function decrease(int $id): void
-    {
-        $cart = $this->getSession()->get('cart', []);
-
-        if ($cart[$id] > 1) {
-            $cart[$id]--;
+        if (array_key_exists($id, $cart)) {
+            $cart[$id]['quantity'] = $qtt;
         } else {
             unset($cart[$id]);
         }
@@ -95,7 +85,7 @@ class CartService extends AbstractController
 
                 if (!$game) {
                     // Remove the product from the cart if it no longer exists
-                    $this->removeToCart($key);
+                    $this->removeToCart($value['game'], $value['platform']);
                 }
 
                 $cartData[] = [
@@ -106,7 +96,30 @@ class CartService extends AbstractController
             }
         }
 
+
         return $cartData;
+    }
+
+    public function getTotalCart(): float|int
+    {
+        $cart = $this->getSession()->get('cart');
+
+        $total = 0;
+
+        if ($cart)
+        {
+            foreach ($cart as $item)
+            {
+                $game = $this->em->getRepository(Game::class)->find($item['game']);
+
+                $quantity = $item['quantity'];
+                $price = $game->getPrice();
+
+                $total += $quantity * $price;
+            }
+        }
+
+        return $total;
     }
 
     private function getSession(): SessionInterface

@@ -14,11 +14,12 @@ class CartController extends AbstractController
     public function index(CartService $cartService) : Response
     {
         return $this->render('cart/index.html.twig', [
-            'cart' => $cartService->getTotal()
+            'cart' => $cartService->getTotal(),
+            'cartTotal' => $cartService->getTotalCart(),
         ]);
     }
 
-    #[Route('/cart/add/game/{id<\d+>}/platform/{idPlatform<\d+>}', name: 'app_add_cart')]
+    #[Route('/cart/add/game/{id}/platform/{idPlatform}', name: 'app_add_cart')]
     public function addToCart(CartService $cartService, int $id, int $idPlatform): Response
     {
         $cartService->addToCart($id, $idPlatform);
@@ -26,29 +27,22 @@ class CartController extends AbstractController
         return $this->redirectToRoute('app_cart_index');
     }
 
-    #[Route('/cart/remove/{id<\d+>}', name: 'app_remove_cart')]
-    public function removeToCart(CartService $cartService, int $id): Response
+    #[Route('/cart/remove/{id<\d+>}/platform/{idPlatform}', name: 'app_remove_cart')]
+    public function removeToCart(CartService $cartService, int $id, int $idPlatform): Response
     {
-        $cartService->removeToCart($id);
+        $cartService->removeToCart($id, $idPlatform);
 
         return $this->redirectToRoute('app_cart_index');
     }
 
-    #[Route('/cart/increase/{id<\d+>}', name: 'app_increase_cart')]
-    public function increase(CartService $cartService, int $id): Response
+    #[Route('/cart/quantityChange/{id<\d+>}/{qtt}', name: 'app_quantity_change_cart')]
+    public function quantityChange(CartService $cartService, int $id, int $qtt): Response
     {
-        $cartService->increase($id);
+        $cartService->changeQtt($id, $qtt);
 
         return $this->redirectToRoute('app_cart_index');
     }
 
-    #[Route('/cart/decrease/{id<\d+>}', name: 'app_decrease_cart')]
-    public function decrease(CartService $cartService, int $id): Response
-    {
-        $cartService->decrease($id);
-
-        return $this->redirectToRoute('app_cart_index');
-    }
 
     #[Route('/cart/deleteAll', name: 'app_remove_all_cart')]
     public function removeAll(CartService $cartService): Response
