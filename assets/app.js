@@ -13,8 +13,8 @@ import './bootstrap';
 import './carousel';
 import './themeSwitch';
 
-$(document).ready(function () {
-	
+window.addEventListener('load', (e) => {
+	e.preventDefault()
 	// START PLATEFORME CHANGE
 	const plateform = document.getElementById("plateform");
 	
@@ -29,19 +29,16 @@ $(document).ready(function () {
 	}
 	// END PLATEFORME CHANGE
 	
-	// FIXME: Faire en sorte de pouvoir changer la quantité dans le panier grace au select sans avoir à recharger la page
 	// START QUANTITY CHANGE IN CART
-	const quantity = document.querySelectorAll("#qtt");
-	const cartId = document.querySelectorAll("#gameCart");
-	
-	quantity.forEach(function (qtt) {
-		const idGame = qtt.getAttribute("data-game");
-		const idPlatform = qtt.getAttribute("data-platform");
-		
+	const gameCart= document.querySelectorAll("#gameCart");
+
+	gameCart.forEach(function (game) {
+		const id = game.getAttribute("data-id");
+		const qtt = game.querySelector(".qtt");
+
 		qtt.addEventListener("change", function () {
-			window.location.href = "/cart/add/game/" + idGame + "/platform/" + idPlatform;
+			window.location.href = "/cart/quantityChange/" + id + "/" + qtt.value;
 		})
-		
 	})
 	// END QUANTITY CHANGE IN CART
 })
