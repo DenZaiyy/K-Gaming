@@ -15,21 +15,22 @@ class CartService extends AbstractController
     {
     }
 
-    //FIXME: Faire en sorte d'ajouter une quantité si le produit est déjà dans le panier
     public function addToCart(int $id, $idPlatform): void
     {
         $cart = $this->getSession()->get('cart', []);
 
         $found = false;
-        //FIXME: Faire en sorte d'ajouter une quantité si le produit est déjà dans le panier et le mettre à jour sur le rendu
-        foreach ($cart as $item) {
+
+        foreach ($cart as $key => $item) {
             if ($item['game'] == $id && $item['platform'] == $idPlatform) {
-                $item['quantity']++;
-                $found = true;
+                $found = $key;
+                break;
             }
         }
 
-        if (!$found) {
+        if ($found !== false) {
+            $cart[$found]['quantity']++;
+        } else {
             $cart[] = [
                 'game' => $id,
                 'platform' => $idPlatform,
