@@ -7,6 +7,7 @@ use App\Entity\Game;
 use App\Entity\Genre;
 use App\Entity\Plateform;
 use App\Entity\Stock;
+use App\Service\CartService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,12 +25,12 @@ class HomeController extends AbstractController
 		return $this->render('home/index.html.twig', [
 			'tendencies' => $tendencies,
 			'preorders' => $preorders,
-			'genres' => $genres,
+			'genres' => $genres
 		]);
 	}
 
 	#[Route('/navBar', name: 'app_nav_bar')]
-	public function navBar(EntityManagerInterface $em): Response
+	public function navBar(EntityManagerInterface $em, CartService $cartService): Response
 	{
 		$categories = $em->getRepository(Category::class)->findAll();
 		$plateforms = $em->getRepository(Plateform::class)->findAll();
@@ -37,6 +38,7 @@ class HomeController extends AbstractController
 		return $this->render('components/_header.html.twig', [
 			'categories' => $categories,
 			'plateforms' => $plateforms,
+            'cartTotal' => $cartService->getTotalCart()
 		]);
 	}
 }
