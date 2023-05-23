@@ -26,6 +26,10 @@
             {% endfor %}
         </div>
         <div class="icons">
+            <div class="toggle-container">
+                <input class="container_toggle" type="checkbox" id="switch" name="mode">
+                <label for="switch">Toggle</label>
+            </div>
             <div class="dropdown">
                 <button class="dropBtn" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownCart">
                     <i class="bi bi-cart4"></i>
@@ -76,10 +80,6 @@
                         <a href="{{ path('app_register') }}">Inscription</a>
                     {% endif %}
                 </div>
-            </div>
-            <div class="toggle-container">
-                <input class="container_toggle" type="checkbox" id="switch" name="mode">
-                <label for="switch">Toggle</label>
             </div>
         </div>
     </nav>
