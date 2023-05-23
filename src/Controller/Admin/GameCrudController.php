@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
@@ -42,8 +43,9 @@ class GameCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        yield NumberField::new('id')->hideOnForm();
         yield TextField::new('label');
-        yield NumberField::new('price');
+        yield MoneyField::new('price')->setCurrency('EUR');
         yield AssociationField::new('plateforms');
         yield AssociationField::new('genres');
 
