@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+	<div class="container">
+		
+		
+		<div class="user-infos d-flex justify-content-center flex-column w-auto">
+			<div class="avatar">
+				<img src="{{ app.user.avatar }}" alt="avatar of {{ app.user.username }}" width="100" height="100">
+			</div>
+			<div class="username">
+				<strong>{{ app.user.username|upper }}</strong>
+			</div>
+			<div class="member-since">
+				<small>Membre depuis : {{ fullDateFR(app.user.createAt) }}</small>
+			</div>
+		</div>
+		<div class="about d-flex flex-wrap justify-content-center my-5 gap-5">
+			<div class="current-purchase">
+				<h2>Mes achats</h2>
+				{% for purchase in app.user.purchase %}
+					
+						{% for item in purchase.stock %}
+							{% if item.purchase.id == purchase.id %}
+								<div class="card">
+								 {{ dump(item) }}
+								</div>
+							{% endif %}
+						{% endfor %}
+				{% endfor %}
+			</div>
+			<div class="settings">
+				<h2>Personnalisez votre profil</h2>
+				<div class="picture-pseudo d-flex flex-wrap w-100 gap-5">
+					<div class="avatar d-flex flex-column gap-2">
+						<label><strong>Photo de profil</strong></label>
+						<img src="{{ app.user.avatar }}" alt="avatar of {{ app.user.username }}" width="50" height="50">
+					</div>
+					<div class="username d-flex flex-column gap-2">
+						<label><strong>Pseudo</strong></label>
+						<small>{{ app.user.username|upper }}</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
