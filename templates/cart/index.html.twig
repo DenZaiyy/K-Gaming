@@ -4,7 +4,6 @@
 
 {% block body %}
 	{% if cart|length > 0 %}
-{#		{{ dump(cart) }}#}
 		<div class="cart d-flex flex-wrap justify-content-center text-start gap-5 my-5">
 			<div class="cart-item">
 				<h2>Panier</h2>
@@ -37,16 +36,34 @@
 							</div>
 							
 							<div class="price d-flex align-items-center gap-2">
+								{% set amount = null %}
+								{% for stock in item.game.stocks %}
+									{% if stock.isavailable == true and stock.plateform.id == item.platform.id and stock.purchase == null %}
+										{% set amount = amount + 1 %}
+									{% endif %}
+								{% endfor %}
+								
 								<select name="qtt" class="form-select qtt" data-game="{{ item.game.id }}"
 								        data-platform="{{ item.platform.id }}">
-									{% for i in range(1, 10) %}
-{#										<option value="{{ item.quantity }}">{{ item.quantity }}</option>#}
-										{% if i == item.quantity %}
-											<option value="{{ i }}" selected>{{ i }}</option>
-										{% else %}
-											<option value="{{ i }}">{{ i }}</option>
-										{% endif %}
-									{% endfor %}
+									{% set maxValue = 10 %}
+									
+									{% if amount > maxValue %}
+										{% for i in range(1, maxValue) %}
+											{% if i == item.quantity %}
+												<option value="{{ i }}" selected>{{ i }}</option>
+											{% else %}
+												<option value="{{ i }}">{{ i }}</option>
+											{% endif %}
+										{% endfor %}
+									{% else %}
+										{% for i in range(1, amount) %}
+											{% if i == item.quantity %}
+												<option value="{{ i }}" selected>{{ i }}</option>
+											{% else %}
+												<option value="{{ i }}">{{ i }}</option>
+											{% endif %}
+										{% endfor %}
+									{% endif %}
 								</select>
 								
 								<strong>{{ item.game.price }} €</strong>
@@ -68,7 +85,7 @@
 						</strong>
 					</div>
 					<div class="btns w-100">
-						<a href="" class="btn btn-outline-primary w-100">Passer la commande</a>
+						<a href="{{ path('order_index') }}" class="btn btn-outline-primary w-100">Passer la commande</a>
 						<hr>
 						<a href="{{ path('app_home') }}" class="btn btn-outline-secondary w-100">Continuer mes
 							achats</a>
