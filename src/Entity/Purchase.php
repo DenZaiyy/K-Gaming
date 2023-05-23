@@ -35,6 +35,10 @@ class Purchase
         $this->stock = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->address->getFirstname() . ' ' . $this->address->getLastname();
+    }
 
     public function getId(): ?int
     {
