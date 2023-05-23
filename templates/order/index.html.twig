@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {% endblock %}
+
+{% block body %}
+	{{ dump(recapCart) }}
+	{% set total = null %}
+	{% for items in recapCart %}
+		{% set total = total + (items.quantity) %}
+	{% endfor %}
+	{{ total }}
+	<div class="recap-order">
+		{{ form_start(form) }}
+		{{ form_widget(form.addresses)|replace({'[-br]': '</br>'})|raw }}
+		{{ form_end(form) }}
+	</div>
+
+{% endblock %}
