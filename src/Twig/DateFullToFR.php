@@ -3,6 +3,7 @@
 namespace App\Twig;
 
 use DateTime;
+use DateTimeImmutable;
 use IntlDateFormatter;
 use Twig\TwigFunction;
 use Twig\Extension\AbstractExtension;
@@ -14,6 +15,7 @@ class DateFullToFR extends AbstractExtension
 	{
 		return [
 			new TwigFunction('dateFR', [$this, 'dateFR']),
+            new TwigFunction('fullDateFR', [$this, 'fullDateFR'])
 		];
 	}
 
@@ -24,4 +26,11 @@ class DateFullToFR extends AbstractExtension
 
 		return $formatter->format($date);
 	}
+
+    public function fullDateFR(DateTimeImmutable $date): string
+    {
+        $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::LONG, IntlDateFormatter::NONE);
+
+        return $formatter->format($date);
+    }
 }
