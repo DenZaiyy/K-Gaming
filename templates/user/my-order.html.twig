@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes commandes{% endblock %}
+
+{% block body %}
+	<div class="current-purchase">
+		<h2>Mes achats</h2>
+		{% for purchase in purchases %}
+			{{ dump(purchase) }}
+		{% endfor %}
+		{#{% for purchase in app.user.purchase %}
+			
+			{% for item in purchase.stock %}
+				{% if item.purchase.id == purchase.id %}
+					<div class="card">
+						{{ dump(item) }}
+					</div>
+				{% endif %}
+			{% endfor %}
+		{% endfor %}#}
+	</div>
+{% endblock %}

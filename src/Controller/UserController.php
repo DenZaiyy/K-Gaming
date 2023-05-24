@@ -8,11 +8,23 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('/my-account', name: 'user_my_account')]
+    #[Route('/profil', name: 'user_my_account')]
     public function index(): Response
     {
+        $user = $this->getUser();
+
         return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
+            'user' => $user,
+        ]);
+    }
+
+    #[Route('/profil/my-order', name: 'user_my_order')]
+    public function myOrder(): Response
+    {
+        $purchase = $this->getUser()->getPurchase();
+
+        return $this->render('user/my-order.html.twig', [
+            'purchases' => $purchase,
         ]);
     }
 }
