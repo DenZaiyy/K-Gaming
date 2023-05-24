@@ -19,7 +19,7 @@ class CartController extends AbstractController
         ]);
     }
 
-    #[Route('/cart/add/game/{id}/platform/{idPlatform}', name: 'app_add_cart')]
+    #[Route('/cart/add/game/{id<\d+>}/platform/{idPlatform<\d+>}', name: 'app_add_cart')]
     public function addToCart(CartService $cartService, int $id, int $idPlatform): Response
     {
         $cartService->addToCart($id, $idPlatform);
@@ -27,7 +27,7 @@ class CartController extends AbstractController
         return $this->redirectToRoute('app_cart_index');
     }
 
-    #[Route('/cart/remove/{id<\d+>}/platform/{idPlatform}', name: 'app_remove_cart')]
+    #[Route('/cart/remove/{id<\d+>}/platform/{idPlatform<\d+>}', name: 'app_remove_cart')]
     public function removeToCart(CartService $cartService, int $id, int $idPlatform): Response
     {
         $cartService->removeToCart($id, $idPlatform);
@@ -35,7 +35,7 @@ class CartController extends AbstractController
         return $this->redirectToRoute('app_cart_index');
     }
 
-    #[Route('/cart/quantityChange/{id<\d+>}/{qtt}', name: 'app_quantity_change_cart')]
+    #[Route('/cart/quantityChange/{id<\d+>}/{qtt<\d+>}', name: 'app_quantity_change_cart')]
     public function quantityChange(CartService $cartService, int $id, int $qtt): Response
     {
         $cartService->changeQtt($id, $qtt);
