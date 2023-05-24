@@ -3,16 +3,46 @@
 {% block title %} {% endblock %}
 
 {% block body %}
-	{{ dump(recapCart) }}
-	{% set total = null %}
-	{% for items in recapCart %}
-		{% set total = total + (items.quantity) %}
-	{% endfor %}
-	{{ total }}
-	<div class="recap-order">
-		{{ form_start(form) }}
-		{{ form_widget(form.addresses)|replace({'[-br]': '</br>'})|raw }}
-		{{ form_end(form) }}
+	<div class="container my-3 text-start">
+		<div class="order-header d-flex justify-content-center gap-5">
+			<div class="address w-25">
+				<h2>Adresse</h2>
+				<div class="card d-flex gap-3 p-3">
+					{{ form_start(form) }}
+					{{ form_widget(form.addresses)|replace({'[-br]': '</br>'})|raw }}
+					{{ form_end(form) }}
+				</div>
+			</div>
+			<div class="recap  w-50">
+				<h2>Récapitulatif</h2>
+				<div class="card p-3">
+					{% for item in recapCart %}
+						<div class="about d-flex flex-row justify-content-between text-start">
+							<div class="game d-flex flex-column justify-content-start">
+								<div class="game-label">
+									<strong>{{ item.game.label }}</strong>
+								</div>
+								<div class="platform-label">
+									<span>{{ item.platform.label }}</span>
+								</div>
+							</div>
+							<div class="price d-flex flex-column text-start">
+								<div class="quantity">
+									<span><strong>Quantité :</strong> {{ item.quantity }}</span>
+								</div>
+								<div class="price">
+									<span><strong>Prix :</strong> {{ totalByGame(item.game.price, item.quantity, '€')|number_format(2, ',', ',') }} €</span>
+								</div>
+							</div>
+						</div>
+						
+						{% if not loop.last %}
+							<hr>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		
 	</div>
-
 {% endblock %}

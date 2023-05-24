@@ -24,7 +24,9 @@ class OrderController extends AbstractController
 
         return $this->render('order/index.html.twig', [
             'form' => $form->createView(),
-            'recapCart' => $cartService->getTotal()
+            'userAddress' => $this->getUser()->getAddresses(),
+            'recapCart' => $cartService->getTotal(),
+            'cartTotal' => $cartService->getTotalCart(),
         ]);
     }
 }
