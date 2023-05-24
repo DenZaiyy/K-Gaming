@@ -31,7 +31,7 @@
 									<span><strong>Quantité :</strong> {{ item.quantity }}</span>
 								</div>
 								<div class="price">
-									<span><strong>Prix :</strong> {{ totalByGame(item.game.price, item.quantity, '€')|number_format(2, ',', ',') }} €</span>
+									<span><strong>Prix :</strong> {{ totalByGame(item.game.price, item.quantity, '€')|price }}</span>
 								</div>
 							</div>
 						</div>

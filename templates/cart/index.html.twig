@@ -59,7 +59,7 @@
 									{% endfor %}
 								</select>
 								
-								<strong>{{ item.game.price }} €</strong>
+								<strong>{{ item.game.price|price }}</strong>
 							</div>
 						</div>
 						{% if not loop.last %}
@@ -74,7 +74,7 @@
 				<div class="card p-4 d-flex gap-1">
 					<div class="details mb-2">
 						<strong class="d-flex flex-wrap justify-content-between align-items-center">
-							Sous-total <span class="fs-5">{{ cartTotal }} €</span>
+							Sous-total <span class="fs-5">{{ cartTotal|price }}</span>
 						</strong>
 					</div>
 					<div class="btns w-100">
