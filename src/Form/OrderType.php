@@ -13,6 +13,7 @@ class OrderType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $user = $options['user'];
+
         $builder
             ->add('addresses', EntityType::class, [
                 'class' => Address::class,
@@ -21,6 +22,9 @@ class OrderType extends AbstractType
                 'multiple' => false,
                 'choices' => $user->getAddresses(),
                 'expanded' => true,
+                'attr' => [
+                    'class' => 'gap-2 d-flex flex-column align-content-center'
+                ]
             ])
         ;
     }
