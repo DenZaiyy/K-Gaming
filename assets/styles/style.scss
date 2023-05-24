@@ -652,7 +652,17 @@ main {
 			width: 40%;
 			.game {
 				width: 100%;
-				
+
+				.about {
+					.infos {
+						.delete-icon {
+							font-size: small;
+							width: max-content;
+							padding-left: 5px;
+						}
+					}
+				}
+
 				.price {
 					select {
 						width: max-content;

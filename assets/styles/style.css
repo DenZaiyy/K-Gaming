@@ -550,6 +550,11 @@ main .cart .cart-item {
 main .cart .cart-item .game {
   width: 100%;
 }
+main .cart .cart-item .game .about .infos .delete-icon {
+  font-size: small;
+  width: max-content;
+  padding-left: 5px;
+}
 main .cart .cart-item .game .price select {
   width: max-content;
 }
