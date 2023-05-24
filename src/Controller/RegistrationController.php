@@ -53,6 +53,8 @@ class RegistrationController extends AbstractController
 				$user->setAvatar('/img/default.png');
 			}
 
+            $user->setCreateAt(new \DateTimeImmutable());
+
             $entityManager->persist($user);
             $entityManager->flush();
 
