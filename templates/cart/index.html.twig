@@ -4,6 +4,7 @@
 
 {% block body %}
 	{% if cart|length > 0 %}
+		{{ dump(cart) }}
 		<div class="cart d-flex flex-wrap justify-content-center text-start gap-5 my-5">
 			<div class="cart-item">
 				<h2>Panier</h2>
@@ -18,7 +19,7 @@
 								</div>
 								<div class="infos d-flex flex-column justify-content-center">
 									<div class="game-platform d-flex gap-2">
-										<div class="plateform-logo">
+										<div class="platform-logo">
 											<img src="{{ item.platform.logo }}"
 											     draggable="false"
 											     alt="plateforme {{ item.platform.label }}"
@@ -29,8 +30,9 @@
 										</div>
 									</div>
 									<div class="delete-icon">
-										<a href="{{ path('app_remove_cart', {'id': item.game.id, 'idPlatform': item.platform.id}) }}"><i
-													class="bi bi-trash3-fill"></i> Retirer</a>
+										<a href="{{ path('app_remove_cart', {'id': item.game.id, 'idPlatform': item.platform.id}) }}">
+											<i class="bi bi-trash3-fill"></i> Retirer
+										</a>
 									</div>
 								</div>
 							</div>
@@ -43,13 +45,14 @@
 									{% endif %}
 								{% endfor %}
 								
-								<select name="qtt" class="form-select qtt" data-game="{{ item.game.id }}"
+								<select name="qtt" class="form-select qtt"
+								        data-game="{{ item.game.id }}"
 								        data-platform="{{ item.platform.id }}">
 									{% for i in range(1, amount) %}
-										{% if i == item.quantity%}
+										{% if i == item.quantity %}
 											<option value="{{ i }}" selected>{{ i }}</option>
 										{% else %}
-											{% if loop.index < 6 %}
+											{% if loop.index <= 5 %}
 												<option value="{{ i }}">{{ i }}</option>
 											{% endif %}
 										{% endif %}
@@ -84,7 +87,7 @@
 			</div>
 		</div>
 	{% else %}
-		<div class="container d-flex flex-column justify-content-center align-items-center">
+		<div class="container d-flex flex-column justify-content-center align-items-center my-5">
 			<h1>Votre panier est vide</h1>
 			<a href="{{ path('app_home') }}" class="btn btn-primary">Retour à l'accueil</a>
 		</div>
