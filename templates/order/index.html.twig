@@ -4,45 +4,70 @@
 
 {% block body %}
 	<div class="container my-3 text-start">
-		<div class="order-header d-flex justify-content-center gap-5">
-			<div class="address w-25">
-				<h2>Adresse</h2>
-				<div class="card d-flex gap-3 p-3">
-					{{ form_start(form) }}
-					{{ form_widget(form.addresses)|replace({'[-br]': '</br>'})|raw }}
-					{{ form_end(form) }}
+		<div class="order">
+			{{ form_start(form, {action:path('order_prepare')}) }}
+			<div class="order-header d-flex justify-content-center gap-5">
+				<div class="address w-25">
+					<h2>Adresse</h2>
+					<div class="card d-flex gap-3 p-3">
+						<div class="select">
+							{{ form_widget(form.addresses)|replace({'[-br]': '</br>'})|raw }}
+						</div>
+						<div class="new-address">
+							<a href="{{ path('user_add_address') }}" class="btn btn-outline-primary w-100">Ajouter une
+								nouvelle adresse</a>
+						</div>
+					</div>
 				</div>
-			</div>
-			<div class="recap  w-50">
-				<h2>Récapitulatif</h2>
-				<div class="card p-3">
-					{% for item in recapCart %}
-						<div class="about d-flex flex-row justify-content-between text-start">
-							<div class="game d-flex flex-column justify-content-start">
-								<div class="game-label">
-									<strong>{{ item.game.label }}</strong>
+				<div class="recap">
+					<h2>Récapitulatif</h2>
+					<div class="cards d-flex flex-column gap-3">
+						<div class="card p-3">
+							{% for item in recapCart %}
+								<div class="about d-flex flex-row flex-wrap justify-content-between text-start">
+									<div class="game d-flex flex-column justify-content-start">
+										<div class="game-label">
+											<strong>{{ item.game.label }}</strong>
+										</div>
+										<div class="platform-label">
+											<span>{{ item.platform.label }}</span>
+										</div>
+									</div>
+									<div class="price d-flex flex-column text-start">
+										<div class="quantity">
+											<span><strong>Quantité :</strong> {{ item.quantity }}</span>
+										</div>
+										<div class="price">
+											<span><strong>Prix :</strong> {{ totalByGame(item.game.price, item.quantity, '€') }}</span>
+										</div>
+									</div>
 								</div>
-								<div class="platform-label">
-									<span>{{ item.platform.label }}</span>
+								
+								{% if not loop.last %}
+									<hr>
+								{% endif %}
+							{% endfor %}
+						</div>
+						<div class="card p-3 d-flex flex-column gap-3">
+							<div class="prices">
+								<div class="tva d-flex justify-content-between">
+									<span>TVA (20%) :</span>
+									<span>0 €</span>
+								</div>
+								<div class="total d-flex justify-content-between">
+									<strong>TOTAL</strong>
+									<strong class="fs-5">0€</strong>
 								</div>
 							</div>
-							<div class="price d-flex flex-column text-start">
-								<div class="quantity">
-									<span><strong>Quantité :</strong> {{ item.quantity }}</span>
-								</div>
-								<div class="price">
-									<span><strong>Prix :</strong> {{ totalByGame(item.game.price, item.quantity, '€')|price }}</span>
-								</div>
+							
+							<div class="validate">
+								<button type="submit" class="btn btn-outline-primary w-100">Payer</button>
 							</div>
 						</div>
-						
-						{% if not loop.last %}
-							<hr>
-						{% endif %}
-					{% endfor %}
+					</div>
 				</div>
 			</div>
+			{{ form_end(form) }}
 		</div>
-		
 	</div>
 {% endblock %}
