@@ -18,16 +18,16 @@ class CartService extends AbstractController
     public function addToCart(int $id, $idPlatform): void
     {
         $cart = $this->getSession()->get('cart', []);
-        $game = $this->em->getRepository(Game::class)->find($id);
+        //$game = $this->em->getRepository(Game::class)->find($id);
 
         $found = false;
 
         foreach ($cart as $key => $item) {
             if ($item['game'] == $id && $item['platform'] == $idPlatform) {
-                foreach ($game->getStocks() as $stock){
+                /*foreach ($game->getStocks() as $stock){
                     if ($stock->getPlateform()->getId() == $idPlatform){
                         if ($stock->isIsAvailable() === true){
-//                            dd($stock);
+                            // dd($stock);
                             if ($item['quantity'] == $game->getStocks()->count())
                             {
                                 $found = $key;
@@ -35,9 +35,9 @@ class CartService extends AbstractController
                             }
                         }
                     }
-                }
-//                $found = $key;
-//                break;
+                }*/
+                $found = $key;
+                break;
             }
         }
 
@@ -107,7 +107,6 @@ class CartService extends AbstractController
                 ];
             }
         }
-
 
         return $cartData;
     }
