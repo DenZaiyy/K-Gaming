@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Purchase;
 use Doctrine\ORM\EntityManagerInterface;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
@@ -19,14 +20,17 @@ class PaymentController extends AbstractController
         $this->em = $em;
     }
 
-    #[Route('/order/create-session-stripe', name: 'app_stripe_checkout')]
-    public function stripeCheckout(): RedirectResponse
+    #[Route('/order/create-session-stripe/{purchaseID}', name: 'app_stripe_checkout')]
+    public function stripeCheckout($purchaseID): RedirectResponse
     {
+        $order = $this->em->getRepository(Purchase::class)->findOneBy(['id' => $purchaseID]);
+        dd($order);
+
+
         Stripe::setApiKey($this->getParameter('app.stripe_private_key'));
 
         $checkout_session = Session::create([
             'line_items' => [[
-                # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
                 'price' => '{{PRICE_ID}}',
                 'quantity' => 1,
             ]],
