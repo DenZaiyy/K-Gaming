@@ -21,7 +21,7 @@ class OrderType extends AbstractType
                 'required' => true,
                 'multiple' => false,
                 'choices' => $user->getAddresses(),
-                'expanded' => true,
+                'expanded' => false,
                 'attr' => [
                     'class' => 'gap-2 d-flex flex-column align-content-center'
                 ]
