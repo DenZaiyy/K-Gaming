@@ -14,12 +14,13 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Listage des données de la table kgaming.address : ~0 rows (environ)
+-- Listage des données de la table kgaming.address : ~4 rows (environ)
 DELETE FROM `address`;
 INSERT INTO `address` (`id`, `user_id`, `label`, `firstname`, `lastname`, `address`, `cp`, `city`) VALUES
 	(1, 1, 'Maison', 'Kevin', 'GRISCHKO', '29 rue du ban', '68200', 'Mulhouse'),
 	(2, 6, 'Test', 'Test', 'LASTNAME', 'ADDRESS', 'CP', 'CITY'),
-	(3, 1, 'Travail', 'Kevin', 'GRISCHKO', '16 rue de la rose', '68270', 'Wittenheim');
+	(3, 1, 'Travail', 'Kevin', 'GRISCHKO', '16 rue de la rose', '68270', 'Wittenheim'),
+	(4, 1, 'Elan', 'elan', 'Elan', 'Elan', '68200', 'Mulhouse');
 
 -- Listage des données de la table kgaming.category : ~3 rows (environ)
 DELETE FROM `category`;
@@ -31,7 +32,7 @@ INSERT INTO `category` (`id`, `label`) VALUES
 -- Listage des données de la table kgaming.doctrine_migration_versions : ~1 rows (environ)
 DELETE FROM `doctrine_migration_versions`;
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-	('DoctrineMigrations\\Version20230505133924', '2023-05-05 16:47:20', 388);
+	('DoctrineMigrations\\Version20230523090825', '2023-05-05 16:47:20', 388);
 
 -- Listage des données de la table kgaming.game : ~6 rows (environ)
 DELETE FROM `game`;
@@ -78,7 +79,7 @@ INSERT INTO `game_plateform` (`game_id`, `plateform_id`) VALUES
 	(7, 8),
 	(7, 9);
 
--- Listage des données de la table kgaming.genre : ~10 rows (environ)
+-- Listage des données de la table kgaming.genre : ~11 rows (environ)
 DELETE FROM `genre`;
 INSERT INTO `genre` (`id`, `label`) VALUES
 	(1, 'FPS'),
@@ -109,28 +110,27 @@ INSERT INTO `plateform` (`id`, `category_id`, `label`, `logo`) VALUES
 	(8, 2, 'PlayStation 5', 'https://www.svgrepo.com/show/473757/playstation5.svg'),
 	(9, 3, 'Xbox One', 'https://www.svgrepo.com/show/303464/xbox-one-3-logo.svg');
 
--- Listage des données de la table kgaming.purchase : ~3 rows (environ)
+-- Listage des données de la table kgaming.purchase : ~2 rows (environ)
 DELETE FROM `purchase`;
-INSERT INTO `purchase` (`id`, `user_id`, `address_id`, `created_at`) VALUES
-	(8, 1, 1, '2023-05-23 11:12:08'),
-	(9, 1, 1, '2023-05-23 11:12:15'),
-	(10, 6, 2, '2023-05-23 11:13:39');
+INSERT INTO `purchase` (`id`, `user_id`, `address_id`, `is_paid`, `method`, `reference`, `stripe_session_id`, `paypal_order_id`, `created_at`) VALUES
+	(11, 1, 1, 0, 'Stripe', 'ggdgdgd', NULL, NULL, '2023-05-25 15:41:43'),
+	(12, 1, 3, 0, 'Stripe', 'ggdgdgd', NULL, NULL, '2023-05-25 15:41:43');
 
 -- Listage des données de la table kgaming.reset_password_request : ~0 rows (environ)
 DELETE FROM `reset_password_request`;
 
--- Listage des données de la table kgaming.stock : ~19 rows (environ)
+-- Listage des données de la table kgaming.stock : ~32 rows (environ)
 DELETE FROM `stock`;
 INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_key`, `date_availability`, `is_available`) VALUES
-	(1, 1, 8, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
-	(2, 1, 9, 4, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
+	(1, 1, 11, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
+	(2, 1, 11, 4, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
 	(3, 1, NULL, 6, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
 	(4, 1, NULL, 8, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
-	(5, 2, 9, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
-	(6, 2, 8, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
-	(7, 2, 8, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
+	(5, 2, 12, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
+	(6, 2, 11, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
+	(7, 2, 12, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
 	(8, 3, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
-	(9, 3, 8, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
+	(9, 3, 11, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
 	(10, 4, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
 	(11, 1, NULL, 9, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
 	(12, 1, NULL, 7, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
@@ -155,11 +155,11 @@ INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_ke
 	(31, 2, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
 	(32, 2, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1);
 
--- Listage des données de la table kgaming.user : ~3 rows (environ)
+-- Listage des données de la table kgaming.user : ~2 rows (environ)
 DELETE FROM `user`;
-INSERT INTO `user` (`id`, `username`, `password`, `email`, `avatar`, `roles`, `is_verified`, `create_at`) VALUES
-	(1, 'denz', '$2y$13$jjQF4rgjxHoO6gHwK/It/ekENtEV8mJnzqyQAWmsM58Ch.Xs9nVJS', 'admin@kgaming.com', '/img/default.png', '["ROLE_ADMIN"]', 1, '2023-05-14 20:43:59'),
-	(6, 'testAvatar', '$2y$13$CNSyDNHYgqVttbFybY/WmeYUw0ok1Pi3UyfoIg4O/oUtsfXgHKd/6', 'testAvatar@testAvatar.com', '/img/default.png', '["ROLE_ADMIN"]', 1, '2023-05-14 20:43:59');
+INSERT INTO `user` (`id`, `username`, `roles`, `password`, `email`, `avatar`, `is_verified`, `create_at`) VALUES
+	(1, 'denz', '["ROLE_ADMIN"]', '$2y$13$jjQF4rgjxHoO6gHwK/It/ekENtEV8mJnzqyQAWmsM58Ch.Xs9nVJS', 'admin@kgaming.com', '/img/default.png', 1, '2023-05-14 20:43:59'),
+	(6, 'testAvatar', '["ROLE_ADMIN"]', '$2y$13$CNSyDNHYgqVttbFybY/WmeYUw0ok1Pi3UyfoIg4O/oUtsfXgHKd/6', 'testAvatar@testAvatar.com', '/img/default.png', 1, '2023-05-14 20:43:59');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
