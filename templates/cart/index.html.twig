@@ -4,7 +4,7 @@
 
 {% block body %}
 	{% if cart|length > 0 %}
-		{{ dump(cart) }}
+{#		{{ dump(cart) }}#}
 		<div class="cart d-flex flex-wrap justify-content-center text-start gap-5 my-5">
 			<div class="cart-item">
 				<h2>Panier</h2>
@@ -78,7 +78,7 @@
 						</strong>
 					</div>
 					<div class="btns w-100">
-						<a href="{{ path('order_index') }}" class="btn btn-outline-primary w-100">Passer la commande</a>
+						<a href="{{ path('order_create') }}" class="btn btn-outline-primary w-100">Passer la commande</a>
 						<hr>
 						<a href="{{ path('app_home') }}" class="btn btn-outline-secondary w-100">Continuer mes
 							achats</a>
