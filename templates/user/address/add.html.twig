@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block title %} Ajouter une adresse{% endblock %}
+
+{% block body %}
+	<h1>Ajouter une adresse</h1>
+	
+	<div class="card w-50 p-3 m-auto">
+		{{ form_start(formAddAddress) }}
+		<div class="card-body">
+			<div class="form-floating mb-3">
+				{{ form_widget(formAddAddress.label) }}
+				{{ form_label(formAddAddress.label) }}
+			</div>
+			
+			<div class="row g-2 mb-3">
+				<div class="form-floating col">
+					{{ form_widget(formAddAddress.firstname) }}
+					{{ form_label(formAddAddress.firstname) }}
+				</div>
+				<div class="form-floating col">
+					{{ form_widget(formAddAddress.lastname) }}
+					{{ form_label(formAddAddress.lastname) }}
+				</div>
+			</div>
+			
+			<div class="form-floating mb-3">
+				{{ form_widget(formAddAddress.address) }}
+				{{ form_label(formAddAddress.address) }}
+			</div>
+			
+			<div class="row g-2 mb-3">
+				<div class="form-floating col">
+					{{ form_widget(formAddAddress.cp) }}
+					{{ form_label(formAddAddress.cp) }}
+				</div>
+				<div class="form-floating col">
+					{{ form_widget(formAddAddress.city) }}
+					{{ form_label(formAddAddress.city) }}
+				</div>
+			</div>
+			
+			{{ form_widget(formAddAddress.submit) }}
+		</div>
+		{{ form_end(formAddAddress) }}
+	</div>
+{% endblock %}

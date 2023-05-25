@@ -46,10 +46,11 @@ class Address
 
     public function __toString(): string
     {
-        return $this->getLabel() . '[-br]' .
-            $this->getAddress() . '[-br]' .
-            $this->getCp() . ' - ' .
-            $this->getCity();
+        return $this->getLabel();
+//            . '[-br]' .
+//            $this->getAddress() . '[-br]' .
+//            $this->getCp() . ' - ' .
+//            $this->getCity();
     }
 
     public function getId(): ?int
