@@ -671,6 +671,18 @@ main {
 			}
 		}
 	}
+
+	.order {
+		display: flex;
+		flex-direction: column;
+
+		.order-header {
+
+			.recap {
+				width: 35%;
+			}
+		}
+	}
 }
 
 footer {

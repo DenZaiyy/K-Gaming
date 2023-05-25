@@ -558,6 +558,13 @@ main .cart .cart-item .game .about .infos .delete-icon {
 main .cart .cart-item .game .price select {
   width: max-content;
 }
+main .order {
+  display: flex;
+  flex-direction: column;
+}
+main .order .order-header .recap {
+  width: 35%;
+}
 
 footer {
   user-select: none;
