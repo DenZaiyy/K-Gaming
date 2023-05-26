@@ -563,7 +563,7 @@ main .order {
   flex-direction: column;
 }
 main .order .order-header .recap {
-  width: 35%;
+  width: 40%;
 }
 
 footer {
