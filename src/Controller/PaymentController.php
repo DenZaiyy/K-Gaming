@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Game;
 use App\Entity\Purchase;
+use App\Service\CartService;
 use Doctrine\ORM\EntityManagerInterface;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
@@ -10,29 +12,48 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PaymentController extends AbstractController
 {
-    private EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(private EntityManagerInterface $em, private UrlGeneratorInterface $urlGenerator)
     {
-        $this->em = $em;
     }
 
-    #[Route('/order/create-session-stripe/{purchaseID}', name: 'app_stripe_checkout')]
-    public function stripeCheckout($purchaseID): RedirectResponse
+    #[Route('/order/create-session-stripe/{reference}', name: 'app_stripe_checkout')]
+    public function stripeCheckout($reference): RedirectResponse
     {
-        $order = $this->em->getRepository(Purchase::class)->findOneBy(['id' => $purchaseID]);
-        dd($order);
+        $productStripe = [];
 
+        $purchase = $this->em->getRepository(Purchase::class)->findOneBy(['reference' => $reference]);
+
+        if (!$purchase) {
+            return $this->redirectToRoute('app_cart_index');
+        }
+
+        foreach ($purchase->getRecapDetails()->getValues() as $product) {
+            $productData = $this->em->getRepository(Game::class)->findOneBy(['label' => $product->getGame()]);
+
+            $productStripe[] = [
+                'price_data' => [
+                    'currency' => 'eur',
+                    'unit_amount' => $productData->getPrice(),
+                    'product_data' => [
+                        'name' => $product->getGame(),
+                        'platform' => $product->getPlatform(),
+                    ],
+                ],
+                'quantity' => $product->getQuantity(),
+            ];
+        }
 
         Stripe::setApiKey($this->getParameter('app.stripe_private_key'));
 
         $checkout_session = Session::create([
+            'customer_email' => $this->getUser()->getEmail(),
+            'payment_method_types' => ['card'],
             'line_items' => [[
-                'price' => '{{PRICE_ID}}',
-                'quantity' => 1,
+                $productStripe
             ]],
             'mode' => 'payment',
             'success_url' => $YOUR_DOMAIN . '/success.html',
@@ -43,13 +64,13 @@ class PaymentController extends AbstractController
     }
 
     #[Route('/order/success/{reference}', name: 'app_stripe_success')]
-    public function stripeSuccess($reference): Response
+    public function stripeSuccess($reference, CartService $cartService): Response
     {
         return $this->render('order/success.html.twig');
     }
 
     #[Route('/order/error/{reference}', name: 'app_stripe_error')]
-    public function stripeError($reference): Response
+    public function stripeError($reference, CartService $cartService): Response
     {
         return $this->render('order/success.html.twig');
     }
