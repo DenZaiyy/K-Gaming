@@ -90,7 +90,8 @@ class OrderController extends AbstractController
             return $this->render('order/recap.html.twig', [
                 'method' => $purchase->getMethod(),
                 'recapCart' => $cartService->getTotal(),
-                'delivery' => $delivery,
+                'cartTotal' => $cartService->getTotalCart(),
+                'delivery' => $deliveryForPurchase,
                 'reference' => $purchase->getReference(),
             ]);
         }
