@@ -23,11 +23,11 @@ class Purchase
     private Collection $stock;
 
     #[ORM\ManyToOne(inversedBy: 'purchase')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'purchase')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Address $address = null;
 
     #[ORM\Column]
@@ -45,9 +45,19 @@ class Purchase
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $paypalOrderId = null;
 
+    #[ORM\OneToMany(mappedBy: 'orderProduct', targetEntity: RecapDetails::class)]
+    private Collection $recapDetails;
+
+    #[ORM\Column(length: 255)]
+    private ?string $delivery = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $userFullName = null;
+
     public function __construct()
     {
         $this->stock = new ArrayCollection();
+        $this->recapDetails = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -182,6 +192,60 @@ class Purchase
     public function setPaypalOrderId(?string $paypalOrderId): self
     {
         $this->paypalOrderId = $paypalOrderId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, RecapDetails>
+     */
+    public function getRecapDetails(): Collection
+    {
+        return $this->recapDetails;
+    }
+
+    public function addRecapDetail(RecapDetails $recapDetail): self
+    {
+        if (!$this->recapDetails->contains($recapDetail)) {
+            $this->recapDetails->add($recapDetail);
+            $recapDetail->setOrderProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecapDetail(RecapDetails $recapDetail): self
+    {
+        if ($this->recapDetails->removeElement($recapDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($recapDetail->getOrderProduct() === $this) {
+                $recapDetail->setOrderProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDelivery(): ?string
+    {
+        return $this->delivery;
+    }
+
+    public function setDelivery(string $delivery): self
+    {
+        $this->delivery = $delivery;
+
+        return $this;
+    }
+
+    public function getUserFullName(): ?string
+    {
+        return $this->userFullName;
+    }
+
+    public function setUserFullName(string $userFullName): self
+    {
+        $this->userFullName = $userFullName;
 
         return $this;
     }
