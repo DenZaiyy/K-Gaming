@@ -51,12 +51,13 @@
 						<div class="card p-3 d-flex flex-column gap-3">
 							<div class="prices">
 								<div class="tva d-flex justify-content-between">
+									{% set TVA = cartTotal / 100 * 20 %}
 									<span>TVA (20%) :</span>
-									<span>0 €</span>
+									<span>{{ TVA|price }}</span>
 								</div>
 								<div class="total d-flex justify-content-between">
 									<strong>TOTAL</strong>
-									<strong class="fs-5">0€</strong>
+									<strong class="fs-5">{{ (cartTotal + TVA)|price }}</strong>
 								</div>
 							</div>
 							
