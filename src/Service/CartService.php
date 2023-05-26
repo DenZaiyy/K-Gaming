@@ -24,18 +24,6 @@ class CartService extends AbstractController
 
         foreach ($cart as $key => $item) {
             if ($item['game'] == $id && $item['platform'] == $idPlatform) {
-                /*foreach ($game->getStocks() as $stock){
-                    if ($stock->getPlateform()->getId() == $idPlatform){
-                        if ($stock->isIsAvailable() === true){
-                            // dd($stock);
-                            if ($item['quantity'] == $game->getStocks()->count())
-                            {
-                                $found = $key;
-                                break;
-                            }
-                        }
-                    }
-                }*/
                 $found = $key;
                 break;
             }
@@ -95,7 +83,7 @@ class CartService extends AbstractController
                 $game = $this->em->getRepository(Game::class)->find($value['game']);
                 $platform = $this->em->getRepository(Plateform::class)->find($value['platform']);
 
-                if (!$game) {
+                if (!$game || !$platform) {
                     // Remove the product from the cart if it no longer exists
                     $this->removeToCart($value['game'], $value['platform']);
                 }
@@ -117,10 +105,8 @@ class CartService extends AbstractController
 
         $total = 0;
 
-        if ($cart)
-        {
-            foreach ($cart as $item)
-            {
+        if ($cart) {
+            foreach ($cart as $item) {
                 $game = $this->em->getRepository(Game::class)->find($item['game']);
 
                 $quantity = $item['quantity'];
