@@ -33,14 +33,14 @@ class PaymentController extends AbstractController
 
         foreach ($purchase->getRecapDetails()->getValues() as $product) {
             $productData = $this->em->getRepository(Game::class)->findOneBy(['label' => $product->getGame()]);
+            $amount = str_replace('.', '', $productData->getPrice());
 
             $productStripe[] = [
                 'price_data' => [
                     'currency' => 'eur',
-                    'unit_amount' => $productData->getPrice(),
+                    'unit_amount' => $amount,
                     'product_data' => [
                         'name' => $product->getGame(),
-                        'platform' => $product->getPlatform(),
                     ],
                 ],
                 'quantity' => $product->getQuantity(),
@@ -65,7 +65,10 @@ class PaymentController extends AbstractController
                 'app_stripe_error',
                 ['reference' => $purchase->getReference()],
                 UrlGeneratorInterface::ABSOLUTE_URL
-            )
+            ),
+            'automatic_tax' => [
+                'enabled' => true,
+            ],
         ]);
 
         $purchase->setStripeSessionId($checkout_session->id);
@@ -83,6 +86,6 @@ class PaymentController extends AbstractController
     #[Route('/order/error/{reference}', name: 'app_stripe_error')]
     public function stripeError($reference, CartService $cartService): Response
     {
-        return $this->render('order/success.html.twig');
+        return $this->render('order/error.html.twig');
     }
 }
