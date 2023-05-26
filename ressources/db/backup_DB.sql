@@ -14,13 +14,12 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Listage des données de la table kgaming.address : ~4 rows (environ)
+-- Listage des données de la table kgaming.address : ~3 rows (environ)
 DELETE FROM `address`;
 INSERT INTO `address` (`id`, `user_id`, `label`, `firstname`, `lastname`, `address`, `cp`, `city`) VALUES
 	(1, 1, 'Maison', 'Kevin', 'GRISCHKO', '29 rue du ban', '68200', 'Mulhouse'),
 	(2, 6, 'Test', 'Test', 'LASTNAME', 'ADDRESS', 'CP', 'CITY'),
-	(3, 1, 'Travail', 'Kevin', 'GRISCHKO', '16 rue de la rose', '68270', 'Wittenheim'),
-	(4, 1, 'Elan', 'elan', 'Elan', 'Elan', '68200', 'Mulhouse');
+	(3, 1, 'Travail', 'Kevin', 'GRISCHKO', '16 rue de la rose', '68270', 'Wittenheim');
 
 -- Listage des données de la table kgaming.category : ~3 rows (environ)
 DELETE FROM `category`;
@@ -112,9 +111,20 @@ INSERT INTO `plateform` (`id`, `category_id`, `label`, `logo`) VALUES
 
 -- Listage des données de la table kgaming.purchase : ~2 rows (environ)
 DELETE FROM `purchase`;
-INSERT INTO `purchase` (`id`, `user_id`, `address_id`, `is_paid`, `method`, `reference`, `stripe_session_id`, `paypal_order_id`, `created_at`) VALUES
-	(11, 1, 1, 0, 'Stripe', 'ggdgdgd', NULL, NULL, '2023-05-25 15:41:43'),
-	(12, 1, 3, 0, 'Stripe', 'ggdgdgd', NULL, NULL, '2023-05-25 15:41:43');
+INSERT INTO `purchase` (`id`, `user_id`, `address_id`, `delivery`, `user_full_name`, `is_paid`, `method`, `reference`, `stripe_session_id`, `paypal_order_id`, `created_at`) VALUES
+	(15, 1, 1, '29 rue du ban</br>68200 - Mulhouse', 'Kevin GRISCHKO', 0, 'stripe', '26052023-64707b3eb23fe', NULL, NULL, '2023-05-26 09:26:22'),
+	(38, 1, 3, '16 rue de la rose</br>68270 - Wittenheim', 'Kevin GRISCHKO', 0, 'stripe', '26052023-6470a4e84b879', NULL, NULL, '2023-05-26 12:24:08'),
+	(39, 1, 3, '16 rue de la rose</br>68270 - Wittenheim', 'Kevin GRISCHKO', 0, 'stripe', '26052023-6470bba139c71', NULL, NULL, '2023-05-26 14:01:05');
+
+-- Listage des données de la table kgaming.recap_details : ~6 rows (environ)
+DELETE FROM `recap_details`;
+INSERT INTO `recap_details` (`id`, `order_product_id`, `quantity`, `game`, `platform`, `price`, `total_recap`) VALUES
+	(5, 15, 2, 'Rocket League', 'PlayStation 4', 19.99, '39.98'),
+	(6, 15, 2, 'Rust', 'Steam', 39.99, '79.98'),
+	(51, 38, 3, 'Rust', 'Steam', 39.99, '119.97'),
+	(52, 38, 1, 'Rocket League', 'Steam', 19.99, '19.99'),
+	(53, 39, 3, 'Rust', 'Steam', 39.99, '119.97'),
+	(54, 39, 1, 'Rocket League', 'Steam', 19.99, '19.99');
 
 -- Listage des données de la table kgaming.reset_password_request : ~0 rows (environ)
 DELETE FROM `reset_password_request`;
@@ -122,15 +132,15 @@ DELETE FROM `reset_password_request`;
 -- Listage des données de la table kgaming.stock : ~32 rows (environ)
 DELETE FROM `stock`;
 INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_key`, `date_availability`, `is_available`) VALUES
-	(1, 1, 11, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
-	(2, 1, 11, 4, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
+	(1, 1, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
+	(2, 1, NULL, 4, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
 	(3, 1, NULL, 6, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
 	(4, 1, NULL, 8, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
-	(5, 2, 12, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
-	(6, 2, 11, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
-	(7, 2, 12, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
+	(5, 2, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
+	(6, 2, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
+	(7, 2, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
 	(8, 3, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
-	(9, 3, 11, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
+	(9, 3, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 0),
 	(10, 4, NULL, 1, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
 	(11, 1, NULL, 9, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
 	(12, 1, NULL, 7, 'XXXX-XXXX-XXXX-XXXX', '2023-05-08 13:02:54', 1),
@@ -159,7 +169,7 @@ INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_ke
 DELETE FROM `user`;
 INSERT INTO `user` (`id`, `username`, `roles`, `password`, `email`, `avatar`, `is_verified`, `create_at`) VALUES
 	(1, 'denz', '["ROLE_ADMIN"]', '$2y$13$jjQF4rgjxHoO6gHwK/It/ekENtEV8mJnzqyQAWmsM58Ch.Xs9nVJS', 'admin@kgaming.com', '/img/default.png', 1, '2023-05-14 20:43:59'),
-	(6, 'testAvatar', '["ROLE_ADMIN"]', '$2y$13$CNSyDNHYgqVttbFybY/WmeYUw0ok1Pi3UyfoIg4O/oUtsfXgHKd/6', 'testAvatar@testAvatar.com', '/img/default.png', 1, '2023-05-14 20:43:59');
+	(6, 'testAvatar', '["ROLE_ADMIN"]', '$2y$13$CNSyDNHYgqVttbFybY/WmeYUw0ok1Pi3UyfoIg4O/oUtsfXgHKd/6', 'testAvatar@testAvatar.com', '4dee2015995c615c9321fc0ba1b9f02d16c67eb1.png', 1, '2023-05-14 20:43:59');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
