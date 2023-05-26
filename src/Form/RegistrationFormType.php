@@ -13,6 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\IsTrue;
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\UX\Dropzone\Form\DropzoneType;
 
 class RegistrationFormType extends AbstractType
@@ -38,7 +39,16 @@ class RegistrationFormType extends AbstractType
 				'mapped' => false,
 				'type' => PasswordType::class,
 				'invalid_message' => 'Les champs du mot de passe doivent correspondre.',
-				'options' => ['attr' => ['class' => 'password-field']],
+				'options' => [
+                    'attr' => ['class' => 'password-field'],
+                    'constraints' => [
+                        new Regex([ //la regex impose des conditions pour le mdp: 1 majuscule, 1 minuscule, 1 nombre, 1 charactère spéciale
+                            'pattern' => '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,32}$',
+                            'match' => true,
+                            'message' => 'Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un nombre, un caractère spéciale compris entre 12 et 32 caractères'
+                        ]),
+                    ]
+                ],
 				'required' => true,
 				'first_options'  => ['label' => 'Mot de passe', 'attr' => ['placeholder' => 'Mot de passe', 'class' => 'form-control']],
 				'second_options' => ['label' => 'Confirmer votre mot de passe', 'attr' => ['placeholder' => 'Confirmer votre mot de passe', 'class' => 'form-control']],
