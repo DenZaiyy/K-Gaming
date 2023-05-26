@@ -56,9 +56,20 @@ class PaymentController extends AbstractController
                 $productStripe
             ]],
             'mode' => 'payment',
-            'success_url' => $YOUR_DOMAIN . '/success.html',
-            'cancel_url' => $YOUR_DOMAIN . '/cancel.html',
+            'success_url' => $this->urlGenerator->generate(
+                'app_stripe_success',
+                ['reference' => $purchase->getReference()],
+                UrlGeneratorInterface::ABSOLUTE_URL
+            ),
+            'cancel_url' => $this->urlGenerator->generate(
+                'app_stripe_error',
+                ['reference' => $purchase->getReference()],
+                UrlGeneratorInterface::ABSOLUTE_URL
+            )
         ]);
+
+        $purchase->setStripeSessionId($checkout_session->id);
+        $this->em->flush();
 
         return new RedirectResponse($checkout_session->url, 303);
     }
