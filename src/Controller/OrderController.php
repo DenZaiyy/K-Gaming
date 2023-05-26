@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Purchase;
+use App\Entity\RecapDetails;
 use App\Form\OrderType;
 use App\Service\CartService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -31,28 +32,29 @@ class OrderController extends AbstractController
         return $this->render('order/index.html.twig', [
             'form' => $form->createView(),
             'recapCart' => $cartService->getTotal(),
-            'userAddress' => $this->getUser()->getAddresses(),
             'cartTotal' => $cartService->getTotalCart(),
         ]);
     }
 
     #[Route('/order/verify', name: 'order_prepare', methods: ['POST'])]
-    public function prepareOrder(Request $request): Response
+    public function prepareOrder(CartService $cartService, Request $request): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $form = $this->createForm(OrderType::class, null, [
             'user' => $this->getUser()
         ]);
 
         $form->handleRequest($request);
-//        dd($form->getData());
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $currentDate = new \DateTime('now');
             $delivery = $form->get('addresses')->getData();
-            /*$deliveryForOrder = $delivery->getFirstname() . ' ' . $delivery->getLastname();
-            $deliveryForOrder .= '<br/>' . $delivery->getAddress();
-            $deliveryForOrder .= '<br/>' . $delivery->getCp() . ' ' . $delivery->getCity();*/
+
+            $deliveryForPurchase = $delivery->getAddress() . '</br>';
+            $deliveryForPurchase .= $delivery->getCp() . ' - ' . $delivery->getCity();
 
             $reference = $currentDate->format('dmY') . '-' . uniqid();
 
@@ -61,14 +63,38 @@ class OrderController extends AbstractController
             $purchase->setReference($reference);
             $purchase->setCreatedAt($currentDate);
             $purchase->setAddress($delivery);
+            $purchase->setDelivery($deliveryForPurchase);
+            $purchase->setUserFullName($delivery->getFirstname() . ' ' . $delivery->getLastname());
             $purchase->setIsPaid(0);
             $purchase->setMethod('stripe');
 
             $this->em->persist($purchase);
 
-            dd($purchase);
+            foreach ($cartService->getTotal() as $product) {
+                $recapDetails = new RecapDetails();
+
+                $recapDetails->setOrderProduct($purchase);
+                $recapDetails->setQuantity($product['quantity']);
+                $recapDetails->setPrice($product['game']->getPrice());
+                $recapDetails->setGame($product['game']->getLabel());
+                $recapDetails->setPlatform($product['platform']->getLabel());
+                $recapDetails->setTotalRecap(
+                    $product['game']->getPrice() * $product['quantity']
+                );
+
+                $this->em->persist($recapDetails);
+            }
+
+            $this->em->flush();
+
+            return $this->render('order/recap.html.twig', [
+                'method' => $purchase->getMethod(),
+                'recapCart' => $cartService->getTotal(),
+                'delivery' => $delivery,
+                'reference' => $purchase->getReference(),
+            ]);
         }
 
-        return $this->render('order/recap.html.twig');
+        return $this->redirectToRoute('cart_index');
     }
 }
