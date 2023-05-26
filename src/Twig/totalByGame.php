@@ -16,7 +16,8 @@ class totalByGame extends AbstractExtension
 
     public function totalByGame($price, $qtt, $currency): string
     {
-        $total = $price * $qtt / 100;
+//        $total = $price * $qtt / 100;
+        $total = $price * $qtt;
         $total = number_format($total, 2, ',', ' ');
 
         return $total . ' ' . $currency;
