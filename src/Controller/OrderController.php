@@ -66,7 +66,9 @@ class OrderController extends AbstractController
             $purchase->setDelivery($deliveryForPurchase);
             $purchase->setUserFullName($delivery->getFirstname() . ' ' . $delivery->getLastname());
             $purchase->setIsPaid(0);
-            $purchase->setMethod('stripe');
+
+            $paymentMethod = $form->get('payment')->getData();
+            $purchase->setMethod($paymentMethod);
 
             $this->em->persist($purchase);
 
