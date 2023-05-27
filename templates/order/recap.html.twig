@@ -65,7 +65,7 @@
 											| {{ (cartTotal + TVA)|price }}</button>
 									</form>
 								{% else %}
-									<form method="post" action="#">
+									<form method="post" action="{{ path('app_paypal_checkout', {reference: reference}) }}">
 										<button type="submit" class="btn btn-outline-primary w-100">Payer par paypal
 											| {{ (cartTotal + TVA)|price }}</button>
 									</form>
