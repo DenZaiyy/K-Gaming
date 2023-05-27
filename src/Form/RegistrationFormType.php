@@ -23,6 +23,7 @@ class RegistrationFormType extends AbstractType
 		$builder
 			->add('username', TextType::class, [
 				'required' => true,
+				'label' => 'Pseudo',
 				'attr' => [
 					'placeholder' => 'Pseudo',
 					'class' => 'form-control'
@@ -30,6 +31,7 @@ class RegistrationFormType extends AbstractType
 			])
 			->add('email', EmailType::class, [
 				'required' => true,
+				'label' => 'Email',
 				'attr' => [
 					'placeholder' => 'Email',
 					'class' => 'form-control'

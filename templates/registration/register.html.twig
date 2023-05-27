@@ -3,22 +3,27 @@
 {% block title %}S'inscrire{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
-
     <div class="container mt-5 mb-5" style="max-width: 600px;">
         <div class="card p-5 rounded">
             <h1 class="mb-3 font-weight-normal">S'inscrire</h1>
+            {% if app.flashes('success') %}
+                {% for message_success in app.flashes('success') %}
+                    <div class="alert alert-success" role="alert">{{ message_success }}</div>
+                {% endfor %}
+            {% else %}
+                {% for message_error in app.flashes('error') %}
+                    <div class="alert alert-danger" role="alert">{{ message_error }}</div>
+                {% endfor %}
+            {% endif %}
             {{ form_start(registrationForm) }}
             <div class="card-body">
                 <div class="form-floating mb-3">
                     {{ form_widget(registrationForm.username) }}
-                    <label for="registration_form_username">Pseudo</label>
+                    {{ form_label(registrationForm.username) }}
                 </div>
                 <div class="form-floating mb-3">
                     {{ form_widget(registrationForm.email) }}
-                    <label for="registration_form_email">Email</label>
+                    {{ form_label(registrationForm.email) }}
                 </div>
 
                 <div class="row g-2 mb-3">
