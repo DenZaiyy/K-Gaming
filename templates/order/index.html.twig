@@ -7,18 +7,27 @@
 		<div class="order">
 			{{ form_start(form, {action:path('order_prepare')}) }}
 			<div class="order-header d-flex justify-content-center gap-5">
-				<div class="address w-25">
-					<h2>Adresse</h2>
-					<div class="card d-flex gap-3 p-3">
-						<div class="select">
-							{{ form_widget(form.addresses)|replace({'[-br]': '</br>'})|raw }}
+				<div class="cards d-flex flex-column gap-3">
+					<div class="address">
+						<h2>Adresse</h2>
+						<div class="card d-flex gap-3 p-3">
+							<div class="select">
+								{{ form_widget(form.addresses)|replace({'[-br]': '</br>'})|raw }}
+							</div>
+							<div class="new-address">
+								<a href="{{ path('user_add_address') }}" class="btn btn-outline-primary w-100">Ajouter une
+									nouvelle adresse</a>
+							</div>
 						</div>
-						<div class="new-address">
-							<a href="{{ path('user_add_address') }}" class="btn btn-outline-primary w-100">Ajouter une
-								nouvelle adresse</a>
+					</div>
+					<div class="payment-methods">
+						<h2>Moyen de paiement</h2>
+						<div class="card d-flex gap-3 p-3">
+							{{ form_widget(form.payment) }}
 						</div>
 					</div>
 				</div>
+
 				<div class="recap">
 					<h2>Récapitulatif</h2>
 					<div class="cards d-flex flex-column gap-3">
