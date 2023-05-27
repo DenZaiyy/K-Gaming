@@ -6,7 +6,9 @@ use App\Entity\User;
 use DateTime;
 use DateTimeZone;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -25,19 +27,17 @@ class UserCrudController extends AbstractCrudController
         return $crud
             ->setEntityLabelInSingular('User')
             ->setEntityLabelInPlural('User')
-            ->setSearchFields(['id', 'username', 'roles', 'email', 'avatar', 'is_verified', 'created_at']);
+            ->setSearchFields(['id', 'username', 'roles', 'email', 'avatar', 'is_verified', 'is_banned', 'create_at']);
     }
 
-    /*public function configureFilters(Filters $filters): Filters
+    public function configureFilters(Filters $filters): Filters
     {
         return $filters
-            ->add('label')
-            ->add('price')
-            ->add('date_release')
-            ->add(EntityFilter::new('plateforms'))
-            ->add(EntityFilter::new('genres'));
-    }*/
-
+            ->add('roles')
+            ->add('isVerified')
+	        ->add('isBanned')
+			->add('createAt');
+    }
 
     public function configureFields(string $pageName): iterable
     {
@@ -57,19 +57,27 @@ class UserCrudController extends AbstractCrudController
             ->setUploadedFileNamePattern('[randomhash].[extension]')
             ->setRequired(false);
 
+        $verifiedAcc = BooleanField::new('is_verified')
+	        ->hideOnForm()
+	        ->setFormTypeOption('disabled', true);
+
+        $isBanned =  BooleanField::new('is_banned')->hideOnForm();
+
         $createdAt = DateTimeField::new('CreateAt')
             ->setFormat('dd-MM-yyyy')
             ->setFormTypeOptions([
                 'data' => new DateTime('now', new DateTimeZone('Europe/Paris')), // default data
                 'widget' => 'single_text',
+                'disabled' => true,
             ]);
 
         if (Crud::PAGE_EDIT === $pageName) {
             yield $createdAt->setFormTypeOption('disabled', true);
+            yield $isBanned->setFormTypeOption('disabled', true);
         } else {
             yield $createdAt;
+            yield $verifiedAcc;
+            yield $isBanned;
         }
-
-
     }
 }
