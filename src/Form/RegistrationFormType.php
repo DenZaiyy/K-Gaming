@@ -18,41 +18,42 @@ use Symfony\UX\Dropzone\Form\DropzoneType;
 
 class RegistrationFormType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
-            ->add('username', TextType::class, [
+	public function buildForm(FormBuilderInterface $builder, array $options): void
+	{
+		$builder
+			->add('username', TextType::class, [
 				'required' => true,
 				'attr' => [
 					'placeholder' => 'Pseudo',
 					'class' => 'form-control'
 				]
 			])
-            ->add('email', EmailType::class, [
+			->add('email', EmailType::class, [
 				'required' => true,
 				'attr' => [
 					'placeholder' => 'Email',
 					'class' => 'form-control'
 				]
 			])
-            ->add('plainPassword', RepeatedType::class, [
+			->add('plainPassword', RepeatedType::class, [
 				'mapped' => false,
 				'type' => PasswordType::class,
 				'invalid_message' => 'Les champs du mot de passe doivent correspondre.',
 				'options' => [
-                    'attr' => ['class' => 'password-field'],
-                    'constraints' => [
-                        new Regex([ //la regex impose des conditions pour le mdp: 1 majuscule, 1 minuscule, 1 nombre, 1 charactère spéciale
-                            'pattern' => '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,32}$',
-                            'match' => true,
-                            'message' => 'Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un nombre, un caractère spéciale compris entre 12 et 32 caractères'
-                        ]),
-                    ]
-                ],
+					'attr' => ['class' => 'password-field']
+				],
 				'required' => true,
-				'first_options'  => ['label' => 'Mot de passe', 'attr' => ['placeholder' => 'Mot de passe', 'class' => 'form-control']],
+				'first_options' => ['label' => 'Mot de passe', 'attr' => ['placeholder' => 'Mot de passe', 'class' => 'form-control']],
 				'second_options' => ['label' => 'Confirmer votre mot de passe', 'attr' => ['placeholder' => 'Confirmer votre mot de passe', 'class' => 'form-control']],
-            ])
+				/*'constraints' => [
+					new Regex([
+						//la regex impose des conditions pour le mdp: 1 majuscule, 1 minuscule, 1 nombre, 1 charactère spéciale
+						'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/',
+						'match' => true,
+						'message' => 'Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un nombre, un caractère spéciale compris entre 12 et 32 caractères'
+					])
+				],*/
+			])
 			->add('avatar', DropzoneType::class, [
 				'label' => 'Avatar',
 				'attr' => [
@@ -89,14 +90,13 @@ class RegistrationFormType extends AbstractType
 						'message' => 'Vous devez accepter nos conditions générales.',
 					]),
 				],
-			])
-        ;
-    }
+			]);
+	}
 
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => User::class,
-        ]);
-    }
+	public function configureOptions(OptionsResolver $resolver): void
+	{
+		$resolver->setDefaults([
+			'data_class' => User::class,
+		]);
+	}
 }
