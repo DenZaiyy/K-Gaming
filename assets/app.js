@@ -15,6 +15,17 @@ import './themeSwitch';
 
 window.addEventListener('load', (e) => {
 	e.preventDefault()
+
+	// START ALERTS
+	const alerts = document.querySelectorAll('[class*="alert-"]')
+	for (const alert of alerts) {
+		setTimeout( function() {
+			const bootstrapAlert = bootstrap.Alert.getOrCreateInstance(alert);
+			bootstrapAlert.close();
+		}, 1000);
+	}
+	// STOP ALERTS
+
 	// START PLATEFORME CHANGE
 	const plateform = document.getElementById("plateform");
 	
