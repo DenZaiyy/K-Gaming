@@ -55,6 +55,8 @@ class RegistrationController extends AbstractController
 			}
 
             $user->setCreateAt(new DateTimeImmutable());
+            $user->setIsBanned(false);
+            $user->setIPAddress($request->getClientIp());
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -91,7 +93,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_register');
         }
         
-        $this->addFlash('success', 'Your email address has been verified.');
+        $this->addFlash('success', 'Votre adresse e-mail a été vérifiée.');
 
         return $this->redirectToRoute('app_home');
     }
