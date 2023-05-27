@@ -3,6 +3,15 @@
 {% block title %}Page d'accueil{% endblock %}
 
 {% block body %}
+	{% if app.flashes('success') %}
+		{% for message_success in app.flashes('success') %}
+			<div class="alert alert-success" role="alert">{{ message_success }}</div>
+		{% endfor %}
+	{% else %}
+		{% for message_error in app.flashes('error') %}
+			<div class="alert alert-danger" role="alert">{{ message_error }}</div>
+		{% endfor %}
+	{% endif %}
 	<div class="hero-image">
 		<div class="hero-text">
 			<h1>K-gaming : La plateforme incontournable pour les gamers</h1>
@@ -41,7 +50,7 @@
 			{% endfor %}
 		</div>
 	</section>
-	
+
 	<section class="rating">
 		<div class="stars">
 			<div class="star">
@@ -69,7 +78,7 @@
 			<a href="#">Voir les avis utilisateurs</a>
 		</div>
 	</section>
-	
+
 	<section class="preorders">
 		<h2>Précommandes</h2>
 		<div class="cards">
@@ -99,7 +108,7 @@
 			{% endfor %}
 		</div>
 	</section>
-	
+
 	<section class="newsletter">
 		<div class="icon">
 			<i class="bi bi-envelope-at-fill"></i>
@@ -114,7 +123,7 @@
 			<a href="#">S'inscrire !</a>
 		</div>
 	</section>
-	
+
 	<section class="genres">
 		<h2>Genres</h2>
 		<div class="cards">
