@@ -122,21 +122,21 @@ class PaymentController extends AbstractController
         $itemTotal = 0;
 
         foreach ($purchase->getRecapDetails()->getValues() as $product) {
-            $amount = number_format($product->getPrice(), 2, '.', '');
 
             $items[] = [
                 'name' => $product->getGame(),
                 'quantity' => $product->getQuantity(),
                 'unit_amount' => [
-                    'value' => $amount,
+                    'value' => $product->getPrice(),
                     'currency_code' => 'EUR',
                 ]
             ];
 
-            $itemTotal += $amount * $product->getQuantity();
+            $itemTotal += $product->getPrice() * $product->getQuantity();
         }
 
-        $total = $itemTotal;
+        $shipping = $itemTotal / 100 * 20;
+        $total = $itemTotal + $shipping;
 
         $request = new OrdersCreateRequest();
         $request->prefer('return=representation');
@@ -147,15 +147,15 @@ class PaymentController extends AbstractController
                 [
                     'amount' => [
                         'currency_code' => 'EUR',
-                        'value' => $total,
+                        'value' => floatval(number_format($total, 2, '.', '')),
                         'breakdown' => [
                             'item_total' => [
                                 'currency_code' => 'EUR',
-                                'value' => $itemTotal,
+                                'value' => floatval(number_format($itemTotal, 2, '.', '')),
                             ],
                             'shipping' => [
                                 'currency_code' => 'EUR',
-                                'value' => '0.00',
+                                'value' => floatval(number_format($shipping, 2, '.', '')),
                             ],
                         ],
                     ],
