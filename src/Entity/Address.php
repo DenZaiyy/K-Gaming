@@ -34,6 +34,7 @@ class Address
     private ?string $city = null;
 
     #[ORM\ManyToOne(inversedBy: 'addresses')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?User $user = null;
 
     #[ORM\OneToMany(mappedBy: 'address', targetEntity: Purchase::class)]

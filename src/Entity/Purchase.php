@@ -23,11 +23,11 @@ class Purchase
     private Collection $stock;
 
     #[ORM\ManyToOne(inversedBy: 'purchase')]
-    #[ORM\JoinColumn(nullable: true)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'purchase')]
-    #[ORM\JoinColumn(nullable: true)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private ?Address $address = null;
 
     #[ORM\Column]
