@@ -75,12 +75,12 @@ class PaymentController extends AbstractController
             ]],
             'mode' => 'payment',
             'success_url' => $this->urlGenerator->generate(
-                'app_stripe_success',
+                'payment_success',
                 ['reference' => $purchase->getReference()],
                 UrlGeneratorInterface::ABSOLUTE_URL
             ),
             'cancel_url' => $this->urlGenerator->generate(
-                'app_stripe_error',
+                'payment_error',
                 ['reference' => $purchase->getReference()],
                 UrlGeneratorInterface::ABSOLUTE_URL
             ),
