@@ -21,24 +21,23 @@ class HomeController extends AbstractController
 		$tendencies = $em->getRepository(Stock::class)->findGamesInTendencies();
 		$preorders = $em->getRepository(Game::class)->findGamesInPreOrders();
 		$genres = $em->getRepository(Genre::class)->findGenres();
-
+		
 		return $this->render('home/index.html.twig', [
 			'tendencies' => $tendencies,
 			'preorders' => $preorders,
 			'genres' => $genres
 		]);
 	}
-
-	#[Route('/navBar', name: 'app_nav_bar')]
+	
 	public function navBar(EntityManagerInterface $em, CartService $cartService): Response
 	{
 		$categories = $em->getRepository(Category::class)->findAll();
 		$plateforms = $em->getRepository(Plateform::class)->findAll();
-
+		
 		return $this->render('components/_header.html.twig', [
 			'categories' => $categories,
 			'plateforms' => $plateforms,
-            'cartTotal' => $cartService->getTotalCart()
+			'cartTotal' => $cartService->getTotalCart()
 		]);
 	}
 }
