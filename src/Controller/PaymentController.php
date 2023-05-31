@@ -170,7 +170,7 @@ class PaymentController extends AbstractController
 		foreach ($purchase->getRecapDetails()->getValues() as $product) {
 			
 			$items[] = [
-				'name' => $product->getGame(),
+				'name' => $product->getGameLabel(),
 				'quantity' => $product->getQuantity(),
 				'unit_amount' => [
 					'value' => $product->getPrice(),
