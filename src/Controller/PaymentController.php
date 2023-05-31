@@ -241,7 +241,10 @@ class PaymentController extends AbstractController
 			return $this->redirectToRoute('app_cart_index');
 		}
 		
-		$purchase->setPaypalOrderId($response->result->id);
+		$paypalID = $this->requestStack->getSession()->get('paypalID', []);
+		$paypalID[] = $response->result->id;
+		$this->requestStack->getSession()->set('paypalID', $paypalID);
+		
 		$this->em->flush();
 		
 		return new RedirectResponse($approvalLink);
