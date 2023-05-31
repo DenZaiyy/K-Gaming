@@ -1,1 +1,7 @@
-{% for gameInfo in gameInfos %}{{ gameInfo["summary"] }}{% endfor %}
+{% for gameInfo in gameInfos %}
+	{% if gameInfo['summary'] is defined %}
+		{{ gameInfo["summary"] }}
+	{% else %}
+		<p>Nous ne disponsons pas encore de description à propos de ce jeu</p>
+	{% endif %}
+{% endfor %}
