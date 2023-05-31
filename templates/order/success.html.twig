@@ -3,4 +3,7 @@
 {% block title %}Commande effectué{% endblock %}
 
 {% block body %}
+	{% for product in products %}
+		{{ dump(product) }}
+	{% endfor %}
 {% endblock %}
