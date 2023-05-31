@@ -33,7 +33,6 @@ class CartController extends AbstractController
 	#[Route('/cart/buyNow/game/{id<\d+>}/platform/{idPlatform<\d+>}', name: 'app_buy_now')]
 	public function buyNow(CartService $cartService, int $id, int $idPlatform): Response
 	{
-//		$cartService->removeCartAll();
 		$cartService->addToCart($id, $idPlatform);
 		
 		return $this->redirectToRoute('order_create');
