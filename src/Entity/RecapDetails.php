@@ -14,7 +14,7 @@ class RecapDetails
 	private ?int $id = null;
 	
 	#[ORM\ManyToOne(inversedBy: 'recapDetails')]
-	#[ORM\JoinColumn(nullable: false)]
+	#[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
 	private ?Purchase $orderProduct = null;
 	
 	#[ORM\Column]
