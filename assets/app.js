@@ -22,7 +22,7 @@ window.addEventListener('load', (e) => {
 		setTimeout( function() {
 			const bootstrapAlert = bootstrap.Alert.getOrCreateInstance(alert);
 			bootstrapAlert.close();
-		}, 1000);
+		}, 2000);
 	}
 	// STOP ALERTS
 
