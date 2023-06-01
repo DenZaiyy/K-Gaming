@@ -3,10 +3,19 @@
 {% block title %}Réinitialiser le mot de passe{% endblock %}
 
 {% block body %}
-    <h1>Réinitialiser le mot de passe</h1>
-
-    {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
-        <button class="btn btn-primary">Réinitialiser le mot de passe</button>
-    {{ form_end(resetForm) }}
+	<h1>Réinitialiser le mot de passe</h1>
+	
+	<div class="card w-25 p-3 d-flex flex-column m-auto gap-3">
+		{{ form_start(resetForm) }}
+		<div class="form-floating mb-3">
+			{{ form_widget(resetForm.plainPassword.first, {'attr': {'placeholder': 'Nouveau mot de passe'}}) }}
+			{{ form_label(resetForm.plainPassword.first) }}
+		</div>
+		<div class="form-floating mb-3">
+			{{ form_widget(resetForm.plainPassword.second, {'attr': {'placeholder': 'Répéter le mot de passe'}}) }}
+			{{ form_label(resetForm.plainPassword.second) }}
+		</div>
+		<button class="btn btn-primary w-100">Réinitialiser le mot de passe</button>
+		{{ form_end(resetForm) }}
+	</div>
 {% endblock %}
