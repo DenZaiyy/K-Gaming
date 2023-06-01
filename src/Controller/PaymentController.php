@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Game;
 use App\Entity\Purchase;
+use App\Entity\Stock;
+use App\Entity\User;
 use App\Service\CartService;
 use Doctrine\ORM\EntityManagerInterface;
 use PayPalCheckoutSdk\Core\PayPalHttpClient;
@@ -11,13 +13,15 @@ use PayPalCheckoutSdk\Core\SandboxEnvironment;
 use PayPalCheckoutSdk\Orders\OrdersCreateRequest;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class PaymentController extends AbstractController
 {
@@ -27,7 +31,6 @@ class PaymentController extends AbstractController
 	}
 	
 	//Function to get the PayPal client by using the PayPal SDK and the PayPal credentials in the .env file
-	
 	/**
 	 * @return PayPalHttpClient
 	 */
@@ -44,18 +47,20 @@ class PaymentController extends AbstractController
 	#[Route('/order/create-session-stripe/{reference}', name: 'app_stripe_checkout')]
 	public function index($reference): RedirectResponse
 	{
-		$productStripe = [];
+		$productStripe = []; //initialize the array to store the products
 		
-		$purchase = $this->em->getRepository(Purchase::class)->findOneBy(['reference' => $reference]);
+		$purchase = $this->em->getRepository(Purchase::class)->findOneBy(['reference' => $reference]); //get the purchase by the reference
 		
-		if (!$purchase) {
+		if (!$purchase) { //if the purchase doesn't exist, redirect to the cart
 			return $this->redirectToRoute('app_cart_index');
 		}
 		
 		foreach ($purchase->getRecapDetails()->getValues() as $product) {
-			$productData = $this->em->getRepository(Game::class)->findOneBy(['label' => $product->getGameLabel()]);
-			$amount = str_replace('.', '', $productData->getPrice());
+			//get the product from the recapDetails
+			$productData = $this->em->getRepository(Game::class)->findOneBy(['label' => $product->getGameLabel()]); //get the game by the label
+			$amount = str_replace('.', '', $productData->getPrice()); //replace the dot by nothing to get the price in cents
 			
+			//add the product to the array
 			$productStripe[] = [
 				'price_data' => [
 					'currency' => 'eur',
@@ -68,14 +73,15 @@ class PaymentController extends AbstractController
 			];
 		}
 		
-		Stripe::setApiKey($this->getParameter('app.stripe_private_key'));
+		Stripe::setApiKey($this->getParameter('app.stripe_private_key')); //set the Stripe API key from the .env file
 		
+		//create the session with the Stripe API
 		$checkout_session = Session::create([
-			'customer_email' => $this->getUser()->getEmail(),
+			'customer_email' => $this->getUser()->getEmail(), //get the user email
 			'payment_method_types' => ['card'],
-			'line_items' => [[
-				$productStripe
-			]],
+			'line_items' => [
+				[$productStripe] //add the products to the session
+			],
 			'mode' => 'payment',
 			'success_url' => $this->urlGenerator->generate(
 				'payment_success',
@@ -91,60 +97,99 @@ class PaymentController extends AbstractController
 				'enabled' => true,
 			],
 		]);
-//		dd($checkout_session);
 		
-		$stripeID = $this->requestStack->getSession()->get('stripeID', []);
-		$stripeID[] = $checkout_session->id;
-		$this->requestStack->getSession()->set('stripeID', $stripeID);
+		$stripeID = $this->requestStack->getSession()->get('stripeID', []); //get the stripeID from the session
+		$stripeID[] = $checkout_session->id; //add the stripeID to the array
+		$this->requestStack->getSession()->set('stripeID', $stripeID); //set the stripeID session
 		
 		
 		if ($checkout_session->payment_status === 'paid') {
+			//if the payment is paid, set the stripe session ID to the purchase
 			$purchase->setStripeSessionId($checkout_session->id);
 			$this->em->flush();
 		}
 		
-		return new RedirectResponse($checkout_session->url, 303);
+		return new RedirectResponse($checkout_session->url, 303); //redirect to the Stripe page
 	}
 	
 	//Function to redirect to the success page
 	#[Route('/order/success/{reference}', name: 'payment_success')]
-	public function purchaseSuccess($reference, CartService $cartService): Response
+	public function purchaseSuccess($reference, CartService $cartService, MailerInterface $mailer): Response
 	{
 		$purchase = $this->em->getRepository(Purchase::class)->findOneBy(['reference' => $reference]);
+		$user = $this->em->getRepository(User::class)->findOneBy($purchase->getUser()); //get the user by the purchase
+		$recapDetails = $purchase->getRecapDetails(); //get the recapDetails from the purchase
 		
+		$license = [];
+		
+		//search the license key available for the game and the platform and set it to unavailable and set the purchaseID
+		foreach ($recapDetails as $recapDetail) {
+			$gameStockID = $this->em->getRepository(Stock::class)->findLicenseKeyAvailableByGamesAndPlatform($recapDetail->getGameId(), $recapDetail->getPlatformId());
+			$license[] = $gameStockID[0]->getLicenseKey();
+			
+			$gameStockID[0]->setPurchase($purchase);
+			$gameStockID[0]->setIsAvailable(false);
+			
+			$this->em->persist($gameStockID[0]);
+			$this->em->flush();
+		}
+		
+		//If the purchase is paid by Stripe, set the stripe session ID to purchase
 		if ($purchase->getMethod() === 'stripe') {
 			$stripeID = $this->requestStack->getSession()->get('stripeID');
 			$stripeID = $stripeID[0];
 			
 			$purchase->setStripeSessionId($stripeID);
-			unset($stripeID);
+			unset($stripeID); //unset the stripeID session
 		} else {
+			//If the purchase is paid by PayPal, set the PayPal order ID to purchase
 			$paypalID = $this->requestStack->getSession()->get('paypalID');
 			$paypalID = $paypalID[0];
 			$purchase->setPaypalOrderId($paypalID);
-			unset($paypalID);
+			unset($paypalID); //unset the paypalID session
 		}
 		
-		$purchase->setIsPaid(true);
+		$purchase->setIsPaid(true); //set the purchase to paid
 		
-		$this->em->persist($purchase);
-		$this->em->flush();
+		$this->em->persist($purchase); //persist the purchase
+		$this->em->flush(); //flush the purchase
 		
-		$products = [];
+		$products = []; //initialize the array to store the products
 		
 		foreach ($cartService->getTotal() as $item) {
+			//get the products from the cart
 			$product = [
 				'game' => $item['game'],
 				'platform' => $item['platform'],
 				'quantity' => $item['quantity'],
 			];
 			
-			$products[] = $product;
+			$products[] = $product; //add the product to the array
 		}
+		
+		$cartService->removeCartAll(); //remove the cart
+		
+		//send the email to the user
+		$email = (new TemplatedEmail())
+			->from(new Address('support@k-grischko.fr', 'K-GAMING - Confirmation de commande')) //set the sender
+			->to($user->getEmail()) //get the user email
+			->subject('Commande n°' . $purchase->getReference()) //set the subject
+			->htmlTemplate('order/invoice/index.html.twig') //set the template
+			->context([
+				'user' => $user,
+				'games' => $products,
+				'purchase' => $purchase,
+				'license' => $license,
+				'reference' => $purchase->getReference(),
+			])
+		;
+		
+		$mailer->send($email); //send the email
 		
 		return $this->render('order/success.html.twig', [
 			'reference' => $reference,
 			'products' => $products,
+			'purchase' => $purchase,
 		]);
 	}
 	
@@ -152,7 +197,18 @@ class PaymentController extends AbstractController
 	#[Route('/order/error/{reference}', name: 'payment_error')]
 	public function purchaseError($reference, CartService $cartService): Response
 	{
-		return $this->render('order/error.html.twig');
+		$purchase = $this->em->getRepository(Purchase::class)->findOneBy(['reference' => $reference]); //get the purchase by the reference
+		
+		if(!$purchase) {
+			//if the purchase doesn't exist, redirect to the cart
+			return $this->redirectToRoute('app_cart_index');
+		}
+		
+		$this->em->getRepository(Purchase::class)->remove($purchase, true); //remove the purchase
+		
+		return $this->render('order/error.html.twig', [
+			'reference' => $reference,
+		]);
 	}
 	
 	//Function to create a session with Paypal and redirect to the Paypal page to pay
