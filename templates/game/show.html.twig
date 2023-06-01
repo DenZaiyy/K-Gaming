@@ -26,22 +26,28 @@
 							</div>
 							
 							<div class="stock">
-								{% if gameStock %}
-									{% if gameStock[0].total > 0 %}
-										<p>
-											<i class="bi bi-check-lg text-success"></i>
-											En stock
-											({{ gameStock[0].total }} {{ (gameStock[0].total > 1) ? 'disponibles' : 'disponible' }}
-											)</p>
+								{% if date(game.dateRelease) > date() %}
+									<p>
+										<i class="bi bi-check-lg text-success"></i>
+										Disponible en précommande</p>
+								{% else %}
+									{% if gameStock %}
+										{% if gameStock[0].total > 0 %}
+											<p>
+												<i class="bi bi-check-lg text-success"></i>
+												En stock
+												({{ gameStock[0].total }} {{ (gameStock[0].total > 1) ? 'disponibles' : 'disponible' }}
+												)</p>
+										{% else %}
+											<p>
+												<i class="bi bi-x-lg text-danger"></i>
+												En rupture de stock</p>
+										{% endif %}
 									{% else %}
 										<p>
 											<i class="bi bi-x-lg text-danger"></i>
 											En rupture de stock</p>
 									{% endif %}
-								{% else %}
-									<p>
-										<i class="bi bi-x-lg text-danger"></i>
-										En rupture de stock</p>
 								{% endif %}
 							</div>
 						</div>
@@ -57,16 +63,20 @@
 						</div>
 						
 						<div class="btns">
-							{% if gameStock[0].total > 0 %}
-								<a href="{{ path('app_add_cart', {id: game.id, idPlatform: gamePlatform[0].platform_id}) }}"
-								   class="btn btn-primary"><i
-										class="bi bi-bag-plus"></i></a>
-								<a href="{{ path('app_buy_now', {id: game.id, idPlatform: gamePlatform[0].platform_id}) }}"
-								   class="btn btn-primary w-100">Acheter
-									maintenant</a>
+							{% if date(game.dateRelease) > date() %}
+								<a href="" class="btn btn-primary w-100">Précommander</a>
 							{% else %}
-								<a class="btn btn-primary disabled"><i class="bi bi-bag-plus"></i></a>
-								<a class="btn btn-primary w-100 disabled">Acheter maintenant</a>
+								{% if gameStock[0].total > 0 %}
+									<a href="{{ path('app_add_cart', {id: game.id, idPlatform: gamePlatform[0].platform_id}) }}"
+									   class="btn btn-primary"><i
+											class="bi bi-bag-plus"></i></a>
+									<a href="{{ path('app_buy_now', {id: game.id, idPlatform: gamePlatform[0].platform_id}) }}"
+									   class="btn btn-primary w-100">Acheter
+										maintenant</a>
+								{% else %}
+									<a class="btn btn-primary disabled"><i class="bi bi-bag-plus"></i></a>
+									<a class="btn btn-primary w-100 disabled">Acheter maintenant</a>
+								{% endif %}
 							{% endif %}
 						</div>
 					</div>
