@@ -14,11 +14,33 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Listage des données de la table kgaming.address : ~0 rows (environ)
+-- Listage de la structure de table kgaming. address
+CREATE TABLE IF NOT EXISTS `address` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int DEFAULT NULL,
+  `label` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `firstname` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lastname` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cp` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_D4E6F81A76ED395` (`user_id`),
+  CONSTRAINT `FK_D4E6F81A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Listage des données de la table kgaming.address : ~2 rows (environ)
 DELETE FROM `address`;
 INSERT INTO `address` (`id`, `user_id`, `label`, `firstname`, `lastname`, `address`, `cp`, `city`) VALUES
 	(1, 1, 'Maison', 'Kevin', 'GRISCHKO', '29 rue du ban', '68200', 'Mulhouse'),
 	(3, 1, 'Travail', 'Kevin', 'GRISCHKO', '16 rue de la rose', '68270', 'Wittenheim');
+
+-- Listage de la structure de table kgaming. category
+CREATE TABLE IF NOT EXISTS `category` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `label` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table kgaming.category : ~0 rows (environ)
 DELETE FROM `category`;
@@ -27,11 +49,28 @@ INSERT INTO `category` (`id`, `label`) VALUES
 	(2, 'PlayStation'),
 	(3, 'Xbox');
 
--- Listage des données de la table kgaming.doctrine_migration_versions : ~2 rows (environ)
+-- Listage de la structure de table kgaming. doctrine_migration_versions
+CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
+  `version` varchar(191) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `executed_at` datetime DEFAULT NULL,
+  `execution_time` int DEFAULT NULL,
+  PRIMARY KEY (`version`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+-- Listage des données de la table kgaming.doctrine_migration_versions : ~1 rows (environ)
 DELETE FROM `doctrine_migration_versions`;
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 	('DoctrineMigrations\\Version20230601144500', NULL, NULL),
 	('DoctrineMigrations\\Version20230601144530', '2023-06-01 16:47:20', 388);
+
+-- Listage de la structure de table kgaming. game
+CREATE TABLE IF NOT EXISTS `game` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `label` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` double NOT NULL,
+  `date_release` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table kgaming.game : ~0 rows (environ)
 DELETE FROM `game`;
@@ -42,6 +81,17 @@ INSERT INTO `game` (`id`, `label`, `price`, `date_release`) VALUES
 	(4, 'Raft', 19.99, '2022-06-20'),
 	(6, 'Counter-Strike 2', 19.99, '2025-06-20'),
 	(7, 'Diablo IV', 19.99, '2023-06-06');
+
+-- Listage de la structure de table kgaming. game_genre
+CREATE TABLE IF NOT EXISTS `game_genre` (
+  `game_id` int NOT NULL,
+  `genre_id` int NOT NULL,
+  PRIMARY KEY (`game_id`,`genre_id`),
+  KEY `IDX_B1634A77E48FD905` (`game_id`),
+  KEY `IDX_B1634A774296D31F` (`genre_id`),
+  CONSTRAINT `FK_B1634A774296D31F` FOREIGN KEY (`genre_id`) REFERENCES `genre` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_B1634A77E48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table kgaming.game_genre : ~0 rows (environ)
 DELETE FROM `game_genre`;
@@ -55,6 +105,17 @@ INSERT INTO `game_genre` (`game_id`, `genre_id`) VALUES
 	(4, 10),
 	(6, 1),
 	(7, 5);
+
+-- Listage de la structure de table kgaming. game_plateform
+CREATE TABLE IF NOT EXISTS `game_plateform` (
+  `game_id` int NOT NULL,
+  `plateform_id` int NOT NULL,
+  PRIMARY KEY (`game_id`,`plateform_id`),
+  KEY `IDX_DC247165E48FD905` (`game_id`),
+  KEY `IDX_DC247165CCAA542F` (`plateform_id`),
+  CONSTRAINT `FK_DC247165CCAA542F` FOREIGN KEY (`plateform_id`) REFERENCES `plateform` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_DC247165E48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table kgaming.game_plateform : ~0 rows (environ)
 DELETE FROM `game_plateform`;
@@ -80,6 +141,13 @@ INSERT INTO `game_plateform` (`game_id`, `plateform_id`) VALUES
 	(7, 8),
 	(7, 9);
 
+-- Listage de la structure de table kgaming. genre
+CREATE TABLE IF NOT EXISTS `genre` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `label` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Listage des données de la table kgaming.genre : ~0 rows (environ)
 DELETE FROM `genre`;
 INSERT INTO `genre` (`id`, `label`) VALUES
@@ -95,8 +163,34 @@ INSERT INTO `genre` (`id`, `label`) VALUES
 	(10, 'Survie'),
 	(11, 'Multijoueur');
 
+-- Listage de la structure de table kgaming. messenger_messages
+CREATE TABLE IF NOT EXISTS `messenger_messages` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `body` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `headers` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue_name` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL,
+  `available_at` datetime NOT NULL,
+  `delivered_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_75EA56E0FB7336F0` (`queue_name`),
+  KEY `IDX_75EA56E0E3BD61CE` (`available_at`),
+  KEY `IDX_75EA56E016BA31DB` (`delivered_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Listage des données de la table kgaming.messenger_messages : ~0 rows (environ)
 DELETE FROM `messenger_messages`;
+
+-- Listage de la structure de table kgaming. plateform
+CREATE TABLE IF NOT EXISTS `plateform` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `category_id` int NOT NULL,
+  `label` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `logo` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_E82B06712469DE2` (`category_id`),
+  CONSTRAINT `FK_E82B06712469DE2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table kgaming.plateform : ~0 rows (environ)
 DELETE FROM `plateform`;
@@ -111,6 +205,26 @@ INSERT INTO `plateform` (`id`, `category_id`, `label`, `logo`) VALUES
 	(8, 2, 'PlayStation 5', 'https://www.svgrepo.com/show/473757/playstation5.svg'),
 	(9, 3, 'Xbox One', 'https://www.svgrepo.com/show/303464/xbox-one-3-logo.svg');
 
+-- Listage de la structure de table kgaming. purchase
+CREATE TABLE IF NOT EXISTS `purchase` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int DEFAULT NULL,
+  `address_id` int DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_paid` tinyint(1) NOT NULL,
+  `method` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stripe_session_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `paypal_order_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `delivery` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_full_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_6117D13BA76ED395` (`user_id`),
+  KEY `IDX_6117D13BF5B7AF75` (`address_id`),
+  CONSTRAINT `FK_6117D13BA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `FK_6117D13BF5B7AF75` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Listage des données de la table kgaming.purchase : ~0 rows (environ)
 DELETE FROM `purchase`;
 INSERT INTO `purchase` (`id`, `user_id`, `address_id`, `created_at`, `is_paid`, `method`, `reference`, `stripe_session_id`, `paypal_order_id`, `delivery`, `user_full_name`) VALUES
@@ -118,7 +232,23 @@ INSERT INTO `purchase` (`id`, `user_id`, `address_id`, `created_at`, `is_paid`, 
 	(52, 1, 1, '2023-06-01 13:32:17', 1, 'stripe', '01062023-64789de1496eb', 'cs_test_a1EmaG4MXEKXrzLSxXKT4o6zBucUpLJokMB9cdUVhtYrOD26beBEoy2Tlc', NULL, '29 rue du ban</br>68200 - Mulhouse', 'Kevin GRISCHKO'),
 	(53, 1, 3, '2023-06-01 13:58:29', 1, 'stripe', '01062023-6478a40591a84', 'cs_test_a1EmaG4MXEKXrzLSxXKT4o6zBucUpLJokMB9cdUVhtYrOD26beBEoy2Tlc', NULL, '16 rue de la rose</br>68270 - Wittenheim', 'Kevin GRISCHKO');
 
--- Listage des données de la table kgaming.recap_details : ~0 rows (environ)
+-- Listage de la structure de table kgaming. recap_details
+CREATE TABLE IF NOT EXISTS `recap_details` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `order_product_id` int NOT NULL,
+  `quantity` int NOT NULL,
+  `game_label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` double NOT NULL,
+  `total_recap` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `platform_label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `game_id` int NOT NULL,
+  `platform_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_1D1FD69F65E9B0F` (`order_product_id`),
+  CONSTRAINT `FK_1D1FD69F65E9B0F` FOREIGN KEY (`order_product_id`) REFERENCES `purchase` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Listage des données de la table kgaming.recap_details : ~5 rows (environ)
 DELETE FROM `recap_details`;
 INSERT INTO `recap_details` (`id`, `order_product_id`, `quantity`, `game_label`, `price`, `total_recap`, `platform_label`, `game_id`, `platform_id`) VALUES
 	(1, 51, 1, 'Rocket League', 19.99, '19.99', 'Steam', 1, 1),
@@ -127,10 +257,41 @@ INSERT INTO `recap_details` (`id`, `order_product_id`, `quantity`, `game_label`,
 	(4, 52, 1, 'New World', 38.99, '38.99', 'Steam', 3, 1),
 	(5, 53, 1, 'Rocket League', 19.99, '19.99', 'Steam', 1, 1);
 
+-- Listage de la structure de table kgaming. reset_password_request
+CREATE TABLE IF NOT EXISTS `reset_password_request` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `selector` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hashed_token` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `requested_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+  `expires_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+  PRIMARY KEY (`id`),
+  KEY `IDX_7CE748AA76ED395` (`user_id`),
+  CONSTRAINT `FK_7CE748AA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Listage des données de la table kgaming.reset_password_request : ~0 rows (environ)
 DELETE FROM `reset_password_request`;
 
--- Listage des données de la table kgaming.stock : ~0 rows (environ)
+-- Listage de la structure de table kgaming. stock
+CREATE TABLE IF NOT EXISTS `stock` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `game_id` int NOT NULL,
+  `purchase_id` int DEFAULT NULL,
+  `plateform_id` int NOT NULL,
+  `license_key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date_availability` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_available` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_4B365660E48FD905` (`game_id`),
+  KEY `IDX_4B365660558FBEB9` (`purchase_id`),
+  KEY `IDX_4B365660CCAA542F` (`plateform_id`),
+  CONSTRAINT `FK_4B365660558FBEB9` FOREIGN KEY (`purchase_id`) REFERENCES `purchase` (`id`),
+  CONSTRAINT `FK_4B365660CCAA542F` FOREIGN KEY (`plateform_id`) REFERENCES `plateform` (`id`),
+  CONSTRAINT `FK_4B365660E48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=203 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Listage des données de la table kgaming.stock : ~202 rows (environ)
 DELETE FROM `stock`;
 INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_key`, `date_availability`, `is_available`) VALUES
 	(1, 2, NULL, 7, '66D2-A17E-F004-017A', '2023-06-01 09:39:45', 1),
@@ -335,6 +496,22 @@ INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_ke
 	(200, 1, NULL, 7, '4CD1-CCCB-8912-9BF1', '2023-06-01 13:55:57', 1),
 	(201, 4, NULL, 3, 'E2C9-A2A2-4219-CF9B', '2023-06-01 13:55:57', 1),
 	(202, 4, NULL, 7, '3C48-C257-3B1C-D2FE', '2023-06-01 13:55:57', 1);
+
+-- Listage de la structure de table kgaming. user
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `roles` json NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar` longtext COLLATE utf8mb4_unicode_ci,
+  `is_verified` tinyint(1) NOT NULL,
+  `create_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+  `ip_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_banned` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_8D93D649F85E0677` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table kgaming.user : ~0 rows (environ)
 DELETE FROM `user`;
