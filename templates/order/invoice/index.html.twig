@@ -1,0 +1,23 @@
+<h1>Bonjour {{ user.username }}</h1>
+<p>Nous avons le plaisir de vous confirmer votre commande <strong>n°{{ reference }}</strong></p>
+
+<h2>Voici vos clés de jeux</h2>
+
+<table>
+	<thead>
+	<tr>
+		<th>Jeux</th>
+		<th>Plateforme</th>
+		<th>Clé d'activation</th>
+	</tr>
+	</thead>
+	<tbody>
+	{% for product in games %}
+		<tr>
+			<td>{{ product.game.label }}</td>
+			<td>{{ product.platform.label }}</td>
+			<td>{{ license[loop.index0] }}</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
