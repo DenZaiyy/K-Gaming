@@ -14,25 +14,26 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Listage des données de la table kgaming.address : ~2 rows (environ)
+-- Listage des données de la table kgaming.address : ~0 rows (environ)
 DELETE FROM `address`;
 INSERT INTO `address` (`id`, `user_id`, `label`, `firstname`, `lastname`, `address`, `cp`, `city`) VALUES
 	(1, 1, 'Maison', 'Kevin', 'GRISCHKO', '29 rue du ban', '68200', 'Mulhouse'),
 	(3, 1, 'Travail', 'Kevin', 'GRISCHKO', '16 rue de la rose', '68270', 'Wittenheim');
 
--- Listage des données de la table kgaming.category : ~3 rows (environ)
+-- Listage des données de la table kgaming.category : ~0 rows (environ)
 DELETE FROM `category`;
 INSERT INTO `category` (`id`, `label`) VALUES
 	(1, 'PC'),
 	(2, 'PlayStation'),
 	(3, 'Xbox');
 
--- Listage des données de la table kgaming.doctrine_migration_versions : ~1 rows (environ)
+-- Listage des données de la table kgaming.doctrine_migration_versions : ~2 rows (environ)
 DELETE FROM `doctrine_migration_versions`;
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-	('DoctrineMigrations\\Version20230523090825', '2023-05-05 16:47:20', 388);
+	('DoctrineMigrations\\Version20230601144500', NULL, NULL),
+	('DoctrineMigrations\\Version20230601144530', '2023-06-01 16:47:20', 388);
 
--- Listage des données de la table kgaming.game : ~6 rows (environ)
+-- Listage des données de la table kgaming.game : ~0 rows (environ)
 DELETE FROM `game`;
 INSERT INTO `game` (`id`, `label`, `price`, `date_release`) VALUES
 	(1, 'Rocket League', 19.99, '2015-07-06'),
@@ -42,7 +43,7 @@ INSERT INTO `game` (`id`, `label`, `price`, `date_release`) VALUES
 	(6, 'Counter-Strike 2', 19.99, '2025-06-20'),
 	(7, 'Diablo IV', 19.99, '2023-06-06');
 
--- Listage des données de la table kgaming.game_genre : ~7 rows (environ)
+-- Listage des données de la table kgaming.game_genre : ~0 rows (environ)
 DELETE FROM `game_genre`;
 INSERT INTO `game_genre` (`game_id`, `genre_id`) VALUES
 	(1, 6),
@@ -55,7 +56,7 @@ INSERT INTO `game_genre` (`game_id`, `genre_id`) VALUES
 	(6, 1),
 	(7, 5);
 
--- Listage des données de la table kgaming.game_plateform : ~20 rows (environ)
+-- Listage des données de la table kgaming.game_plateform : ~0 rows (environ)
 DELETE FROM `game_plateform`;
 INSERT INTO `game_plateform` (`game_id`, `plateform_id`) VALUES
 	(1, 1),
@@ -79,7 +80,7 @@ INSERT INTO `game_plateform` (`game_id`, `plateform_id`) VALUES
 	(7, 8),
 	(7, 9);
 
--- Listage des données de la table kgaming.genre : ~11 rows (environ)
+-- Listage des données de la table kgaming.genre : ~0 rows (environ)
 DELETE FROM `genre`;
 INSERT INTO `genre` (`id`, `label`) VALUES
 	(1, 'FPS'),
@@ -97,7 +98,7 @@ INSERT INTO `genre` (`id`, `label`) VALUES
 -- Listage des données de la table kgaming.messenger_messages : ~0 rows (environ)
 DELETE FROM `messenger_messages`;
 
--- Listage des données de la table kgaming.plateform : ~9 rows (environ)
+-- Listage des données de la table kgaming.plateform : ~0 rows (environ)
 DELETE FROM `plateform`;
 INSERT INTO `plateform` (`id`, `category_id`, `label`, `logo`) VALUES
 	(1, 1, 'Steam', 'https://www.svgrepo.com/show/452107/steam.svg'),
@@ -110,26 +111,26 @@ INSERT INTO `plateform` (`id`, `category_id`, `label`, `logo`) VALUES
 	(8, 2, 'PlayStation 5', 'https://www.svgrepo.com/show/473757/playstation5.svg'),
 	(9, 3, 'Xbox One', 'https://www.svgrepo.com/show/303464/xbox-one-3-logo.svg');
 
--- Listage des données de la table kgaming.purchase : ~3 rows (environ)
+-- Listage des données de la table kgaming.purchase : ~0 rows (environ)
 DELETE FROM `purchase`;
-INSERT INTO `purchase` (`id`, `user_id`, `address_id`, `delivery`, `user_full_name`, `is_paid`, `method`, `reference`, `stripe_session_id`, `paypal_order_id`, `created_at`) VALUES
-	(51, 1, 1, '29 rue du ban</br>68200 - Mulhouse', 'Kevin GRISCHKO', 1, 'stripe', '01062023-64789d1fc96ef', 'cs_test_a1EmaG4MXEKXrzLSxXKT4o6zBucUpLJokMB9cdUVhtYrOD26beBEoy2Tlc', NULL, '2023-06-01 13:29:03'),
-	(52, 1, 1, '29 rue du ban</br>68200 - Mulhouse', 'Kevin GRISCHKO', 1, 'stripe', '01062023-64789de1496eb', 'cs_test_a1EmaG4MXEKXrzLSxXKT4o6zBucUpLJokMB9cdUVhtYrOD26beBEoy2Tlc', NULL, '2023-06-01 13:32:17'),
-	(53, 1, 3, '16 rue de la rose</br>68270 - Wittenheim', 'Kevin GRISCHKO', 1, 'stripe', '01062023-6478a40591a84', 'cs_test_a1EmaG4MXEKXrzLSxXKT4o6zBucUpLJokMB9cdUVhtYrOD26beBEoy2Tlc', NULL, '2023-06-01 13:58:29');
+INSERT INTO `purchase` (`id`, `user_id`, `address_id`, `created_at`, `is_paid`, `method`, `reference`, `stripe_session_id`, `paypal_order_id`, `delivery`, `user_full_name`) VALUES
+	(51, 1, 1, '2023-06-01 13:29:03', 1, 'stripe', '01062023-64789d1fc96ef', 'cs_test_a1EmaG4MXEKXrzLSxXKT4o6zBucUpLJokMB9cdUVhtYrOD26beBEoy2Tlc', NULL, '29 rue du ban</br>68200 - Mulhouse', 'Kevin GRISCHKO'),
+	(52, 1, 1, '2023-06-01 13:32:17', 1, 'stripe', '01062023-64789de1496eb', 'cs_test_a1EmaG4MXEKXrzLSxXKT4o6zBucUpLJokMB9cdUVhtYrOD26beBEoy2Tlc', NULL, '29 rue du ban</br>68200 - Mulhouse', 'Kevin GRISCHKO'),
+	(53, 1, 3, '2023-06-01 13:58:29', 1, 'stripe', '01062023-6478a40591a84', 'cs_test_a1EmaG4MXEKXrzLSxXKT4o6zBucUpLJokMB9cdUVhtYrOD26beBEoy2Tlc', NULL, '16 rue de la rose</br>68270 - Wittenheim', 'Kevin GRISCHKO');
 
--- Listage des données de la table kgaming.recap_details : ~5 rows (environ)
+-- Listage des données de la table kgaming.recap_details : ~0 rows (environ)
 DELETE FROM `recap_details`;
-INSERT INTO `recap_details` (`id`, `order_product_id`, `quantity`, `price`, `total_recap`, `game_label`, `platform_label`, `game_id`, `platform_id`) VALUES
-	(1, 51, 1, 19.99, '19.99', 'Rocket League', 'Steam', 1, 1),
-	(2, 52, 1, 39.99, '39.99', 'Rust', 'Steam', 2, 1),
-	(3, 52, 1, 19.99, '19.99', 'Rocket League', 'Steam', 1, 1),
-	(4, 52, 1, 38.99, '38.99', 'New World', 'Steam', 3, 1),
-	(5, 53, 1, 19.99, '19.99', 'Rocket League', 'Steam', 1, 1);
+INSERT INTO `recap_details` (`id`, `order_product_id`, `quantity`, `game_label`, `price`, `total_recap`, `platform_label`, `game_id`, `platform_id`) VALUES
+	(1, 51, 1, 'Rocket League', 19.99, '19.99', 'Steam', 1, 1),
+	(2, 52, 1, 'Rust', 39.99, '39.99', 'Steam', 2, 1),
+	(3, 52, 1, 'Rocket League', 19.99, '19.99', 'Steam', 1, 1),
+	(4, 52, 1, 'New World', 38.99, '38.99', 'Steam', 3, 1),
+	(5, 53, 1, 'Rocket League', 19.99, '19.99', 'Steam', 1, 1);
 
 -- Listage des données de la table kgaming.reset_password_request : ~0 rows (environ)
 DELETE FROM `reset_password_request`;
 
--- Listage des données de la table kgaming.stock : ~32 rows (environ)
+-- Listage des données de la table kgaming.stock : ~0 rows (environ)
 DELETE FROM `stock`;
 INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_key`, `date_availability`, `is_available`) VALUES
 	(1, 2, NULL, 7, '66D2-A17E-F004-017A', '2023-06-01 09:39:45', 1),
@@ -335,10 +336,10 @@ INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_ke
 	(201, 4, NULL, 3, 'E2C9-A2A2-4219-CF9B', '2023-06-01 13:55:57', 1),
 	(202, 4, NULL, 7, '3C48-C257-3B1C-D2FE', '2023-06-01 13:55:57', 1);
 
--- Listage des données de la table kgaming.user : ~1 rows (environ)
+-- Listage des données de la table kgaming.user : ~0 rows (environ)
 DELETE FROM `user`;
-INSERT INTO `user` (`id`, `username`, `password`, `email`, `avatar`, `roles`, `is_verified`, `create_at`, `is_banned`, `ip_address`) VALUES
-	(1, 'denz', '$2y$13$jjQF4rgjxHoO6gHwK/It/ekENtEV8mJnzqyQAWmsM58Ch.Xs9nVJS', 'denzoubiden@gmail.com', '/img/default.png', '["ROLE_ADMIN"]', 1, '2023-05-14 20:43:59', 0, '');
+INSERT INTO `user` (`id`, `username`, `roles`, `password`, `email`, `avatar`, `is_verified`, `create_at`, `ip_address`, `is_banned`) VALUES
+	(1, 'denz', '["ROLE_ADMIN"]', '$2y$13$jjQF4rgjxHoO6gHwK/It/ekENtEV8mJnzqyQAWmsM58Ch.Xs9nVJS', 'denzoubiden@gmail.com', '/img/default.png', 1, '2023-05-14 20:43:59', '', 0);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
