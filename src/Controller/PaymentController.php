@@ -117,7 +117,7 @@ class PaymentController extends AbstractController
 	public function purchaseSuccess($reference, CartService $cartService, MailerInterface $mailer): Response
 	{
 		$purchase = $this->em->getRepository(Purchase::class)->findOneBy(['reference' => $reference]);
-		$user = $this->em->getRepository(User::class)->findOneBy($purchase->getUser()); //get the user by the purchase
+		$user = $this->em->getRepository(User::class)->find($purchase->getUser()); //get the user by the purchase
 		$recapDetails = $purchase->getRecapDetails(); //get the recapDetails from the purchase
 		
 		$license = [];
