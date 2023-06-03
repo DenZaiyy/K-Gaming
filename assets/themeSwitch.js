@@ -14,8 +14,6 @@ let trans = () => {
 	}, 1000)
 }
 
-checkbox.checked = theme === "dark";
-
 const changeThemeToDark = () => {
 	document.documentElement.setAttribute("data-theme", "dark");
 	localStorage.setItem("data-theme", "dark");
@@ -28,6 +26,9 @@ const changeThemeToLight = () => {
 	trans();
 }
 
-checkbox.addEventListener("change", () => {
-	checkbox.checked ? changeThemeToDark() : changeThemeToLight();
-})
+if(checkbox)
+{
+	checkbox.addEventListener("change", () => {
+		checkbox.checked ? changeThemeToDark() : changeThemeToLight();
+	})
+}
