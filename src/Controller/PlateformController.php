@@ -5,21 +5,34 @@ namespace App\Controller;
 use App\Entity\Game;
 use App\Entity\Plateform;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PlateformController extends AbstractController
 {
-    #[Route('/platform/{platformID}', name: 'app_game_platform')]
-    public function index(EntityManagerInterface $em, $platformID): Response
+    #[Route('/platform/{platformSlug}', name: 'app_game_platform')]
+    public function index(EntityManagerInterface $em, Request $request, PaginatorInterface $paginator, $platformSlug): Response
     {
-        $gamePlatform = $em->getRepository(Game::class)->findGamesInPlatform($platformID);
-//        dd($gamePlatform);
-        $platform = $em->getRepository(Plateform::class)->findOneBy(['id' => $platformID]);
+        $platform = $em->getRepository(Plateform::class)->findOneBy(['slug' => $platformSlug]);
 
-        return $this->render('platform/index.html.twig', [
-            'games' => $gamePlatform,
+        $pagination = $paginator->paginate(
+            $em->getRepository(Game::class)->findGamesInPlatformPagination($platform->getId()),
+            $request->query->get('page', 1),
+            3
+        );
+
+        $pagination->setCustomParameters([
+            'align' => 'center',
+            'size' => 'small',
+            'style' => 'bottom',
+            'span_class' => 'whatever',
+        ]);
+
+        return $this->render('game/platform/index.html.twig', [
+            'games' => $pagination,
             'platform' => $platform,
         ]);
     }
