@@ -15,7 +15,7 @@
 					<div class="dropdown-menu" aria-labelledby="dropdown{{ category.label }}">
 						{% for plateform in plateforms %}
 							{% if plateform.category.label == category.label %}
-								<a href="{{ path('app_game_platform', {platformID: plateform.id}) }}"
+								<a href="{{ path('app_game_platform', {platformSlug: plateform.slug}) }}"
 								   class="dropdown-item"><img src="{{ plateform.logo }}"
 								                              alt="logo of {{ plateform.label }}" height="32"
 								                              width="32">{{ plateform.label }}</a>
@@ -26,10 +26,6 @@
 			{% endfor %}
 		</div>
 		<div class="icons">
-			<div class="toggle-container">
-				<input class="container_toggle" type="checkbox" id="switch" name="mode">
-				<label for="switch">Toggle</label>
-			</div>
 			<div class="dropdown">
 				<button class="dropBtn" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownCart">
 					<i class="bi bi-cart4"></i>
@@ -74,6 +70,7 @@
 						{% endif %}
 						<a href="{{ path('user_my_account') }}">Mon compte</a>
 						<a href="{{ path('user_my_order') }}">Mes commandes</a>
+						<a href="{{ path('user_my_preference') }}">Mes préférences</a>
 						<hr class="dropdown-divider">
 						<a href="{{ logout_path() }}" class="disconnect">Déconnexion</a>
 					

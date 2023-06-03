@@ -56,7 +56,7 @@
 							<select class="form-select" name="plateform" id="plateform">
 								<option value="" selected disabled hidden>Selectionner une plateforme</option>
 								{% for plateform in game.plateforms %}
-									<option value="{{ plateform.id }}">{{ plateform.label }}</option>
+									<option value="{{ plateform.slug }}">{{ plateform.label }}</option>
 								{% endfor %}
 							</select>
 							<p>{{ gamePlatform[0].price|price }} (HT)</p>
@@ -67,10 +67,10 @@
 								<a href="" class="btn btn-primary w-100">Précommander</a>
 							{% else %}
 								{% if gameStock[0].total > 0 %}
-									<a href="{{ path('app_add_cart', {id: game.id, idPlatform: gamePlatform[0].platform_id}) }}"
+									<a href="{{ path('app_add_cart', {gameSlug: game.slug, platformSlug: gamePlatform[0].platform_slug}) }}"
 									   class="btn btn-primary"><i
 											class="bi bi-bag-plus"></i></a>
-									<a href="{{ path('app_buy_now', {id: game.id, idPlatform: gamePlatform[0].platform_id}) }}"
+									<a href="{{ path('app_buy_now', {gameSlug: game.slug, platformSlug: gamePlatform[0].platform_slug}) }}"
 									   class="btn btn-primary w-100">Acheter
 										maintenant</a>
 								{% else %}

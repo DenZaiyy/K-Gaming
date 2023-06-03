@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Address;
+use App\Entity\RecapDetails;
 use App\Form\AddressType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,7 +22,7 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
 
-        return $this->render('user/index.html.twig', [
+        return $this->render('security/user/index.html.twig', [
             'user' => $user,
         ]);
     }
@@ -31,9 +32,15 @@ class UserController extends AbstractController
     {
         $purchase = $this->getUser()->getPurchase();
 
-        return $this->render('user/my-order.html.twig', [
+        return $this->render('security/user/my-order.html.twig', [
             'purchases' => $purchase,
         ]);
+    }
+
+    #[Route('/profil/my-preference', name: 'user_my_preference')]
+    public function myPreference(): Response
+    {
+        return $this->render('security/user/my-preference.html.twig');
     }
 
     #[Route('/profil/add-address', name: 'user_add_address')]
@@ -55,7 +62,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('user_my_account');
         }
 
-        return $this->render('user/address/add.html.twig', [
+        return $this->render('security/user/address/add.html.twig', [
             'formAddAddress' => $form->createView(),
         ]);
     }

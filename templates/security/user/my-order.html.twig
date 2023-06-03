@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes commandes{% endblock %}
+
+{% block body %}
+    <div class="current-purchase">
+        <h2>Mes achats</h2>
+        {% if purchases %}
+            <div class="cards d-flex flex-wrap flex-column">
+                {% for purchase in purchases %}
+                    {% set total = null %}
+                    <div class="card w-50 m-auto">
+                        <div class="card-header">
+                            <div class="d-flex flex-row justify-content-between">
+                                <div class="purchase d-flex flex-row gap-2">
+                                    <div class="status">
+                                        {% if purchase.isPaid %}
+                                            <span class="badge text-bg-success">PAID</span>
+                                        {% else %}
+                                            <span class="badge text-bg-warning">PENDING</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="ref">
+                                        Commande #<strong>{{ purchase.reference }}</strong>
+                                    </div>
+                                </div>
+                                <div class="purchase-date">
+                                    {{ purchase.createdAt|date('d/m/Y') }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body p-3">
+                            {% for recap in purchase.recapDetails %}
+                                {% set total = total + recap.price %}
+                                <div class="details d-flex align-items-center justify-content-between flex-row">
+                                    <div class="game d-flex flex-row align-items-center gap-3">
+                                        <img src="https://images.igdb.com/igdb/image/upload/t_cover_small/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: recap.gameLabel })) }}.jpg"
+                                             draggable="false" alt="cover for game: {{ recap.gameLabel }}">
+                                        <div class="infos d-flex flex-column text-start">
+                                            <strong>{{ recap.gameLabel|upper }}</strong>
+                                            <small>Plateforme: <strong>{{ recap.platformLabel }}</strong></small>
+                                            <small>Quantité: <strong>{{ recap.quantity }}</strong></small>
+                                        </div>
+                                    </div>
+                                    <div class="game-price">
+                                        {{ recap.price|price }}
+                                    </div>
+                                </div>
+                                <hr>
+                            {% endfor %}
+                            <div class="detail-price d-flex flex-column">
+                                <div class="TVA d-flex justify-content-between">
+                                    {% set TVA = total / 100 * 20 %}
+                                    <strong>TVA (20%)</strong>
+                                    <small>{{ TVA|price }}</small>
+                                </div>
+                                <div class="total-ttc d-flex justify-content-between">
+                                    {% set totalTTC = total + TVA %}
+                                    <strong>Total TTC</strong>
+                                    <small>{{ totalTTC|price }}</small>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="purchase-infos d-flex flex-row justify-content-between">
+                                <div class="infos d-flex flex-row gap-2">
+                                    <div class="method">
+                                        <strong>Paiement:</strong> {{ purchase.method|upper }}
+                                    </div>
+                                </div>
+                                <div class="bill">
+                                    <a href="" class="link">Télécharger facture</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Vous n'avez pas encore effectué d'achat</p>
+        {% endif %}
+    </div>
+{% endblock %}

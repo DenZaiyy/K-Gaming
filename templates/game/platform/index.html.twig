@@ -10,7 +10,7 @@
         {% if games %}
             <div class="cards">
                 {% for game in games %}
-                    <a href="{{ path('app_show_game_platform', {gameID: game.id, platformID: platform.id }) }}">
+                    <a href="{{ path('app_show_game_platform', {gameSlug: game.slug, platformSlug: platform.slug }) }}">
                         <div class="gameCard">
                             <div class="cover-img">
                                 <img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: game.label })) }}.jpg"
@@ -33,4 +33,8 @@
             <p>Aucun jeu pour cette plateforme</p>
         {% endif %}
     </section>
+
+    <div class="pagination-platform">
+        {{ knp_pagination_render(games) }}
+    </div>
 {% endblock %}

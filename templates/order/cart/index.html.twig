@@ -4,7 +4,6 @@
 
 {% block body %}
 	{% if cart|length > 0 %}
-{#		{{ dump(cart) }}#}
 		<div class="cart d-flex flex-wrap justify-content-center text-start gap-5 my-5">
 			<div class="cart-item">
 				<h2>Panier</h2>
@@ -26,11 +25,11 @@
 											     height="32" width="32">
 										</div>
 										<div class="game-name">
-											<a href="{{ path('app_show_game_platform', {platformID: item.platform.id, gameID: item.game.id}) }}"><span>{{ item.game.label }}</span></a>
+											<a href="{{ path('app_show_game_platform', {platformSlug: item.platform.slug, gameSlug: item.game.slug}) }}"><span>{{ item.game.label }}</span></a>
 										</div>
 									</div>
 									<div class="delete-icon">
-										<a href="{{ path('app_remove_cart', {'id': item.game.id, 'idPlatform': item.platform.id}) }}">
+										<a href="{{ path('app_remove_cart', {'gameSlug': item.game.slug, 'platformSlug': item.platform.slug}) }}">
 											<i class="bi bi-trash3-fill"></i> Retirer
 										</a>
 									</div>

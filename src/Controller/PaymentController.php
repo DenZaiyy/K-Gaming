@@ -186,7 +186,7 @@ class PaymentController extends AbstractController
 		
 		$mailer->send($email); //send the email
 		
-		return $this->render('order/success.html.twig', [
+		return $this->render('order/payment/success.html.twig', [
 			'reference' => $reference,
 			'products' => $products,
 			'purchase' => $purchase,
@@ -206,7 +206,7 @@ class PaymentController extends AbstractController
 		
 		$this->em->getRepository(Purchase::class)->remove($purchase, true); //remove the purchase
 		
-		return $this->render('order/error.html.twig', [
+		return $this->render('order/payment/error.html.twig', [
 			'reference' => $reference,
 		]);
 	}
