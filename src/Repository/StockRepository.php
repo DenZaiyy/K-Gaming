@@ -42,7 +42,7 @@ class StockRepository extends ServiceEntityRepository
 	public function findGamesInTendencies(): array
 	{
 		return $this->createQueryBuilder('s')
-			->select('g.id', 'g.label', 'g.price', 'g.date_release')
+			->select('g.id', 'g.label', 'g.slug', 'g.price', 'g.date_release')
 			->leftJoin('s.game', 'g')
 			->leftJoin('s.purchase', 'p')
 			->Where('s.is_available = false')
@@ -71,7 +71,7 @@ class StockRepository extends ServiceEntityRepository
 	public function findAvailableGameStockByPlatform($gameID, $platformID): array
 	{
 		return $this->createQueryBuilder('s')
-			->select('p.id AS platform_id', 'g.id AS game_id', 'g.label', 'p.label AS platform_label', 'COUNT(s.game) AS total')
+			->select('p.id AS platform_id', 'g.id AS game_id', 'g.label', 'g.slug', 'p.label AS platform_label', 'p.slug AS platform_slug', 'COUNT(s.game) AS total')
 			->leftJoin('s.game', 'g')
 			->leftJoin('s.plateform', 'p')
 			->where('g.id = :gameID')
@@ -100,6 +100,17 @@ class StockRepository extends ServiceEntityRepository
 			->getQuery()
 			->getResult();
 	}
+
+    public function deleteStockGameIfNotInPlatform(): array
+    {
+        return $this->createQueryBuilder('s')
+            ->leftJoin('s.game', 'g')
+            ->leftJoin('s.plateform', 'p')
+            ->where('g.plateforms != p.id')
+            ->delete()
+            ->getQuery()
+            ->getResult();
+    }
 	
 	//    /**
 	//     * @return Stock[] Returns an array of Stock objects

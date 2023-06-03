@@ -15,15 +15,16 @@ class CartService extends AbstractController
     {
     }
 
-    public function addToCart(int $id, $idPlatform): void
+    public function addToCart($gameSlug, $platformSlug): void
     {
         $cart = $this->getSession()->get('cart', []);
-        //$game = $this->em->getRepository(Game::class)->find($id);
+        $game = $this->em->getRepository(Game::class)->findOneBy(['slug' => $gameSlug]);
+        $platform = $this->em->getRepository(Plateform::class)->findOneBy(['slug' => $platformSlug]);
 
         $found = false;
 
         foreach ($cart as $key => $item) {
-            if ($item['game'] == $id && $item['platform'] == $idPlatform) {
+            if ($item['game'] == $game && $item['platform'] == $platform) {
                 $found = $key;
                 break;
             }
@@ -33,8 +34,8 @@ class CartService extends AbstractController
             $cart[$found]['quantity']++;
         } else {
             $cart[] = [
-                'game' => $id,
-                'platform' => $idPlatform,
+                'game' => $game,
+                'platform' => $platform,
                 'quantity' => 1
             ];
         }
@@ -42,12 +43,12 @@ class CartService extends AbstractController
         $this->getSession()->set('cart', $cart);
     }
 
-    public function removeToCart(int $id, int $idPlatform): void
+    public function removeToCart($gameSlug, $platformSlug): void
     {
         $cart = $this->getSession()->get('cart', []);
 
         foreach ($cart as $key => $item) {
-            if ($item['game'] === $id && $item['platform'] === $idPlatform) {
+            if ($item['game']->getSlug() === $gameSlug && $item['platform']->getSlug() === $platformSlug) {
                 unset($cart[$key]);
             }
         }
@@ -79,7 +80,7 @@ class CartService extends AbstractController
         $cartData = [];
 
         if ($cart) {
-            foreach ($cart as $key => $value) {
+            foreach ($cart as $value) {
                 $game = $this->em->getRepository(Game::class)->find($value['game']);
                 $platform = $this->em->getRepository(Plateform::class)->find($value['platform']);
 
@@ -99,6 +100,7 @@ class CartService extends AbstractController
         return $cartData;
     }
 
+    //function to get the total of the cart
     public function getTotalCart(): float|int
     {
         $cart = $this->getSession()->get('cart');
@@ -119,6 +121,7 @@ class CartService extends AbstractController
         return $total;
     }
 
+    //function to get the session
     private function getSession(): SessionInterface
     {
         return $this->requestStack->getSession();

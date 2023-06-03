@@ -42,12 +42,21 @@ class GameRepository extends ServiceEntityRepository
     public function findGamesInPreOrders(): array
     {
         return $this->createQueryBuilder('g')
-            ->select('g.id', 'g.label', 'g.price', 'g.date_release')
+            ->select('g.id', 'g.label', 'g.slug', 'g.price', 'g.date_release')
             ->where('g.date_release > :date')
             ->setParameter('date', new \DateTime())
             ->setMaxResults(3)
             ->getQuery()
             ->getResult();
+    }
+
+    public function findGamesInPlatformPagination($plateformID)
+    {
+        return $this->createQueryBuilder('g')
+            ->leftJoin('g.plateforms', 'p')
+            ->where('p.id = :plateformID')
+            ->setParameter('plateformID', $plateformID)
+            ->getQuery();
     }
 
     public function findGamesInPlatform($plateformID): array
@@ -64,7 +73,7 @@ class GameRepository extends ServiceEntityRepository
     public function findOneGameInPlatform($gameID, $platformID): array
     {
         return $this->createQueryBuilder('g')
-            ->select('g.id AS game_id', 'g.label AS game_label', 'g.price', 'g.date_release', 'p.id AS platform_id', 'p.label as platform_label', 'p.logo as platform_logo')
+            ->select('g.id AS game_id', 'g.label AS game_label', 'g.slug AS game_slug', 'g.price', 'g.date_release', 'p.id AS platform_id', 'p.label as platform_label', 'p.slug AS platform_slug', 'p.logo as platform_logo')
             ->leftJoin('g.plateforms', 'p')
             ->where('p.id = :platformID')
             ->andWhere('g.id = :gameID')
