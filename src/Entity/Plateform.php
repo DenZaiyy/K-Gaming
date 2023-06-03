@@ -19,6 +19,9 @@ class Plateform
     #[ORM\Column(length: 50)]
     private ?string $label = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
     #[ORM\ManyToOne(inversedBy: 'plateforms')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
@@ -137,6 +140,18 @@ class Plateform
     public function setLogo(string $logo): self
     {
         $this->logo = $logo;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
