@@ -7,7 +7,7 @@
 
         <h1>{{ platform.label }}</h1>
 
-        {% if games %}
+        {% if gameAvailable %}
             <div class="cards">
                 {% for game in games %}
                     <a href="{{ path('app_show_game_platform', {gameSlug: game.slug, platformSlug: platform.slug }) }}">
@@ -29,12 +29,11 @@
                     </a>
                 {% endfor %}
             </div>
+            <div class="pagination-platform mt-5">
+                {{ knp_pagination_render(games) }}
+            </div>
         {% else %}
             <p>Aucun jeu pour cette plateforme</p>
         {% endif %}
     </section>
-
-    <div class="pagination-platform">
-        {{ knp_pagination_render(games) }}
-    </div>
 {% endblock %}

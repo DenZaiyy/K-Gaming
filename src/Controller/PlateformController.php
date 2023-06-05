@@ -17,6 +17,7 @@ class PlateformController extends AbstractController
     public function index(EntityManagerInterface $em, Request $request, PaginatorInterface $paginator, $platformSlug): Response
     {
         $platform = $em->getRepository(Plateform::class)->findOneBy(['slug' => $platformSlug]);
+        $games = $em->getRepository(Game::class)->findGamesInPlatform($platform->getId());
 
         $pagination = $paginator->paginate(
             $em->getRepository(Game::class)->findGamesInPlatformPagination($platform->getId()),
@@ -32,6 +33,7 @@ class PlateformController extends AbstractController
         ]);
 
         return $this->render('game/platform/index.html.twig', [
+            'gameAvailable' => $games,
             'games' => $pagination,
             'platform' => $platform,
         ]);
