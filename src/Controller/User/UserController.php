@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\User;
 
 use App\Entity\Address;
-use App\Entity\RecapDetails;
+use App\Entity\Purchase;
 use App\Form\AddressType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,7 +30,11 @@ class UserController extends AbstractController
     #[Route('/profil/my-order', name: 'user_my_order')]
     public function myOrder(): Response
     {
-        $purchase = $this->getUser()->getPurchase();
+        $purchase = $this->em->getRepository(Purchase::class)->findBy([
+            'user' => $this->getUser(),
+        ], [
+            'created_at' => 'DESC',
+        ]);
 
         return $this->render('security/user/my-order.html.twig', [
             'purchases' => $purchase,

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Purchase;
 
 use App\Entity\Game;
 use App\Entity\Purchase;
