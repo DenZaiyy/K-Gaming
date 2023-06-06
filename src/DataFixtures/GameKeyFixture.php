@@ -11,46 +11,47 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 
 class GameKeyFixture extends Fixture
 {
-	private $games;
-	private $platforms;
-	
+    private $games;
+    private $platforms;
+
     public function load(ObjectManager $manager): void
     {
-		
-	    $this->games = $manager->getRepository(Game::class)->findAll();
-		$this->platforms = $manager->getRepository(Plateform::class)->findAll();
-		
-		for ($i = 0; $i <= 100; $i++) {
-			$stock = new Stock();
-			
-			$stock->setGame($this->getRandomGame());
-			$stock->setPlateform($this->getRandomPlatform());
-			$stock->setLicenseKey($this->getRandomKey());
-			$stock->setDateAvailability(new \DateTime());
-			$stock->setIsAvailable(true);
-			
-			$manager->persist($stock);
-		}
+        // Fetch existing games and platforms from the database
+        $this->games = $manager->getRepository(Game::class)->findAll();
+        $this->platforms = $manager->getRepository(Plateform::class)->findAll();
+
+
+        // Generate game keys and associate them with games and platforms
+        foreach ($this->games as $game) {
+            $platforms = $game->getPlateforms()->toArray();
+            if (empty($platforms)) {
+                continue; // Skip games without any associated platforms
+            }
+
+            foreach ($platforms as $platform) {
+                for ($i = 0; $i < rand(0, 25); $i++) {
+                    $stock = new Stock();
+
+                    $stock->setGame($game);
+                    $stock->setPlateform($platform);
+                    $stock->setLicenseKey($this->getRandomKey());
+                    $stock->setDateAvailability(new \DateTime());
+                    $stock->setIsAvailable(true);
+
+                    $manager->persist($stock);
+                }
+            }
+        }
+
         $manager->flush();
     }
-	
-	private function getRandomGame()
-	{
-		return $this->games[rand(0, count($this->games) - 1)];
-	}
-	
-	private function getRandomPlatform()
-	{
-		return $this->platforms[rand(0, count($this->platforms) - 1)];
-	}
-	
-	private function getRandomKey()
-	{
-		$slugger = new AsciiSlugger();
-		$uuid = $slugger->slug(strtoupper(bin2hex(random_bytes(8))));
-        $uuidChunks = str_split($uuid, 4);
-        $formattedUuid = implode('-', $uuidChunks);
 
-        return $formattedUuid;
-	}
+    private function getRandomKey()
+    {
+        $slugger = new AsciiSlugger();
+        $uuid = $slugger->slug(strtoupper(bin2hex(random_bytes(8))));
+        $uuidChunks = str_split($uuid, 4);
+
+        return implode('-', $uuidChunks);
+    }
 }
