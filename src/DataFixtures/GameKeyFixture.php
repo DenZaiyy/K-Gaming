@@ -29,7 +29,7 @@ class GameKeyFixture extends Fixture
             }
 
             foreach ($platforms as $platform) {
-                for ($i = 0; $i < rand(0, 25); $i++) {
+                for ($i = 0; $i < rand(1, 25); $i++) {
                     $stock = new Stock();
 
                     $stock->setGame($game);
