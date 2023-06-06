@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste de genres{% endblock %}
+
+{% block body %}
+    <section class="listGenres">
+
+        <h1>Liste de genres</h1>
+
+        <div class="cards">
+            {% for genre in genres %}
+                <a href="{{ path('app_show_game_genre', {genreSlug: genre.slug}) }}">
+                    <div class="genre">
+                        {{ genre.label|upper }} {% if genre.games|length == 0 %}
+                            (Aucun jeux)
+                        {% else %}
+                            ({{ genre.games|length }} jeux)
+                        {% endif %}
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
