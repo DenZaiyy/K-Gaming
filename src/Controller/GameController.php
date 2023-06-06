@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Game;
+use App\Entity\Genre;
 use App\Entity\Plateform;
 use App\Entity\Stock;
 use App\Service\CallApiService;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,14 +20,14 @@ class GameController extends AbstractController
 	{
 	}
 
-    #[Route('/game/{gameSlug}', name: 'app_show_game')]
+	#[Route('/game/{gameSlug}', name: 'app_show_game')]
 	public function showGame(EntityManagerInterface $em, $gameSlug): Response
 	{
 		$game = $em->getRepository(Game::class)->findOneBy(['slug' => $gameSlug]);
-        $gameStock = $em->getRepository(Stock::class)->findStockByGameID($game->getId());
-        $gamePlatform = $em->getRepository(Game::class)->findOneGameInPlatform($game->getId(), $gameStock[0]['platform_id']);
+		$gameStock = $em->getRepository(Stock::class)->findStockByGameID($game->getId());
+		$gamePlatform = $em->getRepository(Game::class)->findOneGameInPlatform($game->getId(), $gameStock[0]['platform_id']);
 
-		
+
 		return $this->render('game/show.html.twig', [
 			'game' => $game,
 			'gameStock' => $gameStock,
@@ -32,11 +35,11 @@ class GameController extends AbstractController
 		]);
 	}
 
-    #[Route('/platform/{platformSlug}/game/{gameSlug}', name: 'app_show_game_platform')]
+	#[Route('/platform/{platformSlug}/game/{gameSlug}', name: 'app_show_game_platform')]
 	public function showGameInPlatform(EntityManagerInterface $em, $platformSlug, $gameSlug): Response
 	{
 		$game = $em->getRepository(Game::class)->findOneBy(['slug' => $gameSlug]);
-        $platform = $em->getRepository(Plateform::class)->findOneBy(['slug' => $platformSlug]);
+		$platform = $em->getRepository(Plateform::class)->findOneBy(['slug' => $platformSlug]);
 		$gamePlatform = $em->getRepository(Game::class)->findOneGameInPlatform($game->getId(), $platform->getId());
 		$gameStock = $em->getRepository(Stock::class)->findAvailableGameStockByPlatform($game->getId(), $platform->getId());
 
@@ -47,35 +50,68 @@ class GameController extends AbstractController
 		]);
 	}
 
-    #[Route('/getGameInfos/{gameLabel}', name: 'app_get_game_infos')]
-    public function getImageIDGame($gameLabel): Response
-    {
-        return $this->render('components/game/_game_image_id.html.twig', [
-            'gameInfos' => $this->callApiService->getCoverByGame($gameLabel)
-        ]);
-    }
+	#[Route('/preoder/game', name: 'app_show_preorders')]
+	public function showGameInPreorder(EntityManagerInterface $em): Response
+	{
+		$date = new \DateTime();
+		$gamePreorder = $em->getRepository(Game::class)->findGameInPreorder($date);
 
-    #[Route('/getGameSummary/{gameLabel}', name: 'app_get_game_summary')]
-    public function getSummaryGame($gameLabel): Response
-    {
-        return $this->render('components/game/_game_summary.html.twig', [
-            'gameInfos' => $this->callApiService->getSummaryByGame($gameLabel)
-        ]);
-    }
+		return $this->render('game/preOrder/index.html.twig', [
+			'gamePreorder' => $gamePreorder,
+		]);
+	}
 
-    #[Route('/getGameScreenshots/{gameLabel}', name: 'app_get_game_screenshots')]
-    public function getScreenshotsGame($gameLabel): Response
-    {
-        return $this->render('components/game/_game_screenshots.html.twig', [
-            'gameInfos' => $this->callApiService->getScreenshotByGame($gameLabel)
-        ]);
-    }
+	#[Route('/game/genre/{genreSlug}', name: 'app_show_game_genre')]
+	public function showGameByGenre(EntityManagerInterface $em, Request $request, PaginatorInterface $paginator, $genreSlug): Response
+	{
+		$games = $em->getRepository(Game::class)->findGameByGenre($genreSlug);
+		$genre = $em->getRepository(Genre::class)->findOneBy(['slug' => $genreSlug]);
 
-    #[Route('/getGameVideos/{gameLabel}', name: 'app_get_game_videos')]
-    public function getVideosGame($gameLabel): Response
-    {
-        return $this->render('components/game/_game_videos.html.twig', [
-            'gameInfos' => $this->callApiService->getVideosByGame($gameLabel)
-        ]);
-    }
+		$pagination = $paginator->paginate(
+			$em->getRepository(Game::class)->findGameByGenrePagination($genre->getSlug()),
+			$request->query->get('page', 1),
+			9
+		);
+
+		$pagination->setCustomParameters([
+			'align' => 'center',
+			'size' => 'small',
+			'style' => 'bottom',
+			'span_class' => 'whatever',
+		]);
+
+		return $this->render('game/genre/show.html.twig', [
+			'games' => $pagination,
+			'gameAvailable' => $games,
+			'genre' => $genre,
+		]);
+	}
+
+	public function getImageIDGame($gameLabel): Response
+	{
+		return $this->render('components/game/_game_image_id.html.twig', [
+			'gameInfos' => $this->callApiService->getCoverByGame($gameLabel)
+		]);
+	}
+
+	public function getSummaryGame($gameLabel): Response
+	{
+		return $this->render('components/game/_game_summary.html.twig', [
+			'gameInfos' => $this->callApiService->getSummaryByGame($gameLabel)
+		]);
+	}
+
+	public function getScreenshotsGame($gameLabel): Response
+	{
+		return $this->render('components/game/_game_screenshots.html.twig', [
+			'gameInfos' => $this->callApiService->getScreenshotByGame($gameLabel)
+		]);
+	}
+
+	public function getVideosGame($gameLabel): Response
+	{
+		return $this->render('components/game/_game_videos.html.twig', [
+			'gameInfos' => $this->callApiService->getVideosByGame($gameLabel)
+		]);
+	}
 }
