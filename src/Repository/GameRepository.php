@@ -86,6 +86,15 @@ class GameRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findGameInPreorder($date): array
+    {
+        return $this->createQueryBuilder('g')
+            ->where('g.date_release > :date')
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Game[] Returns an array of Game objects
     //     */
