@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 
@@ -27,7 +28,7 @@ class GameCrudController extends AbstractCrudController
         return $crud
             ->setEntityLabelInSingular('Game')
             ->setEntityLabelInPlural('Game')
-            ->setSearchFields(['id', 'label', 'price', 'date_release']);
+            ->setSearchFields(['id', 'label', 'price', 'slug', 'date_release']);
     }
 
     public function configureFilters(Filters $filters): Filters
@@ -45,6 +46,7 @@ class GameCrudController extends AbstractCrudController
     {
         yield NumberField::new('id')->hideOnForm();
         yield TextField::new('label');
+        yield SlugField::new('slug')->setTargetFieldName('label');
         yield MoneyField::new('price')->setCurrency('EUR');
         yield AssociationField::new('plateforms');
         yield AssociationField::new('genres');
