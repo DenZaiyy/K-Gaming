@@ -30,8 +30,7 @@
 		<h2>Tendances</h2>
 		<div class="cards">
 			{% for tendency in tendencies %}
-{#				<a href="{{ path('app_show_game', {gameID: tendency.id}) }}">#}
-					<a href="{{ path('app_show_game', {gameSlug: tendency.slug}) }}">
+				<a href="{{ path('app_show_game', {gameSlug: tendency.slug}) }}">
 					<div class="gameCard">
 						<div class="cover-img">
 							<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: tendency.label })) }}.jpg"
@@ -84,8 +83,7 @@
 		<h2>Précommandes</h2>
 		<div class="cards">
 			{% for preorder in preorders %}
-{#				<a href="{{ path('app_show_game', {gameID: preorder.id }) }}">#}
-					<a href="{{ path('app_show_game', {gameSlug: preorder.slug }) }}">
+				<a href="{{ path('app_show_game', {gameSlug: preorder.slug }) }}">
 					<div class="gameCard">
 						<div class="cover-img">
 							<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: preorder.label })) }}.jpg"
@@ -109,6 +107,9 @@
 				</a>
 			{% endfor %}
 		</div>
+		<div class="show-more mt-5">
+			<a href="{{ path('app_show_preorders') }}" class="btn btn-orange">Voir plus</a>
+		</div>
 	</section>
 
 	<section class="newsletter">
@@ -130,18 +131,17 @@
 		<h2>Genres</h2>
 		<div class="cards">
 			{% for genre in genres %}
-				<div class="genreCard">
-					<div class="cover-img">
-						<img src=""
-						     alt="cover for genre: {{ genre.label }}">
-					</div>
-					<div class="infos">
+				<a href="{{ path('app_show_game_genre', {genreSlug: genre.slug}) }}">
+					<div class="genreCard">
 						<div class="label">
 							{{ genre.label|upper }}
 						</div>
 					</div>
-				</div>
+				</a>
 			{% endfor %}
+		</div>
+		<div class="show-more mt-5">
+			<a href="{{ path('app_genre_list') }}" class="btn btn-orange">Voir plus</a>
 		</div>
 	</section>
 {% endblock %}
