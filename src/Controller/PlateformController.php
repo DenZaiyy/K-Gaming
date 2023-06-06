@@ -22,7 +22,7 @@ class PlateformController extends AbstractController
         $pagination = $paginator->paginate(
             $em->getRepository(Game::class)->findGamesInPlatformPagination($platform->getId()),
             $request->query->get('page', 1),
-            3
+            9
         );
 
         $pagination->setCustomParameters([
