@@ -383,7 +383,45 @@ main {
 			display: grid;
 			grid-template-columns: 0fr 0fr 0fr;
 			gap: 50px;
+
+			a {
+				text-decoration: none;
+
+				.genreCard {
+					border: 1px solid var(--blue);
+					background-color: var(--orange);
+					color: var(--white);
+					border-radius: 10px;
+					padding: 20px;
+					transition: var(--animation);
+					box-shadow: -5px -5px 0 rgba(0, 0, 0, 0.1);
+
+					&:hover {
+						transition: var(--animation);
+					}
+				}
+			}
+
 		}
+	}
+
+	.listGenres {
+		.cards {
+			display: grid;
+			grid-template-columns: 0fr 0fr 0fr;
+			width: 50%;
+			margin: 0 auto;
+
+			.genre {
+				background-color: var(--orange);
+				color: var(--white);
+				min-width: 250px;
+				padding: 10px 20px;
+				border-radius: 5px;
+			}
+		}
+
+
 	}
 
 	.detailGame {
@@ -687,7 +725,7 @@ main {
 		background: transparent;
 		color: var(--orange);
 		border: 1px solid var(--orange);
-		padding: 10px 20px;
+		padding: 5px 30px;
 		border-radius: 5px;
 		cursor: pointer;
 		transition: var(--animation);

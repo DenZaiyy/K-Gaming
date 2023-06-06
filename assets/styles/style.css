@@ -325,6 +325,34 @@ main .genres .cards {
   grid-template-columns: 0fr 0fr 0fr;
   gap: 50px;
 }
+main .genres .cards a {
+  text-decoration: none;
+}
+main .genres .cards a .genreCard {
+  border: 1px solid var(--blue);
+  background-color: var(--orange);
+  color: var(--white);
+  border-radius: 10px;
+  padding: 20px;
+  transition: var(--animation);
+  box-shadow: -5px -5px 0 rgba(0, 0, 0, 0.1);
+}
+main .genres .cards a .genreCard:hover {
+  transition: var(--animation);
+}
+main .listGenres .cards {
+  display: grid;
+  grid-template-columns: 0fr 0fr 0fr;
+  width: 50%;
+  margin: 0 auto;
+}
+main .listGenres .cards .genre {
+  background-color: var(--orange);
+  color: var(--white);
+  min-width: 250px;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
 main .detailGame .detail {
   padding: 30px;
 }
@@ -568,7 +596,7 @@ main .btn-orange {
   background: transparent;
   color: var(--orange);
   border: 1px solid var(--orange);
-  padding: 10px 20px;
+  padding: 5px 30px;
   border-radius: 5px;
   cursor: pointer;
   transition: var(--animation);
