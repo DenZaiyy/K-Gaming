@@ -25,6 +25,14 @@
                                     {{ game.price }} €
                                 </div>
                             </div>
+                            {% if game.dateRelease > date('now') %}
+                                <div class="preco">
+                                    <div class="badge">Préco</div>
+                                    <div class="date">
+                                        {{ dateFR(game.dateRelease) }}
+                                    </div>
+                                </div>
+                            {% endif %}
                         </div>
                     </a>
                 {% endfor %}
