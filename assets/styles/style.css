@@ -298,7 +298,6 @@ main .rating .btn-ratings, main .newsletter .btn-ratings {
   margin-top: 20px;
 }
 main .rating .btn-ratings a, main .newsletter .btn-ratings a {
-  border: none;
   background: transparent;
   color: var(--orange);
   font-family: "Source Sans Pro", sans-serif;
@@ -564,6 +563,20 @@ main .toggle-container label::after {
   top: 5px;
   left: 4px;
   transition: cubic-bezier(0.68, -0.55, 0.27, 1.55) 320ms;
+}
+main .btn-orange {
+  background: transparent;
+  color: var(--orange);
+  border: 1px solid var(--orange);
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: var(--animation);
+}
+main .btn-orange:hover {
+  background-color: var(--orange);
+  color: var(--white);
+  transition: var(--animation);
 }
 
 footer {
