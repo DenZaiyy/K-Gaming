@@ -25,14 +25,14 @@ class Stock
 	private ?bool $is_available = null;
 
 	#[ORM\ManyToOne(inversedBy: 'stocks')]
-	#[ORM\JoinColumn(nullable: false)]
+	#[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
 	private ?Game $game = null;
 
 	#[ORM\ManyToOne(inversedBy: 'stock')]
 	private ?Purchase $purchase = null;
 
 	#[ORM\ManyToOne(inversedBy: 'stocks')]
-	#[ORM\JoinColumn(nullable: false)]
+	#[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
 	private ?Plateform $plateform = null;
 
 	public function __toString(): string
