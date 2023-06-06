@@ -95,6 +95,25 @@ class GameRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+	public function findGameByGenre($genre): array
+	{
+		return $this->createQueryBuilder('g')
+			->leftJoin('g.genres', 'gr')
+			->where('gr.slug = :Genre')
+			->setParameter('Genre', $genre)
+			->getQuery()
+			->getResult();
+	}
+
+	public function findGameByGenrePagination($genre)
+	{
+		return $this->createQueryBuilder('g')
+			->leftJoin('g.genres', 'gr')
+			->where('gr.slug = :Genre')
+			->setParameter('Genre', $genre)
+			->getQuery();
+	}
+
     //    /**
     //     * @return Game[] Returns an array of Game objects
     //     */
