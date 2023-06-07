@@ -11,8 +11,8 @@
 			<div class="coverDesc">
 				<div class="cover">
 					<img
-						src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: gamePlatform[0].game_label })) }}.jpg"
-						draggable="false" alt="cover for game: {{ gamePlatform[0].game_label }}">
+							src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: gamePlatform[0].game_label })) }}.jpg"
+							draggable="false" alt="cover for game: {{ gamePlatform[0].game_label }}">
 				</div>
 				<div class="desc">
 					<h2>{{ gamePlatform[0].game_label }}</h2>
@@ -24,7 +24,7 @@
 								     height="32" width="32">
 								{{ gamePlatform[0].platform_label }}
 							</div>
-							
+
 							<div class="stock">
 								{% if date(game.dateRelease) > date() %}
 									<p>
@@ -51,7 +51,7 @@
 								{% endif %}
 							</div>
 						</div>
-						
+
 						<div class="plateform-price">
 							<select class="form-select" name="plateform" id="plateform">
 								<option value="" selected disabled hidden>Selectionner une plateforme</option>
@@ -61,7 +61,7 @@
 							</select>
 							<p>{{ gamePlatform[0].price|price }} (HT)</p>
 						</div>
-						
+
 						<div class="btns">
 							{% if date(game.dateRelease) > date() %}
 								<a href="" class="btn btn-primary w-100">Précommander</a>
@@ -69,7 +69,7 @@
 								{% if gameStock[0].total > 0 %}
 									<a href="{{ path('app_add_cart', {gameSlug: game.slug, platformSlug: gamePlatform[0].platform_slug}) }}"
 									   class="btn btn-primary"><i
-											class="bi bi-bag-plus"></i></a>
+												class="bi bi-bag-plus"></i></a>
 									<a href="{{ path('app_buy_now', {gameSlug: game.slug, platformSlug: gamePlatform[0].platform_slug}) }}"
 									   class="btn btn-primary w-100">Acheter
 										maintenant</a>
@@ -83,7 +83,7 @@
 				</div>
 			</div>
 		</section>
-		
+
 		<section class="about mt-5">
 			<h2>A propos</h2>
 			<div class="content mb-5">
@@ -106,25 +106,44 @@
 				</div>
 			</div>
 		</section>
-		
+
 		<section class="screenshots">
 			<h2>Photos</h2>
-			<div class="carousel slide carousel-fade w-auto">
+			<div id="carouselPhotos" class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-inner">
 					{{ render(controller('App\\Controller\\GameController::getScreenshotsGame', { gameLabel: game.label })) }}
 				</div>
+				<button class="carousel-control-prev" type="button" data-bs-target="#carouselPhotos"
+				        data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Précédent</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#carouselPhotos"
+				        data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Suivant</span>
+				</button>
 			</div>
 		</section>
+
+		{#<section class="videos">
+			<h2>Vidéos (trailer)</h2>
+			<div class="content">
+				{{ render(controller('App\\Controller\\GameController::getVideosGame', { gameLabel: game.label })) }}
+			</div>
+			#}{#<div id="carouselTrailers" class="carousel slide">
+				<div class="carousel-inner">
+					{{ render(controller('App\\Controller\\GameController::getVideosGame', { gameLabel: game.label })) }}
+				</div>
+				<button class="carousel-control-prev" type="button" data-bs-target="#carouselTrailers" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Précédent</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#carouselTrailers" data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Suivant</span>
+				</button>
+			</div>#}{#
+		</section>#}
 	</div>
-	
-	
-	{#    <section class="videos">
-        <h2>Vidéos (trailer)</h2>
-        {{ render(controller('App\\Controller\\GameController::getVideosGame', { gameLabel: game.label })) }}
-        <div class="carousel slide carousel-fade w-auto">
-            <div class="carousel-inner">
-                {{ render(controller('App\\Controller\\GameController::getVideosGame', { gameLabel: game.label })) }}
-            </div>
-        </div>
-    </section> #}
 {% endblock %}

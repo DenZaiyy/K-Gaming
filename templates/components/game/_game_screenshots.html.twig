@@ -1,7 +1,17 @@
 {% for screenshot in gameInfos[0].screenshots %}
-    <div class="carousel-item">
-        <img src="https://images.igdb.com/igdb/image/upload/t_screenshot_huge/{{ screenshot.image_id }}.jpg"
-             alt="photo du jeu {{ gameInfos[0].name }}"
-             draggable="false">
-    </div>
+    {% if loop.index0 == 0 %}
+        <div class="carousel-item active">
+            <img src="https://images.igdb.com/igdb/image/upload/t_screenshot_huge/{{ screenshot.image_id }}.jpg"
+                 alt="photo du jeu {{ gameInfos[0].name }}"
+                 class="d-block w-100"
+                 draggable="false">
+        </div>
+        {% else %}
+            <div class="carousel-item">
+                <img src="https://images.igdb.com/igdb/image/upload/t_screenshot_huge/{{ screenshot.image_id }}.jpg"
+                     alt="photo du jeu {{ gameInfos[0].name }}"
+                     class="d-block w-100"
+                     draggable="false">
+            </div>
+    {% endif %}
 {% endfor %}
