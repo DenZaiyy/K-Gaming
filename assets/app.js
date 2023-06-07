@@ -10,8 +10,9 @@ import './styles/style.css';
 
 // start the Stimulus application
 import './bootstrap';
-import './carousel';
+// import './carousel';
 import './themeSwitch';
+import './rating';
 
 window.addEventListener('load', (e) => {
 	e.preventDefault()
