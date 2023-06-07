@@ -37,11 +37,15 @@ class Game
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: Stock::class)]
     private Collection $stocks;
 
+    #[ORM\OneToMany(mappedBy: 'game', targetEntity: Rating::class)]
+    private Collection $ratings;
+
     public function __construct()
     {
         $this->genres = new ArrayCollection();
         $this->plateforms = new ArrayCollection();
         $this->stocks = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -176,6 +180,36 @@ class Game
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rating>
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings->add($rating);
+            $rating->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getGame() === $this) {
+                $rating->setGame(null);
+            }
+        }
 
         return $this;
     }
