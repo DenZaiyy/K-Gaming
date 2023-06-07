@@ -10,12 +10,13 @@
         <div class="cards">
             {% for genre in genres %}
                 <a href="{{ path('app_show_game_genre', {genreSlug: genre.slug}) }}">
-                    <div class="genre">
-                        {{ genre.label|upper }} {% if genre.games|length == 0 %}
-                            (Aucun jeux)
-                        {% else %}
-                            ({{ genre.games|length }} jeux)
-                        {% endif %}
+                    <div class="genreCard">
+                        <figure>
+                            <img src="{{ genre.image }}" alt="image pour le genre : {{ genre.label }}" width="300" height="200">
+                            <figcaption>
+                                {{ genre.label|upper }}
+                            </figcaption>
+                        </figure>
                     </div>
                 </a>
             {% endfor %}

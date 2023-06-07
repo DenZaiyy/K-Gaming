@@ -133,9 +133,12 @@
 			{% for genre in genres %}
 				<a href="{{ path('app_show_game_genre', {genreSlug: genre.slug}) }}">
 					<div class="genreCard">
-						<div class="label">
-							{{ genre.label|upper }}
-						</div>
+						<figure>
+							<img src="{{ genre.image }}" alt="image pour le genre : {{ genre.label }}" width="300" height="200">
+							<figcaption>
+								{{ genre.label|upper }}
+							</figcaption>
+						</figure>
 					</div>
 				</a>
 			{% endfor %}
