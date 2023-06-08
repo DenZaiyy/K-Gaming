@@ -10,9 +10,9 @@
 			<h1>Detail produit</h1>
 			<div class="coverDesc">
 				<div class="cover">
-					<img
-							src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: gamePlatform[0].game_label })) }}.jpg"
-							draggable="false" alt="cover for game: {{ gamePlatform[0].game_label }}">
+					<img src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: gamePlatform[0].game_label })) }}.jpg"
+					     draggable="false"
+					     alt="cover for game: {{ gamePlatform[0].game_label }}">
 				</div>
 				<div class="desc">
 					<h2>{{ gamePlatform[0].game_label }}</h2>
@@ -126,12 +126,51 @@
 			</div>
 		</section>
 
-		{#<section class="videos">
+		{% if ratings %}
+			<section class="ratings">
+				<h2>Notes utilisateurs</h2>
+
+				<div class="rating-cards">
+					{% for rating in ratings %}
+						<div class="card w-25">
+							<div class="card-header d-flex justify-content-between align-items-center">
+								<div class="user d-flex gap-2 align-items-center">
+									<img src="{{ rating.user.avatar }}" alt="avatar of user {{ rating.user.username }}"
+									     width="32" height="32">
+									{{ rating.user.username }}
+								</div>
+								<div class="note d-flex">
+									{% for i in 1..rating.note %}
+										<i class="bi bi-star-fill"></i>
+									{% endfor %}
+									{% if rating.note < 5 %}
+										{% for i in 1..(5-rating.note) %}
+											<i class="bi bi-star"></i>
+										{% endfor %}
+									{% endif %}
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="card-text">{{ rating.message }}</div>
+							</div>
+							<div class="card-footer">
+								<div class="date">
+									Crée le : {{ rating.createdAt|date('d/m/Y - H:i') }}
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</section>
+		{% endif %}
+
+
+		{# <section class="videos">
 			<h2>Vidéos (trailer)</h2>
 			<div class="content">
 				{{ render(controller('App\\Controller\\GameController::getVideosGame', { gameLabel: game.label })) }}
 			</div>
-			#}{#<div id="carouselTrailers" class="carousel slide">
+		#}{# <div id="carouselTrailers" class="carousel slide">
 				<div class="carousel-inner">
 					{{ render(controller('App\\Controller\\GameController::getVideosGame', { gameLabel: game.label })) }}
 				</div>
@@ -143,7 +182,7 @@
 					<span class="carousel-control-next-icon" aria-hidden="true"></span>
 					<span class="visually-hidden">Suivant</span>
 				</button>
-			</div>#}{#
-		</section>#}
+			</div> #}{#
+		</section> #}
 	</div>
 {% endblock %}

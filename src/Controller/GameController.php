@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Game;
 use App\Entity\Genre;
 use App\Entity\Plateform;
+use App\Entity\Rating;
 use App\Entity\Stock;
 use App\Service\CallApiService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,11 +28,16 @@ class GameController extends AbstractController
 		$gameStock = $em->getRepository(Stock::class)->findStockByGameID($game->getId());
 		$gamePlatform = $em->getRepository(Game::class)->findOneGameInPlatform($game->getId(), $gameStock[0]['platform_id']);
 
+		$ratings = $em->getRepository(Rating::class)->findBy(
+			['game' => $game->getId()]
+		);
+
 
 		return $this->render('game/show.html.twig', [
 			'game' => $game,
 			'gameStock' => $gameStock,
 			'gamePlatform' => $gamePlatform,
+			'ratings' => $ratings,
 		]);
 	}
 
@@ -43,10 +49,15 @@ class GameController extends AbstractController
 		$gamePlatform = $em->getRepository(Game::class)->findOneGameInPlatform($game->getId(), $platform->getId());
 		$gameStock = $em->getRepository(Stock::class)->findAvailableGameStockByPlatform($game->getId(), $platform->getId());
 
+		$ratings = $em->getRepository(Rating::class)->findBy(
+			['game' => $game->getId()]
+		);
+
 		return $this->render('game/show.html.twig', [
 			'game' => $game,
 			'gamePlatform' => $gamePlatform,
 			'gameStock' => $gameStock,
+			'ratings' => $ratings,
 		]);
 	}
 
