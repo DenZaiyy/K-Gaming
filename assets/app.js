@@ -10,7 +10,6 @@ import './styles/style.css';
 
 // start the Stimulus application
 import './bootstrap';
-// import './carousel';
 import './themeSwitch';
 import './rating';
 
