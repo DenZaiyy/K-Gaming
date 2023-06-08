@@ -14,11 +14,29 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RatingController extends AbstractController
 {
-    #[Route('/rating/{gameId}/{platformId}', name: 'app_game_rating')]
-    public function index(EntityManagerInterface $em, Request $request, Rating $rating = null, $gameId, $platformId): Response
+    #[Route('/rating/{gameSlug}/{platformSlug}', name: 'app_game_rating')]
+    public function index(EntityManagerInterface $em, Request $request, Rating $rating = null, $gameSlug, $platformSlug): Response
     {
-		$game = $em->getRepository(Game::class)->findOneBy(['id' => $gameId]);
-		$platform = $em->getRepository(Plateform::class)->findOneBy(['id' => $platformId]);
+		$game = $em->getRepository(Game::class)->findOneBy(['slug' => $gameSlug]);
+		$platform = $em->getRepository(Plateform::class)->findOneBy(['slug' => $platformSlug]);
+
+	    $user = $this->getUser();
+
+		$rating = $em->getRepository(Rating::class)->findOneBy(
+			['user' => $user, 'game' => $game, 'platform' => $platform]
+		);
+
+		if($rating)
+		{
+			$this->addFlash('error', 'Vous pouvez voter qu\'une seule fois par jeu, vous avez déjà voter pour ce jeu');
+			return $this->redirectToRoute('app_home');
+		}
+
+		if(!$user)
+		{
+			$this->addFlash('error', 'Vous devez être connecté pour noter un jeu');
+			return $this->redirectToRoute('app_login');
+		}
 
 		$rating = new Rating();
 		$ratingForm = $this->createForm(RatingType::class, $rating);
@@ -26,9 +44,10 @@ class RatingController extends AbstractController
 
 		if($ratingForm->isSubmitted() && $ratingForm->isValid())
 		{
-			$rating->setUser($this->getUser());
+			$rating->setUser($user);
 			$rating->setGame($game);
 			$rating->setPlatform($platform);
+			$rating->setCreatedAt(new \DateTimeImmutable());
 			$rating = $ratingForm->getData();
 
 			$em->persist($rating);
@@ -39,6 +58,8 @@ class RatingController extends AbstractController
 
         return $this->render('rating/index.html.twig', [
             'ratingForm' => $ratingForm->createView(),
+	        'game' => $game,
+	        'platform' => $platform,
         ]);
     }
 }
