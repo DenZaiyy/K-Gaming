@@ -49,7 +49,7 @@ class StockRepository extends ServiceEntityRepository
 			->andWhere('s.purchase IS NOT NULL')
 			->groupBy('g.id', 'g.label', 'g.price', 'g.date_release')
 			->orderBy('COUNT(s.id)', 'DESC')
-			->setMaxResults(6)
+			->setMaxResults(3)
 			->getQuery()
 			->getResult();
 	}
