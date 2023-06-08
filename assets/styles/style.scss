@@ -533,96 +533,6 @@ main {
 			}
 		}
 
-		/*.screenshots {
-		  padding: 30px;
-
-		  @keyframes fade {
-			from {
-			  opacity: 0;
-			  transform: translateX(-100%);
-			}
-			to {
-			  opacity: 1;
-			  transform: translateX(0);
-			}
-		  }
-
-		  @keyframes fadeOut {
-			from {
-			  opacity: 1;
-			  transform: translateX(0);
-			}
-			to {
-			  opacity: 0;
-			  transform: translateX(100%);
-			}
-		  }
-
-		  .carousel {
-			margin: 0 auto;
-			max-width: 1000px;
-
-			.carousel-item {
-			  border-radius: 10px;
-			  overflow: hidden;
-			  //display: block !important;
-			  display: none;
-			  scroll-snap-align: start;
-			  scroll-snap-stop: always;
-			  //animation: fadeOut .8s;
-			  //transition: opacity 0.5s ease-in-out;
-
-			  img {
-				width: 100%;
-				height: auto;
-			  }
-
-			}
-
-			.carousel-item__selected {
-			  display: block;
-			  scroll-snap-type: y mandatory;
-			  scroll-behavior: smooth;
-			  opacity: 1;
-			  //animation: fade .8s;
-			}
-
-			.carousel-nav {
-			  display: flex;
-			  justify-content: center;
-			  padding: 10px;
-			  position: absolute;
-			  border-bottom-left-radius: 10px;
-			  border-bottom-right-radius: 10px;
-			  bottom: 0;
-			  left: 0;
-			  text-align: center;
-			  background: rgba(0, 0, 0, 0.5);
-
-			  .carousel-button {
-				display: inline-block;
-				width: 1em;
-				height: 1em;
-				border-radius: 50%;
-				background-color: var(--blue);
-				border: 1px solid var(--white);
-				margin: 0 5px;
-				cursor: pointer;
-				transition: var(--animation);
-
-				&:hover {
-				  background-color: var(--white);
-				  transition: var(--animation);
-				}
-			  }
-
-			  .carousel-button__selected {
-				background-color: var(--white);
-				transition: var(--animation);
-			  }
-			}
-		  }
-		}*/
 		.screenshots {
 			padding: 30px;
 
@@ -655,6 +565,23 @@ main {
 			  }
 
 			}*/
+		}
+
+		.ratings {
+			.rating-cards {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 20px;
+				justify-content: center;
+
+				.bi-star-fill {
+					color: var(--orange);
+				}
+
+				.bi-star, .bi-star-fill {
+					font-size: 1.3em;
+				}
+			}
 		}
 	}
 
