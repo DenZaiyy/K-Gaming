@@ -79,8 +79,10 @@ class OrderController extends AbstractController
 				$recapDetails->setQuantity($product['quantity']);
 				$recapDetails->setPrice($product['game']->getPrice());
 				$recapDetails->setGameLabel($product['game']->getLabel());
+				$recapDetails->setGameSlug($product['game']->getSlug());
 				$recapDetails->setGameId($product['game']->getId());
 				$recapDetails->setPlatformLabel($product['platform']->getLabel());
+				$recapDetails->setPlatformSlug($product['platform']->getSlug());
 				$recapDetails->setPlatformId($product['platform']->getId());
 				$recapDetails->setTotalRecap(
 					$product['game']->getPrice() * $product['quantity']
