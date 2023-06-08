@@ -3,15 +3,6 @@
 {% block title %}Page d'accueil{% endblock %}
 
 {% block body %}
-	{% if app.flashes('success') %}
-		{% for message_success in app.flashes('success') %}
-			<div class="alert alert-success" role="alert">{{ message_success }}</div>
-		{% endfor %}
-	{% else %}
-		{% for message_error in app.flashes('error') %}
-			<div class="alert alert-danger" role="alert">{{ message_error }}</div>
-		{% endfor %}
-	{% endif %}
 	<div class="hero-image">
 		<div class="hero-text">
 			<h1>K-gaming : La plateforme incontournable pour les gamers</h1>
