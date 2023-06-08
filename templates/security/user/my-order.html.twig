@@ -40,7 +40,7 @@
                                             <strong>{{ recap.gameLabel|upper }}</strong>
                                             <small>Plateforme: <strong>{{ recap.platformLabel }}</strong></small>
                                             <small>Quantité: <strong>{{ recap.quantity }}</strong></small>
-                                            <a href="{{ path('app_game_rating', {gameId: recap.gameId, platformId: recap.platformId}) }}">Donner mon avis</a>
+                                            <a href="{{ path('app_game_rating', {gameSlug: recap.gameSlug, platformSlug: recap.platformSlug}) }}">Donner mon avis</a>
                                         </div>
                                     </div>
                                     <div class="game-price">
