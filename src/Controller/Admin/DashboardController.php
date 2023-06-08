@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Game;
 use App\Entity\Genre;
 use App\Entity\Purchase;
+use App\Entity\Rating;
 use App\Entity\Stock;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -46,11 +47,12 @@ class DashboardController extends AbstractDashboardController
 
 	public function configureMenuItems(): iterable
 	{
-        yield MenuItem::linkToCrud('Game', 'fa-solid fa-gamepad', Game::class);
+		yield MenuItem::linkToCrud('Jeux', 'fa-solid fa-gamepad', Game::class);
+		yield MenuItem::linkToCrud('Note', 'fa-solid fa-star', Rating::class);
         yield MenuItem::linkToCrud('Genre', 'fa-solid fa-icons', Genre::class);
-        yield MenuItem::linkToCrud('Purchase', 'fa-solid fa-laptop', Purchase::class);
+        yield MenuItem::linkToCrud('Commande', 'fa-solid fa-laptop', Purchase::class);
         yield MenuItem::linkToCrud('Stock', 'fa-solid fa-shop', Stock::class);
-        yield MenuItem::linkToCrud('User', 'fa-solid fa-users-gear', User::class);
+        yield MenuItem::linkToCrud('Utilisateur', 'fa-solid fa-users-gear', User::class);
         yield MenuItem::linkToRoute('Retour sur le site', 'fas fa-home', 'app_home');
 	}
 }
