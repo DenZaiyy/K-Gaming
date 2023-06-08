@@ -30,11 +30,10 @@ class UserController extends AbstractController
     #[Route('/profil/my-order', name: 'user_my_order')]
     public function myOrder(): Response
     {
-        $purchase = $this->em->getRepository(Purchase::class)->findBy([
-            'user' => $this->getUser(),
-        ], [
-            'created_at' => 'DESC',
-        ]);
+        $purchase = $this->em->getRepository(Purchase::class)->findBy(
+			['user' => $this->getUser()],
+			['created_at' => 'DESC']
+        );
 
         return $this->render('security/user/my-order.html.twig', [
             'purchases' => $purchase,
