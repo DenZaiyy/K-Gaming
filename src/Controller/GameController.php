@@ -32,12 +32,28 @@ class GameController extends AbstractController
 			['game' => $game->getId()]
 		);
 
+		$averageRating = $em->getRepository(Rating::class)->findBy(['game' => $game->getId()]);
+
+		$moyenne = 0;
+		if($averageRating)
+		{
+			$somme = 0;
+			foreach ($averageRating as $rate)
+			{
+				$somme += $rate->getNote();
+			}
+
+			$moyenne = $somme / count($averageRating);
+		}
+
+
 
 		return $this->render('game/show.html.twig', [
 			'game' => $game,
 			'gameStock' => $gameStock,
 			'gamePlatform' => $gamePlatform,
 			'ratings' => $ratings,
+			'moyenne' => $moyenne,
 		]);
 	}
 
@@ -53,11 +69,24 @@ class GameController extends AbstractController
 			['game' => $game->getId()]
 		);
 
+		$averageRating = $em->getRepository(Rating::class)->findBy(['game' => $game->getId()]);
+
+		$somme = 0;
+
+		foreach ($averageRating as $key => $rate)
+		{
+			$somme += $rate->getNote();
+		}
+
+		$moyenne = $somme / count($averageRating);
+
+
 		return $this->render('game/show.html.twig', [
 			'game' => $game,
 			'gamePlatform' => $gamePlatform,
 			'gameStock' => $gameStock,
 			'ratings' => $ratings,
+			'moyenne' => $moyenne,
 		]);
 	}
 
