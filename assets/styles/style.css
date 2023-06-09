@@ -475,17 +475,17 @@ main .detailGame .videos .content {
   display: grid;
   grid-template-columns: 0fr 0fr 0fr;
 }
+main .detailGame .ratings .bi-star-fill {
+  color: var(--orange);
+}
+main .detailGame .ratings .bi-star, main .detailGame .ratings .bi-star-fill {
+  font-size: 1.3em;
+}
 main .detailGame .ratings .rating-cards {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
-}
-main .detailGame .ratings .rating-cards .bi-star-fill {
-  color: var(--orange);
-}
-main .detailGame .ratings .rating-cards .bi-star, main .detailGame .ratings .rating-cards .bi-star-fill {
-  font-size: 1.3em;
 }
 main .cart {
   margin: 0 auto;

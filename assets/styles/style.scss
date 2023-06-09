@@ -568,19 +568,19 @@ main {
 		}
 
 		.ratings {
+			.bi-star-fill {
+				color: var(--orange);
+			}
+
+			.bi-star, .bi-star-fill {
+				font-size: 1.3em;
+			}
+
 			.rating-cards {
 				display: flex;
 				flex-wrap: wrap;
 				gap: 20px;
 				justify-content: center;
-
-				.bi-star-fill {
-					color: var(--orange);
-				}
-
-				.bi-star, .bi-star-fill {
-					font-size: 1.3em;
-				}
 			}
 		}
 	}
