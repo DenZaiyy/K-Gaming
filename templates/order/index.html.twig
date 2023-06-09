@@ -11,13 +11,18 @@
 					<div class="address">
 						<h2>Adresse</h2>
 						<div class="card d-flex gap-3 p-3">
-							<div class="select">
-								{{ form_widget(form.addresses)|replace({'[-br]': '</br>'})|raw }}
-							</div>
-							<div class="new-address">
-								<a href="{{ path('user_add_address') }}" class="btn btn-outline-primary w-100">Ajouter une
-									nouvelle adresse</a>
-							</div>
+							{% if address %}
+								<div class="select">
+									{{ form_widget(form.addresses)|replace({'[-br]': '</br>'})|raw }}
+								</div>
+							{% else %}
+								<div class="select d-none">
+									{{ form_widget(form.addresses)|replace({'[-br]': '</br>'})|raw }}
+								</div>
+								<div class="new-address">
+									<a href="{{ path('user_add_address') }}" class="btn btn-outline-primary w-100">Ajouter une nouvelle adresse</a>
+								</div>
+							{% endif %}
 						</div>
 					</div>
 					<div class="payment-methods">
@@ -51,7 +56,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 								{% if not loop.last %}
 									<hr>
 								{% endif %}
@@ -69,7 +74,7 @@
 									<strong class="fs-5">{{ (cartTotal + TVA)|price }}</strong>
 								</div>
 							</div>
-							
+
 							<div class="validate">
 								<button type="submit" class="btn btn-outline-primary w-100">Payer</button>
 							</div>
