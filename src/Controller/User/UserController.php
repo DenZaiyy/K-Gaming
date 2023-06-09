@@ -54,6 +54,8 @@ class UserController extends AbstractController
         $form = $this->createForm(AddressType::class, $address);
         $form->handleRequest($request);
 
+	    $url = $request->headers->get('referer');
+
         if ($form->isSubmitted() && $form->isValid()) {
             $address = $form->getData();
             $address->setUser($this->getUser());
@@ -62,7 +64,7 @@ class UserController extends AbstractController
             $this->em->flush();
 
             $this->addFlash('success', 'Votre adresse a bien été ajoutée');
-            return $this->redirectToRoute('user_my_account');
+            return $this->redirect($url);
         }
 
         return $this->render('security/user/address/add.html.twig', [
