@@ -23,6 +23,8 @@ class RatingType extends AbstractType
 	            'label' => 'Note',
 		        'attr' => [
 					'value' => 0,
+			        'min' => 1,
+			        'max' => 5,
 		        ],
 	            'required' => true,
 	        ])
