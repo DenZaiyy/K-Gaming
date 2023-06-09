@@ -11,16 +11,16 @@
 		</div>
 		<div class="form">
 			{{ form_start(ratingForm) }}
-			<div class="ratingStars" id="ratingStar">
-				<i class="bi bi-star star" data-value="1" data-label="A éviter"></i>
-				<i class="bi bi-star star" data-value="2" data-label="Mauvais"></i>
-				<i class="bi bi-star star" data-value="3" data-label="Moyen"></i>
-				<i class="bi bi-star star" data-value="4" data-label="Bon"></i>
-				<i class="bi bi-star star" data-value="5" data-label="Excellent"></i>
-			</div>
-			<div class="star-label text-center" id="labelRating"></div>
-			<input type="hidden" name="rating" id="rating" value="0">
-			{{ form_widget(ratingForm) }}
+				<div class="ratingStars" id="ratingStar">
+					<i class="bi bi-star star" data-value="1" data-label="A éviter"></i>
+					<i class="bi bi-star star" data-value="2" data-label="Mauvais"></i>
+					<i class="bi bi-star star" data-value="3" data-label="Moyen"></i>
+					<i class="bi bi-star star" data-value="4" data-label="Bon"></i>
+					<i class="bi bi-star star" data-value="5" data-label="Excellent"></i>
+				</div>
+				<div class="star-label text-center" id="labelRating"></div>
+				<input type="hidden" name="rating" id="rating" value="0">
+				{{ form_widget(ratingForm) }}
 			{{ form_end(ratingForm) }}
 		</div>
 	</div>
