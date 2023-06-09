@@ -129,6 +129,19 @@
 		{% if ratings %}
 			<section class="ratings">
 				<h2>Notes utilisateurs</h2>
+				<div class="moyenne d-flex justify-content-center gap-2 align-items-center my-3">
+					Note du jeu ({{ ratings|length }} avis) :
+					<div class="note d-flex ">
+						{% for i in 1..moyenne %}
+							<i class="bi bi-star-fill"></i>
+						{% endfor %}
+						{% if moyenne < 5 %}
+							{% for i in 1..(5-moyenne|round) %}
+								<i class="bi bi-star"></i>
+							{% endfor %}
+						{% endif %}
+					</div>
+				</div>
 
 				<div class="rating-cards">
 					{% for rating in ratings %}
