@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
+use App\Data\SearchData;
 use App\Entity\Game;
 use App\Entity\Plateform;
+use App\Form\SearchForm;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,28 +15,26 @@ use Symfony\Component\Routing\Annotation\Route;
 class PlateformController extends AbstractController
 {
     #[Route('/platform/{platformSlug}', name: 'app_game_platform')]
-    public function index(EntityManagerInterface $em, Request $request, PaginatorInterface $paginator, $platformSlug): Response
+    public function index(EntityManagerInterface $em, Request $request, $platformSlug): Response
     {
+		$data = new SearchData();
+		$data->page = $request->get('page', 1);
+		$form = $this->createForm(SearchForm::class, $data);
+		$form->handleRequest($request);
+	    [$min, $max] = $em->getRepository(Game::class)->findMinMax($data);
+
+	    $games = $em->getRepository(Game::class)->findSearch($data);
+
         $platform = $em->getRepository(Plateform::class)->findOneBy(['slug' => $platformSlug]);
-        $games = $em->getRepository(Game::class)->findGamesInPlatform($platform->getId());
-
-        $pagination = $paginator->paginate(
-            $em->getRepository(Game::class)->findGamesInPlatformPagination($platform->getId()),
-            $request->query->get('page', 1),
-            9
-        );
-
-        $pagination->setCustomParameters([
-            'align' => 'center',
-            'size' => 'small',
-            'style' => 'bottom',
-            'span_class' => 'whatever',
-        ]);
+        $gamesAvailable = $em->getRepository(Game::class)->findGamesInPlatform($platform->getId());
 
         return $this->render('game/platform/index.html.twig', [
-            'gameAvailable' => $games,
-            'games' => $pagination,
+			'form' => $form->createView(),
+            'gameAvailable' => $gamesAvailable,
+            'games' => $games,
             'platform' => $platform,
+	        'min' => $min,
+	        'max' => $max,
         ]);
     }
 }
