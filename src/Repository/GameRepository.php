@@ -2,9 +2,13 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\Game;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @extends ServiceEntityRepository<Game>
@@ -16,7 +20,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class GameRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private PaginatorInterface $paginator)
     {
         parent::__construct($registry, Game::class);
     }
@@ -48,15 +52,6 @@ class GameRepository extends ServiceEntityRepository
             ->setMaxResults(3)
             ->getQuery()
             ->getResult();
-    }
-
-    public function findGamesInPlatformPagination($plateformID)
-    {
-        return $this->createQueryBuilder('g')
-            ->leftJoin('g.plateforms', 'p')
-            ->where('p.id = :plateformID')
-            ->setParameter('plateformID', $plateformID)
-            ->getQuery();
     }
 
     public function findGamesInPlatform($platformID): array
@@ -114,28 +109,86 @@ class GameRepository extends ServiceEntityRepository
 			->getQuery();
 	}
 
-    //    /**
-    //     * @return Game[] Returns an array of Game objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('g.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+	/**
+	 * Récupère les jeux en fonction de la recherche
+	 * @param SearchData $search
+	 * @return PaginationInterface
+	 */
+    public function findSearch(SearchData $search): PaginationInterface
+    {
+		$query = $this->getSearchQuery($search)->getQuery();
 
-    //    public function findOneBySomeField($value): ?Game
-    //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+		$pagination = $this->paginator->paginate(
+			$query,
+			$search->page,
+			9
+		);
+
+	    $pagination->setCustomParameters([
+		    'align' => 'center',
+		    'size' => 'small',
+		    'style' => 'bottom',
+		    'span_class' => 'whatever',
+	    ]);
+
+	    return $pagination;
+    }
+
+	/**
+	 * Récupère le prix minimum et maximum correspondant à une recherche
+	 * @return int[]
+	 */
+	public function findMinMax(SearchData $search): array
+	{
+		$results = $this->getSearchQuery($search, true)
+			->select('MIN(g.price) as min', 'MAX(g.price) as max')
+			->getQuery()
+			->getScalarResult();
+		return [(int)$results[0]['min'], (int)$results[0]['max']];
+	}
+
+	/**
+	 * Récupère les jeux en lien avec une recherche (SearchData)
+	 */
+	private function getSearchQuery(SearchData $search, $ignorePrice = false) : QueryBuilder
+	{
+		$query = $this
+			->createQueryBuilder('g')
+			->select('g', 'gr')
+			->join('g.genres', 'gr');
+
+		if(!empty($search->q)) {
+			$query = $query
+				->andWhere('g.label LIKE :q')
+				->setParameter('q', "%{$search->q}%");
+		}
+
+		if(!empty($search->min) && $ignorePrice === false) {
+			$query = $query
+				->andWhere('g.price >= :min')
+				->setParameter('min', $search->min);
+		}
+
+		if(!empty($search->max) && $ignorePrice === false) {
+			$query = $query
+				->andWhere('g.price <= :max')
+				->setParameter('max', $search->max);
+		}
+
+		if(!empty($search->preorder)) {
+			$date = new \DateTime();
+			$query = $query
+				->andWhere('g.date_release > :date')
+				->setParameter('date', $date);
+		}
+
+		if(!empty($search->genres)) {
+			$query = $query
+				->andWhere('gr.id IN (:genres)')
+				->setParameter('genres', $search->genres);
+		}
+
+		return $query;
+	}
+
 }
