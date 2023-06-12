@@ -34,7 +34,7 @@ class CallApiService extends AbstractController
 	public function getCoverByGame($game) : array
 	{
         return $this->connectAPI(
-            'fields id, name, cover.image_id; where name = "' . $game . '";'
+            'fields name, cover.image_id; where name = "' . $game . '";'
         );
 	}
 
