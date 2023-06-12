@@ -158,11 +158,16 @@ h2, h1 {
   font-size: 1.5em;
   margin-bottom: 30px;
   color: var(--blue);
+  text-align: center;
 }
 
 main {
-  text-align: center;
   background-color: var(--bgColor);
+}
+main .filter {
+  display: block;
+  position: sticky;
+  top: 20px;
 }
 main .hero-image {
   position: relative;
@@ -261,8 +266,8 @@ main .tendencies, main .preorders, main .listGames {
 }
 main .listGames .cards {
   display: grid;
-  grid-template-columns: 0fr 0fr 0fr;
-  gap: 30px;
+  grid-template-columns: repeat(3, 0fr);
+  grid-gap: 30px;
 }
 main .rating, main .newsletter {
   display: flex;
