@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Data\SearchData;
 use App\Entity\Game;
+use App\Entity\Plateform;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -114,9 +115,9 @@ class GameRepository extends ServiceEntityRepository
 	 * @param SearchData $search
 	 * @return PaginationInterface
 	 */
-    public function findSearch(SearchData $search): PaginationInterface
+    public function findSearch(SearchData $search, $platformID): PaginationInterface
     {
-		$query = $this->getSearchQuery($search)->getQuery();
+		$query = $this->getSearchQuery($search, $platformID)->getQuery();
 
 		$pagination = $this->paginator->paginate(
 			$query,
@@ -138,9 +139,9 @@ class GameRepository extends ServiceEntityRepository
 	 * Récupère le prix minimum et maximum correspondant à une recherche
 	 * @return int[]
 	 */
-	public function findMinMax(SearchData $search): array
+	public function findMinMax(SearchData $search, $platformID): array
 	{
-		$results = $this->getSearchQuery($search, true)
+		$results = $this->getSearchQuery($search, $platformID,true)
 			->select('MIN(g.price) as min', 'MAX(g.price) as max')
 			->getQuery()
 			->getScalarResult();
@@ -150,12 +151,17 @@ class GameRepository extends ServiceEntityRepository
 	/**
 	 * Récupère les jeux en lien avec une recherche (SearchData)
 	 */
-	private function getSearchQuery(SearchData $search, $ignorePrice = false) : QueryBuilder
+	private function getSearchQuery(SearchData $search, Plateform $platform, $ignorePrice = false) : QueryBuilder
 	{
 		$query = $this
 			->createQueryBuilder('g')
 			->select('g', 'gr')
-			->join('g.genres', 'gr');
+			->join('g.genres', 'gr')
+			->leftJoin('g.plateforms', 'p')
+			->andWhere('p.id = :platform')
+			->setParameter('platform', $platform)
+			;
+
 
 		if(!empty($search->q)) {
 			$query = $query
