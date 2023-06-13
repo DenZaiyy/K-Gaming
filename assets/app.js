@@ -12,8 +12,12 @@ import './styles/style.css';
 import './bootstrap';
 import './themeSwitch';
 import './rating';
+
 import noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
+import Filter from './modules/Filter'
+
+new Filter(document.querySelector('.js-filter'));
 
 window.addEventListener('load', (e) => {
 	e.preventDefault()
@@ -56,7 +60,10 @@ window.addEventListener('load', (e) => {
 			if(handle === 1) {
 				max.value = Math.round(values[1]);
 			}
-			console.log(values, handle);
+		})
+
+		range.on('end', function(values, handle) {
+			min.dispatchEvent(new Event('change'));
 		})
 	}
 	// STOP FILTER SLIDER
