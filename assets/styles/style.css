@@ -424,6 +424,7 @@ main .detailGame .detail .coverDesc .desc .plateform-price {
   color: var(--blue);
 }
 main .detailGame .detail .coverDesc .desc .plateform-price p {
+  text-align: center;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 2em;
   font-weight: bold;
