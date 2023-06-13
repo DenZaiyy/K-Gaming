@@ -40,9 +40,9 @@ window.addEventListener('load', (e) => {
 		const maxValue = Math.ceil(parseInt(slider.dataset.max, 10) / 10) * 10;
 
 		const range = noUiSlider.create(slider, {
-			start: [min.value || minValue, 10, max.value || maxValue],
+			start: [min.value || minValue, max.value || maxValue],
 			connect: true,
-			step: 10,
+			step: 5,
 			range: {
 				'min': minValue,
 				'max': maxValue
