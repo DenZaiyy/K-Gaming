@@ -28,25 +28,19 @@ class GameController extends AbstractController
 		$gameStock = $em->getRepository(Stock::class)->findStockByGameID($game->getId());
 		$gamePlatform = $em->getRepository(Game::class)->findOneGameInPlatform($game->getId(), $gameStock[0]['platform_id']);
 
-		$ratings = $em->getRepository(Rating::class)->findBy(
-			['game' => $game->getId()]
-		);
-
-		$averageRating = $em->getRepository(Rating::class)->findBy(['game' => $game->getId()]);
+		$ratings = $em->getRepository(Rating::class)->findBy(['game' => $game->getId()]);
 
 		$moyenne = 0;
-		if($averageRating)
+		if($ratings)
 		{
 			$somme = 0;
-			foreach ($averageRating as $rate)
+			foreach ($ratings as $rate)
 			{
 				$somme += $rate->getNote();
 			}
 
-			$moyenne = $somme / count($averageRating);
+			$moyenne = $somme / count($ratings);
 		}
-
-
 
 		return $this->render('game/show.html.twig', [
 			'game' => $game,
@@ -65,21 +59,19 @@ class GameController extends AbstractController
 		$gamePlatform = $em->getRepository(Game::class)->findOneGameInPlatform($game->getId(), $platform->getId());
 		$gameStock = $em->getRepository(Stock::class)->findAvailableGameStockByPlatform($game->getId(), $platform->getId());
 
-		$ratings = $em->getRepository(Rating::class)->findBy(
-			['game' => $game->getId()]
-		);
+		$ratings = $em->getRepository(Rating::class)->findBy(['game' => $game->getId()]);
 
-		$averageRating = $em->getRepository(Rating::class)->findBy(['game' => $game->getId()]);
-
-		$somme = 0;
-
-		foreach ($averageRating as $key => $rate)
+		$moyenne = 0;
+		if($ratings)
 		{
-			$somme += $rate->getNote();
+			$somme = 0;
+			foreach ($ratings as $rate)
+			{
+				$somme += $rate->getNote();
+			}
+
+			$moyenne = $somme / count($ratings);
 		}
-
-		$moyenne = $somme / count($averageRating);
-
 
 		return $this->render('game/show.html.twig', [
 			'game' => $game,
