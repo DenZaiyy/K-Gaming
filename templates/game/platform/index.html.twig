@@ -12,6 +12,10 @@
 					{% include 'game/platform/_filter.html.twig' with {form: form, min: min, max: max} only %}
 				</div>
 				<div class="col-md-9">
+					<div class="d-flex justify-content-end mb-4 gap-2">
+						{{ knp_pagination_sortable(games, 'Prix', 'g.price') }}
+						{{ knp_pagination_sortable(games, 'Date de sortie', 'g.date_release') }}
+					</div>
 					{% if gameAvailable %}
 						<div class="cards">
 							{% for game in games %}

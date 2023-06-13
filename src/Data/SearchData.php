@@ -10,9 +10,9 @@ class SearchData
 
 	public array $genres = [];
 
-	public null|int $min;
+	public int|null $min;
 
-	public null|int $max;
+	public int|null $max;
 
 	public bool $preorder = false;
 
