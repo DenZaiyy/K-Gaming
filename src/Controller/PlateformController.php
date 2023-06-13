@@ -34,6 +34,9 @@ class PlateformController extends AbstractController
 				'content' => $this->renderView('game/platform/_games.html.twig', ['games' => $games, 'platform' => $platform]),
 				'sorting' => $this->renderView('game/platform/_sorting.html.twig', ['games' => $games, 'platform' => $platform]),
 				'pagination' => $this->renderView('game/platform/_pagination.html.twig', ['games' => $games, 'platform' => $platform]),
+				'pages' => ceil($games->getTotalItemCount() / $games->getItemNumberPerPage()),
+				'min' => $min,
+				'max' => $max,
 			]);
 		}
 
