@@ -35,15 +35,10 @@
 <body class="d-flex flex-column h-100">
 {{ render(controller('App\\Controller\\HomeController::navBar')) }}
 <main>
-	{% if app.flashes('success') %}
-		{% for message_success in app.flashes('success') %}
-			<div class="alert alert-success" role="alert">{{ message_success }}</div>
-		{% endfor %}
-	{% else %}
-		{% for message_error in app.flashes('error') %}
-			<div class="alert alert-danger" role="alert">{{ message_error }}</div>
-		{% endfor %}
-	{% endif %}
+	{% for key, value in app.flashes %}
+		<div class="alert alert-{{ key }} text-center" role="alert">{{ value[0] }}</div>
+	{% endfor %}
+
 	{% block body %}{% endblock %}
 </main>
 
