@@ -40,13 +40,12 @@ class PurchaseCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield NumberField::new('id')->hideOnForm();
+        yield TextField::new('reference');
         yield TextField::new('user_full_name');
         yield TextField::new('delivery');
-        yield TextField::new('reference');
         yield TextField::new('method');
         yield AssociationField::new('user')->hideOnForm();
         yield AssociationField::new('stock')->hideOnForm();
-        yield AssociationField::new('address')->hideOnForm();
 
         $createdAt = DateTimeField::new('created_at')
             ->setFormat('dd-MM-yyyy')
