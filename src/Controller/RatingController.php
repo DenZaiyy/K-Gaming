@@ -32,13 +32,13 @@ class RatingController extends AbstractController
 
 		if($rating)
 		{
-			$this->addFlash('error', 'Vous avez déjà voter pour ce jeu, veuillez modifier votre note directement dans votre profil');
+			$this->addFlash('danger', 'Vous avez déjà voter pour ce jeu, veuillez modifier votre note directement dans votre profil');
 			return $this->redirectToRoute('app_home');
 		}
 
 		if(!$user)
 		{
-			$this->addFlash('error', 'Vous devez être connecté pour noter un jeu');
+			$this->addFlash('danger', 'Vous devez être connecté pour noter un jeu');
 			return $this->redirectToRoute('app_login');
 		}
 
@@ -50,7 +50,7 @@ class RatingController extends AbstractController
 		{
 			if($ratingForm->getData()->getNote() == 0)
 			{
-				$this->addFlash('error', 'Vous devez mettre une note au jeu');
+				$this->addFlash('danger', 'Vous devez mettre une note au jeu');
 				return $this->redirectToRoute('app_game_rating', ['gameSlug' => $gameSlug, 'platformSlug' => $platformSlug]);
 			}
 
