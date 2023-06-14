@@ -114,7 +114,11 @@
 			avant-première.
 		</div>
 		<div class="btn-ratings">
-			<a href="#">S'inscrire !</a>
+			{% if newsletter %}
+				<a href="{{ path('newsletter_unsubscribe') }}">Se désinscrire</a>
+			{% else %}
+				<a href="{{ path('newsletter_subscribe') }}">S'inscrire !</a>
+			{% endif %}
 		</div>
 	</section>
 
@@ -125,7 +129,8 @@
 				<a href="{{ path('app_show_game_genre', {genreSlug: genre.slug}) }}">
 					<div class="genreCard">
 						<figure>
-							<img src="{{ genre.image }}" alt="image pour le genre : {{ genre.label }}" width="300" height="200">
+							<img src="{{ genre.image }}" alt="image pour le genre : {{ genre.label }}" width="300"
+							     height="200">
 							<figcaption>
 								{{ genre.label|upper }}
 							</figcaption>

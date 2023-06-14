@@ -3,8 +3,27 @@
 {% block title %}Mes préférences{% endblock %}
 
 {% block body %}
-    <div class="toggle-container">
-        <input class="container_toggle" type="checkbox" id="switch" name="mode">
-        <label for="switch">Toggle</label>
-    </div>
+	<div class="theme-switcher">
+		<h2>Thème du site</h2>
+		<div class="toggle-container">
+			<input class="container_toggle" type="checkbox" id="switch" name="mode">
+			<label for="switch">Toggle</label>
+		</div>
+	</div>
+
+
+	<section id="newsletter" class="my-3">
+		<h2>Newsletter</h2>
+		{% if newsletter %}
+			<div class="newsletter_subscribed text-center">
+				<p>Vous êtes actuellement inscrit à la newsletter</p>
+				<a href="{{ path('newsletter_unsubscribe') }}" class="btn btn-danger">Se désinscrire</a>
+			</div>
+		{% else %}
+			<div class="newsletter_unsubscribed text-center">
+				<p>Vous n'êtes actuellement pas inscrit à la newsletter</p>
+				<a href="{{ path('newsletter_subscribe') }}" class="btn btn-primary">S'inscrire</a>
+			</div>
+		{% endif %}
+	</section>
 {% endblock %}

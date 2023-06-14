@@ -3,6 +3,7 @@
 namespace App\Controller\User;
 
 use App\Entity\Address;
+use App\Entity\Newsletter;
 use App\Entity\Purchase;
 use App\Form\AddressType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -43,7 +44,11 @@ class UserController extends AbstractController
     #[Route('/profil/my-preference', name: 'user_my_preference')]
     public function myPreference(): Response
     {
-        return $this->render('security/user/my-preference.html.twig');
+		$user = $this->getUser();
+		$newsletter = $this->em->getRepository(Newsletter::class)->findOneBy(['email' => $user->getEmail()]);
+        return $this->render('security/user/my-preference.html.twig', [
+			'newsletter' => $newsletter,
+        ]);
     }
 
     #[Route('/profil/add-address', name: 'user_add_address')]
