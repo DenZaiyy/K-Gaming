@@ -1,24 +1,136 @@
-<h1>Bonjour {{ user.username }}</h1>
-<p>Nous avons le plaisir de vous confirmer votre commande <strong>n°{{ reference }}</strong></p>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<title>Confirmation de commande</title>
+		<style>
+            @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap');
 
-<h2>Voici vos clés de jeux</h2>
-<p>Vous avez utilisé comme moyen de paiement: <strong>{{ purchase.Method|upper }}</strong></p>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
 
-<table>
-	<thead>
-	<tr>
-		<th>Jeux</th>
-		<th>Plateforme</th>
-		<th>Clé d'activation</th>
-	</tr>
-	</thead>
-	<tbody>
-	{% for product in games %}
-		<tr>
-			<td>{{ product.game.label }}</td>
-			<td>{{ product.platform.label }}</td>
-			<td>{{ license[loop.index0] }}</td>
-		</tr>
-	{% endfor %}
-	</tbody>
-</table>
+            .header {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 10vh;
+                width: 100%;
+            }
+
+            .hero-text {
+                text-align: center;
+                width: 70%;
+                color: #fffdff;
+            }
+
+            .container {
+                padding-top: 30px;
+                margin: auto;
+                text-align: center;
+            }
+
+            table {
+                margin: 20px auto;
+                width: 80%;
+                border-collapse: collapse;
+                text-align: center;
+            }
+
+            table thead {
+                background-color: #f44b3a;
+                color: #fffdff;
+            }
+
+            table thead tr {
+                border: 1px solid #263f5d;
+            }
+
+            table thead tr th {
+                text-transform: uppercase;
+                font-weight: bold;
+                padding: 20px;
+                border: 1px solid #263f5d;
+            }
+
+            table tbody tr {
+                border: 1px solid #f44b3a;
+            }
+
+            table tbody tr td {
+                padding: 10px;
+                border: 1px solid #f44b3a;
+                font-size: .9em;
+                font-weight: normal;
+            }
+
+            h1, h2 {
+                text-transform: uppercase;
+                font-family: "Quicksand", sans-serif;
+                font-weight: bold;
+                font-size: 1.5em;
+                text-align: center;
+                color: #f44b3a;
+                margin-bottom: 10px;
+            }
+
+            p {
+                color: #263f5d;
+                font-size: .9em;
+                text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+            }
+
+            strong {
+                color: #f44b3a;
+            }
+
+            .key {
+                font-weight: bold;
+                font-size: 1em;
+            }
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<div class="hero-text">
+				<h1>Bonjour {{ user.username }}</h1>
+				<p class="text-secondary-emphasis">Nous avons le plaisir de vous confirmer votre commande
+					<strong>n°{{ reference }}</strong></p>
+			</div>
+		</div>
+
+		<div class="container">
+			<h2>Voici vos clés de jeux</h2>
+			<p>Vous avez utilisé comme moyen de paiement:
+				<strong>{{ purchase.Method|upper }}</strong></p>
+
+			<table>
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Jeux</th>
+						<th>Plateforme</th>
+						<th>Clé d'activation</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% set licenseIndex = 0 %}
+					{% set index = 0 %}
+					{% for product in games %}
+						{% for i in range(1, product.quantity) %}
+							<tr>
+								<th>{{ index }}</th>
+								<td>{{ product.game.label }}</td>
+								<td>{{ product.platform.label }}</td>
+								<td class="key">{{ license[licenseIndex] }}</td>
+							</tr>
+							{% set index = index + 1 %}
+							{% set licenseIndex = licenseIndex + 1 %}
+						{% endfor %}
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>
