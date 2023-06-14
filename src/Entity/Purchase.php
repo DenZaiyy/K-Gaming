@@ -62,7 +62,7 @@ class Purchase
 
     public function __toString(): string
     {
-        return $this->address->getFirstname() . ' ' . $this->address->getLastname();
+        return $this->getReference();
     }
 
     public function getId(): ?int
