@@ -119,19 +119,26 @@ class PaymentController extends AbstractController
 		$purchase = $this->em->getRepository(Purchase::class)->findOneBy(['reference' => $reference]);
 		$user = $this->em->getRepository(User::class)->find($purchase->getUser()); //get the user by the purchase
 		$recapDetails = $purchase->getRecapDetails(); //get the recapDetails from the purchase
-		
+
+		if($purchase->isIsPaid()) {
+			$this->addFlash('danger', 'La commande a déjà été payée et livrée!');
+			return $this->redirectToRoute('app_home');
+		}
+
 		$license = [];
 		
 		//search the license key available for the game and the platform and set it to unavailable and set the purchaseID
 		foreach ($recapDetails as $recapDetail) {
-			$gameStockID = $this->em->getRepository(Stock::class)->findLicenseKeyAvailableByGamesAndPlatform($recapDetail->getGameId(), $recapDetail->getPlatformId());
-			$license[] = $gameStockID[0]->getLicenseKey();
-			
-			$gameStockID[0]->setPurchase($purchase);
-			$gameStockID[0]->setIsAvailable(false);
-			
-			$this->em->persist($gameStockID[0]);
-			$this->em->flush();
+			$gameStockID = $this->em->getRepository(Stock::class)->findLicenseKeyAvailableByGamesAndPlatform($recapDetail->getGameId(), $recapDetail->getPlatformId(), $recapDetail->getQuantity());
+
+			foreach ($gameStockID as $gameStock) {
+				$license[] = $gameStock->getLicenseKey();
+
+				$gameStock->setPurchase($purchase);
+				$gameStock->setIsAvailable(false);
+
+				$this->em->persist($gameStock);
+			}
 		}
 		
 		//If the purchase is paid by Stripe, set the stripe session ID to purchase
