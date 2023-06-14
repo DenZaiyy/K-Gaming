@@ -50,9 +50,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Address::class)]
     private Collection $addresses;
 
-    #[ORM\Column(length: 255)]
-    private ?string $IP_address = null;
-
     #[ORM\Column]
     private ?bool $isBanned = null;
 
@@ -240,18 +237,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $address->setUser(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getIPAddress(): ?string
-    {
-        return $this->IP_address;
-    }
-
-    public function setIPAddress(string $IP_address): self
-    {
-        $this->IP_address = $IP_address;
 
         return $this;
     }
