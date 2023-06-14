@@ -28,13 +28,14 @@ CREATE TABLE IF NOT EXISTS `address` (
   PRIMARY KEY (`id`),
   KEY `IDX_D4E6F81A76ED395` (`user_id`),
   CONSTRAINT `FK_D4E6F81A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table kgaming.address : ~3 rows (environ)
 DELETE FROM `address`;
 INSERT INTO `address` (`id`, `user_id`, `label`, `firstname`, `lastname`, `address`, `cp`, `city`) VALUES
 	(1, 1, 'Maison', 'Kevin', 'GRISCHKO', '29 rue du ban', '68200', 'Mulhouse'),
-	(3, 1, 'Travail', 'Kevin', 'GRISCHKO', '16 rue de la rose', '68270', 'Wittenheim');
+	(3, 1, 'Travail', 'Kevin', 'GRISCHKO', '16 rue de la rose', '68270', 'Wittenheim'),
+	(15, 2, 'test', 'Test', 'USER', '1 rue du test', '00000', 'Ville');
 
 -- Listage de la structure de table kgaming. category
 DROP TABLE IF EXISTS `category`;
@@ -73,7 +74,9 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 	('DoctrineMigrations\\Version20230607114322', '2023-06-07 11:43:25', 9),
 	('DoctrineMigrations\\Version20230607150843', '2023-06-07 15:08:46', 85),
 	('DoctrineMigrations\\Version20230608082912', '2023-06-08 08:33:38', 28),
-	('DoctrineMigrations\\Version20230608144011', '2023-06-08 14:40:17', 33);
+	('DoctrineMigrations\\Version20230608144011', '2023-06-08 14:40:17', 33),
+	('DoctrineMigrations\\Version20230614091517', '2023-06-14 09:15:36', 34),
+	('DoctrineMigrations\\Version20230614153429', '2023-06-14 15:34:35', 48);
 
 -- Listage de la structure de table kgaming. game
 DROP TABLE IF EXISTS `game`;
@@ -93,25 +96,25 @@ INSERT INTO `game` (`id`, `label`, `price`, `date_release`, `slug`) VALUES
 	(3, 'New World', 38.99, '2021-09-28', 'new-world'),
 	(4, 'Raft', 19.99, '2022-06-20', 'raft'),
 	(6, 'Counter-Strike 2', 19.99, '2025-06-20', 'counter-strike-2'),
-	(7, 'Diablo IV', 20, '2023-06-06', 'diablo-iv'),
+	(7, 'Diablo IV', 19.99, '2023-06-06', 'diablo-iv'),
 	(14, 'Satisfactory', 24.99, '2020-06-08', 'satisfactory'),
-	(15, 'Tom Clancy\'s Rainbow Six Siege', 10, '2015-12-01', 'tom-clancys-rainbow-six-siege'),
-	(17, 'Dead Island 2', 48, '2023-04-21', 'dead-island-2'),
-	(18, 'Final Fantasy XVI', 55, '2023-06-22', 'final-fantasy-xvi'),
-	(19, 'Hogwarts Legacy', 45, '2023-02-07', 'hogwarts-legacy'),
-	(20, 'Call of Duty: Modern Warfare II', 45, '2022-10-28', 'call-of-duty-modern-warfare-ii'),
-	(21, 'Call of Duty: Vanguard', 45, '2021-11-05', 'call-of-duty-vanguard'),
-	(22, 'Star Wars Jedi: Survivor', 50, '2023-04-28', 'star-wars-jedi-survivor'),
-	(23, 'Super Mega Baseball 4', 55, '2023-05-30', 'super-mega-baseball-4'),
-	(24, 'F1 22', 23, '2022-06-28', 'f1-22'),
-	(25, 'Battlefield 2042', 25, '2021-10-06', 'battlefield-2042'),
-	(26, 'FIFA 23', 30, '2022-09-27', 'fifa-23'),
-	(27, 'Red Dead Redemption 2', 25, '2018-10-26', 'red-dead-redemption-2'),
-	(28, 'Street Fighter 6', 55, '2023-06-02', 'street-fighter-6'),
-	(29, 'Only Up!', 7, '2023-05-24', 'only-up'),
-	(30, 'F1 23', 55, '2023-06-16', 'f1-23'),
-	(31, 'Grand Theft Auto V', 10, '2015-04-14', 'grand-theft-auto-v'),
-	(32, 'No Man\'s Sky', 25, '2016-08-08', 'no-mans-sky');
+	(15, 'Tom Clancy\'s Rainbow Six Siege', 9.99, '2015-12-01', 'tom-clancys-rainbow-six-siege'),
+	(17, 'Dead Island 2', 47.99, '2023-04-21', 'dead-island-2'),
+	(18, 'Final Fantasy XVI', 54.99, '2023-06-22', 'final-fantasy-xvi'),
+	(19, 'Hogwarts Legacy', 44.99, '2023-02-07', 'hogwarts-legacy'),
+	(20, 'Call of Duty: Modern Warfare II', 44.99, '2022-10-28', 'call-of-duty-modern-warfare-ii'),
+	(21, 'Call of Duty: Vanguard', 44.99, '2021-11-05', 'call-of-duty-vanguard'),
+	(22, 'Star Wars Jedi: Survivor', 49.99, '2023-04-28', 'star-wars-jedi-survivor'),
+	(23, 'Super Mega Baseball 4', 54.99, '2023-05-30', 'super-mega-baseball-4'),
+	(24, 'F1 22', 22.99, '2022-06-28', 'f1-22'),
+	(25, 'Battlefield 2042', 24.99, '2021-10-06', 'battlefield-2042'),
+	(26, 'FIFA 23', 29.99, '2022-09-27', 'fifa-23'),
+	(27, 'Red Dead Redemption 2', 24.99, '2018-10-26', 'red-dead-redemption-2'),
+	(28, 'Street Fighter 6', 54.99, '2023-06-02', 'street-fighter-6'),
+	(29, 'Only Up!', 6.99, '2023-05-24', 'only-up'),
+	(30, 'F1 23', 54.99, '2023-06-16', 'f1-23'),
+	(31, 'Grand Theft Auto V', 9.99, '2015-04-14', 'grand-theft-auto-v'),
+	(32, 'No Man\'s Sky', 24.99, '2016-08-08', 'no-mans-sky');
 
 -- Listage de la structure de table kgaming. game_genre
 DROP TABLE IF EXISTS `game_genre`;
@@ -359,6 +362,23 @@ CREATE TABLE IF NOT EXISTS `messenger_messages` (
 -- Listage des données de la table kgaming.messenger_messages : ~0 rows (environ)
 DELETE FROM `messenger_messages`;
 
+-- Listage de la structure de table kgaming. newsletter
+DROP TABLE IF EXISTS `newsletter`;
+CREATE TABLE IF NOT EXISTS `newsletter` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_verified` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `token` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Listage des données de la table kgaming.newsletter : ~0 rows (environ)
+DELETE FROM `newsletter`;
+INSERT INTO `newsletter` (`id`, `email`, `is_verified`, `created_at`, `token`) VALUES
+	(8, 'denzoubiden@gmail.com', 1, '2023-06-14 13:48:47', 'c887c506d8ad8043b361b96482596749'),
+	(9, 'itekmodding@gmail.com', 1, '2023-06-14 16:16:53', 'aa218d7e0d6421d18c023afa8a4b28f4');
+
 -- Listage de la structure de table kgaming. plateform
 DROP TABLE IF EXISTS `plateform`;
 CREATE TABLE IF NOT EXISTS `plateform` (
@@ -404,14 +424,19 @@ CREATE TABLE IF NOT EXISTS `purchase` (
   KEY `IDX_6117D13BF5B7AF75` (`address_id`),
   CONSTRAINT `FK_6117D13BA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL,
   CONSTRAINT `FK_6117D13BF5B7AF75` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.purchase : ~3 rows (environ)
+-- Listage des données de la table kgaming.purchase : ~4 rows (environ)
 DELETE FROM `purchase`;
 INSERT INTO `purchase` (`id`, `user_id`, `address_id`, `created_at`, `is_paid`, `method`, `reference`, `stripe_session_id`, `paypal_order_id`, `delivery`, `user_full_name`) VALUES
 	(59, 2, NULL, '2023-06-08 14:44:31', 1, 'stripe', '08062023-6481e94f94f36', 'cs_test_b1pJb5HdgaIs8Cq4mxoUQ32ekc5JWU59TI4WGUTgGkEzCC7vZMrA6f0CER', NULL, '15 rue du test</br>68000 - Colmar', 'Test User'),
 	(60, 1, 3, '2023-06-09 06:47:44', 1, 'stripe', '09062023-6482cb10e129e', 'cs_test_a14sgqt1lKdxbCFfsvUp43DKfnnCzZQZrTjipiL3URRY37DdysUm1CNzpN', NULL, '16 rue de la rose</br>68270 - Wittenheim', 'Kevin GRISCHKO'),
-	(61, 1, 1, '2023-06-12 07:28:09', 1, 'paypal', '12062023-6486c909708b5', NULL, '89X50623RP070171V', '29 rue du ban</br>68200 - Mulhouse', 'Kevin GRISCHKO');
+	(63, 1, 3, '2023-06-14 11:58:41', 1, 'stripe', '14062023-6489ab71a3b3a', 'cs_test_a1XB61hPD2QCTt9qb2635aymPgz4dmpcVJkJLQ90G8DppKOMCjzovfQUOB', NULL, '16 rue de la rose</br>68270 - Wittenheim', 'Kevin GRISCHKO'),
+	(64, 1, 1, '2023-06-14 12:31:11', 1, 'paypal', '14062023-6489b30f55de0', NULL, '5GH68381EX959630F', '29 rue du ban</br>68200 - Mulhouse', 'Kevin GRISCHKO'),
+	(68, 1, 1, '2023-06-14 13:12:46', 1, 'stripe', '14062023-6489bcce5d753', 'cs_test_a1XB61hPD2QCTt9qb2635aymPgz4dmpcVJkJLQ90G8DppKOMCjzovfQUOB', NULL, '29 rue du ban</br>68200 - Mulhouse', 'Kevin GRISCHKO'),
+	(71, 1, 1, '2023-06-14 13:25:28', 1, 'stripe', '14062023-6489bfc88c214', 'cs_test_a1XB61hPD2QCTt9qb2635aymPgz4dmpcVJkJLQ90G8DppKOMCjzovfQUOB', NULL, '29 rue du ban</br>68200 - Mulhouse', 'Kevin GRISCHKO'),
+	(74, 2, 15, '2023-06-14 14:50:01', 1, 'stripe', '14062023-6489d399cb618', 'cs_test_b11iySDEZ5BS8fqT8TkQzMk1Eakg1Cyck3fdHHFcPXyWMjr30rCp8zuIQb', NULL, '1 rue du test</br>00000 - Ville', 'Test USER'),
+	(75, 2, 15, '2023-06-14 15:01:43', 1, 'stripe', '14062023-6489d657c7994', 'cs_test_b11iySDEZ5BS8fqT8TkQzMk1Eakg1Cyck3fdHHFcPXyWMjr30rCp8zuIQb', NULL, '1 rue du test</br>00000 - Ville', 'Test USER');
 
 -- Listage de la structure de table kgaming. rating
 DROP TABLE IF EXISTS `rating`;
@@ -430,13 +455,14 @@ CREATE TABLE IF NOT EXISTS `rating` (
   CONSTRAINT `FK_D8892622A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_D8892622E48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`),
   CONSTRAINT `FK_D8892622FFE6496F` FOREIGN KEY (`platform_id`) REFERENCES `plateform` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table kgaming.rating : ~3 rows (environ)
 DELETE FROM `rating`;
 INSERT INTO `rating` (`id`, `game_id`, `note`, `user_id`, `message`, `platform_id`, `created_at`) VALUES
 	(11, 2, 4, 2, 'Bien malgré les nouveaux recul qui facilite trop les nouveaux joueurs', 1, '2023-06-08 14:51:54'),
-	(16, 2, 2, 1, 'Bien malgré les nouveaux recul qui facilite trop les nouveaux joueurs', 1, '2023-06-08 14:51:54');
+	(16, 2, 2, 1, 'Bien malgré les nouveaux recul qui facilite trop les nouveaux joueurs', 1, '2023-06-08 14:51:54'),
+	(21, 14, 4, 2, 'Très bon jeu, et vraiment hâte de tester l\'update 8 sur early access ! :D', 1, '2023-06-14 16:14:54');
 
 -- Listage de la structure de table kgaming. recap_details
 DROP TABLE IF EXISTS `recap_details`;
@@ -455,15 +481,21 @@ CREATE TABLE IF NOT EXISTS `recap_details` (
   PRIMARY KEY (`id`),
   KEY `IDX_1D1FD69F65E9B0F` (`order_product_id`),
   CONSTRAINT `FK_1D1FD69F65E9B0F` FOREIGN KEY (`order_product_id`) REFERENCES `purchase` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.recap_details : ~2 rows (environ)
+-- Listage des données de la table kgaming.recap_details : ~4 rows (environ)
 DELETE FROM `recap_details`;
 INSERT INTO `recap_details` (`id`, `order_product_id`, `quantity`, `game_label`, `price`, `total_recap`, `platform_label`, `game_id`, `platform_id`, `game_slug`, `platform_slug`) VALUES
 	(14, 59, 1, 'Satisfactory', 24.99, '24.99', 'Steam', 14, 1, 'satisfactory', 'steam'),
 	(15, 59, 1, 'Rust', 39.99, '39.99', 'Steam', 2, 1, 'rust', 'steam'),
 	(16, 60, 1, 'Rust', 39.99, '39.99', 'Steam', 2, 1, 'rust', 'steam'),
-	(17, 61, 1, 'Rust', 39.99, '39.99', 'Steam', 2, 1, 'rust', 'steam');
+	(19, 63, 1, 'Battlefield 2042', 24.99, '24.99', 'Steam', 25, 1, 'battlefield-2042', 'steam'),
+	(20, 64, 2, 'Satisfactory', 24.99, '49.98', 'Epic Games', 14, 4, 'satisfactory', 'epic-games'),
+	(24, 68, 2, 'FIFA 23', 29.99, '59.98', 'Origin', 26, 2, 'fifa-23', 'origin'),
+	(29, 71, 1, 'Satisfactory', 24.99, '24.99', 'Epic Games', 14, 4, 'satisfactory', 'epic-games'),
+	(30, 71, 2, 'FIFA 23', 29.99, '59.98', 'Steam', 26, 1, 'fifa-23', 'steam'),
+	(35, 74, 1, 'Diablo IV', 19.99, '19.99', 'Steam', 7, 1, 'diablo-iv', 'steam'),
+	(36, 75, 1, 'Call of Duty: Modern Warfare II', 44.99, '44.99', 'Battle.net', 20, 3, 'call-of-duty-modern-warfare-ii', 'battle-net');
 
 -- Listage de la structure de table kgaming. reset_password_request
 DROP TABLE IF EXISTS `reset_password_request`;
@@ -499,14 +531,14 @@ CREATE TABLE IF NOT EXISTS `stock` (
   CONSTRAINT `FK_4B365660558FBEB9` FOREIGN KEY (`purchase_id`) REFERENCES `purchase` (`id`),
   CONSTRAINT `FK_4B365660CCAA542F` FOREIGN KEY (`plateform_id`) REFERENCES `plateform` (`id`) ON DELETE CASCADE,
   CONSTRAINT `FK_4B365660E48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=542 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=543 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table kgaming.stock : ~541 rows (environ)
 DELETE FROM `stock`;
 INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_key`, `date_availability`, `is_available`) VALUES
 	(1, 2, 59, 1, '3D35-8828-9BF9-6896', '2023-06-06 09:08:47', 0),
 	(2, 2, 60, 1, '62E5-4A58-DEE6-C50A', '2023-06-06 09:08:47', 0),
-	(3, 2, 61, 1, 'F76E-49F5-DA7A-2468', '2023-06-06 09:08:47', 0),
+	(3, 2, NULL, 1, 'F76E-49F5-DA7A-2468', '2023-06-06 09:08:47', 1),
 	(4, 2, NULL, 1, '8420-F1F8-DF0D-D3D9', '2023-06-06 09:08:47', 1),
 	(5, 2, NULL, 6, 'B77F-8707-CDC0-F6D6', '2023-06-06 09:08:47', 1),
 	(6, 2, NULL, 6, 'B9C0-D944-1537-9E86', '2023-06-06 09:08:47', 1),
@@ -544,7 +576,7 @@ INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_ke
 	(38, 6, NULL, 1, '8984-1469-37C7-710C', '2023-06-06 09:08:47', 1),
 	(39, 6, NULL, 1, 'DF44-1F4B-81C6-D19F', '2023-06-06 09:08:47', 1),
 	(40, 7, NULL, 1, '9037-8D80-3F3F-C691', '2023-06-06 09:08:47', 1),
-	(41, 7, NULL, 1, '0F4E-64A1-EA59-2812', '2023-06-06 09:08:47', 1),
+	(41, 7, 74, 1, '0F4E-64A1-EA59-2812', '2023-06-06 09:08:47', 0),
 	(42, 7, NULL, 1, '1A0E-0657-A6D2-F99B', '2023-06-06 09:08:47', 1),
 	(43, 7, NULL, 3, '3F0E-C624-CA99-2433', '2023-06-06 09:08:47', 1),
 	(44, 7, NULL, 3, 'F6AB-59A7-718C-7C04', '2023-06-06 09:08:47', 1),
@@ -575,8 +607,8 @@ INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_ke
 	(69, 7, NULL, 9, '74C9-7870-14CA-779F', '2023-06-06 09:08:47', 1),
 	(70, 7, NULL, 9, '965A-0988-891A-C116', '2023-06-06 09:08:47', 1),
 	(71, 14, 59, 1, '3823-C7C7-F39C-2303', '2023-06-06 09:08:47', 0),
-	(72, 14, NULL, 4, 'A62A-1858-B3FC-6E6B', '2023-06-06 09:08:47', 1),
-	(73, 14, NULL, 4, '7213-AA2A-AA74-C77E', '2023-06-06 09:08:47', 1),
+	(72, 14, 64, 4, 'A62A-1858-B3FC-6E6B', '2023-06-06 09:08:47', 0),
+	(73, 14, 71, 4, '7213-AA2A-AA74-C77E', '2023-06-06 09:08:47', 0),
 	(74, 14, NULL, 4, '3001-54FA-ED4B-462D', '2023-06-06 09:08:47', 1),
 	(75, 14, NULL, 4, '64B5-0CCD-EED4-893D', '2023-06-06 09:08:47', 1),
 	(76, 14, NULL, 4, '57FB-E60B-8181-E476', '2023-06-06 09:08:47', 1),
@@ -675,7 +707,7 @@ INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_ke
 	(169, 19, NULL, 8, '46FC-72C8-E958-3D22', '2023-06-06 09:08:47', 1),
 	(170, 19, NULL, 9, 'FB2E-463A-00B2-DEFE', '2023-06-06 09:08:47', 1),
 	(171, 19, NULL, 9, 'A031-E50C-C43D-3630', '2023-06-06 09:08:47', 1),
-	(172, 20, NULL, 3, '4134-727F-28CA-AEBC', '2023-06-06 09:08:47', 1),
+	(172, 20, 75, 3, '4134-727F-28CA-AEBC', '2023-06-06 09:08:47', 0),
 	(173, 20, NULL, 3, '6CB6-4DA2-0E2A-5A06', '2023-06-06 09:08:47', 1),
 	(174, 20, NULL, 3, 'E087-9007-E982-F046', '2023-06-06 09:08:47', 1),
 	(175, 20, NULL, 3, '9EE2-F51F-8E38-FA43', '2023-06-06 09:08:47', 1),
@@ -834,7 +866,7 @@ INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_ke
 	(328, 24, NULL, 9, '0D67-D811-73D1-5875', '2023-06-06 09:08:47', 1),
 	(329, 24, NULL, 9, '6391-AAF4-1626-405F', '2023-06-06 09:08:47', 1),
 	(330, 24, NULL, 9, 'C6D4-2677-4F59-90D7', '2023-06-06 09:08:47', 1),
-	(331, 25, NULL, 1, 'B151-923E-DCAF-5964', '2023-06-06 09:08:47', 1),
+	(331, 25, 63, 1, 'B151-923E-DCAF-5964', '2023-06-06 09:08:47', 0),
 	(332, 25, NULL, 1, '999A-56CC-1FEC-2A0A', '2023-06-06 09:08:47', 1),
 	(333, 25, NULL, 1, '3E33-EEBF-6411-9147', '2023-06-06 09:08:47', 1),
 	(334, 25, NULL, 1, 'AFC8-ED9E-A63F-9149', '2023-06-06 09:08:47', 1),
@@ -876,16 +908,16 @@ INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_ke
 	(370, 25, NULL, 9, 'B369-D828-2815-10CE', '2023-06-06 09:08:47', 1),
 	(371, 25, NULL, 9, '2177-F3FB-3932-87E3', '2023-06-06 09:08:47', 1),
 	(372, 25, NULL, 9, 'D826-B0A4-258B-0F33', '2023-06-06 09:08:47', 1),
-	(373, 26, NULL, 1, '4A22-349E-3B0F-87AC', '2023-06-06 09:08:47', 1),
-	(374, 26, NULL, 1, 'A5BD-5D62-9872-929B', '2023-06-06 09:08:47', 1),
+	(373, 26, 71, 1, '4A22-349E-3B0F-87AC', '2023-06-06 09:08:47', 0),
+	(374, 26, 71, 1, 'A5BD-5D62-9872-929B', '2023-06-06 09:08:47', 0),
 	(375, 26, NULL, 1, 'A24C-35B3-8670-054F', '2023-06-06 09:08:47', 1),
 	(376, 26, NULL, 1, '9981-2963-2EFF-1A01', '2023-06-06 09:08:47', 1),
 	(377, 26, NULL, 1, 'CFDE-E99A-3804-2D2F', '2023-06-06 09:08:47', 1),
 	(378, 26, NULL, 1, 'A518-84A9-F3B5-B4CB', '2023-06-06 09:08:47', 1),
 	(379, 26, NULL, 1, '1C46-CBF2-DDA9-A991', '2023-06-06 09:08:47', 1),
 	(380, 26, NULL, 1, 'F487-EDB7-4A68-D97B', '2023-06-06 09:08:47', 1),
-	(381, 26, NULL, 2, '2776-6DEE-24F7-414F', '2023-06-06 09:08:47', 1),
-	(382, 26, NULL, 2, 'FBF3-21D3-192F-7E88', '2023-06-06 09:08:47', 1),
+	(381, 26, 68, 2, '2776-6DEE-24F7-414F', '2023-06-06 09:08:47', 0),
+	(382, 26, 68, 2, 'FBF3-21D3-192F-7E88', '2023-06-06 09:08:47', 0),
 	(383, 26, NULL, 2, '2775-2799-9BFA-CE2C', '2023-06-06 09:08:47', 1),
 	(384, 26, NULL, 2, '540C-3DE0-09B7-F4DD', '2023-06-06 09:08:47', 1),
 	(385, 26, NULL, 6, '9EFB-F141-1C67-849C', '2023-06-06 09:08:47', 1),
@@ -1057,7 +1089,6 @@ CREATE TABLE IF NOT EXISTS `user` (
   `avatar` longtext COLLATE utf8mb4_unicode_ci,
   `is_verified` tinyint(1) NOT NULL,
   `create_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
-  `ip_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_banned` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649F85E0677` (`username`)
@@ -1065,9 +1096,9 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 -- Listage des données de la table kgaming.user : ~1 rows (environ)
 DELETE FROM `user`;
-INSERT INTO `user` (`id`, `username`, `roles`, `password`, `email`, `avatar`, `is_verified`, `create_at`, `ip_address`, `is_banned`) VALUES
-	(1, 'denz', '["ROLE_ADMIN"]', '$2y$13$jjQF4rgjxHoO6gHwK/It/ekENtEV8mJnzqyQAWmsM58Ch.Xs9nVJS', 'denzoubiden@gmail.com', '/img/default.png', 1, '2023-05-14 20:43:59', '', 0),
-	(2, 'testUser', '["ROLE_ADMIN"]', '$2y$13$FdvtgzfBAYJNyl4uflpxiOOzysXrXAqUGStp8RTGCXvNA4eKIZ.Ea', 'itekmodding@gmail.com', '/uploads/pngwing-com-64819750bb0c4.png', 1, '2023-06-08 08:54:40', '127.0.0.1', 0);
+INSERT INTO `user` (`id`, `username`, `roles`, `password`, `email`, `avatar`, `is_verified`, `create_at`, `is_banned`) VALUES
+	(1, 'denz', '["ROLE_ADMIN"]', '$2y$13$jjQF4rgjxHoO6gHwK/It/ekENtEV8mJnzqyQAWmsM58Ch.Xs9nVJS', 'denzoubiden@gmail.com', '/img/default.png', 1, '2023-05-14 20:43:59', 0),
+	(2, 'testUser', '["ROLE_ADMIN"]', '$2y$13$FdvtgzfBAYJNyl4uflpxiOOzysXrXAqUGStp8RTGCXvNA4eKIZ.Ea', 'itekmodding@gmail.com', '/uploads/pngwing-com-64819750bb0c4.png', 1, '2023-06-08 08:54:40', 0);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
