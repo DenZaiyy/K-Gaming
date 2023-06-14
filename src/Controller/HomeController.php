@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Entity\Game;
 use App\Entity\Genre;
+use App\Entity\Newsletter;
 use App\Entity\Plateform;
 use App\Entity\Stock;
 use App\Service\CartService;
@@ -21,19 +22,27 @@ class HomeController extends AbstractController
 		$tendencies = $em->getRepository(Stock::class)->findGamesInTendencies();
 		$preorders = $em->getRepository(Game::class)->findGamesInPreOrders();
 		$genres = $em->getRepository(Genre::class)->findGenres();
-		
+
+		$user = $this->getUser();
+		if ($user) {
+			$newsletter = $em->getRepository(Newsletter::class)->findOneBy(['email' => $user->getEmail()]);
+		} else {
+			$newsletter = null;
+		}
+
 		return $this->render('home/index.html.twig', [
 			'tendencies' => $tendencies,
 			'preorders' => $preorders,
-			'genres' => $genres
+			'genres' => $genres,
+			'newsletter' => $newsletter
 		]);
 	}
-	
+
 	public function navBar(EntityManagerInterface $em, CartService $cartService): Response
 	{
 		$categories = $em->getRepository(Category::class)->findAll();
 		$plateforms = $em->getRepository(Plateform::class)->findAll();
-		
+
 		return $this->render('components/_header.html.twig', [
 			'categories' => $categories,
 			'plateforms' => $plateforms,
