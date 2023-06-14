@@ -85,7 +85,7 @@ class StockRepository extends ServiceEntityRepository
 			->getResult();
 	}
 	
-	public function findLicenseKeyAvailableByGamesAndPlatform($gameID, $platformID): array
+	public function findLicenseKeyAvailableByGamesAndPlatform($gameID, $platformID, $quantity): array
 	{
 		return $this->createQueryBuilder('s')
 			->leftJoin('s.game', 'g')
@@ -93,6 +93,7 @@ class StockRepository extends ServiceEntityRepository
 			->where('g.id = :gameID')
 			->andWhere('p.id = :platformID')
 			->andWhere('s.is_available = true')
+			->setMaxResults($quantity)
 			->setParameters([
 				'gameID' => $gameID,
 				'platformID' => $platformID
