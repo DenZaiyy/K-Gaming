@@ -26,7 +26,6 @@ class NewsletterController extends AbstractController
 	#[Route('/subscribe', name: 'subscribe')]
 	public function index(MailerInterface $mailer, Request $request): Response
 	{
-		$user = $this->getUser();
 		$newsletter = new NewsletterUser();
 		$token = hash('md5', uniqid());
 
