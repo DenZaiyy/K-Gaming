@@ -126,9 +126,10 @@
 			</div>
 		</section>
 
-		{% if ratings %}
+
 			<section class="ratings">
 				<h2>Notes utilisateurs</h2>
+				{% if ratings %}
 				<div class="moyenne d-flex justify-content-center gap-2 align-items-center my-3">
 					Note du jeu ({{ ratings|length }} avis) :
 					<div class="note d-flex ">
@@ -179,6 +180,8 @@
 						</div>
 					{% endfor %}
 				</div>
+				{% else %}
+				<p class="text-center">Aucune note associée à ce jeu</p>
 			</section>
 		{% endif %}
 
