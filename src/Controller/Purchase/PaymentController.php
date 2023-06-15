@@ -82,6 +82,7 @@ class PaymentController extends AbstractController
 			'line_items' => [
 				[$productStripe] //add the products to the session
 			],
+			'locale' => 'fr',
 			'mode' => 'payment',
 			'success_url' => $this->urlGenerator->generate(
 				'payment_success',
