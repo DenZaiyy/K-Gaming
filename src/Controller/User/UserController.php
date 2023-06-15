@@ -3,7 +3,7 @@
 namespace App\Controller\User;
 
 use App\Entity\Address;
-use App\Entity\Newsletter;
+use App\Entity\Newsletter\NewsletterUser;
 use App\Entity\Purchase;
 use App\Form\AddressType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -45,7 +45,7 @@ class UserController extends AbstractController
     public function myPreference(): Response
     {
 		$user = $this->getUser();
-		$newsletter = $this->em->getRepository(Newsletter::class)->findOneBy(['email' => $user->getEmail()]);
+		$newsletter = $this->em->getRepository(NewsletterUser::class)->findOneBy(['email' => $user->getEmail()]);
         return $this->render('security/user/my-preference.html.twig', [
 			'newsletter' => $newsletter,
         ]);

@@ -1,5 +1,5 @@
 <h1>Confirmer l'inscription à la newsletter</h1>
-<p>Vous êtes sur le point de vous inscrire à la newsletter de <strong>K-GAMING</strong> avec l'adresse {{ user.email }}.
+<p>Vous êtes sur le point de vous inscrire à la newsletter de <strong>K-GAMING</strong> avec l'adresse {{ emailAddress }}.
 </p>
 <p>Si vous souhaitez confirmer cette inscription, cliquez sur le bouton ci-dessous.</p>
-<a href="{{ absolute_url(path('newsletter_confirm', {user: user.id, id: newsletter.id, token: token})) }}">{{ absolute_url(path('newsletter_confirm', {user: user.id, id: newsletter.id, token: token})) }}</a>
+<a href="{{ absolute_url(path('newsletter_confirm', {id: newsletter.id, token: token})) }}">{{ absolute_url(path('newsletter_confirm', {id: newsletter.id, token: token})) }}</a>

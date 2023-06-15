@@ -1,27 +1,27 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\Newsletter;
 
-use App\Entity\Newsletter;
+use App\Entity\Newsletter\NewsletterUser;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Newsletter>
+ * @extends ServiceEntityRepository<NewsletterUser>
  *
- * @method Newsletter|null find($id, $lockMode = null, $lockVersion = null)
- * @method Newsletter|null findOneBy(array $criteria, array $orderBy = null)
- * @method Newsletter[]    findAll()
- * @method Newsletter[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method NewsletterUser|null find($id, $lockMode = null, $lockVersion = null)
+ * @method NewsletterUser|null findOneBy(array $criteria, array $orderBy = null)
+ * @method NewsletterUser[]    findAll()
+ * @method NewsletterUser[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class NewsletterRepository extends ServiceEntityRepository
+class UserRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Newsletter::class);
+        parent::__construct($registry, NewsletterUser::class);
     }
 
-    public function save(Newsletter $entity, bool $flush = false): void
+    public function save(NewsletterUser $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class NewsletterRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Newsletter $entity, bool $flush = false): void
+    public function remove(NewsletterUser $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 

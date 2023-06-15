@@ -114,11 +114,7 @@
 			avant-première.
 		</div>
 		<div class="btn-ratings">
-			{% if newsletter %}
-				<a href="{{ path('newsletter_unsubscribe') }}">Se désinscrire</a>
-			{% else %}
-				<a href="{{ path('newsletter_subscribe') }}">S'inscrire !</a>
-			{% endif %}
+			<a href="{{ path('newsletter_subscribe') }}">S'inscrire !</a>
 		</div>
 	</section>
 
