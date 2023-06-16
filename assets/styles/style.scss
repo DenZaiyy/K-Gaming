@@ -181,29 +181,31 @@ h2, h1 {
 	text-transform: uppercase;
 	font-family: "Quicksand", sans-serif;
 	font-weight: bold;
-	font-size: 1.5em;
+	font-size: 1.7em;
 	margin-bottom: 30px;
 	color: var(--blue);
 	text-align: center;
 }
 
-.is-loading::before {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	background-color: #fff;
-	opacity: .5;
-	z-index: 4;
-}
+.is-loading {
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		background-color: #fff;
+		opacity: .5;
+		z-index: 4;
+	}
 
-.is-loading .spinner-border {
-	position: absolute;
-	top: calc(50% - 1rem);
-	left: calc(50% - 1rem);
-	z-index: 5;
+	.spinner-border {
+		position: absolute;
+		top: calc(50% - 1rem);
+		left: calc(50% - 1rem);
+		z-index: 5;
+	}
 }
 
 main {
@@ -239,9 +241,13 @@ main {
 
 			p {
 				font-family: "Quicksand Book", sans-serif;
-				font-size: .9em;
+				font-size: 1.1em;
 				margin: auto;
 				color: #fffdff;
+
+				strong {
+					color: var(--orange);
+				}
 			}
 		}
 	}
@@ -283,10 +289,11 @@ main {
 					display: flex;
 					justify-content: space-between;
 					padding: 0 5px;
+					font-size: 1.2em;
+
 
 					.label, .price {
 						font-family: "Source Sans Pro", sans-serif;
-						font-size: 1em;
 						color: var(--blue);
 					}
 
@@ -303,7 +310,7 @@ main {
 
 					font-family: "Source Sans Pro", sans-serif;
 					font-weight: bold;
-					font-size: .8em;
+					font-size: 1em;
 
 					.badge {
 						display: flex;
@@ -312,6 +319,7 @@ main {
 						padding: 2px 5px;
 						border: 1px solid var(--orange);
 						border-radius: 5px;
+						font-size: .8em;
 						color: var(--orange);
 					}
 				}
@@ -364,10 +372,10 @@ main {
 
 		.text-content {
 			margin-top: 10px;
-			width: 60%;
+			width: 70%;
 			text-align: center;
 			font-family: "Source Sans Pro", sans-serif;
-			font-size: 1em;
+			font-size: 1.1em;
 			text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 		}
 
@@ -707,21 +715,35 @@ main {
 		}
 	}
 
-	.btn-orange {
+	.show-more {
+		margin: 50px auto 0 auto;
 		background: transparent;
 		color: var(--orange);
 		border: 1px solid var(--orange);
 		padding: 5px 30px;
 		border-radius: 5px;
 		cursor: pointer;
+		width: max-content;
 		transition: var(--animation);
 
-		&:hover {
-			background-color: var(--orange);
-			color: var(--white);
+		a {
 			transition: var(--animation);
+			color: var(--orange);
+			text-decoration: none;
 		}
+
+		&:hover {
+			 background-color: var(--orange);
+			 color: var(--white);
+			 transition: var(--animation);
+
+			a {
+				color: var(--white);
+				transition: var(--animation);
+			}
+		 }
 	}
+
 
 	.ratingStars {
 		display: flex;

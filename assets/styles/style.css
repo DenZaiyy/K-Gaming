@@ -155,7 +155,7 @@ h2, h1 {
   text-transform: uppercase;
   font-family: "Quicksand", sans-serif;
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.7em;
   margin-bottom: 30px;
   color: var(--blue);
   text-align: center;
@@ -172,7 +172,6 @@ h2, h1 {
   opacity: 0.5;
   z-index: 4;
 }
-
 .is-loading .spinner-border {
   position: absolute;
   top: calc(50% - 1rem);
@@ -211,9 +210,12 @@ main .hero-image .hero-text h1 {
 }
 main .hero-image .hero-text p {
   font-family: "Quicksand Book", sans-serif;
-  font-size: 0.9em;
+  font-size: 1.1em;
   margin: auto;
   color: #fffdff;
+}
+main .hero-image .hero-text p strong {
+  color: var(--orange);
 }
 main .cards {
   display: flex;
@@ -248,10 +250,10 @@ main .cards a .gameCard .infos {
   display: flex;
   justify-content: space-between;
   padding: 0 5px;
+  font-size: 1.2em;
 }
 main .cards a .gameCard .infos .label, main .cards a .gameCard .infos .price {
   font-family: "Source Sans Pro", sans-serif;
-  font-size: 1em;
   color: var(--blue);
 }
 main .cards a .gameCard .infos .price {
@@ -264,7 +266,7 @@ main .cards a .gameCard .preco {
   gap: 5px;
   font-family: "Source Sans Pro", sans-serif;
   font-weight: bold;
-  font-size: 0.8em;
+  font-size: 1em;
 }
 main .cards a .gameCard .preco .badge {
   display: flex;
@@ -273,6 +275,7 @@ main .cards a .gameCard .preco .badge {
   padding: 2px 5px;
   border: 1px solid var(--orange);
   border-radius: 5px;
+  font-size: 0.8em;
   color: var(--orange);
 }
 main .cards a .gameCard:hover {
@@ -312,10 +315,10 @@ main .rating .stars .star, main .newsletter .stars .star {
 }
 main .rating .text-content, main .newsletter .text-content {
   margin-top: 10px;
-  width: 60%;
+  width: 70%;
   text-align: center;
   font-family: "Source Sans Pro", sans-serif;
-  font-size: 1em;
+  font-size: 1.1em;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 }
 main .rating .btn-ratings, main .newsletter .btn-ratings {
@@ -585,17 +588,28 @@ main .toggle-container label::after {
   left: 4px;
   transition: cubic-bezier(0.68, -0.55, 0.27, 1.55) 320ms;
 }
-main .btn-orange {
+main .show-more {
+  margin: 50px auto 0 auto;
   background: transparent;
   color: var(--orange);
   border: 1px solid var(--orange);
   padding: 5px 30px;
   border-radius: 5px;
   cursor: pointer;
+  width: max-content;
   transition: var(--animation);
 }
-main .btn-orange:hover {
+main .show-more a {
+  transition: var(--animation);
+  color: var(--orange);
+  text-decoration: none;
+}
+main .show-more:hover {
   background-color: var(--orange);
+  color: var(--white);
+  transition: var(--animation);
+}
+main .show-more:hover a {
   color: var(--white);
   transition: var(--animation);
 }
