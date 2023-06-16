@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+{% block title %}Liste des Newsletters{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1>Liste des newsletters</h1>
+		{% if users|length == 0 %}
+			<div class="text-center">
+				<div class="alert alert-warning">
+					Il n'y as pas d'utilisateur inscrit à la newsletter, donc pas d'envoi nécessaire
+				</div>
+			</div>
+		{% endif %}
+		{% if newsletters %}
+			<table class="table table-striped table-hover text-center">
+				<thead>
+				<tr>
+					<th>ID</th>
+					<th>Titre</th>
+					<th>Date</th>
+					<th>Actions</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for newsletter in newsletters %}
+					<tr>
+						<td>{{ newsletter.id }}</td>
+						<td>{{ newsletter.name }}</td>
+						<td>{{ newsletter.createdAt|date('d/m/Y H:i', 'Europe/Paris') }}</td>
+						<td>
+							{% if newsletter.isSent == false and users|length > 0 %}
+								<a href="{{ path('newsletter_send', {id: newsletter.id}) }}" class="btn btn-primary">Envoyer</a>
+							{% endif %}
+							<a href="{{ path('newsletter_edit', {id: newsletter.id}) }}" class="btn btn-secondary">Modifier</a>
+							<a href="{{ path('newsletter_delete', {id: newsletter.id}) }}" class="btn btn-danger">Supprimer</a>
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+			{% else %}
+			<div class="text-center">
+				<div class="alert alert-warning">
+					Il n'y as pas encore de newsletter
+				</div>
+			</div>
+		{% endif %}
+
+		<div class="text-center">
+			<a href="{{ path('newsletter_add') }}" class="btn btn-success p-3">Créer une newsletter</a>
+		</div>
+	</div>
+{% endblock %}
+
+
+
