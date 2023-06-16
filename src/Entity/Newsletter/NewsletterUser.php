@@ -18,7 +18,7 @@ class NewsletterUser
 	private ?string $email = null;
 
 	#[ORM\Column]
-	private ?bool $is_verified = null;
+	private ?bool $is_verified = false;
 
 	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
 	private ?\DateTimeInterface $created_at = null;
@@ -27,7 +27,7 @@ class NewsletterUser
 	private ?string $token = null;
 
 	#[ORM\Column]
-	private ?bool $is_rgpd = null;
+	private ?bool $is_rgpd = false;
 
 	public function __construct()
 	{
