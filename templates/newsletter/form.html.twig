@@ -1,11 +1,18 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Formulaire newsletter{% endblock %}
+{% block title %}Ajout de newsletter{% endblock %}
 
 {% block body %}
 	<div class="container">
-		{{ form_start(form) }}
+		{% if edit %}
+			<h1>Modifier la newsletter</h1>
+		{% else %}
+			<h1>Ajouter une newsletter</h1>
+		{% endif %}
 
+		{{ form_start(form) }}
+			{{ form_row(form.name) }}
+			{{ form_row(form.content) }}
+			{{ form_row(form.enregistrer) }}
 		{{ form_end(form) }}
 	</div>
 {% endblock %}
