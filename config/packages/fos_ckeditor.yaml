@@ -1,0 +1,16 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+
+twig:
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+fos_ck_editor:
+    input_sync: true
+    default_config: default
+    configs:
+        default:
+            toolbar: standard
+            uiColor: '#ffffff'
+            startup_outline_blocks: true
+            allowedContent: true
+            contentsCss:
+                - '/build/css/ckeditor.css'
