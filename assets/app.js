@@ -23,12 +23,12 @@ window.addEventListener('load', (e) => {
 	e.preventDefault()
 
 	// START ALERTS
-	const alerts = document.querySelectorAll('[class*="alert-"]')
+	const alerts = document.querySelectorAll('[role="alert"]')
 	for (const alert of alerts) {
 		setTimeout( function() {
 			const bootstrapAlert = bootstrap.Alert.getOrCreateInstance(alert);
 			bootstrapAlert.close();
-		}, 2000);
+		}, 5000);
 	}
 	// STOP ALERTS
 
