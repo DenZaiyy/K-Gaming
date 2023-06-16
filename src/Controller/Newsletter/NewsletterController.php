@@ -2,9 +2,13 @@
 
 namespace App\Controller\Newsletter;
 
+use App\Entity\Newsletter\Newsletter;
 use App\Entity\Newsletter\NewsletterUser;
 use App\Entity\User as AppUser;
+use App\Form\Newsletter\NewsletterType;
 use App\Form\Newsletter\RegisterFormType;
+use App\Repository\Newsletter\NewsletterRepository;
+use App\Repository\Newsletter\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +24,6 @@ class NewsletterController extends AbstractController
 
 	public function __construct(private EntityManagerInterface $em)
 	{
-
 	}
 
 	#[Route('/subscribe', name: 'subscribe')]
@@ -52,10 +55,10 @@ class NewsletterController extends AbstractController
 
 			//send the email to the user
 			$email = (new TemplatedEmail())
-				->from(new Address('support@k-grischko.fr', 'K-GAMING - Confirmer l\'inscription newsletter')) //set the sender
+				->from(new Address('support@k-grischko.fr', 'K-GAMING - Newsletter')) //set the sender
 				->to($form->get('email')->getData()) //get the user email
 				->subject('Confirmer l\'inscription à la newsletter') //set the subject
-				->htmlTemplate('newsletter/confirmation.html.twig') //set the template
+				->htmlTemplate('newsletter/emails/confirmation.html.twig') //set the template
 				->context(compact('emailAddress', 'newsletter', 'token'));
 
 			$mailer->send($email); //send the email
@@ -64,33 +67,103 @@ class NewsletterController extends AbstractController
 			return $this->redirectToRoute('app_home');
 		}
 
-		return $this->render('newsletter/form.html.twig', [
+		return $this->render('newsletter/subscribe.html.twig', [
 			'form' => $form->createView()
 		]);
 	}
 
-	#[Route('/unsubscribe', name: 'unsubscribe')]
-	public function unsubscribe() : Response
+	/**
+	 * La fonction prepare sert à créer une newsletter et l'ajouter à la liste de celle déjà existante
+	 */
+	#[Route('/add', name: 'add')]
+	public function prepare(Request $request): Response
 	{
-		$user = $this->getUser();
+		$newsletter = new Newsletter();
+		$form = $this->createForm(NewsletterType::class, $newsletter);
+		$form->handleRequest($request);
 
-		if (!$user) {
-			$this->addFlash('danger', 'Vous devez être connecté pour vous désinscrire de la newsletter');
-			return $this->redirectToRoute('app_login');
+		if ($form->isSubmitted() && $form->isValid()) {
+			$this->em->persist($newsletter);
+			$this->em->flush();
+
+			$this->addFlash('success', 'La newsletter a bien été créée');
+			return $this->redirectToRoute('newsletter_list');
 		}
 
-		$newsletter = $this->em->getRepository(NewsletterUser::class)->findOneBy(['email' => $user->getEmail()]);
+		return $this->render('newsletter/form.html.twig', [
+			'form' => $form->createView(),
+			'edit' => false
+		]);
+	}
 
-		if (!$newsletter) {
-			$this->addFlash('danger', 'Vous n\'êtes pas inscrit à la newsletter');
-			return $this->redirectToRoute('app_home');
+	#[Route('/edit/{id}', name: 'edit')]
+	public function edit(Request $request, Newsletter $newsletter): Response
+	{
+		$form = $this->createForm(NewsletterType::class, $newsletter);
+		$form->handleRequest($request);
+
+		if ($form->isSubmitted() && $form->isValid()) {
+			$this->em->flush();
+
+			$this->addFlash('success', 'La newsletter a bien été modifiée');
+			return $this->redirectToRoute('newsletter_list');
 		}
 
+		return $this->render('newsletter/form.html.twig', [
+			'form' => $form->createView(),
+			'edit' => $newsletter->getId()
+		]);
+	}
+
+	#[Route('/delete/{id}', name: 'delete')]
+	public function delete(Newsletter $newsletter): Response
+	{
 		$this->em->remove($newsletter);
 		$this->em->flush();
 
-		$this->addFlash('success', 'Vous avez bien été désinscrit de la newsletter');
-		return $this->redirectToRoute('app_home');
+		$this->addFlash('success', 'La newsletter a bien été supprimée');
+		return $this->redirectToRoute('newsletter_list');
+	}
+
+	#[Route('/list', name: 'list')]
+	public function list(NewsletterRepository $repository, UserRepository $userRepository): Response
+	{
+		$newsletters = $repository->findAll();
+		$users = $userRepository->findAll();
+
+		return $this->render('newsletter/list.html.twig', [
+			'newsletters' => $newsletters,
+			'users' => $users
+		]);
+	}
+
+	//	FINISH THIS
+	#[Route('/send/{id}', name: 'send')]
+	public function send(Newsletter $newsletter, MailerInterface $mailer): Response
+	{
+		$users = $this->em->getRepository(NewsletterUser::class)->findBy(['is_verified' => true]);
+
+		foreach ($users as $user) {
+			if ($user->isIsVerified()) {
+				$email = (new TemplatedEmail())
+					->from(new Address('newsletter@k-grischko.fr', 'K-Gaming - Newsletter'))
+					->to($user->getEmail())
+					->subject($newsletter->getName())
+					->htmlTemplate('newsletter/emails/send.html.twig')
+					->context(compact('newsletter', 'user'))
+				;
+
+				$mailer->send($email);
+			}
+		}
+
+		$newsletter->setIsSent(true);
+		$this->em->persist($newsletter);
+		$this->em->flush();
+
+		$this->addFlash('success', 'La newsletter a bien été envoyée');
+
+		return $this->redirectToRoute('newsletter_list');
 	}
 
 	#[Route('/confirm/{id}/{token}', name: 'confirm')]
@@ -111,6 +184,21 @@ class NewsletterController extends AbstractController
 		$this->em->flush();
 
 		$this->addFlash('success', 'Votre inscription à la newsletter a bien été confirmée');
+		return $this->redirectToRoute('app_home');
+	}
+
+	#[Route('/unsubscribe/{id}/{token}', name: 'unsubscribe')]
+	public function unsubscribe(NewsletterUser $user, $token): Response
+	{
+		if($user->getToken() !== $token) {
+			$this->addFlash('danger', 'Le token n\'est pas valide');
+			return $this->redirectToRoute('app_home');
+		}
+
+		$this->em->remove($user);
+		$this->em->flush();
+
+		$this->addFlash('success', 'Vous avez bien été désinscrit de la newsletter');
 		return $this->redirectToRoute('app_home');
 	}
 }
