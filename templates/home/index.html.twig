@@ -6,11 +6,11 @@
 	<div class="hero-image">
 		<div class="hero-text">
 			<h1>K-gaming : La plateforme incontournable pour les gamers</h1>
-			<p>K-gaming est la destination de choix pour tous les passionnés de jeux vidéo. Avec une large sélection
+			<p>K-gaming est la destination de choix pour tous les <strong>passionnés</strong> de jeux vidéo. Avec une large sélection
 				de
-				clés de jeux dématérialisées à des prix compétitifs, nous sommes la plateforme incontournable pour
+				<strong>clés de jeux dématérialisées</strong> à des prix <strong>compétitifs</strong>, nous sommes la plateforme incontournable pour
 				tous
-				les gamers. Faites l'expérience de notre service client de qualité supérieure et de notre rapidité
+				les gamers. Faites l'expérience de notre service client de <strong>qualité supérieure</strong> et de notre rapidité
 				de
 				livraison exceptionnelle. Rejoignez la communauté K-gaming dès maintenant et découvrez notre
 				sélection
@@ -61,8 +61,8 @@
 			</div>
 		</div>
 		<div class="text-content">
-			Avez-vous déjà consulté les avis des utilisateurs sur K-GAMING ? Nos clients sont ravis de partager leur
-			expérience d'achat de clés de jeux en dématérialisé sur notre site. Venez découvrir leurs témoignages et
+			Avez-vous déjà consulté les avis des utilisateurs sur K-GAMING ?<br>Nos clients sont ravis de partager leur
+			expérience d'achat de clés de jeux en dématérialisé sur notre site.<br>Venez découvrir leurs témoignages et
 			rejoignez notre communauté de joueurs satisfaits !
 		</div>
 		<div class="btn-ratings">
@@ -98,8 +98,8 @@
 				</a>
 			{% endfor %}
 		</div>
-		<div class="show-more mt-5 text-center">
-			<a href="{{ path('app_show_preorders') }}" class="btn btn-orange">Voir plus</a>
+		<div class="show-more">
+			<a href="{{ path('app_show_preorders') }}">Voir plus</a>
 		</div>
 	</section>
 
@@ -109,8 +109,8 @@
 		</div>
 		<div class="text-content">
 			Ne manquez pas nos offres exclusives et nos dernières nouveautés sur
-			K-GAMING ! Rejoignez notre communauté de joueurs passionnés et profitez de nos produits de qualité à des
-			prix imbattables. Abonnez-vous dès maintenant pour recevoir toutes nos actualités et nos promotions en
+			K-GAMING ! <br>Rejoignez notre communauté de joueurs passionnés et profitez de nos produits de qualité à des
+			prix imbattables. <br>Abonnez-vous dès maintenant pour recevoir toutes nos actualités et nos promotions en
 			avant-première.
 		</div>
 		<div class="btn-ratings">
@@ -125,8 +125,8 @@
 				<a href="{{ path('app_show_game_genre', {genreSlug: genre.slug}) }}">
 					<div class="genreCard">
 						<figure>
-							<img src="{{ genre.image }}" alt="image pour le genre : {{ genre.label }}" width="300"
-							     height="200">
+							<img src="{{ genre.image }}" alt="image pour le genre : {{ genre.label }}" width="400"
+							     height="300">
 							<figcaption>
 								{{ genre.label|upper }}
 							</figcaption>
@@ -135,8 +135,8 @@
 				</a>
 			{% endfor %}
 		</div>
-		<div class="show-more mt-5 text-center">
-			<a href="{{ path('app_genre_list') }}" class="btn btn-orange">Voir plus</a>
+		<div class="show-more">
+			<a href="{{ path('app_genre_list') }}">Voir plus</a>
 		</div>
 	</section>
 {% endblock %}
