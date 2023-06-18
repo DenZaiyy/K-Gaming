@@ -47,6 +47,7 @@ class RegistrationFormType extends AbstractType
 				'required' => true,
 				'first_options' => ['label' => 'Mot de passe', 'attr' => ['placeholder' => 'Mot de passe', 'class' => 'form-control']],
 				'second_options' => ['label' => 'Confirmer votre mot de passe', 'attr' => ['placeholder' => 'Confirmer votre mot de passe', 'class' => 'form-control']],
+				// TODO: regex pour le mdp à remettre en place et à tester
 				/*'constraints' => [
 					new Regex([
 						//la regex impose des conditions pour le mdp: 1 majuscule, 1 minuscule, 1 nombre, 1 charactère spéciale
