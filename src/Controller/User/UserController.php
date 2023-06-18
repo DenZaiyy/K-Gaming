@@ -5,7 +5,11 @@ namespace App\Controller\User;
 use App\Entity\Address;
 use App\Entity\Newsletter\NewsletterUser;
 use App\Entity\Purchase;
+use App\Entity\User;
 use App\Form\AddressType;
+use App\Form\User\UpdateAvatarType;
+use App\Form\User\UpdateUsernameType;
+use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,12 +26,57 @@ class UserController extends AbstractController
     }
 
     #[Route('/profil', name: 'user_my_account')]
-    public function index(): Response
+    public function index(Request $request, FileUploader $uploader): Response
     {
         $user = $this->getUser();
+	    $currentAvatarPath = $user->getAvatar();
+
+		$avatarForm = $this->createForm(UpdateAvatarType::class, $user);
+		$usernameForm = $this->createForm(UpdateUsernameType::class, $user);
+
+		$avatarForm->handleRequest($request);
+		if ($avatarForm->isSubmitted() && $avatarForm->isValid())
+		{
+			$currentUser = $this->em->getRepository(User::class)->findOneBy(['username' => $user->getUsername()]);
+			$avatar = $avatarForm->get('avatar')->getData();
+			$newAvatar = $uploader->upload($avatar);
+
+			$currentUser->setAvatar($newAvatar);
+			$currentUser->setUpdatedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris')));
+
+			$this->em->persist($currentUser);
+			$this->em->flush();
+
+			$this->addFlash('success', 'Votre avatar a bien été modifié');
+			return $this->redirectToRoute('user_my_account');
+		}
+
+		$usernameForm->handleRequest($request);
+		if ($usernameForm->isSubmitted() && $usernameForm->isValid())
+		{
+			$check = $this->em->getRepository(User::class)->findOneBy(['username' => $usernameForm->getData()->getUsername()]);
+			$currentUser = $this->em->getRepository(User::class)->findOneBy(['username' => $user->getUsername()]);
+			if($check)
+			{
+				$this->addFlash('danger', 'Ce nom d\'utilisateur est déjà utilisé');
+				return $this->redirectToRoute('user_my_account');
+			}
+
+			$currentUser->setUpdatedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris')));
+			$currentUser->setUsername($usernameForm->get('username')->getData());
+
+			$this->em->persist($currentUser);
+			$this->em->flush();
+
+			$this->addFlash('success', 'Votre nom d\'utilisateur a bien été modifié');
+			return $this->redirectToRoute('user_my_account');
+		}
 
         return $this->render('security/user/index.html.twig', [
             'user' => $user,
+	        'avatarForm' => $avatarForm->createView(),
+	        'usernameForm' => $usernameForm->createView(),
+	        'currentAvatarPath' => $currentAvatarPath,
         ]);
     }
 

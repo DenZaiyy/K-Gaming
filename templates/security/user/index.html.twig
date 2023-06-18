@@ -23,12 +23,31 @@
 				<h2>Personnalisez votre profil</h2>
 				<div class="picture-pseudo d-flex flex-wrap w-100 gap-5">
 					<div class="avatar d-flex flex-column gap-2">
-						<label><strong>Photo de profil</strong></label>
-						<img src="{{ user.avatar }}" alt="avatar of {{ user.username }}" width="50" height="50">
+						<div class="card">
+							<div class="card-header">
+								<label><strong>Photo de profil</strong></label>
+							</div>
+							<div class="card-body p-3">
+								{{ form_start(avatarForm) }}
+								{{ form_widget(avatarForm.avatar) }}
+								{{ form_widget(avatarForm.submit) }}
+								{{ form_end(avatarForm) }}
+							</div>
+						</div>
 					</div>
 					<div class="username d-flex flex-column gap-2">
-						<label><strong>Pseudo</strong></label>
-						<small>{{ user.username|upper }}</small>
+						<div class="card">
+							<div class="card-header">
+								<label><strong>Pseudo</strong></label>
+							</div>
+							<div class="card-body">
+								{{ form_start(usernameForm) }}
+								{{ form_widget(usernameForm.username) }}
+								{{ form_widget(usernameForm.submit) }}
+								{{ form_end(usernameForm) }}
+							</div>
+						</div>
+
 					</div>
 				</div>
 			</div>
