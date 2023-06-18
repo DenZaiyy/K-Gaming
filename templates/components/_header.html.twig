@@ -66,6 +66,7 @@
 					{% if app.user %}
 						{% if is_granted("ROLE_ADMIN") %}
 							<a href="{{ path('app_admin') }}">Administration</a>
+							<a href="{{ path('newsletter_list') }}">Newsletter</a>
 							<hr class="dropdown-divider">
 						{% endif %}
 						<a href="{{ path('user_my_account') }}">Mon compte</a>
