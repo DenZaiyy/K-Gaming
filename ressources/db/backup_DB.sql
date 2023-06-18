@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
--- Listage des données de la table kgaming.doctrine_migration_versions : ~13 rows (environ)
+-- Listage des données de la table kgaming.doctrine_migration_versions : ~6 rows (environ)
 DELETE FROM `doctrine_migration_versions`;
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 	('DoctrineMigrations\\Version20230601144500', NULL, NULL),
@@ -78,7 +78,8 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 	('DoctrineMigrations\\Version20230614091517', '2023-06-14 09:15:36', 34),
 	('DoctrineMigrations\\Version20230614153429', '2023-06-14 15:34:35', 48),
 	('DoctrineMigrations\\Version20230615091402', '2023-06-15 09:14:13', 39),
-	('DoctrineMigrations\\Version20230616072147', '2023-06-16 07:21:52', 8);
+	('DoctrineMigrations\\Version20230616072147', '2023-06-16 07:21:52', 8),
+	('DoctrineMigrations\\Version20230618204404', '2023-06-18 20:44:09', 43);
 
 -- Listage de la structure de table kgaming. game
 DROP TABLE IF EXISTS `game`;
@@ -368,24 +369,24 @@ DELETE FROM `messenger_messages`;
 DROP TABLE IF EXISTS `newsletter`;
 CREATE TABLE IF NOT EXISTS `newsletter` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
   `is_sent` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.newsletter : ~1 rows (environ)
+-- Listage des données de la table kgaming.newsletter : ~0 rows (environ)
 DELETE FROM `newsletter`;
 
 -- Listage de la structure de table kgaming. newsletter_user
 DROP TABLE IF EXISTS `newsletter_user`;
 CREATE TABLE IF NOT EXISTS `newsletter_user` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_verified` tinyint(1) NOT NULL,
   `created_at` datetime NOT NULL,
-  `token` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_rgpd` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -476,7 +477,7 @@ CREATE TABLE IF NOT EXISTS `rating` (
   CONSTRAINT `FK_D8892622FFE6496F` FOREIGN KEY (`platform_id`) REFERENCES `plateform` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.rating : ~3 rows (environ)
+-- Listage des données de la table kgaming.rating : ~0 rows (environ)
 DELETE FROM `rating`;
 INSERT INTO `rating` (`id`, `game_id`, `note`, `user_id`, `message`, `platform_id`, `created_at`) VALUES
 	(11, 2, 4, 2, 'Bien malgré les nouveaux recul qui facilite trop les nouveaux joueurs', 1, '2023-06-08 14:51:54'),
@@ -502,7 +503,7 @@ CREATE TABLE IF NOT EXISTS `recap_details` (
   CONSTRAINT `FK_1D1FD69F65E9B0F` FOREIGN KEY (`order_product_id`) REFERENCES `purchase` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.recap_details : ~11 rows (environ)
+-- Listage des données de la table kgaming.recap_details : ~0 rows (environ)
 DELETE FROM `recap_details`;
 INSERT INTO `recap_details` (`id`, `order_product_id`, `quantity`, `game_label`, `price`, `total_recap`, `platform_label`, `game_id`, `platform_id`, `game_slug`, `platform_slug`) VALUES
 	(14, 59, 1, 'Satisfactory', 24.99, '24.99', 'Steam', 14, 1, 'satisfactory', 'steam'),
@@ -554,7 +555,7 @@ CREATE TABLE IF NOT EXISTS `stock` (
   CONSTRAINT `FK_4B365660E48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=543 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.stock : ~541 rows (environ)
+-- Listage des données de la table kgaming.stock : ~0 rows (environ)
 DELETE FROM `stock`;
 INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_key`, `date_availability`, `is_available`) VALUES
 	(1, 2, 59, 1, '3D35-8828-9BF9-6896', '2023-06-06 09:08:47', 0),
@@ -1111,15 +1112,16 @@ CREATE TABLE IF NOT EXISTS `user` (
   `is_verified` tinyint(1) NOT NULL,
   `create_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   `is_banned` tinyint(1) NOT NULL,
+  `updated_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649F85E0677` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table kgaming.user : ~2 rows (environ)
 DELETE FROM `user`;
-INSERT INTO `user` (`id`, `username`, `roles`, `password`, `email`, `avatar`, `is_verified`, `create_at`, `is_banned`) VALUES
-	(1, 'denz', '["ROLE_ADMIN"]', '$2y$13$jjQF4rgjxHoO6gHwK/It/ekENtEV8mJnzqyQAWmsM58Ch.Xs9nVJS', 'denzoubiden@gmail.com', '/img/default.png', 1, '2023-05-14 20:43:59', 0),
-	(2, 'testUser', '["ROLE_ADMIN"]', '$2y$13$FdvtgzfBAYJNyl4uflpxiOOzysXrXAqUGStp8RTGCXvNA4eKIZ.Ea', 'itekmodding@gmail.com', '/uploads/pngwing-com-64819750bb0c4.png', 1, '2023-06-08 08:54:40', 0);
+INSERT INTO `user` (`id`, `username`, `roles`, `password`, `email`, `avatar`, `is_verified`, `create_at`, `is_banned`, `updated_at`) VALUES
+	(1, 'denZ', '["ROLE_ADMIN"]', '$2y$13$jjQF4rgjxHoO6gHwK/It/ekENtEV8mJnzqyQAWmsM58Ch.Xs9nVJS', 'denzoubiden@gmail.com', '/uploads/c802b156d0f2175667fb242036520a91-648f6db5a411c.jpg', 1, '2023-05-14 20:43:59', 0, '2023-06-18 22:48:53'),
+	(2, 'testUser', '[]', '$2y$13$FdvtgzfBAYJNyl4uflpxiOOzysXrXAqUGStp8RTGCXvNA4eKIZ.Ea', 'itekmodding@gmail.com', '/uploads/pngwing-com-64819750bb0c4.png', 1, '2023-06-08 08:54:40', 0, NULL);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
