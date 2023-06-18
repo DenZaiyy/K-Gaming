@@ -21,6 +21,9 @@ class OrderController extends AbstractController
 	{
 	}
 
+	/**
+	 * Fonction permettant de créer une commande en sélectionnant une adresse de facturation et le moyen de paiement
+	 */
 	#[Route('/order/create', name: 'order_create')]
 	public function index(CartService $cartService, Request $request): Response
 	{
@@ -48,6 +51,10 @@ class OrderController extends AbstractController
 		]);
 	}
 
+	/**
+	 * Fonction permettant de vérifier la commande avant de la valider et de passer au paiement
+	 * TODO: Trouver comment supprimer la commande si on quitte la page
+	 */
 	#[Route('/order/verify', name: 'order_prepare', methods: ['POST'])]
 	public function prepareOrder(CartService $cartService, Request $request): Response
 	{
@@ -62,18 +69,17 @@ class OrderController extends AbstractController
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid()) {
-			$currentDate = new DateTime('now');
 			$delivery = $form->get('addresses')->getData();
 
 			$deliveryForPurchase = $delivery->getAddress() . '</br>';
 			$deliveryForPurchase .= $delivery->getCp() . ' - ' . $delivery->getCity();
 
-			$reference = $currentDate->format('dmY') . '-' . uniqid();
-
 			$purchase = new Purchase();
 			$purchase->setUser($this->getUser());
+
+			$reference = $purchase->getCreatedAt()->format('dmY') . '-' . uniqid();
 			$purchase->setReference($reference);
-			$purchase->setCreatedAt($currentDate);
+
 			$purchase->setAddress($delivery);
 			$purchase->setDelivery($deliveryForPurchase);
 			$purchase->setUserFullName($delivery->getFirstname() . ' ' . $delivery->getLastname());
@@ -114,6 +120,6 @@ class OrderController extends AbstractController
 			]);
 		}
 
-		return $this->redirectToRoute('cart_index');
+		return $this->redirectToRoute('app_cart_index');
 	}
 }

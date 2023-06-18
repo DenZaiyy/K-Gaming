@@ -29,9 +29,9 @@ class PaymentController extends AbstractController
 	public function __construct(private EntityManagerInterface $em, private UrlGeneratorInterface $urlGenerator, private RequestStack $requestStack)
 	{
 	}
-	
-	//Function to get the PayPal client by using the PayPal SDK and the PayPal credentials in the .env file
+
 	/**
+	 * Function to get the PayPal client by using the PayPal SDK and the PayPal credentials in the .env file
 	 * @return PayPalHttpClient
 	 */
 	public function getPaypalClient(): PayPalHttpClient
@@ -42,8 +42,10 @@ class PaymentController extends AbstractController
 		$environment = new SandboxEnvironment($clientID, $clientSecret);
 		return new PayPalHttpClient($environment);
 	}
-	
-	//Function to create a session with Stripe and redirect to the Stripe page to pay
+
+	/**
+	 * Fonction permettant de créer une session Stripe pour le paiement
+	 */
 	#[Route('/order/create-session-stripe/{reference}', name: 'app_stripe_checkout')]
 	public function index($reference): RedirectResponse
 	{

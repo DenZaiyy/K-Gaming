@@ -10,6 +10,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class GenreController extends AbstractController
 {
+	/*
+	 * Méthode permettant d'afficher la liste des genres
+	 */
     #[Route('/genre', name: 'app_genre_list')]
     public function index(EntityManagerInterface $em): Response
     {

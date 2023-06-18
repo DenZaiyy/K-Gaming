@@ -26,19 +26,22 @@ class NewsletterController extends AbstractController
 	{
 	}
 
+	/**
+	 * Fonction permettant de s'inscrire à la newsletter
+	 */
 	#[Route('/subscribe', name: 'subscribe')]
 	public function index(MailerInterface $mailer, Request $request): Response
 	{
-		$newsletter = new NewsletterUser();
-		$token = hash('md5', uniqid());
+		$newsletter = new NewsletterUser(); //create a new newsletter user
+		$token = hash('md5', uniqid()); //generate a token with a unique id and hash it with md5
 
 		$form = $this->createForm(RegisterFormType::class, $newsletter);
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid()) {
-			$emailAddress = $form->get('email')->getData();
+			$emailAddress = $form->get('email')->getData(); //get the email address
 
-			$check = $this->em->getRepository(NewsletterUser::class)->findOneBy(['email' => $emailAddress]);
+			$check = $this->em->getRepository(NewsletterUser::class)->findOneBy(['email' => $emailAddress]); //check if the user is already registered
 
 			if ($check) {
 				$this->addFlash('danger', 'Vous êtes déjà inscrit à la newsletter');
@@ -73,7 +76,7 @@ class NewsletterController extends AbstractController
 	}
 
 	/**
-	 * La fonction prepare sert à créer une newsletter et l'ajouter à la liste de celle déjà existante
+	 * La fonction add permet d'ajouter une newsletter dans la base de données
 	 */
 	#[Route('/add', name: 'add')]
 	public function prepare(Request $request): Response
@@ -96,6 +99,9 @@ class NewsletterController extends AbstractController
 		]);
 	}
 
+	/**
+	 * La fonction edit permet de modifier une newsletter dans la base de données
+	 */
 	#[Route('/edit/{id}', name: 'edit')]
 	public function edit(Request $request, Newsletter $newsletter): Response
 	{
@@ -115,6 +121,9 @@ class NewsletterController extends AbstractController
 		]);
 	}
 
+	/**
+	 * La fonction delete permet de supprimer une newsletter dans la base de données
+	 */
 	#[Route('/delete/{id}', name: 'delete')]
 	public function delete(Newsletter $newsletter): Response
 	{
@@ -125,6 +134,9 @@ class NewsletterController extends AbstractController
 		return $this->redirectToRoute('newsletter_list');
 	}
 
+	/**
+	 * La fonction list permet d'afficher la liste des newsletters
+	 */
 	#[Route('/list', name: 'list')]
 	public function list(NewsletterRepository $repository, UserRepository $userRepository): Response
 	{
@@ -166,6 +178,9 @@ class NewsletterController extends AbstractController
 		return $this->redirectToRoute('newsletter_list');
 	}
 
+	/**
+	 * La fonction confirm permet de confirmer l'inscription à la newsletter
+	 */
 	#[Route('/confirm/{id}/{token}', name: 'confirm')]
 	public function confirm(NewsletterUser $newsletter, $token): Response
 	{
@@ -187,6 +202,9 @@ class NewsletterController extends AbstractController
 		return $this->redirectToRoute('app_home');
 	}
 
+	/**
+	 * La fonction unsubscribe permet de se désinscrire de la newsletter
+	 */
 	#[Route('/unsubscribe/{id}/{token}', name: 'unsubscribe')]
 	public function unsubscribe(NewsletterUser $user, $token): Response
 	{

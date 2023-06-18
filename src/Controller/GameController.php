@@ -17,10 +17,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class GameController extends AbstractController
 {
+	/*
+	 * Constructeur permettant d'instancier le service "CallApiService" et permettant de l'utiliser dans les méthodes de la classe
+	 * @param CallApiService $callApiService
+	 */
 	public function __construct(private readonly CallApiService $callApiService)
 	{
 	}
 
+	/*
+	 * Méthode permettant d'afficher le detail d'un jeu grâce au slug
+	 */
 	#[Route('/game/{gameSlug}', name: 'app_show_game')]
 	public function showGame(EntityManagerInterface $em, $gameSlug): Response
 	{
@@ -31,6 +38,7 @@ class GameController extends AbstractController
 		$ratings = $em->getRepository(Rating::class)->findBy(['game' => $game->getId()]);
 
 		$moyenne = 0;
+		// Verification si le jeu a des notes pour calculer la moyenne
 		if($ratings)
 		{
 			$somme = 0;
@@ -51,6 +59,9 @@ class GameController extends AbstractController
 		]);
 	}
 
+	/*
+	 * Méthode permettant d'afficher le detail d'un jeu dans une plateforme grâce aux slugs
+	 */
 	#[Route('/platform/{platformSlug}/game/{gameSlug}', name: 'app_show_game_platform')]
 	public function showGameInPlatform(EntityManagerInterface $em, $platformSlug, $gameSlug): Response
 	{
@@ -62,6 +73,7 @@ class GameController extends AbstractController
 		$ratings = $em->getRepository(Rating::class)->findBy(['game' => $game->getId()]);
 
 		$moyenne = 0;
+		// Verification si le jeu a des notes pour calculer la moyenne
 		if($ratings)
 		{
 			$somme = 0;
@@ -82,23 +94,30 @@ class GameController extends AbstractController
 		]);
 	}
 
+	/*
+	 * Méthode permettant d'afficher la liste des jeux en précommande
+	 */
 	#[Route('/preoder/game', name: 'app_show_preorders')]
 	public function showGameInPreorder(EntityManagerInterface $em): Response
 	{
-		$date = new \DateTime();
-		$gamePreorder = $em->getRepository(Game::class)->findGameInPreorder($date);
+		$date = new \DateTime(); // Date du jour
+		$gamePreorder = $em->getRepository(Game::class)->findGameInPreorder($date); // Jeux en précommande (date de sortie > date du jour)
 
 		return $this->render('game/preOrder/index.html.twig', [
 			'gamePreorder' => $gamePreorder,
 		]);
 	}
 
+	/*
+	 * Méthode permettant d'afficher la liste des jeux associés à un genre grâce au slug
+	 */
 	#[Route('/game/genre/{genreSlug}', name: 'app_show_game_genre')]
 	public function showGameByGenre(EntityManagerInterface $em, Request $request, PaginatorInterface $paginator, $genreSlug): Response
 	{
-		$games = $em->getRepository(Game::class)->findGameByGenre($genreSlug);
+		$games = $em->getRepository(Game::class)->findGameByGenre($genreSlug); // Récupérer la liste des jeux associés à un genre
 		$genre = $em->getRepository(Genre::class)->findOneBy(['slug' => $genreSlug]);
 
+		// Pagination KNPPaginator
 		$pagination = $paginator->paginate(
 			$em->getRepository(Game::class)->findGameByGenrePagination($genre->getSlug()),
 			$request->query->get('page', 1),
@@ -111,6 +130,7 @@ class GameController extends AbstractController
 			'style' => 'bottom',
 			'span_class' => 'whatever',
 		]);
+		// Fin pagination
 
 		return $this->render('game/genre/show.html.twig', [
 			'games' => $pagination,
@@ -119,6 +139,9 @@ class GameController extends AbstractController
 		]);
 	}
 
+	/*
+	 * Méthodes permettant de récupérer une partie des informations d'un jeu grâce à l'API
+	 */
 	public function getImageIDGame($gameLabel): Response
 	{
 		return $this->render('components/game/_game_image_id.html.twig', [
@@ -146,4 +169,5 @@ class GameController extends AbstractController
 			'gameInfos' => $this->callApiService->getVideosByGame($gameLabel)
 		]);
 	}
+	// Fin méthodes API
 }

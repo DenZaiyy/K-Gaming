@@ -7,6 +7,9 @@ use Twig\TwigFunction;
 
 class totalByGame extends AbstractExtension
 {
+	/**
+	 * Fonction twig permettant de calculer le total d'un jeu en fonction de sa quantité
+	 */
     public function getFunctions(): array
     {
         return [

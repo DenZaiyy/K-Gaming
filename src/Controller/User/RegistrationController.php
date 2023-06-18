@@ -28,6 +28,9 @@ class RegistrationController extends AbstractController
         $this->emailVerifier = $emailVerifier;
     }
 
+	/**
+	 * Fonction permettant de s'inscrire sur le site
+	 */
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHashed, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
@@ -44,7 +47,10 @@ class RegistrationController extends AbstractController
                 )
             );
 
-			/** @var UploadedFile $avatarFile */
+			/**
+			 * Si l'utilisateur a choisi un avatar alors on l'upload en db
+			 * @var UploadedFile $avatarFile
+			 */
 			$avatarFile = $form->get('avatar')->getData();
 
 			if($avatarFile)
@@ -57,7 +63,6 @@ class RegistrationController extends AbstractController
 
             $user->setCreateAt(new DateTimeImmutable());
             $user->setIsBanned(false);
-            $user->setIPAddress($request->getClientIp());
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -80,6 +85,9 @@ class RegistrationController extends AbstractController
         ]);
     }
 
+	/**
+	 * Fonction permettant de vérifier l'email de l'utilisateur pour l'inscription
+	 */
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
     {

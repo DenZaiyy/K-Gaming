@@ -15,6 +15,9 @@ class CartService extends AbstractController
     {
     }
 
+	/*
+	 * Méthode pour ajouter un jeu au panier grâce au slug du jeu et de la plateforme
+	 */
     public function addToCart($gameSlug, $platformSlug): void
     {
         $cart = $this->getSession()->get('cart', []);
@@ -43,6 +46,9 @@ class CartService extends AbstractController
         $this->getSession()->set('cart', $cart);
     }
 
+	/*
+	 * Méthode pour supprimer un jeu du panier
+	 */
     public function removeToCart($gameSlug, $platformSlug): void
     {
         $cart = $this->getSession()->get('cart', []);
@@ -56,6 +62,9 @@ class CartService extends AbstractController
         $this->getSession()->set('cart', $cart);
     }
 
+	/*
+	 * Méthode pour modifier la quantité d'un jeu dans le panier grâce à l'ID et la quantité choisie dans le select
+	 */
     public function changeQtt($id, $qtt): void
     {
         $cart = $this->getSession()->get('cart', []);
@@ -69,11 +78,17 @@ class CartService extends AbstractController
         $this->getSession()->set('cart', $cart);
     }
 
+	/*
+	 * Méthode pour vider le panier
+	 */
     public function removeCartAll()
     {
         return $this->getSession()->remove('cart');
     }
 
+	/*
+	 * Méthode pour récupérer sous un tableau les données du panier
+	 */
     public function getTotal(): array
     {
         $cart = $this->getSession()->get('cart');

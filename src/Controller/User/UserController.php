@@ -14,6 +14,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
+	/*
+	 * Constructeur permettant d'instancier l'entityManager et l'utiliser dans les fonctions
+	 */
     public function __construct(private EntityManagerInterface $em)
     {
     }
@@ -28,6 +31,9 @@ class UserController extends AbstractController
         ]);
     }
 
+	/**
+	 * Fonction permettant d'afficher la liste des commandes effectuées par l'utilisateur connecté
+	 */
     #[Route('/profil/my-order', name: 'user_my_order')]
     public function myOrder(): Response
     {
@@ -41,6 +47,9 @@ class UserController extends AbstractController
         ]);
     }
 
+	/**
+	 * Fonction permettant d'accéder aux préférences utilisateur, notamment la newsletter et le choix du theme
+	 */
     #[Route('/profil/my-preference', name: 'user_my_preference')]
     public function myPreference(): Response
     {
@@ -51,6 +60,9 @@ class UserController extends AbstractController
         ]);
     }
 
+	/*
+	 * Fonction permettant d'ajouter une nouvelle adresse de facturation à l'utilisateur connecté
+	 */
     #[Route('/profil/add-address', name: 'user_add_address')]
     public function addAddress(Request $request): Response
     {

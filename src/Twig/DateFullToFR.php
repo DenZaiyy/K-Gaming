@@ -27,6 +27,9 @@ class DateFullToFR extends AbstractExtension
 		return $formatter->format($date);
 	}
 
+	/*
+	 * fonction permettant de formater la date en français et en toute lettre
+	 */
     public function fullDateFR(DateTimeImmutable $date): string
     {
         $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::LONG, IntlDateFormatter::NONE);

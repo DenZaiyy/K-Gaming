@@ -24,14 +24,14 @@ class RegisterFormType extends AbstractType
 				],
 			])
 			->add('isRgpd', CheckboxType::class, [
-				'label' => 'J\'accepte que mes données soient utilisées pour m\'envoyer la newsletter',
+				'label' => 'J\'accepte que mes données soient utilisées pour la newsletter',
 				'attr' => [
 					'class' => 'form-check-input',
 				],
 				'required' => true,
 				'constraints' => [
 					new isTrue([
-						'message' => 'Vous devez accepter que vos données soient utilisées pour vous envoyer la newsletter',
+						'message' => 'Vous devez accepter que vos données soient utilisées pour la newsletter',
 					]),
 				]
 			])

@@ -8,6 +8,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserChecker implements UserCheckerInterface
 {
+	/**
+	 * TODO: Vérifier l'utilité de cette classe et trouver une bonne raison de l'utilisé
+	 */
 	public function checkPreAuth(UserInterface $user)
 	{
 		if (!$user instanceof AppUser) {

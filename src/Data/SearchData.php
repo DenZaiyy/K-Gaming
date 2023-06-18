@@ -2,18 +2,18 @@
 
 namespace App\Data;
 
-class SearchData
+class SearchData // Création d'une classe SearchData qui va contenir les données de recherche
 {
-	public int $page = 1;
+	public int $page = 1; // Page en cours
 
-	public string|null $q = '';
+	public string|null $q = ''; // Recherche par nom
 
-	public array $genres = [];
+	public array $genres = []; // Recherche par genre
 
-	public int|null $min;
+	public int|null $min; // Prix minimum
 
-	public int|null $max;
+	public int|null $max; // Prix maximum
 
-	public bool $preorder = false;
+	public bool $preorder = false; // Recherche par précommande
 
 }

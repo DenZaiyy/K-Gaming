@@ -44,6 +44,9 @@ class GameRepository extends ServiceEntityRepository
         }
     }
 
+	/*
+	 * Méthode pour récupérer les jeux en précommande
+	 */
     public function findGamesInPreOrders(): array
     {
         return $this->createQueryBuilder('g')
@@ -55,6 +58,9 @@ class GameRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+	/*
+	 * Méthode pour récupérer les jeux en fonction de la plateforme
+	 */
     public function findGamesInPlatform($platformID): array
     {
         return $this->createQueryBuilder('g')
@@ -65,6 +71,9 @@ class GameRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+	/*
+	 * Méthode pour récupérer le détail d'un jeu dans une plateforme
+	 */
     public function findOneGameInPlatform($gameID, $platformID): array
     {
         return $this->createQueryBuilder('g')
@@ -82,6 +91,9 @@ class GameRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+	/*
+	 * Méthode pour récupérer les jeux en précommande en fonction de la date de sortie
+	 */
     public function findGameInPreorder($date): array
     {
         return $this->createQueryBuilder('g')
@@ -91,6 +103,9 @@ class GameRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+	/*
+	 * Méthode pour récupérer les jeux en fonction du genre
+	 */
 	public function findGameByGenre($genre): array
 	{
 		return $this->createQueryBuilder('g')
@@ -101,6 +116,9 @@ class GameRepository extends ServiceEntityRepository
 			->getResult();
 	}
 
+	/*
+	 * Méthode pour récupérer les jeux en fonction du genre pour la pagination
+	 */
 	public function findGameByGenrePagination($genre)
 	{
 		return $this->createQueryBuilder('g')

@@ -16,10 +16,13 @@ class FileUploader
 
 	public function upload(UploadedFile $file): string
 	{
-		$originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-		$safeFilename = $this->slugger->slug($originalFilename);
-		$fileName = '/uploads/' . $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
+		$originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME); // permet de récupérer le nom du fichier
+		$safeFilename = hash('md5', $this->slugger->slug($originalFilename)); // permet de sécuriser le nom du fichier en le hashant avec md5 et en le slugifiant avec le slugger de symfony (pour éviter les caractères spéciaux)
+		$fileName = '/uploads/' . $safeFilename.'-'.uniqid().'.'.$file->guessExtension(); // permet de créer un nom de fichier unique
 
+		/*
+		 * Déplace le fichier dans le dossier uploads avec le nom de fichier unique
+		 */
 		try {
 			$file->move(
 				$this->getTargetDirectory(),

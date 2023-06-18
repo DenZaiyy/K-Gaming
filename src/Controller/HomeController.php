@@ -15,6 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
+	/*
+	 * Méthode permettant d'afficher la page d'accueil du site avec les informations nécessaires tel que les jeux en tendances, les précommandes et les genres
+	 */
 	#[Route('/', name: 'app_home')]
 	public function index(EntityManagerInterface $em): Response
 	{
@@ -29,6 +32,9 @@ class HomeController extends AbstractController
 		]);
 	}
 
+	/*
+	 * Méthode permettant d'afficher la barre de navigation du site en composant twig en lui passant les catégories et les plateformes
+	 */
 	public function navBar(EntityManagerInterface $em, CartService $cartService): Response
 	{
 		$categories = $em->getRepository(Category::class)->findAll();

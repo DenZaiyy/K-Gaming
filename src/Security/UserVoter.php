@@ -8,6 +8,10 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class UserVoter extends Voter
 {
+	/**
+	 * TODO: Vérifier l'utilité de cette classe et trouver une bonne raison de l'utilisé
+	 */
+
 	protected function supports(string $attribute, mixed $subject): bool
 	{
 		return true;

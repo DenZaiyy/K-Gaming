@@ -38,7 +38,10 @@ class StockRepository extends ServiceEntityRepository
 			$this->getEntityManager()->flush();
 		}
 	}
-	
+
+	/**
+	 * Méthode pour récupérer la liste des jeux en tendance
+	 */
 	public function findGamesInTendencies(): array
 	{
 		return $this->createQueryBuilder('s')
@@ -53,7 +56,10 @@ class StockRepository extends ServiceEntityRepository
 			->getQuery()
 			->getResult();
 	}
-	
+
+	/**
+	 * Méthode pour récupérer la liste des stocks disponibles pour un jeu
+	 */
 	public function findStockByGameID($gameID): array
 	{
 		return $this->createQueryBuilder('s')
@@ -67,7 +73,10 @@ class StockRepository extends ServiceEntityRepository
 			->getQuery()
 			->getResult();
 	}
-	
+
+	/*
+	 * Méthode pour récupérer la liste des stocks disponibles pour un jeu associé a une plateforme
+	 */
 	public function findAvailableGameStockByPlatform($gameID, $platformID): array
 	{
 		return $this->createQueryBuilder('s')
@@ -84,7 +93,10 @@ class StockRepository extends ServiceEntityRepository
 			->getQuery()
 			->getResult();
 	}
-	
+
+	/**
+	 * Méthode pour récupérer la liste des stocks disponibles pour un jeu associé a une plateforme et selon la quantité demandé par l'utilisateur
+	 */
 	public function findLicenseKeyAvailableByGamesAndPlatform($gameID, $platformID, $quantity): array
 	{
 		return $this->createQueryBuilder('s')
@@ -101,17 +113,6 @@ class StockRepository extends ServiceEntityRepository
 			->getQuery()
 			->getResult();
 	}
-
-    public function deleteStockGameIfNotInPlatform(): array
-    {
-        return $this->createQueryBuilder('s')
-            ->leftJoin('s.game', 'g')
-            ->leftJoin('s.plateform', 'p')
-            ->where('g.plateforms != p.id')
-            ->delete()
-            ->getQuery()
-            ->getResult();
-    }
 	
 	//    /**
 	//     * @return Stock[] Returns an array of Stock objects

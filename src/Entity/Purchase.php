@@ -58,6 +58,7 @@ class Purchase
     {
         $this->stock = new ArrayCollection();
         $this->recapDetails = new ArrayCollection();
+		$this->created_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
     }
 
     public function __toString(): string

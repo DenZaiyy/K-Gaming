@@ -1,8 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap');
+// START : Import des polices utilisé pour le site
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap'); // Quicksand
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;700&display=swap'); // Source Sans Pro
+@import url('https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap'); // Saira Stencil One
+// END : Import des polices utilisé pour le site
 
-html {
+html { // Assignation des couleurs pour le thème clair par défaut
 	--bgColor: #fffdff;
 	--white: #fffdff;
 	--orange: #f44b3a;
@@ -19,7 +21,7 @@ html {
 	}
 }
 
-html[data-theme='dark'] {
+html[data-theme='dark'] { // Assignation des couleurs pour le thème sombre
 	--bgColor: #263D5D;
 	--white: #263f5d;
 	--blue: #fffdff;
@@ -31,16 +33,21 @@ body {
 	background-color: var(--bgColor);
 }
 
+// START : Reset style pour tout les éléments du site
 *, ::before, ::after {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
+// END : Reset style pour tout les éléments du site
 
+// START : Style pour les card du site
 .card {
 	background-color: var(--bgColor);
 }
+// END : Style pour les card du site
 
+// START Header-flex : Header de la page d'accueil
 .header-flex {
 	background-color: var(--white);
 	display: flex;
@@ -176,7 +183,9 @@ body {
 		}
 	}
 }
+// END Header-flex
 
+// START Style pour les titres h2 et h1
 h2, h1 {
 	text-transform: uppercase;
 	font-family: "Quicksand", sans-serif;
@@ -186,7 +195,9 @@ h2, h1 {
 	color: var(--blue);
 	text-align: center;
 }
+// END Style pour les titres h2 et h1
 
+// START : Style pour le logo chargement et le spinner pour les filtres de recherche ajax
 .is-loading {
 	&::before {
 		content: '';
@@ -207,7 +218,10 @@ h2, h1 {
 		z-index: 5;
 	}
 }
+// END : Style pour le logo chargement et le spinner pour les filtres de recherche ajax
 
+// START : Style pour le contenu des pages
+// TODO : Finir les commentaires pour le contenu des pages (à partir de la ligne 224)
 main {
 	background-color: var(--bgColor);
 
@@ -455,6 +469,7 @@ main {
 		}
 	}
 
+	// START: Style pour le détail d'un jeu
 	.detailGame {
 		.detail {
 			padding: 30px;
@@ -617,6 +632,7 @@ main {
 			}
 		}
 	}
+	// END: Style pour le détail d'un jeu
 
 	.cart {
 		margin: 0 auto;
@@ -658,6 +674,7 @@ main {
 		}
 	}
 
+	// START: Style pour le bouton toggle pour le changement de theme
 	.toggle-container {
 		display: flex;
 		align-items: center;
@@ -714,7 +731,9 @@ main {
 			}
 		}
 	}
+	// END: Style pour le bouton toggle pour le changement de theme
 
+	// START: Style pour les boutons "Voir plus"
 	.show-more {
 		margin: 50px auto 0 auto;
 		background: transparent;
@@ -743,8 +762,9 @@ main {
 			}
 		 }
 	}
+	// END: Style pour les boutons "Voir plus"
 
-
+	// START : Style pour les étoiles de notation
 	.ratingStars {
 		display: flex;
 		flex-direction: row;
@@ -755,17 +775,23 @@ main {
 			font-size: 1.5em;
 		}
 	}
+	// END : Style pour les étoiles de notation
 }
+// END : Style pour le contenu des pages
 
+// START : FOOTER
 footer {
 	user-select: none;
 	background-color: var(--bgColor);
 
+	// START : WAVE FILTER
 	.wave-filter {
 		user-select: none;
 		filter: var(--waves);
 	}
+	// END : WAVE FILTER
 
+	// START: FOOTER CONTENT
 	.f-flex {
 		display: flex;
 		flex-direction: column;
@@ -847,4 +873,6 @@ footer {
 			color: var(--white);
 		}
 	}
+	// END: FOOTER CONTENT
 }
+// END : FOOTER
