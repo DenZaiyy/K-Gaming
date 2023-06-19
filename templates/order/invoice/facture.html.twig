@@ -1,0 +1,245 @@
+<html lang="fr">
+<head>
+    <title>Facture</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bgColor: #fffdff;
+            --white: #fffdff;
+            --orange: #f44b3a;
+            --blue: #263f5d;
+        }
+
+        body {
+            background-color: var(--blue);
+            color: var(--white);
+            height: 100vh;
+            font-family: 'Source Sans Pro', sans-serif;
+            position: relative;
+        }
+
+        header, main {
+            padding: 30px;
+        }
+
+        strong {
+            color: var(--orange);
+        }
+
+        header {
+            height: 25vh !important;
+        }
+
+        header, .entreprise, .infos-client {
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+        }
+
+        .entreprise .name {
+            color: var(--orange);
+            font-family: Saira Stencil One, cursive;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        main, table {
+            margin-top: 30px;
+        }
+
+        table.paleBlueRows {
+            font-family: 'Source Sans Pro', sans-serif;
+            border: 1px solid #F44B3A;
+            background-color: #EEEEEE;
+            width: 100%;
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        table.paleBlueRows td, table.paleBlueRows th {
+            border: 1px solid #F44B3A;
+            padding: 5px 10px;
+        }
+
+        table.paleBlueRows tbody td {
+            font-size: 1.2em;
+            color: #263F5D;
+        }
+
+        table.paleBlueRows tr:nth-child(even) {
+            background: #DAD9DA;
+        }
+
+        table.paleBlueRows thead {
+            background: #F44B3A;
+            background: -moz-linear-gradient(top, #f7786b 0%, #f55d4d 66%, #F44B3A 100%);
+            background: -webkit-linear-gradient(top, #f7786b 0%, #f55d4d 66%, #F44B3A 100%);
+            background: linear-gradient(to bottom, #f7786b 0%, #f55d4d 66%, #F44B3A 100%);
+            border-bottom: 5px solid #FFFFFF;
+        }
+
+        table.paleBlueRows thead th {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #FFFFFF;
+            text-align: center;
+            border-left: 2px solid #FFFFFF;
+        }
+
+        table.paleBlueRows thead th:first-child {
+            border-left: none;
+        }
+
+        table.greyGridTable {
+            border: 2px solid #F44B3A;
+            background-color: #EEEEEE;
+            width: 25%;
+            float: right;
+            text-align: center;
+        }
+
+        table.greyGridTable td, table.greyGridTable th {
+            border: 1px solid #F44B3A;
+            padding: 10px 0px;
+        }
+
+        table.greyGridTable tbody td {
+            font-size: 16px;
+            color: #263F5D;
+        }
+
+        table.greyGridTable td:nth-child(even) {
+            background: #FFFFFF;
+        }
+
+        table.greyGridTable tfoot td {
+            font-size: 14px;
+        }
+
+        .right {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .paiement-method {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+
+        footer {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 5vh;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="entreprise">
+        <div class="name">
+            K-GAMING
+        </div>
+        <div class="adresse">
+            1 rue de la paix<br>
+            68200 Mulhouse<br>
+            01 23 45 67 89<br>
+            support@k-grischko.fr
+        </div>
+    </div>
+    <div class="infos-client">
+        <div class="infos">
+            <div class="date">
+                <strong>Date:</strong> {{ purchase.createdAt|date('d/m/Y') }}
+            </div>
+            <div class="facture">
+                <strong>Facture:</strong> {{ facture }}
+            </div>
+        </div>
+
+        <div class="client">
+            <div class="nom">{{ purchase.userFullName }}</div>
+            <div class="adresse">{{ purchase.delivery|raw }}</div>
+        </div>
+    </div>
+</header>
+<main>
+    {% set totalHT = 0 %}
+    {% set totalTTC = 0 %}
+    {% set totalTVA = 0 %}
+    <h2><strong>Objet:</strong> Facture</h2>
+
+    <table class="paleBlueRows">
+        <thead>
+        <tr>
+            <th>Produit</th>
+            <th>Quantité</th>
+            <th>Prix Unitaire HT</th>
+            <th>TVA</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in games %}
+            <tr>
+                <td>{{ product.game.label }} - {{ product.platform.label }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>{{ product.game.price|price }}</td>
+                <td>20 %</td>
+            </tr>
+            {% set totalHT = totalHT + product.quantity * product.game.price %}
+            {% set totalTVA = totalTVA + product.quantity * (product.game.price * 0.2) %}
+            {% set totalTTC = totalTTC + product.quantity * (product.game.price * 1.2) %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="right">
+        <table class="greyGridTable">
+            <tbody>
+            <tr>
+                <td><strong>Total HT</strong></td>
+                <td>{{ totalHT|price }}</td>
+            </tr>
+            <tr>
+                <td><strong>Total TVA</strong></td>
+                <td>{{ totalTVA|price }}</td>
+            </tr>
+            <tr>
+                <td><strong>Total TTC</strong></td>
+                <td>{{ totalTTC|price }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="paiement-method">
+        <h2>Mode de paiement</h2>
+        {% if purchase.method == "stripe" %}
+            <p>Carte bancaire</p>
+        {% elseif purchase.method == "paypal" %}
+            <p>Paypal</p>
+        {% endif %}
+    </div>
+</main>
+<footer>
+    <div>
+        <a href="https://k-gaming.k-grischko.fr" target="_blank"><strong>K-GAMING</strong></a> - support@k-grischko.fr
+    </div>
+</footer>
+</body>
+</html>

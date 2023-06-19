@@ -2,11 +2,13 @@
 
 namespace App\Controller\Purchase;
 
+use App\Entity\Facture;
 use App\Entity\Game;
 use App\Entity\Purchase;
 use App\Entity\Stock;
 use App\Entity\User;
 use App\Service\CartService;
+use App\Service\PdfService;
 use Doctrine\ORM\EntityManagerInterface;
 use PayPalCheckoutSdk\Core\PayPalHttpClient;
 use PayPalCheckoutSdk\Core\SandboxEnvironment;
@@ -20,6 +22,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Part\DataPart;
+use Symfony\Component\Mime\Part\File;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -117,7 +121,7 @@ class PaymentController extends AbstractController
 	
 	//Function to redirect to the success page
 	#[Route('/order/success/{reference}', name: 'payment_success')]
-	public function purchaseSuccess($reference, CartService $cartService, MailerInterface $mailer): Response
+	public function purchaseSuccess($reference, CartService $cartService, MailerInterface $mailer, PdfService $pdf): Response
 	{
 		$purchase = $this->em->getRepository(Purchase::class)->findOneBy(['reference' => $reference]);
 		$user = $this->em->getRepository(User::class)->find($purchase->getUser()); //get the user by the purchase
@@ -178,6 +182,31 @@ class PaymentController extends AbstractController
 		}
 		
 		$cartService->removeCartAll(); //remove the cart
+
+        $idUniq = uniqid();
+
+        $html = $this->render('order/invoice/facture.html.twig', [
+            'user' => $user,
+            'games' => $products,
+            'purchase' => $purchase,
+            'reference' => $purchase->getReference(),
+            'facture' => $idUniq,
+        ]);
+
+        $facture = new Facture();
+
+        $path = $this->getParameter('pdf_directory');
+        $name = 'facture-' . $idUniq . '.pdf';
+
+        $pdf->savePdfFile($html, $path . '/' . $name);
+
+
+        $facture->setPurchase($purchase);
+        $facture->setReference($idUniq);
+        $facture->setFacture($name);
+
+        $this->em->persist($facture);
+        $this->em->flush();
 		
 		//send the email to the user
 		$email = (new TemplatedEmail())
@@ -192,6 +221,7 @@ class PaymentController extends AbstractController
 				'license' => $license,
 				'reference' => $purchase->getReference(),
 			])
+            ->addPart(new DataPart(new File($path . '/' . 'facture-' . $idUniq . '.pdf'), 'facture-' . $idUniq . '.pdf', 'application/pdf'))
 		;
 		
 		$mailer->send($email); //send the email
