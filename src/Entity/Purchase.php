@@ -54,6 +54,9 @@ class Purchase
     #[ORM\Column(length: 255)]
     private ?string $userFullName = null;
 
+    #[ORM\OneToOne(mappedBy: 'purchase', cascade: ['persist', 'remove'])]
+    private ?Facture $facture = null;
+
     public function __construct()
     {
         $this->stock = new ArrayCollection();
@@ -247,6 +250,23 @@ class Purchase
     public function setUserFullName(string $userFullName): self
     {
         $this->userFullName = $userFullName;
+
+        return $this;
+    }
+
+    public function getFacture(): ?Facture
+    {
+        return $this->facture;
+    }
+
+    public function setFacture(Facture $facture): static
+    {
+        // set the owning side of the relation if necessary
+        if ($facture->getPurchase() !== $this) {
+            $facture->setPurchase($this);
+        }
+
+        $this->facture = $facture;
 
         return $this;
     }
