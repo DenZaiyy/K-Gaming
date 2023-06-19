@@ -31,7 +31,7 @@
                         </div>
                         <div class="card-body p-3">
                             {% for recap in purchase.recapDetails %}
-                                {% set total = total + recap.price %}
+                                {% set total = total + (recap.price * recap.quantity) %}
                                 <div class="details d-flex align-items-center justify-content-between flex-row">
                                     <div class="game d-flex flex-row align-items-center gap-3">
                                         <img src="https://images.igdb.com/igdb/image/upload/t_cover_small/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: recap.gameLabel })) }}.jpg"
@@ -51,7 +51,7 @@
                             {% endfor %}
                             <div class="detail-price d-flex flex-column">
                                 <div class="TVA d-flex justify-content-between">
-                                    {% set TVA = total / 100 * 20 %}
+                                    {% set TVA = total * 0.2 %}
                                     <strong>TVA (20%)</strong>
                                     <small>{{ TVA|price }}</small>
                                 </div>
@@ -69,7 +69,7 @@
                                     </div>
                                 </div>
                                 <div class="bill">
-                                    <a href="" class="link">Télécharger facture</a>
+                                    <a href="/uploads/factures/{{ purchase.facture }}" target="_blank" class="link">Télécharger facture</a>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                 {% endfor %}
             </div>
         {% else %}
-            <p>Vous n'avez pas encore effectué d'achat</p>
+            <p class="text-center">Vous n'avez pas encore effectué d'achat</p>
         {% endif %}
     </div>
 {% endblock %}
