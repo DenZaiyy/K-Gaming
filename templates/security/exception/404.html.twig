@@ -1,7 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block title %}Page non trouvée{% endblock %}
 {% block body %}
-    <div class="container h-100 w-100 d-flex justify-content-center align-items-center">
-        <img src="{{ asset('img/404_notfound.png') }}" alt="not found image" referrerpolicy="no-referrer" draggable="false">
+    <style>
+        footer {
+            display: none !important;
+        }
+    </style>
+    <div class="container h-100 w-100 d-flex flex-column justify-content-center align-items-center mt-3">
+        <a href="{{ path('app_home') }}" class="btn btn-primary">Revenir à l'accueil</a>
+        <img src="{{ asset('img/404_notfound.png') }}" class="mt-3" alt="not found image" referrerpolicy="no-referrer" draggable="false">
     </div>
 {% endblock %}
