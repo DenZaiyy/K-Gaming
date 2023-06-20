@@ -70,6 +70,7 @@ class RatingController extends AbstractController
 			$em->persist($rating); // Sauvegarde de la notation
 			$em->flush(); // Enregistrement de la notation
 
+            $this->addFlash('success', 'La note a bien été ajoutée');
 			return $this->redirectToRoute('app_home'); // Redirection vers la page d'accueil
 		}
 
@@ -77,6 +78,71 @@ class RatingController extends AbstractController
             'ratingForm' => $ratingForm->createView(),
 	        'game' => $game,
 	        'platform' => $platform,
+            'edit' => false,
+            'ratingValue' => 0
         ]);
+    }
+
+    #[Route('/rating/edit/{gameSlug}/{platformSlug}', name: 'rating_edit')]
+    public function edit(EntityManagerInterface $em, Request $request, $gameSlug, $platformSlug): Response
+    {
+        $platform = $em->getRepository(Plateform::class)->findOneBy(['slug' => $platformSlug]);
+        $game = $em->getRepository(Game::class)->findOneBy(['slug' => $gameSlug]);
+
+        $rating = $em->getRepository(Rating::class)->findOneBy([
+            'user' => $this->getUser(),
+            'game' => $game,
+            'platform' => $platform
+        ]);
+
+        if ($this->getUser()->getId() != $rating->getUser()->getId()) {
+            $this->addFlash('danger', 'Vous ne pouvez pas modifier cette note');
+            return $this->redirectToRoute('app_home');
+        }
+
+        $ratingForm = $this->createForm(RatingType::class, $rating);
+        $ratingForm->handleRequest($request);
+
+        if ($ratingForm->isSubmitted() && $ratingForm->isValid()) {
+            $rating = $ratingForm->getData();
+
+            $em->persist($rating);
+            $em->flush();
+
+            $this->addFlash('success', 'La note a bien été modifiée');
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render('rating/index.html.twig', [
+            'ratingForm' => $ratingForm->createView(),
+            'game' => $game,
+            'platform' => $platform,
+            'edit' => true,
+            'ratingValue' => $rating->getNote()
+        ]);
+    }
+
+    #[Route('/rating/delete/{gameSlug}/{platformSlug}', name: 'rating_delete')]
+    public function delete(EntityManagerInterface $em, $gameSlug, $platformSlug): Response
+    {
+        $platform = $em->getRepository(Plateform::class)->findOneBy(['slug' => $platformSlug]);
+        $game = $em->getRepository(Game::class)->findOneBy(['slug' => $gameSlug]);
+
+        $rating = $em->getRepository(Rating::class)->findOneBy([
+            'user' => $this->getUser(),
+            'game' => $game,
+            'platform' => $platform
+        ]);
+
+        if ($this->getUser()->getId() != $rating->getUser()->getId()) {
+            $this->addFlash('danger', 'Vous ne pouvez pas supprimer cette note');
+            return $this->redirectToRoute('user_my_account');
+        }
+
+        $em->remove($rating);
+        $em->flush();
+
+        $this->addFlash('success', 'La note a bien été supprimée');
+        return $this->redirectToRoute('user_my_account');
     }
 }
