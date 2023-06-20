@@ -73,8 +73,9 @@
 				{% for rating in user.ratings %}
 					<div class="card d-flex flex-column w-25">
 						<div class="card-header d-flex justify-content-between align-items-center">
-							<div class="game">
-								<strong>{{ rating.game.label }} ({{ rating.platform.label }})</strong>
+							<div class="game d-flex align-items-center gap-2">
+								<img src="{{ rating.platform.logo }}" alt="logo {{ rating.platform.label }}" height="32" width="32">
+								<strong>{{ rating.game.label }}</strong>
 							</div>
 							<div class="note d-flex text-center">
 								{% for i in 1..rating.note %}
