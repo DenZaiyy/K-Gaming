@@ -94,18 +94,4 @@ window.addEventListener('load', (e) => {
 		})
 	})
 	// END QUANTITY CHANGE IN CART
-
-	// TEST PREVIEW DROPZONE IMAGE
-	const dropzone = document.querySelector('.dropzone-preview'); // on récupère l'élément avec la classe dropzone
-	const dropzonePreviewImg = document.querySelector(".dropzone-preview-image")
-	const dropzonePreviewFileName = document.querySelector(".dropzone-preview-filename")
-
-	if(dropzone) {
-		dropzone.style.display = "block"
-		dropzonePreviewImg.style.display = "block"
-		dropzonePreviewFileName.style.display = "block"
-
-		console.log(dropzone);
-	}
-	// TEST PREVIEW DROPZONE IMAGE
 })
