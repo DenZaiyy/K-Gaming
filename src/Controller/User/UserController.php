@@ -8,9 +8,11 @@ use App\Entity\Purchase;
 use App\Entity\User;
 use App\Form\AddressType;
 use App\Form\User\UpdateAvatarType;
+use App\Form\User\UpdatePasswordType;
 use App\Form\User\UpdateUsernameType;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
+use Multiavatar;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,15 +31,23 @@ class UserController extends AbstractController
     public function index(Request $request, FileUploader $uploader): Response
     {
         $user = $this->getUser();
+	    $currentUser = $this->em->getRepository(User::class)->findOneBy(['username' => $user->getUsername()]);
 	    $currentAvatarPath = $user->getAvatar();
+
+	    $multiavatar = new Multiavatar();
+
+		for ($i = 0; $i < 5; $i++)
+		{
+			$avatars[] = $multiavatar(strval(rand(1, 1000)), false, null);
+		}
 
 		$avatarForm = $this->createForm(UpdateAvatarType::class, $user);
 		$usernameForm = $this->createForm(UpdateUsernameType::class, $user);
+		$passwordForm = $this->createForm(UpdatePasswordType::class, $user);
 
 		$avatarForm->handleRequest($request);
 		if ($avatarForm->isSubmitted() && $avatarForm->isValid())
 		{
-			$currentUser = $this->em->getRepository(User::class)->findOneBy(['username' => $user->getUsername()]);
 			$avatar = $avatarForm->get('avatar')->getData();
 			$newAvatar = $uploader->upload($avatar);
 
@@ -55,7 +65,6 @@ class UserController extends AbstractController
 		if ($usernameForm->isSubmitted() && $usernameForm->isValid())
 		{
 			$check = $this->em->getRepository(User::class)->findOneBy(['username' => $usernameForm->getData()->getUsername()]);
-			$currentUser = $this->em->getRepository(User::class)->findOneBy(['username' => $user->getUsername()]);
 			if($check)
 			{
 				$this->addFlash('danger', 'Ce nom d\'utilisateur est déjà utilisé');
@@ -72,10 +81,18 @@ class UserController extends AbstractController
 			return $this->redirectToRoute('user_my_account');
 		}
 
+		$passwordForm->handleRequest($request);
+		if ($passwordForm->isSubmitted() && $passwordForm->isValid())
+		{
+
+		}
+
         return $this->render('security/user/index.html.twig', [
             'user' => $user,
+			'avatars' => $avatars,
 	        'avatarForm' => $avatarForm->createView(),
 	        'usernameForm' => $usernameForm->createView(),
+	        'passwordForm' => $passwordForm->createView(),
 	        'currentAvatarPath' => $currentAvatarPath,
         ]);
     }

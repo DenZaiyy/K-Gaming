@@ -4,14 +4,12 @@
 
 {% block body %}
 	<div class="container text-center">
-		
-		
 		<div class="user-infos d-flex justify-content-center flex-column w-auto">
 			<div class="avatar">
 				<img src="{{ user.avatar }}" alt="avatar of {{ user.username }}" width="100" height="100">
 			</div>
 			<div class="username">
-				<strong>{{ user.username|upper }}</strong>
+				<strong>{{ user.username }}</strong>
 			</div>
 			<div class="member-since">
 				<small>Membre depuis : <strong>{{ fullDateFR(user.createAt) }}</strong></small>
@@ -20,48 +18,65 @@
 		<div class="about d-flex flex-wrap justify-content-center my-5 gap-5">
 			<div class="settings">
 				<h2>Personnalisez votre profil</h2>
-				<div class="picture-pseudo d-flex flex-wrap w-100 gap-5">
+				<div class="d-flex flex-wrap w-100 gap-5">
 					<div class="avatar d-flex flex-column gap-2">
-						<div class="card">
+						<div class="card h-100 w-100">
 							<div class="card-header">
 								<label><strong>Photo de profil</strong></label>
 							</div>
-							<div class="card-body p-3">
-								{{ form_start(avatarForm) }}
+							<div class="card-body row  p-3">
+								{% for avatar in avatars %}
+									<div class="col-6">
+										{{ avatar|raw }}
+									</div>
+								{% endfor %}
+								{#{{ form_start(avatarForm) }}
 								{{ form_widget(avatarForm.avatar) }}
 								{{ form_widget(avatarForm.submit) }}
-								{{ form_end(avatarForm) }}
+								{{ form_end(avatarForm) }}#}
 							</div>
 						</div>
 					</div>
 					<div class="username d-flex flex-column gap-2">
-						<div class="card">
+						<div class="card h-100 w-100">
 							<div class="card-header">
 								<label><strong>Pseudo</strong></label>
 							</div>
-							<div class="card-body">
+							<div class="card-body d-flex align-items-center">
 								{{ form_start(usernameForm) }}
 								{{ form_widget(usernameForm.username) }}
 								{{ form_widget(usernameForm.submit) }}
 								{{ form_end(usernameForm) }}
 							</div>
 						</div>
-
+					</div>
+					<div class="password d-flex flex-column gap-2">
+						<div class="card h-100 w-100">
+							<div class="card-header">
+								<label><strong>Mot de passe</strong></label>
+							</div>
+							<div class="card-body">
+								{{ form_start(passwordForm) }}
+									{{ form_widget(passwordForm.currentPassword) }}
+									{{ form_widget(passwordForm.plainPassword) }}
+									{{ form_widget(passwordForm.submit) }}
+								{{ form_end(passwordForm) }}
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="user-ratings">
 			<h2>Vos avis</h2>
-			<div class="ratings text-center">
+			<div class="ratings d-flex flex-wrap justify-content-center gap-5">
 				{% for rating in user.ratings %}
-					<div class="card w-25 m-auto">
-						<div class="card-header">
-							<strong>{{ rating.game.label }} ({{ rating.platform.label }})</strong>
-						</div>
-						<div class="card-body">
-							<p>{{ rating.message }}</p>
-							<div class="note d-flex">
+					<div class="card d-flex flex-column w-25">
+						<div class="card-header d-flex justify-content-between align-items-center">
+							<div class="game">
+								<strong>{{ rating.game.label }} ({{ rating.platform.label }})</strong>
+							</div>
+							<div class="note d-flex text-center">
 								{% for i in 1..rating.note %}
 									<i class="bi bi-star-fill"></i>
 								{% endfor %}
@@ -72,8 +87,19 @@
 								{% endif %}
 							</div>
 						</div>
-						<div class="card-footer">
-							<small>Posté le {{ fullDateFR(rating.createdAt) }}</small>
+						<div class="card-body">
+							<p>{{ rating.message }}</p>
+						</div>
+						<div class="card-footer d-flex justify-content-between">
+							<div class="createdAt">
+								<small>Posté le {{ fullDateFR(rating.createdAt) }}</small>
+							</div>
+							{% if app.user.id == rating.user.id %}
+								<div class="actions">
+									<a href="{{ path('rating_edit', {gameSlug: rating.game.slug, platformSlug: rating.platform.slug}) }}"><i class="bi bi-gear"></i></a>
+									<a href="{{ path('rating_delete', {gameSlug: rating.game.slug, platformSlug: rating.platform.slug}) }}"><i class="bi bi-trash"></i></a>
+								</div>
+							{% endif %}
 						</div>
 					</div>
 				{% endfor %}
