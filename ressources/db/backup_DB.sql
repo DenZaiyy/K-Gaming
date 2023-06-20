@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
--- Listage des données de la table kgaming.doctrine_migration_versions : ~16 rows (environ)
+-- Listage des données de la table kgaming.doctrine_migration_versions : ~3 rows (environ)
 DELETE FROM `doctrine_migration_versions`;
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 	('DoctrineMigrations\\Version20230601144500', NULL, NULL),
@@ -89,15 +89,15 @@ DROP TABLE IF EXISTS `facture`;
 CREATE TABLE IF NOT EXISTS `facture` (
   `id` int NOT NULL AUTO_INCREMENT,
   `purchase_id` int NOT NULL,
-  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `facture` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `facture` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_FE866410558FBEB9` (`purchase_id`),
   CONSTRAINT `FK_FE866410558FBEB9` FOREIGN KEY (`purchase_id`) REFERENCES `purchase` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.facture : ~1 rows (environ)
+-- Listage des données de la table kgaming.facture : ~0 rows (environ)
 DELETE FROM `facture`;
 INSERT INTO `facture` (`id`, `purchase_id`, `reference`, `facture`, `created_at`) VALUES
 	(5, 98, '64904e905eaaf', 'facture-64904e905eaaf.pdf', '2023-06-19 14:48:16');
@@ -465,7 +465,7 @@ CREATE TABLE IF NOT EXISTS `purchase` (
   CONSTRAINT `FK_6117D13BF5B7AF75` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.purchase : ~10 rows (environ)
+-- Listage des données de la table kgaming.purchase : ~0 rows (environ)
 DELETE FROM `purchase`;
 INSERT INTO `purchase` (`id`, `user_id`, `address_id`, `created_at`, `is_paid`, `method`, `reference`, `stripe_session_id`, `paypal_order_id`, `delivery`, `user_full_name`) VALUES
 	(98, 1, 1, '2023-06-19 14:48:08', 1, 'paypal', '19062023-64904e88178fc', NULL, '2W914654NV2084723', '29 rue du ban</br>68200 - Mulhouse', 'Kevin GRISCHKO');
@@ -487,14 +487,15 @@ CREATE TABLE IF NOT EXISTS `rating` (
   CONSTRAINT `FK_D8892622A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_D8892622E48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`),
   CONSTRAINT `FK_D8892622FFE6496F` FOREIGN KEY (`platform_id`) REFERENCES `plateform` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.rating : ~0 rows (environ)
+-- Listage des données de la table kgaming.rating : ~4 rows (environ)
 DELETE FROM `rating`;
 INSERT INTO `rating` (`id`, `game_id`, `note`, `user_id`, `message`, `platform_id`, `created_at`) VALUES
-	(11, 2, 4, 2, 'Bien malgré les nouveaux recul qui facilite trop les nouveaux joueurs', 1, '2023-06-08 14:51:54'),
-	(16, 2, 2, 1, 'Bien malgré les nouveaux recul qui facilite trop les nouveaux joueurs', 1, '2023-06-08 14:51:54'),
-	(21, 14, 4, 2, 'Très bon jeu, et vraiment hâte de tester l\'update 8 sur early access ! :D', 1, '2023-06-14 16:14:54');
+	(11, 2, 4, 2, 'Bien malgré les nouveaux recul qui facilite trop les nouveaux joueurs', 6, '2023-06-08 14:51:54'),
+	(16, 2, 4, 1, 'Bien malgré les nouveaux recul qui facilite trop les nouveaux joueurs', 1, '2023-06-08 14:51:54'),
+	(21, 14, 4, 2, 'Très bon jeu, et vraiment hâte de tester l\'update 8 sur early access ! :D', 1, '2023-06-14 16:14:54'),
+	(25, 7, 3, 1, 'test', 3, '2023-06-20 13:47:10');
 
 -- Listage de la structure de table kgaming. recap_details
 DROP TABLE IF EXISTS `recap_details`;
