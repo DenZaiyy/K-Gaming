@@ -19,8 +19,7 @@
 					<i class="bi bi-star star" data-value="5" data-label="Excellent"></i>
 				</div>
 				<div class="star-label text-center" id="labelRating"></div>
-				<input type="hidden" name="rating" id="rating" value="0">
-				{{ form_widget(ratingForm) }}
+				{{ form_widget(ratingForm.note, {'attr': {'value': ratingValue}}) }}
 			{{ form_end(ratingForm) }}
 		</div>
 	</div>
