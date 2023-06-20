@@ -4,6 +4,7 @@ window.onload = () => {
     const label = document.getElementById('labelRating') // Récupération du label
 
     if (ratingStar) {
+        resetStars(rating.value); // On reset les étoiles avec la valeur de l'input caché
         for (starsTest of ratingStar.children) { // Pour chaque étoile
             starsTest.addEventListener('mouseover', function () { // Lorsque la souris passe sur une étoile
                 resetStars(); // On reset les étoiles
