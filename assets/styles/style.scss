@@ -469,6 +469,16 @@ main {
 		}
 	}
 
+	// START: style for stars
+	.bi-star-fill {
+		color: var(--orange);
+	}
+
+	.bi-star, .bi-star-fill {
+		font-size: 1.3em;
+	}
+	// END: style for stars
+
 	// START: Style pour le détail d'un jeu
 	.detailGame {
 		.detail {
@@ -616,14 +626,6 @@ main {
 		}
 
 		.ratings {
-			.bi-star-fill {
-				color: var(--orange);
-			}
-
-			.bi-star, .bi-star-fill {
-				font-size: 1.3em;
-			}
-
 			.rating-cards {
 				display: flex;
 				flex-wrap: wrap;

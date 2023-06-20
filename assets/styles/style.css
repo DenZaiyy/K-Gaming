@@ -383,6 +383,12 @@ main .genres .cards a .genreCard:hover, main .listGenres .cards a .genreCard:hov
   transition: var(--animation);
   transform: scale(1.03);
 }
+main .bi-star-fill {
+  color: var(--orange);
+}
+main .bi-star, main .bi-star-fill {
+  font-size: 1.3em;
+}
 main .detailGame .detail {
   padding: 30px;
 }
@@ -502,12 +508,6 @@ main .detailGame .videos .content {
   margin: 0 auto;
   display: grid;
   grid-template-columns: 0fr 0fr 0fr;
-}
-main .detailGame .ratings .bi-star-fill {
-  color: var(--orange);
-}
-main .detailGame .ratings .bi-star, main .detailGame .ratings .bi-star-fill {
-  font-size: 1.3em;
 }
 main .detailGame .ratings .rating-cards {
   display: flex;
