@@ -12,6 +12,7 @@ use App\Form\User\UpdatePasswordType;
 use App\Form\User\UpdateUsernameType;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
+use Imagick;
 use Multiavatar;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -95,6 +96,24 @@ class UserController extends AbstractController
 	        'passwordForm' => $passwordForm->createView(),
 	        'currentAvatarPath' => $currentAvatarPath,
         ]);
+    }
+
+    public function convertSVGtoPNG($svgCode, $outputFile): void
+    {
+        // Create a new Imagick object
+        $imagick = new Imagick();
+
+        // Set the format to PNG
+        $imagick->setFormat('png');
+
+        // Read the SVG code
+        $imagick->readImageBlob($svgCode);
+
+        // Save the image to the output file
+        $imagick->writeImage($outputFile);
+
+        // Destroy the Imagick object
+        $imagick->destroy();
     }
 
 	/**
