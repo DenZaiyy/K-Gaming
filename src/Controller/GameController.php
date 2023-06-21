@@ -28,10 +28,15 @@ class GameController extends AbstractController
 	/*
 	 * Méthode permettant d'afficher le detail d'un jeu grâce au slug
 	 */
-	#[Route('/game/{gameSlug}', name: 'app_show_game')]
+	#[Route('/{gameSlug}', name: 'app_show_game', priority: -1)]
 	public function showGame(EntityManagerInterface $em, $gameSlug): Response
 	{
 		$game = $em->getRepository(Game::class)->findOneBy(['slug' => $gameSlug]);
+        if (!$game)
+        {
+            $this->addFlash('danger', 'Le jeu n\'existe pas');
+            return $this->redirectToRoute('app_404');
+        }
 		$gameStock = $em->getRepository(Stock::class)->findStockByGameID($game->getId());
 		$gamePlatform = $em->getRepository(Game::class)->findOneGameInPlatform($game->getId(), $gameStock[0]['platform_id']);
 
@@ -62,7 +67,7 @@ class GameController extends AbstractController
 	/*
 	 * Méthode permettant d'afficher le detail d'un jeu dans une plateforme grâce aux slugs
 	 */
-	#[Route('/platform/{platformSlug}/game/{gameSlug}', name: 'app_show_game_platform')]
+	#[Route('/platform/{platformSlug}/{gameSlug}', name: 'app_show_game_platform')]
 	public function showGameInPlatform(EntityManagerInterface $em, $platformSlug, $gameSlug): Response
 	{
 		$game = $em->getRepository(Game::class)->findOneBy(['slug' => $gameSlug]);
