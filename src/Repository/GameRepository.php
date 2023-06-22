@@ -50,7 +50,6 @@ class GameRepository extends ServiceEntityRepository
     public function findGamesInPreOrders(): array
     {
         return $this->createQueryBuilder('g')
-            ->select('g.id', 'g.label', 'g.slug', 'g.price', 'g.date_release')
             ->where('g.date_release > :date')
             ->setParameter('date', new \DateTime())
             ->setMaxResults(3)
