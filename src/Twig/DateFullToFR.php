@@ -32,7 +32,7 @@ class DateFullToFR extends AbstractExtension
 	 */
     public function fullDateFR(DateTimeImmutable $date): string
     {
-        $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::LONG, IntlDateFormatter::NONE);
+        $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::LONG, IntlDateFormatter::SHORT);
 
         return $formatter->format($date);
     }
