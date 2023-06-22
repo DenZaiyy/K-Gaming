@@ -77,7 +77,7 @@ window.addEventListener('load', (e) => {
 			var url = window.location.pathname; // on récupère l'url de la page
 			var idGame = url.substring(url.lastIndexOf("/") + 1); // on récupère l'id du jeu dans l'url
 			
-			window.location.href = "/" + idPlateform + "/" + idGame; // on redirige vers la page avec l'id de la plateforme et du jeu
+			window.location.href = "/platform/" + idPlateform + "/" + idGame; // on redirige vers la page avec l'id de la plateforme et du jeu
 		})
 	}
 	// END PLATEFORME CHANGE
@@ -94,44 +94,4 @@ window.addEventListener('load', (e) => {
 		})
 	})
 	// END QUANTITY CHANGE IN CART
-
-
-	/*// TEST DYNAMIC DROPZONE
-	const btnNewAvatar = document.getElementById("otherAvatar")
-	const currentAvatar = document.getElementById("currentAvatar")
-	const newAvatar = document.getElementById("newAvatar")
-	const btnClearPreview = document.querySelector(".dropzone-preview-button")
-
-	if(btnNewAvatar) {
-		btnNewAvatar.addEventListener("click", function () {
-			btnNewAvatar.style.display = "none"
-			currentAvatar.style.display = "none"
-			newAvatar.style.display = "block"
-		})
-
-		btnClearPreview.addEventListener("click", function () {
-			btnNewAvatar.style.display = "block"
-			currentAvatar.style.display = "block"
-			newAvatar.style.display = "none"
-		})
-	}
-	// END TEST DYNAMIC DROPZONE*/
-
-	// TEST PREVIEW DROPZONE IMAGE
-	const dropzonePlaceHolder = document.querySelector('.dropzone-placeholder')
-	const dropzonePreview = document.querySelector('.dropzone-preview')
-	const dropzonePreviewImg = document.querySelector(".dropzone-preview-image")
-	const dropzonePreviewFileName = document.querySelector(".dropzone-preview-filename")
-	const currentPath = document.getElementById("currentPath").value
-	const dropzone = document.getElementById('update_avatar_avatar')
-	if(dropzone) {
-		dropzone.style.display = "none"
-		dropzonePlaceHolder.style.display = "none"
-		dropzonePreview.style.display = "flex"
-		dropzonePreviewImg.style.display = "block"
-		dropzonePreviewImg.style.backgroundImage = `url(${currentPath})`
-		dropzonePreviewFileName.style.display = "block"
-		dropzonePreviewFileName.innerHTML = currentPath.substring(currentPath.lastIndexOf("-") + 1)
-	}
-	// TEST PREVIEW DROPZONE IMAGE
 })
