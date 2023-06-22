@@ -3,86 +3,83 @@
 {% block title %}Mon compte{% endblock %}
 
 {% block body %}
-	<div class="container text-center">
-		<div class="user-infos d-flex justify-content-center flex-column w-auto">
-			<div class="avatar">
-				<img src="{{ user.avatar }}" alt="avatar of {{ user.username }}" width="100" height="100">
+	<div class="container user-profil text-center">
+		<div class="user-about d-flex justify-content-center my-2 flex-column w-auto">
+			<div class="avatar mb-3">
+				<img src="{{ user.avatar }}" alt="avatar of {{ user.username }}">
 			</div>
 			<div class="username">
-				<strong>{{ user.username }}</strong>
+				Pseudo : <strong>{{ user.username }}</strong>
 			</div>
 			<div class="member-since">
-				<small>Membre depuis : <strong>{{ fullDateFR(user.createAt) }}</strong></small>
+				Membre depuis : <strong>{{ fullDateFR(user.createAt) }}</strong>
 			</div>
 		</div>
-		<div class="about d-flex flex-wrap justify-content-center my-5 gap-5">
+		<div class="user-infos d-flex flex-wrap justify-content-center my-5 gap-5">
 			<div class="settings">
 				<h2>Personnalisez votre profil</h2>
-				<div class="d-flex flex-wrap w-100 gap-5">
-					<div class="avatar d-flex flex-column gap-2">
-						<div class="card h-100 w-100">
-							<div class="card-header">
-								<label><strong>Photo de profil</strong></label>
-							</div>
-							<div class="card-body row  p-3">
-								{% for avatar in avatars %}
-									<div class="col-6">
-										{{ avatar|raw }}
-									</div>
-								{% endfor %}
-								{#<div class="currentAvatar" id="currentAvatar">
-									<h3>Avatar actuel</h3>
-									<img src="{{ currentAvatarPath }}" alt="avatar of {{ user.username }}" width="100" height="100">
-								</div>
-								<button id="otherAvatar" class="btn btn-secondary">Changer d'avatar</button>#}
-								{#<div class="newAvatar" id="newAvatar">
-									<h3>Nouvel avatar</h3>
-									{{ form_start(avatarForm) }}
-									{{ form_widget(avatarForm.avatar) }}
-									{{ form_widget(avatarForm.submit) }}
-									{{ form_end(avatarForm) }}
-								</div>#}
-
-								<input type="hidden" id="currentPath" value="{{ currentAvatarPath }}">
-							</div>
+				<div class="d-flex flex-column flex-wrap w-100 gap-4">
+					<div class="avatar d-flex align-items-center flex-row gap-3">
+						<div class="infos w-50">
+							<h3>Avatar de profil</h3>
+							<p>
+								Vous pouvez choisir un avatar parmi ceux proposés, les avatars sont générés aléatoirement à chaque rechargement de page.
+							</p>
+						</div>
+						<div class="card w-50 p-3">
+                            {% for avatar in avatars %}
+                                {% set url = avatar %}
+                                {% set parts = url|split('/') %}
+                                {% set lastPart = parts|last %}
+                                {% set finalUrl = lastPart|split('.png') %}
+                                {% set avatarUrl = finalUrl|first %}
+                                <a href="{{ path('user_update_avatar', {image: avatarUrl}) }}">
+                                    <img src="{{ avatar }}" alt="randomly avatar {{ loop.index }}" loading="lazy">
+                                </a>
+                            {% endfor %}
 						</div>
 					</div>
-					<div class="username d-flex flex-column gap-2">
-						<div class="card h-100 w-100">
-							<div class="card-header">
-								<label><strong>Pseudo</strong></label>
-							</div>
-							<div class="card-body d-flex align-items-center">
-								{{ form_start(usernameForm) }}
-								{{ form_widget(usernameForm.username) }}
-								{{ form_widget(usernameForm.submit) }}
-								{{ form_end(usernameForm) }}
-							</div>
+					<hr class="w-100">
+					<div class="username d-flex align-items-center flex-row gap-3">
+						<div class="infos w-50">
+							<h3>Changer de pseudo</h3>
+							<p>
+								Vous pouvez changer de pseudo à partir du moment où il n'est pas déjà utilisé par un autre membre.
+							</p>
+						</div>
+						<div class="card w-50 p-3">
+							{{ form_start(usernameForm, {attr: {'class': 'd-flex align-items-center flex-row gap-3'}}) }}
+							{{ form_widget(usernameForm.username) }}
+							{{ form_widget(usernameForm.submit) }}
+							{{ form_end(usernameForm) }}
 						</div>
 					</div>
-					<div class="password d-flex flex-column gap-2">
-						<div class="card h-100 w-100">
-							<div class="card-header">
-								<label><strong>Mot de passe</strong></label>
+					<hr class="w-100">
+					<div class="password d-flex align-items-center flex-row gap-3">
+						<div class="infos w-50">
+							<h3>Changer de mot de passe</h3>
+							<p>
+								Si vous souhaitez changer de mot de passe, vous devez saisir votre mot de passe actuel puis saisir deux fois votre nouveau mot de passe.
+							</p>
+						</div>
+						<div class="card w-50 p-3">
+							{{ form_start(passwordForm, {attr: {class: 'd-flex align-items-center flex-column gap-3'}}) }}
+							<div class="form-floating w-100">
+								{{ form_widget(passwordForm.currentPassword) }}
+								{{ form_label(passwordForm.currentPassword) }}
 							</div>
-							<div class="card-body">
-								{{ form_start(passwordForm) }}
-								<div class="form-floating mb-3">
-									{{ form_widget(passwordForm.currentPassword) }}
-									{{ form_label(passwordForm.currentPassword) }}
-								</div>
-								<div class="form-floating mb-3">
+							<div class="d-flex flex-row w-100 gap-3">
+								<div class="form-floating w-100">
 									{{ form_widget(passwordForm.plainPassword.first) }}
 									{{ form_label(passwordForm.plainPassword.first) }}
 								</div>
-								<div class="form-floating mb-3">
+								<div class="form-floating w-100">
 									{{ form_widget(passwordForm.plainPassword.second) }}
 									{{ form_label(passwordForm.plainPassword.second) }}
 								</div>
-
-									{{ form_widget(passwordForm.submit) }}
-								{{ form_end(passwordForm) }}
 							</div>
+								{{ form_widget(passwordForm.submit) }}
+							{{ form_end(passwordForm) }}
 						</div>
 					</div>
 				</div>
@@ -90,31 +87,26 @@
 		</div>
 		<div class="user-ratings">
 			<h2>Vos avis</h2>
-			<div class="ratings d-flex flex-wrap justify-content-center gap-5">
+			<div class="ratings">
 				{% for rating in user.ratings %}
-					<div class="card d-flex flex-column w-25">
-						<div class="card-header d-flex justify-content-between align-items-center">
+					<div class="card">
+						<div class="card-header d-flex flex-wrap justify-content-between align-items-center">
 							<div class="game d-flex align-items-center gap-2">
-								<img src="{{ rating.platform.logo }}" alt="logo {{ rating.platform.label }}" height="32" width="32">
+								<img src="{{ rating.platform.logo }}" alt="logo {{ rating.platform.label }}">
 								<strong>{{ rating.game.label }}</strong>
 							</div>
-							<div class="note d-flex text-center">
-								{% for i in 1..rating.note %}
-									<i class="bi bi-star-fill"></i>
-								{% endfor %}
-								{% if rating.note < 5 %}
-									{% for i in 1..(5-rating.note) %}
-										<i class="bi bi-star"></i>
-									{% endfor %}
-								{% endif %}
-							</div>
+							{% include 'components/rating/_rating.html.twig' %}
 						</div>
 						<div class="card-body">
 							<p>{{ rating.message }}</p>
 						</div>
-						<div class="card-footer d-flex justify-content-between">
+						<div class="card-footer d-flex flex-wrap justify-content-between">
 							<div class="createdAt">
-								<small>Posté le {{ fullDateFR(rating.createdAt) }}</small>
+								{% if rating.updatedAt %}
+									<small>Mis à jour le <strong>{{ fullDateFR(rating.updatedAt) }}</strong></small>
+									{% else %}
+									<small>Posté le <strong>{{ fullDateFR(rating.createdAt) }}</strong></small>
+								{% endif %}
 							</div>
 							{% if app.user.id == rating.user.id %}
 								<div class="actions">
