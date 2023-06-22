@@ -1,0 +1,10 @@
+<a href="{{ path('app_show_game_genre', {genreSlug: genre.slug}) }}">
+    <div class="genreCard">
+        <figure>
+            <img src="{{ genre.image }}" alt="image pour le genre : {{ genre.label }}" loading="lazy">
+            <figcaption>
+                {{ genre.label|upper }}
+            </figcaption>
+        </figure>
+    </div>
+</a>

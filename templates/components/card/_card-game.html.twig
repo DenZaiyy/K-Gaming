@@ -1,0 +1,26 @@
+<a href="{{ path('app_show_game', {gameSlug: game.slug }) }}">
+    <div class="gameCard">
+        <div class="cover-img">
+            <img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: game.label })) }}.jpg"
+                 draggable="false"
+                 alt="cover for game: {{ game.label }}"
+                 loading="lazy">
+        </div>
+        <div class="infos">
+            <div class="label">
+                {{ game.label }}
+            </div>
+            <div class="price">
+                {{ game.price }} €
+            </div>
+        </div>
+        {% if game.dateRelease > date('now') %}
+            <div class="preco">
+                <div class="badge">Préco</div>
+                <div class="date">
+                    {{ dateFR(game.dateRelease) }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</a>

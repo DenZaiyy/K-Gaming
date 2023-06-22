@@ -1,0 +1,10 @@
+<div class="note d-flex">
+    {% for i in 1..rating.note %}
+        <i class="bi bi-star-fill"></i>
+    {% endfor %}
+    {% if rating.note < 5 %}
+        {% for i in 1..(5-rating.note) %}
+            <i class="bi bi-star"></i>
+        {% endfor %}
+    {% endif %}
+</div>

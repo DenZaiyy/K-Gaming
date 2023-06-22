@@ -25,8 +25,9 @@
 					<div class="gameCard">
 						<div class="cover-img">
 							<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: tendency.label })) }}.jpg"
-							     draggable="false"
-							     alt="cover for game: {{ tendency.label }}">
+								 draggable="false"
+								 alt="cover for game: {{ tendency.label }}"
+								 loading="lazy">
 						</div>
 						<div class="infos">
 							<div class="label">
@@ -73,29 +74,8 @@
 	<section class="preorders">
 		<h2>Précommandes</h2>
 		<div class="cards">
-			{% for preorder in preorders %}
-				<a href="{{ path('app_show_game', {gameSlug: preorder.slug }) }}">
-					<div class="gameCard">
-						<div class="cover-img">
-							<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: preorder.label })) }}.jpg"
-							     alt="cover for game: {{ preorder.label }}">
-						</div>
-						<div class="infos">
-							<div class="label">
-								{{ preorder.label }}
-							</div>
-							<div class="price">
-								{{ preorder.price }} €
-							</div>
-						</div>
-						<div class="preco">
-							<div class="badge">Préco</div>
-							<div class="date">
-								{{ dateFR(preorder.date_release) }}
-							</div>
-						</div>
-					</div>
-				</a>
+			{% for game in preorders %}
+				{% include 'components/card/_card-game.html.twig' %}
 			{% endfor %}
 		</div>
 		<div class="show-more">
@@ -122,17 +102,7 @@
 		<h2>Genres</h2>
 		<div class="cards">
 			{% for genre in genres %}
-				<a href="{{ path('app_show_game_genre', {genreSlug: genre.slug}) }}">
-					<div class="genreCard">
-						<figure>
-							<img src="{{ genre.image }}" alt="image pour le genre : {{ genre.label }}" width="400"
-							     height="300">
-							<figcaption>
-								{{ genre.label|upper }}
-							</figcaption>
-						</figure>
-					</div>
-				</a>
+				{% include 'components/card/_genre.html.twig' %}
 			{% endfor %}
 		</div>
 		<div class="show-more">
