@@ -4,7 +4,8 @@
 			<div class="cover-img">
 				<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: game.label })) }}.jpg"
 				     draggable="false"
-				     alt="cover for game: {{ game.label }}">
+				     alt="cover for game: {{ game.label }}"
+					 loading="lazy">
 			</div>
 			<div class="infos">
 				<div class="label">

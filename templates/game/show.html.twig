@@ -12,7 +12,8 @@
 				<div class="cover">
 					<img src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: gamePlatform[0].game_label })) }}.jpg"
 					     draggable="false"
-					     alt="cover for game: {{ gamePlatform[0].game_label }}">
+					     alt="cover for game: {{ gamePlatform[0].game_label }}"
+						 loading="lazy">
 				</div>
 				<div class="desc">
 					<h2>{{ gamePlatform[0].game_label }}</h2>
@@ -21,7 +22,7 @@
 							<div class="plateform">
 								<img src="{{ gamePlatform[0].platform_logo }}"
 								     alt="logo of {{ gamePlatform[0].platform_label }}"
-								     height="32" width="32">
+									 loading="lazy">
 								{{ gamePlatform[0].platform_label }}
 							</div>
 
@@ -126,10 +127,9 @@
 			</div>
 		</section>
 
-
-			<section class="ratings">
-				<h2>Notes utilisateurs</h2>
-				{% if ratings %}
+		<section class="ratings">
+			<h2>Notes utilisateurs</h2>
+			{% if ratings %}
 				<div class="moyenne d-flex justify-content-center gap-2 align-items-center my-3">
 					Note du jeu ({{ ratings|length }} avis) :
 					<div class="note d-flex ">
@@ -146,45 +146,37 @@
 
 				<div class="rating-cards">
 					{% for rating in ratings %}
-						<div class="card w-25">
-							<div class="card-header d-flex justify-content-between align-items-center">
+						<div class="card">
+							<div class="card-header d-flex flex-wrap justify-content-between align-items-center">
 								<div class="user d-flex gap-2 align-items-center">
-									<img src="{{ rating.user.avatar }}" alt="avatar of user {{ rating.user.username }}"
-									     width="32" height="32">
+									<img src="{{ rating.user.avatar }}" alt="avatar of user {{ rating.user.username }}" loading="lazy">
 									{{ rating.user.username }}
 								</div>
-								<div class="note d-flex">
-									{% for i in 1..rating.note %}
-										<i class="bi bi-star-fill"></i>
-									{% endfor %}
-									{% if rating.note < 5 %}
-										{% for i in 1..(5-rating.note) %}
-											<i class="bi bi-star"></i>
-										{% endfor %}
-									{% endif %}
-								</div>
+								{% include 'components/rating/_rating.html.twig' %}
 							</div>
 							<div class="card-body">
 								<div class="card-text">{{ rating.message }}</div>
 							</div>
-							<div class="card-footer d-flex justify-content-between align-items-center">
-								<div class="platform">
-									Plateforme : <img src="{{ rating.platform.logo }}"
-									     alt="logo de le plateforme {{ rating.platform.label }}" height="32"
-									     width="32">
-								</div>
+							<div class="card-footer d-flex flex-wrap justify-content-between align-items-center">
 								<div class="date">
-									Crée le : {{ rating.createdAt|date('d/m/Y - H:i') }}
+									{% if rating.updatedAt %}
+										<small>Mis à jour le <strong>{{ fullDateFR(rating.updatedAt) }}</strong></small>
+									{% else %}
+										<small>Posté le <strong>{{ fullDateFR(rating.createdAt) }}</strong></small>
+									{% endif %}
+								</div>
+								<div class="platform">
+									<img src="{{ rating.platform.logo }}"
+										 alt="logo de le plateforme {{ rating.platform.label }}">
 								</div>
 							</div>
 						</div>
 					{% endfor %}
 				</div>
-				{% else %}
+			{% else %}
 				<p class="text-center">Aucune note associée à ce jeu</p>
-			</section>
-		{% endif %}
-
+			{% endif %}
+		</section>
 
 		{# <section class="videos">
 			<h2>Vidéos (trailer)</h2>

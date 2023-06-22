@@ -14,7 +14,7 @@
 							<div class="about d-flex flex-wrap gap-3">
 								<div class="image">
 									<img src="https://images.igdb.com/igdb/image/upload/t_cover_med/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: item.game.label })) }}.jpg"
-									     draggable="false" alt="cover for game: {{ item.game.label }}">
+									     draggable="false" alt="cover for game: {{ item.game.label }}" loading="lazy">
 								</div>
 								<div class="infos d-flex flex-column justify-content-center">
 									<div class="game-platform d-flex gap-2">
@@ -22,7 +22,7 @@
 											<img src="{{ item.platform.logo }}"
 											     draggable="false"
 											     alt="plateforme {{ item.platform.label }}"
-											     height="32" width="32">
+												 loading="lazy">
 										</div>
 										<div class="game-name">
 											<a href="{{ path('app_show_game_platform', {platformSlug: item.platform.slug, gameSlug: item.game.slug}) }}"><span>{{ item.game.label }}</span></a>
