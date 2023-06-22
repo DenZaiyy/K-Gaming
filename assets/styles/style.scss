@@ -75,6 +75,17 @@ body {
 		gap: 50px;
 		margin: 0;
 		padding: 0;
+
+		.dropdown {
+			.dropdown-menu {
+				a {
+					img {
+						height: 32px;
+						width: 32px;
+					}
+				}
+			}
+		}
 	}
 
 
@@ -168,11 +179,11 @@ body {
 				height: max-content;
 
 				.profilePicture {
-					width: 36px;
-					height: 36px;
+					width: 48px;
+					height: 48px;
 					border-radius: 50%;
 					object-fit: cover;
-					outline: .5px solid var(--orange);
+					//outline: .5px solid var(--orange);
 				}
 
 				&:hover {
@@ -446,6 +457,8 @@ main {
 						margin: 0;
 
 						img {
+							width: 400px;
+							height: 300px;
 							opacity: .9;
 						}
 
@@ -466,6 +479,53 @@ main {
 				}
 			}
 
+		}
+	}
+
+	.user-profil {
+		.user-about {
+			.avatar {
+				img {
+					width: 100px;
+					height: 100%;
+				}
+			}
+		}
+
+		.user-infos {
+			.settings {
+				width: 100%;
+				.avatar {
+					.card {
+						display: grid;
+						grid-template-columns: repeat(4, 0fr);
+						justify-content: space-evenly;
+						grid-gap: 20px;
+						img {
+							width: 70px;
+							height: 100%;
+						}
+					}
+				}
+			}
+		}
+
+		.user-ratings {
+			.ratings {
+				display: grid;
+				grid-template-columns: repeat(4, 0fr);
+				grid-gap: 20px;
+				.card {
+					.card-header {
+						.game {
+							img {
+								width: 32px;
+								height: 32px;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -631,6 +691,25 @@ main {
 				flex-wrap: wrap;
 				gap: 20px;
 				justify-content: center;
+
+				.card {
+					.card-header {
+						.user {
+							img {
+								width: 48px;
+								height: 48px;
+							}
+						}
+					}
+					.card-footer {
+						.platform {
+							img {
+								width: 32px;
+								height: 32px;
+							}
+						}
+					}
+				}
 			}
 		}
 	}

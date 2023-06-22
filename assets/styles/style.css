@@ -65,6 +65,10 @@ body {
   margin: 0;
   padding: 0;
 }
+.header-flex .menus .dropdown .dropdown-menu a img {
+  height: 32px;
+  width: 32px;
+}
 .header-flex .dropdown {
   position: relative;
   display: inline-block;
@@ -140,11 +144,10 @@ body {
   height: max-content;
 }
 .header-flex .icons .dropdown .dropBtn .profilePicture {
-  width: 36px;
-  height: 36px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
-  outline: 0.5px solid var(--orange);
 }
 .header-flex .icons .dropdown .dropBtn:hover {
   color: var(--blue);
@@ -369,6 +372,8 @@ main .genres .cards a .genreCard figure, main .listGenres .cards a .genreCard fi
   margin: 0;
 }
 main .genres .cards a .genreCard figure img, main .listGenres .cards a .genreCard figure img {
+  width: 400px;
+  height: 300px;
   opacity: 0.9;
 }
 main .genres .cards a .genreCard figure figcaption, main .listGenres .cards a .genreCard figure figcaption {
@@ -382,6 +387,32 @@ main .genres .cards a .genreCard figure figcaption, main .listGenres .cards a .g
 main .genres .cards a .genreCard:hover, main .listGenres .cards a .genreCard:hover {
   transition: var(--animation);
   transform: scale(1.03);
+}
+main .user-profil .user-about .avatar img {
+  width: 100px;
+  height: 100%;
+}
+main .user-profil .user-infos .settings {
+  width: 100%;
+}
+main .user-profil .user-infos .settings .avatar .card {
+  display: grid;
+  grid-template-columns: repeat(4, 0fr);
+  justify-content: space-evenly;
+  grid-gap: 20px;
+}
+main .user-profil .user-infos .settings .avatar .card img {
+  width: 70px;
+  height: 100%;
+}
+main .user-profil .user-ratings .ratings {
+  display: grid;
+  grid-template-columns: repeat(4, 0fr);
+  grid-gap: 20px;
+}
+main .user-profil .user-ratings .ratings .card .card-header .game img {
+  width: 32px;
+  height: 32px;
 }
 main .bi-star-fill {
   color: var(--orange);
@@ -514,6 +545,14 @@ main .detailGame .ratings .rating-cards {
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
+}
+main .detailGame .ratings .rating-cards .card .card-header .user img {
+  width: 48px;
+  height: 48px;
+}
+main .detailGame .ratings .rating-cards .card .card-footer .platform img {
+  width: 32px;
+  height: 32px;
 }
 main .cart {
   margin: 0 auto;
