@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
 use App\Service\FileUploader;
+use App\Service\MultiAvatars;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -32,7 +33,7 @@ class RegistrationController extends AbstractController
 	 * Fonction permettant de s'inscrire sur le site
 	 */
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHashed, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHashed, EntityManagerInterface $entityManager, MultiAvatars $avatar): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -47,19 +48,7 @@ class RegistrationController extends AbstractController
                 )
             );
 
-			/**
-			 * Si l'utilisateur a choisi un avatar alors on l'upload en db
-			 * @var UploadedFile $avatarFile
-			 */
-			$avatarFile = $form->get('avatar')->getData();
-
-			if($avatarFile)
-			{
-				$avatarFileName = $fileUploader->upload($avatarFile);
-				$user->setAvatar($avatarFileName);
-			} else {
-				$user->setAvatar('/img/default.png');
-			}
+            $user->setAvatar($avatar->getRandomUserAvatar($user->getUsername()));
 
             $user->setCreateAt(new DateTimeImmutable());
             $user->setIsBanned(false);

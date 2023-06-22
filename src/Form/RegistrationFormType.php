@@ -57,31 +57,6 @@ class RegistrationFormType extends AbstractType
 					])
 				],*/
 			])
-			->add('avatar', DropzoneType::class, [
-				'label' => 'Avatar',
-				'attr' => [
-					'placeholder' => 'Glisser un fichier ou cliquer pour le chercher'
-				],
-				'mapped' => false,
-				'required' => false,
-				'constraints' => [
-					new File([
-						'maxSize' => "1024k",
-						'mimeTypes' => [
-							'image/jpg',
-							'image/jpeg',
-							'image/png'
-						],
-						'mimeTypesMessage' => "Veuillez upload une image valide",
-						'extensions' => [
-							'jpg',
-							'jpeg',
-							'png'
-						],
-						'extensionsMessage' => 'Veuillez upload une image valide',
-					])
-				],
-			])
 			->add('agreeTerms', CheckboxType::class, [
 				'mapped' => false,
 				'label' => 'Accepter les conditions',
