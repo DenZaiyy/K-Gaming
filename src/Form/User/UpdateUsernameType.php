@@ -24,7 +24,7 @@ class UpdateUsernameType extends AbstractType
 	        ->add('submit', SubmitType::class, [
 		        'label' => 'Modifier',
 		        'attr' => [
-			        'class' => 'btn btn-primary mt-3'
+			        'class' => 'btn btn-primary'
 		        ]
 	        ])
         ;
