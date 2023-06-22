@@ -7,16 +7,15 @@ use App\Entity\Newsletter\NewsletterUser;
 use App\Entity\Purchase;
 use App\Entity\User;
 use App\Form\AddressType;
-use App\Form\User\UpdateAvatarType;
 use App\Form\User\UpdatePasswordType;
 use App\Form\User\UpdateUsernameType;
 use App\Service\FileUploader;
+use App\Service\MultiAvatars;
 use Doctrine\ORM\EntityManagerInterface;
-use Imagick;
-use Multiavatar;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
@@ -29,38 +28,15 @@ class UserController extends AbstractController
     }
 
     #[Route('/profil', name: 'user_my_account')]
-    public function index(Request $request, FileUploader $uploader): Response
+    public function index(Request $request, FileUploader $uploader, UserPasswordHasherInterface $hasher, MultiAvatars $multiAvatars): Response
     {
         $user = $this->getUser();
 	    $currentUser = $this->em->getRepository(User::class)->findOneBy(['username' => $user->getUsername()]);
-	    $currentAvatarPath = $user->getAvatar();
 
-	    $multiavatar = new Multiavatar();
+        $avatars = $multiAvatars->getFiveRandomlyAvatar();
 
-		for ($i = 0; $i < 5; $i++)
-		{
-			$avatars[] = $multiavatar(strval(rand(1, 1000)), false, null);
-		}
-
-		$avatarForm = $this->createForm(UpdateAvatarType::class, $user);
 		$usernameForm = $this->createForm(UpdateUsernameType::class, $user);
 		$passwordForm = $this->createForm(UpdatePasswordType::class, $user);
-
-		$avatarForm->handleRequest($request);
-		if ($avatarForm->isSubmitted() && $avatarForm->isValid())
-		{
-			$avatar = $avatarForm->get('avatar')->getData();
-			$newAvatar = $uploader->upload($avatar);
-
-			$currentUser->setAvatar($newAvatar);
-			$currentUser->setUpdatedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris')));
-
-			$this->em->persist($currentUser);
-			$this->em->flush();
-
-			$this->addFlash('success', 'Votre avatar a bien été modifié');
-			return $this->redirectToRoute('user_my_account');
-		}
 
 		$usernameForm->handleRequest($request);
 		if ($usernameForm->isSubmitted() && $usernameForm->isValid())
@@ -85,35 +61,50 @@ class UserController extends AbstractController
 		$passwordForm->handleRequest($request);
 		if ($passwordForm->isSubmitted() && $passwordForm->isValid())
 		{
+            if ($hasher->isPasswordValid($currentUser, $passwordForm->get('currentPassword')->getData()))
+            {
+                $currentUser->setUpdatedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris')));
+                $currentUser->setPassword($hasher->hashPassword($currentUser, $passwordForm->get('plainPassword')->getData()));
 
+                $this->em->persist($currentUser);
+                $this->em->flush();
+
+                $this->addFlash('success', 'Votre mot de passe a bien été modifié');
+                return $this->redirectToRoute('user_my_account');
+            }
+            else
+            {
+                $this->addFlash('danger', 'Votre mot de passe actuel est incorrect');
+                return $this->redirectToRoute('user_my_account');
+            }
 		}
 
         return $this->render('security/user/index.html.twig', [
             'user' => $user,
 			'avatars' => $avatars,
-	        'avatarForm' => $avatarForm->createView(),
 	        'usernameForm' => $usernameForm->createView(),
 	        'passwordForm' => $passwordForm->createView(),
-	        'currentAvatarPath' => $currentAvatarPath,
         ]);
     }
 
-    public function convertSVGtoPNG($svgCode, $outputFile): void
+    #[Route('/profil/update-avatar/{image}', name: 'user_update_avatar')]
+    public function updateUserAvatar($image, Request $request, MultiAvatars $multiAvatars) : Response
     {
-        // Create a new Imagick object
-        $imagick = new Imagick();
+        $user = $this->getUser();
+        $currentUser = $this->em->getRepository(User::class)->findOneBy(['username' => $user->getUsername()]);
 
-        // Set the format to PNG
-        $imagick->setFormat('png');
+        if($currentUser)
+        {
+            $currentUser->setAvatar($multiAvatars->setAvatarUrl($image));
+            $this->em->persist($currentUser);
+            $this->em->flush();
+            $this->addFlash('success', 'Votre avatar a bien été modifié');
+        } else {
+            $this->addFlash('danger', 'Une erreur est survenue');
+            return $this->redirectToRoute('user_my_account');
+        }
 
-        // Read the SVG code
-        $imagick->readImageBlob($svgCode);
-
-        // Save the image to the output file
-        $imagick->writeImage($outputFile);
-
-        // Destroy the Imagick object
-        $imagick->destroy();
+        return $this->redirectToRoute('user_my_account');
     }
 
 	/**
