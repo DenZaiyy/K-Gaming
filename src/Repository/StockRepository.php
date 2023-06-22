@@ -50,7 +50,7 @@ class StockRepository extends ServiceEntityRepository
 			->leftJoin('s.purchase', 'p')
 			->Where('s.is_available = false')
 			->andWhere('s.purchase IS NOT NULL')
-			->groupBy('g.id', 'g.label', 'g.price', 'g.date_release')
+			->groupBy('g.id', 'g.label', 'g.slug', 'g.price', 'g.date_release')
 			->orderBy('COUNT(s.id)', 'DESC')
 			->setMaxResults(3)
 			->getQuery()
