@@ -512,10 +512,13 @@ main {
 
 		.user-ratings {
 			.ratings {
-				display: grid;
-				grid-template-columns: repeat(4, 0fr);
-				grid-gap: 20px;
+				display: flex;
+				justify-content: center;
+				gap: 20px;
+				flex-wrap: wrap;
 				.card {
+					width: 100%;
+					max-width: 350px;
 					.card-header {
 						.game {
 							img {
@@ -574,6 +577,13 @@ main {
 						justify-content: center;
 						gap: 10px;
 						color: var(--blue);
+
+						.plateform {
+							img {
+								width: 32px;
+								height: 32px;
+							}
+						}
 					}
 
 					.plateform-price, .btns {
@@ -693,6 +703,8 @@ main {
 				justify-content: center;
 
 				.card {
+					width: 100%;
+					max-width: 350px;
 					.card-header {
 						.user {
 							img {
@@ -726,6 +738,14 @@ main {
 
 				.about {
 					.infos {
+						.game-platform {
+							.platform-logo {
+								img {
+									width: 32px;
+									height: 32px;
+								}
+							}
+						}
 						.delete-icon {
 							font-size: small;
 							width: max-content;

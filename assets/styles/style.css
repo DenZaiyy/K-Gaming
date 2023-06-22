@@ -406,9 +406,14 @@ main .user-profil .user-infos .settings .avatar .card img {
   height: 100%;
 }
 main .user-profil .user-ratings .ratings {
-  display: grid;
-  grid-template-columns: repeat(4, 0fr);
-  grid-gap: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+main .user-profil .user-ratings .ratings .card {
+  width: 100%;
+  max-width: 350px;
 }
 main .user-profil .user-ratings .ratings .card .card-header .game img {
   width: 32px;
@@ -451,6 +456,10 @@ main .detailGame .detail .coverDesc .desc .infos {
   justify-content: center;
   gap: 10px;
   color: var(--blue);
+}
+main .detailGame .detail .coverDesc .desc .infos .plateform img {
+  width: 32px;
+  height: 32px;
 }
 main .detailGame .detail .coverDesc .desc .plateform-price, main .detailGame .detail .coverDesc .desc .btns {
   display: flex;
@@ -546,6 +555,10 @@ main .detailGame .ratings .rating-cards {
   gap: 20px;
   justify-content: center;
 }
+main .detailGame .ratings .rating-cards .card {
+  width: 100%;
+  max-width: 350px;
+}
 main .detailGame .ratings .rating-cards .card .card-header .user img {
   width: 48px;
   height: 48px;
@@ -562,6 +575,10 @@ main .cart .cart-item {
 }
 main .cart .cart-item .game {
   width: 100%;
+}
+main .cart .cart-item .game .about .infos .game-platform .platform-logo img {
+  width: 32px;
+  height: 32px;
 }
 main .cart .cart-item .game .about .infos .delete-icon {
   font-size: small;
