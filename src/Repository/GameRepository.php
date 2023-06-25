@@ -132,14 +132,14 @@ class GameRepository extends ServiceEntityRepository
 	 * @param SearchData $search
 	 * @return PaginationInterface
 	 */
-    public function findSearch(SearchData $search, $platformID): PaginationInterface
+    public function findSearch(SearchData $search, $platformID, $resultPerPage): PaginationInterface
     {
 		$query = $this->getSearchQuery($search, $platformID)->getQuery();
 
 		$pagination = $this->paginator->paginate(
 			$query,
 			$search->page,
-			9
+            $resultPerPage
 		);
 
 	    $pagination->setCustomParameters([

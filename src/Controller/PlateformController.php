@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PlateformController extends AbstractController
@@ -19,17 +20,27 @@ class PlateformController extends AbstractController
 	 * Méthode permettant d'afficher la liste des jeux d'une plateforme en prenant en compte les filtres de recherche en ajax
 	 */
 	#[Route('/platform/{platformSlug}', name: 'app_game_platform')]
-	public function index(EntityManagerInterface $em, Request $request, $platformSlug): Response
+	public function index(EntityManagerInterface $em, Request $request, $platformSlug, SessionInterface $session): Response
 	{
 		$data = new SearchData(); // Création d'un objet SearchData
 		$data->page = $request->get('page', 1); // Récupération de la page en cours sinon 1 par défaut
 		$form = $this->createForm(SearchForm::class, $data);
 		$form->handleRequest($request);
 
+        $screenWidth = $session->get('screenWidth');
+
+        if ($screenWidth < 768) {
+            $resultPerPage = 3;
+        } else if ($screenWidth < 992) {
+            $resultPerPage = 6;
+        } else {
+            $resultPerPage = 9;
+        }
+
 		$platform = $em->getRepository(Plateform::class)->findOneBy(['slug' => $platformSlug]); // Récupération de la plateforme grâce au slug
 		$gamesAvailable = $em->getRepository(Game::class)->findGamesInPlatform($platform->getId()); // Récupération des jeux disponibles dans la plateforme
 
-		$games = $em->getRepository(Game::class)->findSearch($data, $platform); // Récupération des jeux en fonction des filtres de recherche
+		$games = $em->getRepository(Game::class)->findSearch($data, $platform, $resultPerPage); // Récupération des jeux en fonction des filtres de recherche
 		[$min, $max] = $em->getRepository(Game::class)->findMinMax($data, $platform); // Récupération du prix minimum et maximum des jeux en fonction des filtres de recherche
 
 		/*
@@ -61,4 +72,18 @@ class PlateformController extends AbstractController
 			'max' => $max,
 		]);
 	}
+
+    #[Route('/screen-size', name: 'app_screen_size')]
+    public function checkWindowSize(Request $request, SessionInterface $session): Response
+    {
+        $screenWidth = $request->request->get('screenWidth');
+
+        $session->set('screenWidth', $screenWidth);
+
+        $data = [
+            'screenWidth' => $screenWidth
+        ];
+
+        return $this->json($data);
+    }
 }
