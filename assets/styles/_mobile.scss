@@ -1,0 +1,217 @@
+@media (max-width: 575.98px) {
+	.menus {
+		display: none !important;
+	}
+	
+	// START HOMEPAGE
+	main {
+		.hero-image {
+			height: auto !important;
+			min-height: 60vh !important;
+		}
+		
+		.hero-text, .tendencies, .rating, .preorders, .newsletter, .genres {
+			padding: 20px !important;
+		}
+		
+		.hero-text {
+			width: 100% !important;
+			
+			h1 {
+				font-size: 1.3em !important;
+			}
+			
+			p {
+				font-size: 1em !important;
+			}
+		}
+		
+		.tendencies, .preorders, .content {
+			.cards {
+				display: flex !important;
+				flex-direction: column !important;
+				align-items: center !important;
+				gap: 20px !important;
+				
+				a {
+					width: max-content !important;
+					.gameCard {
+						&:hover {
+							transform: unset !important;
+						}
+					}
+				}
+			}
+		}
+		
+		.newsletter, .rating {
+			.text-content {
+				width: 100% !important;
+			}
+		}
+		
+		.genres {
+			margin: 0 !important;
+			.cards {
+				display: flex !important;
+				flex-wrap: wrap;
+				flex-direction: column;
+				gap: 20px !important;
+				
+				.genreCard {
+					figure {
+						img {
+							width: 100% !important;
+							max-height: 200px !important;
+							//object-fit: cover !important;
+						}
+					}
+					
+					&:hover {
+						transform: none !important;
+					}
+				}
+			}
+		}
+		
+		.show-more {
+			margin: 20px auto 0 auto !important;
+		}
+	}
+	// END HOMEPAGE
+	
+	// START USER PROFIL
+	.user-profil {
+		.user-infos {
+			margin: 30px auto !important;
+			.settings {
+				.avatar, .username, .password {
+					flex-direction: column !important;
+					
+					.infos {
+						width: 100% !important;
+					}
+					
+					.card {
+						width: 100% !important;
+						grid-gap: 10px !important;
+						
+						.new-password {
+							flex-direction: column !important;
+						}
+					}
+				}
+			}
+		}
+		
+		.user-ratings {
+			.ratings {
+				.card {
+					max-width: unset !important;
+					
+					.card-footer {
+						align-items: center !important;
+						.actions {
+							display: flex !important;
+							gap: 10px !important;
+							a {
+								font-size: 1.5em;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	// END USER PROFIL
+	
+	// START DETAILS GAME
+	.detailGame {
+		.detail, .about {
+			padding: 20px !important;
+		}
+		
+		.about {
+			.content {
+				flex-direction: column !important;
+				gap: 20px !important;
+				
+				.description {
+					width: 100% !important;
+				}
+				
+				.infos {
+					.release, .genres {
+						padding: 0 !important;
+					}
+				}
+			}
+		}
+	}
+	// END DETAILS GAME
+	
+	// START GAME LIST IN PLATFORM
+	.listGames {
+		.toggle-display {
+			display: none !important;
+		}
+		
+		.container {
+			padding: 20px !important;
+			
+			.page-content {
+				display: flex !important;
+				flex-direction: column !important;
+				gap: 20px;
+				
+				.toggle-filters {
+					display: block !important;
+				}
+				
+				.filter-content {
+					position: unset !important;
+					top: unset !important;
+					
+					.show {
+						display: block !important;
+					}
+					
+					.filter {
+						#genres {
+							display: grid;
+							grid-template-columns: repeat(3, 0fr);
+							grid-gap: 10px;
+						}
+						#price-slider {
+							width: 90% !important;
+							margin: 10px auto !important;
+						}
+					}
+				}
+				
+				.content {
+					.sorting {
+						justify-content: center !important;
+					}
+					
+					.pagination-platform {
+						margin-top: 30px !important;
+					}
+				}
+			}
+		}
+	}
+	// END GAME LIST IN PLATFORM
+	
+	// START FOOTER
+	footer {
+		.footer {
+			flex-direction: column !important;
+			gap: 20px !important;
+		}
+	}
+	// END FOOTER
+	
+	// IMPORT BURGER MENU
+	@import './_menu-burger';
+}

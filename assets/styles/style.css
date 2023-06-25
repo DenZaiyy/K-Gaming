@@ -35,6 +35,28 @@ body {
   box-sizing: border-box;
 }
 
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: var(--orange) #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--orange);
+  border-radius: 0;
+  border: 0 none #ffffff;
+}
+
 .card {
   background-color: var(--bgColor);
 }
@@ -190,6 +212,12 @@ main .filter {
   position: sticky;
   top: 20px;
 }
+main .toggle-display {
+  display: block;
+}
+main .toggle-filters {
+  display: none;
+}
 main .hero-image {
   position: relative;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/accueil.jpg");
@@ -339,9 +367,8 @@ main .rating .btn-ratings a, main .newsletter .btn-ratings a {
   border-radius: 5px;
   transition: var(--animation);
   box-shadow: 0 4px 8px -4px rgb(0, 0, 0);
-  /*box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.34);
-  -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.34);
-  -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.34);*/
+  -webkit-box-shadow: 0 4px 8px -4px rgb(0, 0, 0);
+  -moz-box-shadow: 0 4px 8px -4px rgb(0, 0, 0);
 }
 main .rating .btn-ratings a:hover, main .newsletter .btn-ratings a:hover {
   background-color: var(--orange);
@@ -752,6 +779,208 @@ footer .f-flex small {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 1em;
   color: var(--white);
+}
+
+.burger-btn {
+  display: none;
+}
+
+.overlay-menu {
+  display: none;
+}
+
+@media (max-width: 575.98px) {
+  .menus {
+    display: none !important;
+  }
+  main .hero-image {
+    height: auto !important;
+    min-height: 60vh !important;
+  }
+  main .hero-text, main .tendencies, main .rating, main .preorders, main .newsletter, main .genres {
+    padding: 20px !important;
+  }
+  main .hero-text {
+    width: 100% !important;
+  }
+  main .hero-text h1 {
+    font-size: 1.3em !important;
+  }
+  main .hero-text p {
+    font-size: 1em !important;
+  }
+  main .tendencies .cards, main .preorders .cards, main .content .cards {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 20px !important;
+  }
+  main .tendencies .cards a, main .preorders .cards a, main .content .cards a {
+    width: max-content !important;
+  }
+  main .tendencies .cards a .gameCard:hover, main .preorders .cards a .gameCard:hover, main .content .cards a .gameCard:hover {
+    transform: unset !important;
+  }
+  main .newsletter .text-content, main .rating .text-content {
+    width: 100% !important;
+  }
+  main .genres {
+    margin: 0 !important;
+  }
+  main .genres .cards {
+    display: flex !important;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 20px !important;
+  }
+  main .genres .cards .genreCard figure img {
+    width: 100% !important;
+    max-height: 200px !important;
+  }
+  main .genres .cards .genreCard:hover {
+    transform: none !important;
+  }
+  main .show-more {
+    margin: 20px auto 0 auto !important;
+  }
+  .user-profil .user-infos {
+    margin: 30px auto !important;
+  }
+  .user-profil .user-infos .settings .avatar, .user-profil .user-infos .settings .username, .user-profil .user-infos .settings .password {
+    flex-direction: column !important;
+  }
+  .user-profil .user-infos .settings .avatar .infos, .user-profil .user-infos .settings .username .infos, .user-profil .user-infos .settings .password .infos {
+    width: 100% !important;
+  }
+  .user-profil .user-infos .settings .avatar .card, .user-profil .user-infos .settings .username .card, .user-profil .user-infos .settings .password .card {
+    width: 100% !important;
+    grid-gap: 10px !important;
+  }
+  .user-profil .user-infos .settings .avatar .card .new-password, .user-profil .user-infos .settings .username .card .new-password, .user-profil .user-infos .settings .password .card .new-password {
+    flex-direction: column !important;
+  }
+  .user-profil .user-ratings .ratings .card {
+    max-width: unset !important;
+  }
+  .user-profil .user-ratings .ratings .card .card-footer {
+    align-items: center !important;
+  }
+  .user-profil .user-ratings .ratings .card .card-footer .actions {
+    display: flex !important;
+    gap: 10px !important;
+  }
+  .user-profil .user-ratings .ratings .card .card-footer .actions a {
+    font-size: 1.5em;
+  }
+  .detailGame .detail, .detailGame .about {
+    padding: 20px !important;
+  }
+  .detailGame .about .content {
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+  .detailGame .about .content .description {
+    width: 100% !important;
+  }
+  .detailGame .about .content .infos .release, .detailGame .about .content .infos .genres {
+    padding: 0 !important;
+  }
+  .listGames .toggle-display {
+    display: none !important;
+  }
+  .listGames .container {
+    padding: 20px !important;
+  }
+  .listGames .container .page-content {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px;
+  }
+  .listGames .container .page-content .toggle-filters {
+    display: block !important;
+  }
+  .listGames .container .page-content .filter-content {
+    position: unset !important;
+    top: unset !important;
+  }
+  .listGames .container .page-content .filter-content .show {
+    display: block !important;
+  }
+  .listGames .container .page-content .filter-content .filter #genres {
+    display: grid;
+    grid-template-columns: repeat(3, 0fr);
+    grid-gap: 10px;
+  }
+  .listGames .container .page-content .filter-content .filter #price-slider {
+    width: 90% !important;
+    margin: 10px auto !important;
+  }
+  .listGames .container .page-content .content .sorting {
+    justify-content: center !important;
+  }
+  .listGames .container .page-content .content .pagination-platform {
+    margin-top: 30px !important;
+  }
+  footer .footer {
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+  .overlay-menu {
+    display: block;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow-x: hidden;
+    transition: 0.5s;
+  }
+  .overlay-menu .close-btn {
+    position: absolute;
+    text-decoration: none;
+    color: #818181;
+    top: 0;
+    right: 10px;
+    display: block;
+    transition: 0.3s;
+    font-size: 4rem;
+  }
+  .overlay-content {
+    position: relative;
+    top: 10%;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .overlay-content .category h2 {
+    font-size: 2rem;
+    margin: 0 !important;
+    color: var(--orange);
+    text-decoration: underline;
+    margin-bottom: 10px !important;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  .overlay-content .category .content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .overlay-content .category .content a {
+    font-size: 1.7rem;
+    text-decoration: none;
+    color: var(--white);
+  }
+  .burger-btn {
+    display: block;
+    font-size: 2rem;
+    cursor: pointer;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

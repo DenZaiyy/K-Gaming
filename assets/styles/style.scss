@@ -39,6 +39,28 @@ body {
 	padding: 0;
 	box-sizing: border-box;
 }
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+	scrollbar-width: auto;
+	scrollbar-color: var(--orange) #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+	width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+	background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: var(--orange);
+	border-radius: 0;
+	border: 0 none #ffffff;
+}
 // END : Reset style pour tout les éléments du site
 
 // START : Style pour les card du site
@@ -241,6 +263,14 @@ main {
 		position: sticky;
 		top: 20px;
 	}
+	
+	.toggle-display {
+		display: block;
+	}
+	
+	.toggle-filters {
+		display: none;
+	}
 
 	.hero-image {
 		position: relative;
@@ -406,7 +436,7 @@ main {
 
 		.btn-ratings {
 			margin-top: 20px;
-
+			
 			a {
 				background: transparent;
 				color: var(--orange);
@@ -418,11 +448,10 @@ main {
 				border: 1px solid var(--orange);
 				border-radius: 5px;
 				transition: var(--animation);
-
+				
 				box-shadow: 0 4px 8px -4px rgb(0, 0, 0);
-				/*box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.34);
-				-webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.34);
-				-moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.34);*/
+				-webkit-box-shadow: 0 4px 8px -4px rgb(0, 0, 0);
+				-moz-box-shadow: 0 4px 8px -4px rgb(0, 0, 0);
 
 				&:hover {
 					background-color: var(--orange);
@@ -977,3 +1006,16 @@ footer {
 	// END: FOOTER CONTENT
 }
 // END : FOOTER
+
+// START MENU BURGER
+.burger-btn {
+	display: none;
+}
+
+.overlay-menu {
+	display: none;
+}
+// END MENU BURGER
+
+// IMPORTS OTHER CSS FILES
+@import './_mobile';

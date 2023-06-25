@@ -1,0 +1,65 @@
+.overlay-menu {
+	display: block;
+	height: 100%;
+	width: 0;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: rgb(0, 0, 0);
+	background-color: rgba(0, 0, 0, 0.9);
+	overflow-x: hidden;
+	transition: 0.5s;
+	
+	.close-btn {
+		position: absolute;
+		text-decoration: none;
+		color: #818181;
+		top: 0;
+		right: 10px;
+		display: block;
+		transition: 0.3s;
+		font-size: 4rem;
+		
+	}
+}
+
+.overlay-content {
+	position: relative;
+	top: 10%;
+	width: 100%;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	
+	.category {
+		h2 {
+			font-size: 2rem;
+			margin: 0 !important;
+			color: var(--orange);
+			text-decoration: underline;
+			margin-bottom: 10px !important;
+			padding: 10px;
+			background-color: rgba(255, 255, 255, 0.5);
+		}
+		
+		.content {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			
+			a {
+				font-size: 1.7rem;
+				text-decoration: none;
+				color: var(--white);
+			}
+		}
+	}
+}
+
+.burger-btn {
+	display: block;
+	font-size: 2rem;
+	cursor: pointer;
+}
