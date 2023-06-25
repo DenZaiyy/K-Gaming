@@ -81,5 +81,49 @@
 				</div>
 			</div>
 		</div>
+		<span class="burger-btn">&#9776;</span>
+		<div id="menu-burger" class="overlay-menu">
+			<a href="javascript:void(0)" class="close-btn">&times;</a>
+			<div class="overlay-content">
+				{% for category in categories %}
+					<div class="category category-{{ category.label }}">
+						<h2>{{ category.label }}</h2>
+						<div class="content">
+							{% for plateform in plateforms %}
+								{% if plateform.category.label == category.label %}
+									<a href="{{ path('app_game_platform', {platformSlug: plateform.slug}) }}">
+										{{ plateform.label }}
+									</a>
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+			{#<div class="overlay-content">
+				<div class="accordion accordion-flush" id="menu-responsive">
+					{% for category in categories %}
+						<div class="accordion-item">
+							<h2 class="accordion-header">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ category.label }}" aria-expanded="false" aria-controls="flush-collapse{{ category.label }}">
+									{{ category.label }}
+								</button>
+							</h2>
+							<div id="flush-collapse{{ category.label }}" class="accordion-collapse collapse" data-bs-parent="#menu-responsive">
+								<div class="accordion-body">
+									{% for plateform in plateforms %}
+										{% if plateform.category.label == category.label %}
+											<a href="{{ path('app_game_platform', {platformSlug: plateform.slug}) }}">
+												<img src="{{ plateform.logo }}" alt="logo of {{ plateform.label }}" loading="lazy" width="32" height="32">{{ plateform.label }}
+											</a>
+										{% endif %}
+									{% endfor %}
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>#}
+		</div>
 	</nav>
 </header>
