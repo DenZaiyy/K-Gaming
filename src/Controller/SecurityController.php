@@ -11,6 +11,7 @@ class SecurityController extends AbstractController
     #[Route('/404', name: 'app_404')]
     public function accessDenied(): Response
     {
+        $this->addFlash('danger', 'La page demandée n\'existe pas');
         return $this->render('security/exception/404.html.twig');
     }
 }
