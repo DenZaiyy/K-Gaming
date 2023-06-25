@@ -3,30 +3,33 @@
 {% block title %}Liste de jeux {{ platform.label }}{% endblock %}
 
 {% block body %}
-	<section class="listGames">
+    <section class="listGames">
+        <h1>{{ platform.label }}</h1>
+        {% if gameAvailable %}
+            <div class="container js-filter">
+                <div class="page-content row">
+                    <button class="toggle-filters btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+                        Afficher les filtres
+                    </button>
+                    <div class="toggle-display filter-content col-md-3">
+                        {% include 'game/platform/_filter.html.twig' with {form: form, min: min, max: max} only %}
+                    </div>
+                    <div class="content col-md-9">
+                        <div class="toggle-display sorting d-flex justify-content-end mb-4 gap-2 js-filter-sorting">
+                            {% include 'game/platform/_sorting.html.twig' %}
+                        </div>
 
-		<h1>{{ platform.label }}</h1>
-		<div class="container js-filter">
-			<div class="row">
-				<div class="col-md-3">
-					{% include 'game/platform/_filter.html.twig' with {form: form, min: min, max: max} only %}
-				</div>
-				<div class="col-md-9">
-					<div class="d-flex justify-content-end mb-4 gap-2 js-filter-sorting">
-						{% include 'game/platform/_sorting.html.twig' %}
-					</div>
-					{% if gameAvailable %}
-						<div class="cards js-filter-content">
-							{% include 'game/platform/_games.html.twig' %}
-						</div>
-						<div class="pagination-platform mt-5 text-center js-filter-pagination">
-							{% include 'game/platform/_pagination.html.twig' %}
-						</div>
-					{% else %}
-						<p class="text-center">Aucun jeu pour cette plateforme</p>
-					{% endif %}
-				</div>
-			</div>
-		</div>
-	</section>
+                        <div class="cards js-filter-content">
+                            {% include 'game/platform/_games.html.twig' %}
+                        </div>
+                        <div class="pagination-platform mt-5 text-center js-filter-pagination">
+                            {% include 'game/platform/_pagination.html.twig' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p class="text-center">Aucun jeu pour cette plateforme</p>
+        {% endif %}
+    </section>
 {% endblock %}
