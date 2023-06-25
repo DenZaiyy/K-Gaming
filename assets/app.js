@@ -94,4 +94,61 @@ window.addEventListener('load', (e) => {
 		})
 	})
 	// END QUANTITY CHANGE IN CART
+
+	// START MENU BURGER
+	const closeBtn = document.querySelector(".close-btn"); // on récupère l'élément avec la classe closebtn
+	const burgerBtn = document.querySelector(".burger-btn"); // on récupère l'élément avec la classe burgerbtn
+
+	closeBtn.addEventListener('click', () => {
+		closeNav();
+	})
+
+	burgerBtn.addEventListener('click', () => {
+		openNav();
+	})
+	function openNav() {
+		document.getElementById("menu-burger").style.width = "100%";
+		document.getElementById("menu-burger").style.opacity = "1";
+		document.querySelector("body").style.overflow = "hidden";
+	}
+
+	function closeNav() {
+		document.getElementById("menu-burger").style.width = "0%";
+		document.getElementById("menu-burger").style.opacity = "0";
+		document.querySelector("body").style.overflow = "unset";
+	}
+	// END MENU BURGER
+
+	// START SHOW FILTERS IN RESPONSIVE
+	const showFilters = document.querySelector(".toggle-filters"); // on récupère l'élément avec la classe show-filters
+	const filterContent = document.querySelector(".filter-content"); // on récupère l'élément avec la classe filter-content
+	const sortingContent = document.querySelector(".sorting"); // on récupère l'élément avec la classe sorting-content
+
+	if (showFilters) { // si l'élément existe
+		showFilters.addEventListener('click', () => { // on écoute l'événement click sur l'élément
+			if (filterContent.classList.contains("toggle-display") && sortingContent.classList.contains("toggle-display")) { // si les éléments ont la classe toggle-display
+				showFilters.innerHTML = "Masquer les filtres"; // on change le texte de l'élément
+			} else { // sinon
+				showFilters.innerHTML = "Afficher les filtres"; // on change le texte de l'élément
+			}
+
+			filterContent.classList.toggle("toggle-display"); // on ajoute ou on enlève la classe toggle-display à l'élément
+			sortingContent.classList.toggle("toggle-display"); // on ajoute ou on enlève la classe toggle-display à l'élément
+		})
+	}
+	// END SHOW FILTERS IN RESPONSIVE
+
+	// START SCREEN SIZE
+	let screenWidth = window.screen.width; // on récupère la largeur de l'écran
+
+	let xHttp = new XMLHttpRequest(); // on crée une nouvelle requête
+	xHttp.onreadystatechange = function() { // on écoute l'événement readyStateChange de la requête
+		if (this.readyState == 4 && this.status == 200) { // si la requête est terminée et que le statut est 200
+			let response = JSON.parse(this.responseText); // on parse la réponse en JSON
+		}
+	};
+	xHttp.open('POST', '/screen-size', true); // on ouvre la requête en POST sur l'URL /screen-size
+	xHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); // on définit le header de la requête
+	xHttp.send("screenWidth=" + screenWidth); // on envoie la requête avec la largeur de l'écran
+	// END SCREEN SIZE
 })
