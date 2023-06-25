@@ -17,7 +17,7 @@
 		{% if newsletter %}
 			<div class="newsletter_subscribed text-center">
 				<p>Vous êtes actuellement inscrit à la newsletter</p>
-				<a href="{{ path('newsletter_unsubscribe') }}" class="btn btn-danger">Se désinscrire</a>
+				<a href="{{ path('newsletter_unsubscribe', {'id': newsletter.id, 'token': newsletter.token})}}" class="btn btn-danger">Se désinscrire</a>
 			</div>
 		{% else %}
 			<div class="newsletter_unsubscribed text-center">
