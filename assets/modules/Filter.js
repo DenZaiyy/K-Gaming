@@ -28,7 +28,6 @@ export default class Filter { //export default permet d'exporter la classe pour 
 
         // On lance la fonction init
         this.bindEvents()
-        console.log("test")
     }
 
     /**
