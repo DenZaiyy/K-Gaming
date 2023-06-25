@@ -100,6 +100,7 @@ class SubscriptionController extends AbstractController
 	#[Route('/unsubscribe/{id}/{token}', name: 'unsubscribe')]
 	public function unsubscribe(NewsletterUser $user, $token): Response
 	{
+        // $user = id de l'enregistrement dans la bdd pour l'entité NewsletterUser
 		if($user->getToken() !== $token) {
 			$this->addFlash('danger', 'Le token n\'est pas valide');
 			return $this->redirectToRoute('app_home');
