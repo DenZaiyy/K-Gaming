@@ -3,40 +3,42 @@
 {% block title %}Commande effectué{% endblock %}
 
 {% block body %}
-	<h1>Commande effectué</h1>
-	<div class="alert text-bg-success w-50 m-auto text-center">
-		Votre commande <strong>n°{{ reference }}</strong> a été effectué avec succès !
-	</div>
-	<div class="mt-3 w-50 m-auto">
-		<table class="table table-striped">
-			<thead>
-			<tr>
-				<th>Jeux</th>
-				<th>Plateforme</th>
-				<th>Quantité</th>
-			</tr>
-			</thead>
-			<tbody>
-			{% for product in products %}
-				<tr>
-					<td>{{ product.game.label }}</td>
-					<td>{{ product.platform.label }}</td>
-					<td>{{ product.quantity }}</td>
-				</tr>
-			{% endfor %}
-			</tbody>
-		</table>
-	</div>
-	<div class="infos my-5 text-center">
-		<h2>Adresse de facturation</h2>
-		<div class="address">
-			<p class="my-0">{{ purchase.userFullName }}</p>
-			<p class="my-0">{{ purchase.delivery|raw }}</p>
+	<div class="order-success">
+		<h1>Commande effectué</h1>
+		<div class="alert text-bg-success w-50 m-auto text-center">
+			Votre commande <strong>n°{{ reference }}</strong> a été effectué avec succès !
 		</div>
-	</div>
+		<div class="order-content mt-3 w-50 m-auto">
+			<table class="table table-striped">
+				<thead>
+				<tr>
+					<th>Jeux</th>
+					<th>Plateforme</th>
+					<th>Quantité</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for product in products %}
+					<tr>
+						<td>{{ product.game.label }}</td>
+						<td>{{ product.platform.label }}</td>
+						<td>{{ product.quantity }}</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div class="infos my-5 text-center">
+			<h2>Adresse de facturation</h2>
+			<div class="address">
+				<p class="my-0">{{ purchase.userFullName }}</p>
+				<p class="my-0">{{ purchase.delivery|raw }}</p>
+			</div>
+		</div>
 
-	<div class="delivery text-center">
-		<h2>Livraison</h2>
-		<p>Vos produits seront livrés par mail à cette addresse : <strong>{{ app.user.email }}</strong></p>
+		<div class="delivery text-center">
+			<h2>Livraison</h2>
+			<p>Vos produits seront livrés par mail à cette addresse : <strong>{{ app.user.email }}</strong></p>
+		</div>
 	</div>
 {% endblock %}

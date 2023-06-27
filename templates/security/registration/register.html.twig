@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container mt-5 mb-5" style="max-width: 600px;">
-        <div class="card p-3 rounded">
+        <div class="register card p-3 rounded">
             <h1 class="mb-3 font-weight-normal">S'inscrire</h1>
             {{ form_start(registrationForm) }}
             <div class="card-body">
@@ -17,7 +17,7 @@
                     {{ form_label(registrationForm.email) }}
                 </div>
 
-                <div class="row g-2 mb-3">
+                <div class="passwords d-flex flex-row g-2 mb-3">
                     <div class="form-floating col">
                         {{ form_widget(registrationForm.plainPassword.first) }}
                         {{ form_label(registrationForm.plainPassword.first) }}

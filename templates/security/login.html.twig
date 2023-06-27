@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container mt-5 mb-5" style="max-width: 600px;">
-        <div class="card p-5 rounded">
+        <div class="login card p-5 rounded">
             <form method="post" class="d-flex flex-column justify-content-start">
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="btns d-flex flex-column gap-3">
-                    <div class="d-flex flex-row w-100 gap-3">
+                    <div class="btns-con-pass d-flex flex-row w-100 gap-3">
                         <button class="btn btn-lg btn-primary w-100" type="submit">Se connecter</button>
                         <a href="{{ path('app_forgot_password_request') }}" class="btn btn-lg btn-danger w-100">Mot de passe
                             oublié</a>

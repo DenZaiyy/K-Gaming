@@ -3,14 +3,15 @@
 {% block title %}Donnez votre avis!{% endblock %}
 
 {% block body %}
-	<div class="card w-50 p-5 m-auto">
-		<h1>Laissez votre commentaire</h1>
-		<div class="infos">
-			Jeux: <strong><a href="{{ path('app_show_game', {gameSlug: game.slug}) }}">{{ game.label }}</a></strong>
-			Plateforme: <strong>{{ platform.label }}</strong>
-		</div>
-		<div class="form">
-			{{ form_start(ratingForm) }}
+	<div class="rating-form">
+		<div class="card w-50 p-5 m-auto">
+			<h1>Laissez votre commentaire</h1>
+			<div class="infos">
+				Jeux: <strong><a href="{{ path('app_show_game', {gameSlug: game.slug}) }}">{{ game.label }}</a></strong>
+				Plateforme: <strong>{{ platform.label }}</strong>
+			</div>
+			<div class="form">
+				{{ form_start(ratingForm) }}
 				<div class="ratingStars" id="ratingStar">
 					<i class="bi bi-star star" data-value="1" data-label="A éviter"></i>
 					<i class="bi bi-star star" data-value="2" data-label="Mauvais"></i>
@@ -20,7 +21,8 @@
 				</div>
 				<div class="star-label text-center" id="labelRating"></div>
 				{{ form_widget(ratingForm.note, {'attr': {'value': ratingValue}}) }}
-			{{ form_end(ratingForm) }}
+				{{ form_end(ratingForm) }}
+			</div>
 		</div>
 	</div>
 {% endblock %}

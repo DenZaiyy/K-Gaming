@@ -12,12 +12,14 @@
 						<div class="game d-flex flex-wrap justify-content-between gap-2" id="gameCart"
 						     data-id="{{ loop.index0 }}">
 							<div class="about d-flex flex-wrap gap-3">
-								<div class="image">
+								<a href="{{ path('app_show_game_platform', {platformSlug: item.platform.slug, gameSlug: item.game.slug}) }}">
+									<div class="image">
 									<img src="https://images.igdb.com/igdb/image/upload/t_cover_med/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: item.game.label })) }}.jpg"
 									     draggable="false" alt="cover for game: {{ item.game.label }}" loading="lazy">
-								</div>
+									</div>
+								</a>
 								<div class="infos d-flex flex-column justify-content-center">
-									<div class="game-platform d-flex gap-2">
+									<div class="game-platform d-flex align-items-center gap-2">
 										<div class="platform-logo">
 											<img src="{{ item.platform.logo }}"
 											     draggable="false"
@@ -25,7 +27,7 @@
 												 loading="lazy">
 										</div>
 										<div class="game-name">
-											<a href="{{ path('app_show_game_platform', {platformSlug: item.platform.slug, gameSlug: item.game.slug}) }}"><span>{{ item.game.label }}</span></a>
+											<span>{{ item.game.label }}</span>
 										</div>
 									</div>
 									<div class="delete-icon">
