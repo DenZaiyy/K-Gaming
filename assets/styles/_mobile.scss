@@ -23,10 +23,11 @@
 			
 			p {
 				font-size: 1em !important;
+				text-align: justify;
 			}
 		}
 		
-		.tendencies, .preorders, .content {
+		.tendencies, .preorders, .content, .listGames {
 			.cards {
 				display: flex !important;
 				flex-direction: column !important;
@@ -47,6 +48,7 @@
 		.newsletter, .rating {
 			.text-content {
 				width: 100% !important;
+				text-align: justify !important;
 			}
 		}
 		
@@ -79,6 +81,150 @@
 		}
 	}
 	// END HOMEPAGE
+	
+	// START LOGIN/REGISTER
+	.container {
+		padding: 20px !important;
+		margin: 0 !important;
+		
+		.login, .register {
+			padding: 20px !important;
+			
+			.card-body {
+				.passwords {
+					flex-direction: column !important;
+					gap: 10px !important;
+					
+					.col {
+						width: 100% !important;
+					}
+				}
+			}
+			
+			.card-footer {
+				align-items: center !important;
+				.actions {
+					display: flex !important;
+					gap: 10px !important;
+					a {
+						font-size: 1.5em;
+					}
+				}
+			}
+			
+			.checkbox {
+				text-align: center !important;
+			}
+			
+			.btns {
+				.btns-con-pass {
+					flex-direction: column !important;
+				}
+			}
+			
+			.btn {
+				width: 100% !important;
+			}
+		}
+	}
+	// END LOGIN/REGISTER
+	
+	//START CART
+	.cart {
+		padding: 20px !important;
+		flex-direction: column !important;
+		
+		.cart-item, .summary {
+			.card {
+				padding: 20px !important;
+			}
+		}
+		
+		.cart-item {
+			width: 100% !important;
+			
+			.card {
+				.game {
+					flex-direction: column !important;
+					justify-content: space-between !important;
+					
+					.about {
+						flex-direction: column !important;
+						align-items: center !important;
+						gap: 10px !important;
+						
+						.infos {
+							flex-direction: row !important;
+							align-items: center !important;
+							gap: 10px !important;
+						}
+					}
+					
+					.price {
+						flex-direction: row !important;
+						justify-content: center !important;
+					}
+				}
+			}
+		}
+		
+		.summary {
+			width: 100% !important;
+		}
+	}
+	//END CART
+	
+	//START ORDER
+	.order {
+		.order-header {
+			flex-direction: column !important;
+			gap: 20px !important;
+			
+			.recap {
+				width: 100% !important;
+			}
+		}
+	}
+	
+	.order-success {
+		.alert {
+			width: 100% !important;
+		}
+		
+		.order-content {
+			width: 100% !important;
+		}
+	}
+	
+	.current-purchase {
+		padding: 20px !important;
+		.cards {
+			.card {
+				width: 100% !important;
+			}
+		}
+	}
+	//END ORDER
+	
+	//START RATING
+	.rating-form {
+		padding: 20px !important;
+		.card {
+			width: 100% !important;
+			padding: 20px !important;
+			
+			.form {
+				.rating {
+					.ratingStars {
+						i {
+							font-size: 2em !important;
+						}
+					}
+				}
+			}
+		}
+	}
+	//END RATING
 	
 	// START USER PROFIL
 	.user-profil {
@@ -131,6 +277,20 @@
 			padding: 20px !important;
 		}
 		
+		.detail {
+			.coverDesc {
+				flex-direction: column !important;
+				align-items: center !important;
+				gap: unset !important;
+				
+				.desc {
+					.flex-content {
+						gap: 10px !important;
+					}
+				}
+			}
+		}
+		
 		.about {
 			.content {
 				flex-direction: column !important;
@@ -146,6 +306,9 @@
 					}
 				}
 			}
+		}
+		.screenshots {
+			padding: 20px !important;
 		}
 	}
 	// END DETAILS GAME

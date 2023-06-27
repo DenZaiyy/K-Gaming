@@ -36,27 +36,23 @@ body {
 }
 
 /* ===== Scrollbar CSS ===== */
-/* Firefox */
 * {
   scrollbar-width: auto;
   scrollbar-color: var(--orange) #ffffff;
 }
-
-/* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
   width: 5px;
 }
-
 *::-webkit-scrollbar-track {
   background: #ffffff;
 }
-
 *::-webkit-scrollbar-thumb {
   background-color: var(--orange);
   border-radius: 0;
   border: 0 none #ffffff;
 }
 
+/* ===== Scrollbar CSS ===== */
 .card {
   background-color: var(--bgColor);
 }
@@ -808,21 +804,23 @@ footer .f-flex small {
   }
   main .hero-text p {
     font-size: 1em !important;
+    text-align: justify;
   }
-  main .tendencies .cards, main .preorders .cards, main .content .cards {
+  main .tendencies .cards, main .preorders .cards, main .content .cards, main .listGames .cards {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     gap: 20px !important;
   }
-  main .tendencies .cards a, main .preorders .cards a, main .content .cards a {
+  main .tendencies .cards a, main .preorders .cards a, main .content .cards a, main .listGames .cards a {
     width: max-content !important;
   }
-  main .tendencies .cards a .gameCard:hover, main .preorders .cards a .gameCard:hover, main .content .cards a .gameCard:hover {
+  main .tendencies .cards a .gameCard:hover, main .preorders .cards a .gameCard:hover, main .content .cards a .gameCard:hover, main .listGames .cards a .gameCard:hover {
     transform: unset !important;
   }
   main .newsletter .text-content, main .rating .text-content {
     width: 100% !important;
+    text-align: justify !important;
   }
   main .genres {
     margin: 0 !important;
@@ -842,6 +840,99 @@ footer .f-flex small {
   }
   main .show-more {
     margin: 20px auto 0 auto !important;
+  }
+  .container {
+    padding: 20px !important;
+    margin: 0 !important;
+  }
+  .container .login, .container .register {
+    padding: 20px !important;
+  }
+  .container .login .card-body .passwords, .container .register .card-body .passwords {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  .container .login .card-body .passwords .col, .container .register .card-body .passwords .col {
+    width: 100% !important;
+  }
+  .container .login .card-footer, .container .register .card-footer {
+    align-items: center !important;
+  }
+  .container .login .card-footer .actions, .container .register .card-footer .actions {
+    display: flex !important;
+    gap: 10px !important;
+  }
+  .container .login .card-footer .actions a, .container .register .card-footer .actions a {
+    font-size: 1.5em;
+  }
+  .container .login .checkbox, .container .register .checkbox {
+    text-align: center !important;
+  }
+  .container .login .btns .btns-con-pass, .container .register .btns .btns-con-pass {
+    flex-direction: column !important;
+  }
+  .container .login .btn, .container .register .btn {
+    width: 100% !important;
+  }
+  .cart {
+    padding: 20px !important;
+    flex-direction: column !important;
+  }
+  .cart .cart-item .card, .cart .summary .card {
+    padding: 20px !important;
+  }
+  .cart .cart-item {
+    width: 100% !important;
+  }
+  .cart .cart-item .card .game {
+    flex-direction: column !important;
+    justify-content: space-between !important;
+  }
+  .cart .cart-item .card .game .about {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 10px !important;
+  }
+  .cart .cart-item .card .game .about .infos {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px !important;
+  }
+  .cart .cart-item .card .game .price {
+    flex-direction: row !important;
+    justify-content: center !important;
+  }
+  .cart .summary {
+    width: 100% !important;
+  }
+  .order .order-header {
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+  .order .order-header .recap {
+    width: 100% !important;
+  }
+  .order-success .alert {
+    width: 100% !important;
+  }
+  .order-success .order-content {
+    width: 100% !important;
+  }
+  .current-purchase {
+    padding: 20px !important;
+  }
+  .current-purchase .cards .card {
+    width: 100% !important;
+  }
+  .rating-form {
+    padding: 20px !important;
+  }
+  .rating-form .card {
+    width: 100% !important;
+    padding: 20px !important;
+  }
+  .rating-form .card .form .rating .ratingStars i {
+    font-size: 2em !important;
   }
   .user-profil .user-infos {
     margin: 30px auto !important;
@@ -875,6 +966,14 @@ footer .f-flex small {
   .detailGame .detail, .detailGame .about {
     padding: 20px !important;
   }
+  .detailGame .detail .coverDesc {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: unset !important;
+  }
+  .detailGame .detail .coverDesc .desc .flex-content {
+    gap: 10px !important;
+  }
   .detailGame .about .content {
     flex-direction: column !important;
     gap: 20px !important;
@@ -884,6 +983,9 @@ footer .f-flex small {
   }
   .detailGame .about .content .infos .release, .detailGame .about .content .infos .genres {
     padding: 0 !important;
+  }
+  .detailGame .screenshots {
+    padding: 20px !important;
   }
   .listGames .toggle-display {
     display: none !important;
@@ -964,14 +1066,13 @@ footer .f-flex small {
     text-decoration: underline;
     margin-bottom: 10px !important;
     padding: 10px;
-    background-color: rgba(255, 255, 255, 0.5);
   }
   .overlay-content .category .content {
     display: flex;
     flex-direction: column;
-    gap: 10px;
   }
   .overlay-content .category .content a {
+    padding: 10px;
     font-size: 1.7rem;
     text-decoration: none;
     color: var(--white);

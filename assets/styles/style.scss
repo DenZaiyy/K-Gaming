@@ -41,26 +41,25 @@ body {
 }
 
 /* ===== Scrollbar CSS ===== */
-/* Firefox */
 * {
 	scrollbar-width: auto;
 	scrollbar-color: var(--orange) #ffffff;
+	
+	&::-webkit-scrollbar {
+		width: 5px;
+	}
+	
+	&::-webkit-scrollbar-track {
+		background: #ffffff;
+	}
+	
+	&::-webkit-scrollbar-thumb {
+		background-color: var(--orange);
+		border-radius: 0;
+		border: 0 none #ffffff;
+	}
 }
-
-/* Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-	width: 5px;
-}
-
-*::-webkit-scrollbar-track {
-	background: #ffffff;
-}
-
-*::-webkit-scrollbar-thumb {
-	background-color: var(--orange);
-	border-radius: 0;
-	border: 0 none #ffffff;
-}
+/* ===== Scrollbar CSS ===== */
 // END : Reset style pour tout les éléments du site
 
 // START : Style pour les card du site
