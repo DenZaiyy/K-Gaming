@@ -41,15 +41,16 @@
 			text-decoration: underline;
 			margin-bottom: 10px !important;
 			padding: 10px;
-			background-color: rgba(255, 255, 255, 0.5);
+			//background-color: rgba(255, 255, 255, 0.5);
 		}
 		
 		.content {
 			display: flex;
 			flex-direction: column;
-			gap: 10px;
+			//gap: 10px;
 			
 			a {
+				padding: 10px;
 				font-size: 1.7rem;
 				text-decoration: none;
 				color: var(--white);
