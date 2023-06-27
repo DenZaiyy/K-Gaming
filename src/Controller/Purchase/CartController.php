@@ -28,6 +28,8 @@ class CartController extends AbstractController
 	public function addToCart(CartService $cartService, $platformSlug, $gameSlug): Response
 	{
 		$cartService->addToCart($gameSlug, $platformSlug);
+
+        $this->addFlash('success', 'Le jeu a bien été ajouté au panier !');
 		
 		return $this->redirectToRoute('app_show_game_platform', [
 			'gameSlug' => $gameSlug,
