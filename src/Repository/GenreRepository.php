@@ -43,10 +43,10 @@ class GenreRepository extends ServiceEntityRepository
 	 * Méthode pour récupérer 6 genres au hasard pour la page d'accueil
 	 * @return Genre[]
 	 */
-	public function findGenres()
+	public function findGenres($resultPerPage)
 	{
 		return $this->createQueryBuilder('g')
-			->setMaxResults(6)
+			->setMaxResults($resultPerPage)
 			->getQuery()
 			->getResult();
 	}
