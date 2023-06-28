@@ -42,7 +42,7 @@ class StockRepository extends ServiceEntityRepository
 	/**
 	 * Méthode pour récupérer la liste des jeux en tendance
 	 */
-	public function findGamesInTendencies(): array
+	public function findGamesInTendencies($resultPerPage): array
 	{
 		return $this->createQueryBuilder('s')
 			->select('g.id', 'g.label', 'g.slug', 'g.price', 'g.date_release')
@@ -52,7 +52,7 @@ class StockRepository extends ServiceEntityRepository
 			->andWhere('s.purchase IS NOT NULL')
 			->groupBy('g.id', 'g.label', 'g.slug', 'g.price', 'g.date_release')
 			->orderBy('COUNT(s.id)', 'DESC')
-			->setMaxResults(3)
+			->setMaxResults($resultPerPage)
 			->getQuery()
 			->getResult();
 	}

@@ -47,12 +47,12 @@ class GameRepository extends ServiceEntityRepository
 	/*
 	 * Méthode pour récupérer les jeux en précommande
 	 */
-    public function findGamesInPreOrders(): array
+    public function findGamesInPreOrders($resultPerPage): array
     {
         return $this->createQueryBuilder('g')
             ->where('g.date_release > :date')
             ->setParameter('date', new \DateTime())
-            ->setMaxResults(3)
+            ->setMaxResults($resultPerPage)
             ->getQuery()
             ->getResult();
     }
