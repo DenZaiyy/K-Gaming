@@ -1,6 +1,10 @@
 @media (max-width: 575.98px) {
-	.menus {
+	.menus, .icons {
 		display: none !important;
+	}
+	
+	.burger-btn, .overlay-menu {
+		display: block !important;
 	}
 	
 	// START HOMEPAGE
@@ -374,7 +378,4 @@
 		}
 	}
 	// END FOOTER
-	
-	// IMPORT BURGER MENU
-	@import './_menu-burger';
 }
