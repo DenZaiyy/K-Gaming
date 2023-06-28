@@ -1007,14 +1007,11 @@ footer {
 // END : FOOTER
 
 // START MENU BURGER
-.burger-btn {
-	display: none;
-}
-
-.overlay-menu {
-	display: none;
+.burger-btn, .overlay-menu {
+	display: none !important;
 }
 // END MENU BURGER
 
 // IMPORTS OTHER CSS FILES
+@import './_menu-burger';
 @import './_mobile';
