@@ -151,4 +151,21 @@ window.addEventListener('load', (e) => {
 	xHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); // on définit le header de la requête
 	xHttp.send("screenWidth=" + screenWidth); // on envoie la requête avec la largeur de l'écran
 	// END SCREEN SIZE
+
+	//START ACCORDION MENU BURGER
+	let acc = document.getElementsByClassName("accordion"); // on récupère tous les éléments avec la classe accordion
+	let i; // on crée une variable i
+
+	for (i = 0; i < acc.length; i++) {
+		acc[i].addEventListener("click", function() { // on écoute l'événement click sur l'élément
+			this.classList.toggle("active"); // on ajoute ou on enlève la classe active à l'élément
+			let panel = this.nextElementSibling; // on récupère le prochain élément
+			if (panel.style.maxHeight) { // si l'élément a une hauteur max
+				panel.style.maxHeight = null; // on enlève la hauteur max
+			} else { // sinon
+				panel.style.maxHeight = panel.scrollHeight + "px"; // on ajoute la hauteur max
+			}
+		});
+	}
+
 })
