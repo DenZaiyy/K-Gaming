@@ -12,11 +12,12 @@
                     {{ form_widget(registrationForm.username) }}
                     {{ form_label(registrationForm.username) }}
                 </div>
+                <div>{{ form_errors(registrationForm.email) }}</div>
                 <div class="form-floating mb-3">
                     {{ form_widget(registrationForm.email) }}
                     {{ form_label(registrationForm.email) }}
                 </div>
-
+                <div>{{ form_errors(registrationForm.plainPassword.first) }}</div>
                 <div class="passwords d-flex flex-row g-2 mb-3">
                     <div class="form-floating col">
                         {{ form_widget(registrationForm.plainPassword.first) }}
