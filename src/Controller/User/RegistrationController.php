@@ -40,6 +40,15 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $checkMail = $entityManager->getRepository(User::class)->findOneBy(['email' => $form->get('email')->getData()]);
+
+            if($checkMail)
+            {
+                $this->addFlash('danger', 'Cette adresse email est déjà utilisée');
+                return $this->redirectToRoute('app_register');
+            }
+
             // encode the plain password
             $user->setPassword(
                 $userPasswordHashed->hashPassword(
