@@ -7,11 +7,13 @@ use App\Entity\Newsletter\NewsletterUser;
 use App\Entity\Purchase;
 use App\Entity\User;
 use App\Form\AddressType;
+use App\Form\User\UpdateEmailType;
 use App\Form\User\UpdatePasswordType;
 use App\Form\User\UpdateUsernameType;
-use App\Service\FileUploader;
+use App\Security\EmailVerifier;
 use App\Service\MultiAvatars;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,12 +25,12 @@ class UserController extends AbstractController
 	/*
 	 * Constructeur permettant d'instancier l'entityManager et l'utiliser dans les fonctions
 	 */
-    public function __construct(private EntityManagerInterface $em)
+    public function __construct(private EntityManagerInterface $em, private EmailVerifier $emailVerifier)
     {
     }
 
     #[Route('/profil', name: 'user_my_account')]
-    public function index(Request $request, FileUploader $uploader, UserPasswordHasherInterface $hasher, MultiAvatars $multiAvatars): Response
+    public function index(Request $request, UserPasswordHasherInterface $hasher, MultiAvatars $multiAvatars): Response
     {
         $user = $this->getUser();
 	    $currentUser = $this->em->getRepository(User::class)->findOneBy(['username' => $user->getUsername()]);
@@ -36,7 +38,8 @@ class UserController extends AbstractController
         $avatars = $multiAvatars->getFiveRandomlyAvatar();
 
 		$usernameForm = $this->createForm(UpdateUsernameType::class, $user);
-		$passwordForm = $this->createForm(UpdatePasswordType::class, $user);
+        $passwordForm = $this->createForm(UpdatePasswordType::class, $user);
+        $emailForm = $this->createForm(UpdateEmailType::class, $user);
 
 		$usernameForm->handleRequest($request);
 		if ($usernameForm->isSubmitted() && $usernameForm->isValid())
@@ -57,6 +60,35 @@ class UserController extends AbstractController
 			$this->addFlash('success', 'Votre nom d\'utilisateur a bien été modifié');
 			return $this->redirectToRoute('user_my_account');
 		}
+
+        $emailForm->handleRequest($request);
+        if ($emailForm->isSubmitted() && $emailForm->isValid())
+        {
+            $check = $this->em->getRepository(User::class)->findOneBy(['email' => $emailForm->getData()->getEmail()]);
+            if($check)
+            {
+                $this->addFlash('danger', 'Cet adresse email est déjà utilisé');
+                return $this->redirectToRoute('user_my_account');
+            }
+
+            $currentUser->setUpdatedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris')));
+            $currentUser->setIsVerified(false);
+            $currentUser->setEmail($emailForm->get('email')->getData());
+
+            $this->em->persist($currentUser);
+            $this->em->flush();
+
+            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $currentUser,
+                (new TemplatedEmail())
+                    ->from(new \Symfony\Component\Mime\Address('support@k-grischko.fr', 'K-Gaming - Support'))
+                    ->to($currentUser->getEmail())
+                    ->subject('Confirmer votre nouvelle adresse email')
+                    ->htmlTemplate('security/user/user_email_update.html.twig')
+            );
+
+            $this->addFlash('success', 'Votre adresse email a bien été modifié, vous allez recevoir un email de confirmation');
+            return $this->redirectToRoute('user_my_account');
+        }
 
 		$passwordForm->handleRequest($request);
 		if ($passwordForm->isSubmitted() && $passwordForm->isValid())
@@ -83,6 +115,7 @@ class UserController extends AbstractController
             'user' => $user,
 			'avatars' => $avatars,
 	        'usernameForm' => $usernameForm->createView(),
+            'emailForm' => $emailForm->createView(),
 	        'passwordForm' => $passwordForm->createView(),
         ]);
     }
