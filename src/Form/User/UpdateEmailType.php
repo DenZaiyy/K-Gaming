@@ -25,9 +25,6 @@ class UpdateEmailType extends AbstractType
                 'constraints' => [
                     new Email([
                         'message' => 'Veuillez entrer un email valide.',
-                    ]),
-                    new Unique([
-                        'message' => 'Cet email est déjà utilisé.',
                     ])
                 ]
             ])
