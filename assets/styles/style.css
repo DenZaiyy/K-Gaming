@@ -964,6 +964,7 @@ footer .f-flex small {
   }
   .container .card .card-body {
     width: 100% !important;
+    padding: 0 !important;
   }
   .container .login, .container .register {
     padding: 20px !important;
@@ -1057,21 +1058,28 @@ footer .f-flex small {
   .user-profil .user-infos {
     margin: 30px auto !important;
   }
-  .user-profil .user-infos .settings .avatar, .user-profil .user-infos .settings .username, .user-profil .user-infos .settings .password {
+  .user-profil .user-infos .settings .avatar, .user-profil .user-infos .settings .username, .user-profil .user-infos .settings .email, .user-profil .user-infos .settings .password {
     flex-direction: column !important;
   }
-  .user-profil .user-infos .settings .avatar .infos, .user-profil .user-infos .settings .username .infos, .user-profil .user-infos .settings .password .infos {
+  .user-profil .user-infos .settings .avatar .infos, .user-profil .user-infos .settings .username .infos, .user-profil .user-infos .settings .email .infos, .user-profil .user-infos .settings .password .infos {
     width: 100% !important;
   }
-  .user-profil .user-infos .settings .avatar .card, .user-profil .user-infos .settings .username .card, .user-profil .user-infos .settings .password .card {
+  .user-profil .user-infos .settings .avatar .card, .user-profil .user-infos .settings .username .card, .user-profil .user-infos .settings .email .card, .user-profil .user-infos .settings .password .card {
     width: 100% !important;
     grid-gap: 10px !important;
   }
-  .user-profil .user-infos .settings .avatar .card .new-password, .user-profil .user-infos .settings .username .card .new-password, .user-profil .user-infos .settings .password .card .new-password {
+  .user-profil .user-infos .settings .avatar .card .new-password, .user-profil .user-infos .settings .username .card .new-password, .user-profil .user-infos .settings .email .card .new-password, .user-profil .user-infos .settings .password .card .new-password {
     flex-direction: column !important;
   }
   .user-profil .user-ratings .ratings .card {
     max-width: unset !important;
+  }
+  .user-profil .user-ratings .ratings .card .card-body {
+    width: 100% !important;
+    padding: 10px !important;
+  }
+  .user-profil .user-ratings .ratings .card .card-body p {
+    margin: 0 !important;
   }
   .user-profil .user-ratings .ratings .card .card-footer {
     align-items: center !important;

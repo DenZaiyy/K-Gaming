@@ -96,6 +96,7 @@
 			
 			.card-body {
 				width: 100% !important;
+				padding: 0 !important;
 			}
 		}
 		
@@ -243,7 +244,7 @@
 		.user-infos {
 			margin: 30px auto !important;
 			.settings {
-				.avatar, .username, .password {
+				.avatar, .username, .email, .password {
 					flex-direction: column !important;
 					
 					.infos {
@@ -266,6 +267,15 @@
 			.ratings {
 				.card {
 					max-width: unset !important;
+					
+					.card-body {
+						width: 100% !important;
+						padding: 10px !important;
+						
+						p {
+							margin: 0 !important;
+						}
+					}
 					
 					.card-footer {
 						align-items: center !important;
