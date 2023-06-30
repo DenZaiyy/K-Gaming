@@ -33,10 +33,15 @@
                     <label for="inputPassword">Mot de passe</label>
                 </div>
 
-                <div class="checkbox mb-3 float-start">
+                {#<div class="checkbox mb-3 float-start">
                     <label>
                         <input type="checkbox" name="_remember_me" class="form-check-input"> Se souvenir de moi
                     </label>
+                </div>#}
+
+                <div class="checkbox mb-3 float-start">
+                    <input type="checkbox" name="_show_password" id="showPassword" class="form-check-input">
+                    <label for="showPassword" id="labelPassword">Voir le mot de passe</label>
                 </div>
 
                 <div class="btns d-flex flex-column gap-3">

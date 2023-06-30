@@ -167,5 +167,22 @@ window.addEventListener('load', (e) => {
 			}
 		});
 	}
+	//END ACCORDION MENU BURGER
 
+	// START SHOW PASSWORD
+	const showPassword = document.getElementById("showPassword"); // on récupère l'élément avec l'id showPassword
+	const password = document.getElementById("inputPassword"); // on récupère l'élément avec l'id password
+	const labelPassword = document.getElementById("labelPassword"); // on récupère l'élément avec l'id labelPassword
+
+	if (showPassword) { // si l'élément existe
+		showPassword.addEventListener("click", function () { // on écoute l'événement click sur l'élément
+			if (password.type === "password") { // si le type de l'élément est password
+				password.type = "text"; // on change le type de l'élément
+				labelPassword.innerHTML = "Masquer le mot de passe"; // on change le texte de l'élément
+			} else { // sinon
+				password.type = "password"; // on change le type de l'élément
+				labelPassword.innerHTML = "Voir le mot de passe"; // on change le texte de l'élément
+			}
+		})
+	}
 })
