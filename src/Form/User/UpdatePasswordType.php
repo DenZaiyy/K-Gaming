@@ -9,15 +9,12 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 
 class UpdatePasswordType extends AbstractType
 {
-    /*
-     * TODO: Faire le formulaire pour pouvoir changer de mot de passe
-     */
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -28,6 +25,11 @@ class UpdatePasswordType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Mot de passe actuel',
                     'class' => 'form-control'
+                ],
+                'constraints' => [
+                    new UserPassword([
+                        'message' => 'Le mot de passe actuel est incorrect.',
+                    ])
                 ]
             ])
             ->add('plainPassword', RepeatedType::class, [
@@ -40,7 +42,6 @@ class UpdatePasswordType extends AbstractType
                 'required' => true,
                 'first_options' => ['label' => 'Nouveau mot de passe', 'attr' => ['placeholder' => 'Nouveau mot de passe', 'class' => 'form-control']],
                 'second_options' => ['label' => 'Confirmer le nouveau mot de passe', 'attr' => ['placeholder' => 'Confirmer le nouveau mot de passe', 'class' => 'form-control']],
-                // TODO: Vérifier pourquoi les messages d'erreurs ne s'affichent pas
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez entrer un mot de passe.',

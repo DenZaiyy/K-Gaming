@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -36,7 +37,15 @@ class RegistrationFormType extends AbstractType
 				'attr' => [
 					'placeholder' => 'Email',
 					'class' => 'form-control'
-				]
+				],
+                'constraints' => [
+                    new Email([
+                        'message' => 'Veuillez entrer un email valide.',
+                    ]),
+                    new NotBlank([
+                        'message' => 'Veuillez entrer un email.',
+                    ])
+                ]
 			])
 			->add('plainPassword', RepeatedType::class, [
 				'mapped' => false,
@@ -48,7 +57,6 @@ class RegistrationFormType extends AbstractType
 				'required' => true,
 				'first_options' => ['label' => 'Mot de passe', 'attr' => ['placeholder' => 'Mot de passe', 'class' => 'form-control']],
 				'second_options' => ['label' => 'Confirmer votre mot de passe', 'attr' => ['placeholder' => 'Confirmer votre mot de passe', 'class' => 'form-control']],
-				// TODO: Vérifier pourquoi les messages d'erreurs ne s'affichent pas
 				'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez entrer un mot de passe.',
