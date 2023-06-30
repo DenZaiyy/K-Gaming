@@ -48,10 +48,27 @@
 							</p>
 						</div>
 						<div class="card w-50 p-3">
+							<div>{{ form_errors(usernameForm.username) }}</div>
 							{{ form_start(usernameForm, {attr: {'class': 'd-flex align-items-center flex-row gap-3'}}) }}
 							{{ form_widget(usernameForm.username) }}
 							{{ form_widget(usernameForm.submit) }}
 							{{ form_end(usernameForm) }}
+						</div>
+					</div>
+					<hr class="w-100">
+					<div class="email d-flex align-items-center flex-row gap-3">
+						<div class="infos w-50">
+							<h3>Changer d'adresse mail</h3>
+							<p>
+								Vous pouvez changer de mail et vous recevrez un mail de confirmation sur la nouvelle adresse.
+							</p>
+						</div>
+						<div class="card w-50 p-3">
+							<div>{{ form_errors(emailForm.email) }}</div>
+							{{ form_start(emailForm, {attr: {'class': 'd-flex align-items-center flex-row gap-3'}}) }}
+							{{ form_widget(emailForm.email) }}
+							{{ form_widget(emailForm.submit) }}
+							{{ form_end(emailForm) }}
 						</div>
 					</div>
 					<hr class="w-100">
@@ -64,10 +81,12 @@
 						</div>
 						<div class="card w-50 p-3">
 							{{ form_start(passwordForm, {attr: {class: 'd-flex align-items-center flex-column gap-3'}}) }}
+							<div>{{ form_errors(passwordForm.currentPassword) }}</div>
 							<div class="form-floating w-100">
 								{{ form_widget(passwordForm.currentPassword) }}
 								{{ form_label(passwordForm.currentPassword) }}
 							</div>
+							<div>{{ form_errors(passwordForm.plainPassword.first) }}</div>
 							<div class="new-password d-flex flex-row w-100 gap-3">
 								<div class="form-floating w-100">
 									{{ form_widget(passwordForm.plainPassword.first) }}
