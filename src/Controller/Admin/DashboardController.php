@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Game;
 use App\Entity\Genre;
+use App\Entity\Newsletter\Newsletter;
+use App\Entity\Newsletter\NewsletterUser;
 use App\Entity\Purchase;
 use App\Entity\Rating;
 use App\Entity\Stock;
@@ -48,11 +50,13 @@ class DashboardController extends AbstractDashboardController
 	public function configureMenuItems(): iterable
 	{
 		yield MenuItem::linkToCrud('Jeux', 'fa-solid fa-gamepad', Game::class);
-		yield MenuItem::linkToCrud('Note', 'fa-solid fa-star', Rating::class);
         yield MenuItem::linkToCrud('Genre', 'fa-solid fa-icons', Genre::class);
-        yield MenuItem::linkToCrud('Commande', 'fa-solid fa-laptop', Purchase::class);
+		yield MenuItem::linkToCrud('Note', 'fa-solid fa-star', Rating::class);
         yield MenuItem::linkToCrud('Stock', 'fa-solid fa-shop', Stock::class);
-        yield MenuItem::linkToCrud('Utilisateur', 'fa-solid fa-users-gear', User::class);
+        yield MenuItem::linkToCrud('Commande', 'fa-solid fa-laptop', Purchase::class);
+        yield MenuItem::linkToCrud('Utilisateur', 'fa-solid fa-user-gear', User::class);
+        yield MenuItem::linkToCrud('Utilisateur newsletter', 'fa-solid fa-users-gear', NewsletterUser::class);
+        yield MenuItem::linkToCrud('Newsletter', 'fa-solid fa-envelope-circle-check', Newsletter::class);
         yield MenuItem::linkToRoute('Retour sur le site', 'fas fa-home', 'app_home');
 	}
 }
