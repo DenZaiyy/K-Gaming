@@ -149,8 +149,12 @@
 						<div class="card">
 							<div class="card-header d-flex flex-wrap justify-content-between align-items-center">
 								<div class="user d-flex gap-2 align-items-center">
-									<img src="{{ rating.user.avatar }}" alt="avatar of user {{ rating.user.username }}" loading="lazy">
-									{{ rating.user.username }}
+									{% if rating.user is null %}
+										<img src="{{ asset('img/default.png') }}" alt="image d'avatar par défaut" loading="lazy"> Utilisateur supprimé
+										{% else %}
+											<img src="{{ rating.user.avatar }}" alt="avatar of user {{ rating.user.username }}" loading="lazy">
+											{{ rating.user.username }}
+									{% endif %}
 								</div>
 								{% include 'components/rating/_rating.html.twig' %}
 							</div>

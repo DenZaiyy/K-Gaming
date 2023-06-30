@@ -22,7 +22,7 @@ class Rating
     private ?int $note = null;
 
     #[ORM\ManyToOne(inversedBy: 'ratings')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private ?User $user = null;
 
     #[ORM\Column(type: Types::TEXT)]
