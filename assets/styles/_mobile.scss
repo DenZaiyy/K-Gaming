@@ -91,6 +91,14 @@
 		padding: 20px !important;
 		margin: 0 !important;
 		
+		.card {
+			width: 100% !important;
+			
+			.card-body {
+				width: 100% !important;
+			}
+		}
+		
 		.login, .register {
 			padding: 20px !important;
 			

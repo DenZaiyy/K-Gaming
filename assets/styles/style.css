@@ -959,6 +959,12 @@ footer .f-flex small {
     padding: 20px !important;
     margin: 0 !important;
   }
+  .container .card {
+    width: 100% !important;
+  }
+  .container .card .card-body {
+    width: 100% !important;
+  }
   .container .login, .container .register {
     padding: 20px !important;
   }
