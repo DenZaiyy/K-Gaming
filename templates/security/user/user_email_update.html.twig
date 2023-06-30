@@ -1,0 +1,10 @@
+<h1>Bonjour !</h1>
+<p>
+    Vous avez changer votre adresse électronique sur K-Gaming.
+</p>
+
+<p>
+    Veuillez confirmer votre nouvelle adresse électronique en cliquant sur le lien suivant: <br><br>
+    <a href="{{ signedUrl|raw }}">Confirmer mon e-mail</a>.
+    Ce lien expirera dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+</p>
