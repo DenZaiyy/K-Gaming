@@ -3,7 +3,7 @@
 {% block title %}Mes préférences{% endblock %}
 
 {% block body %}
-	<div class="container">
+	<div class="container text-center">
 		<section class="theme-switcher my-3">
 			<h2>Thème du site</h2>
 			<span>Light</span>
@@ -12,8 +12,7 @@
 				<label for="switch">Toggle</label>
 			</div>
 		</section>
-
-
+		<hr class="w-75 mx-auto">
 		<section id="newsletter" class="my-3">
 			<h2>Newsletter</h2>
 			{% if newsletter %}
@@ -27,6 +26,14 @@
 					<a href="{{ path('newsletter_subscribe') }}" class="btn btn-primary">S'inscrire</a>
 				</div>
 			{% endif %}
+		</section>
+		<hr class="w-75 mx-auto">
+		<section id="delete-account">
+			<h2>Supprimer mon compte</h2>
+			<p>Vous n'avez plus envie d'avoir un compte sur notre site ? Pas de problème, vous pouvez le supprimer</p>
+			<form action="{{ path('user_delete_account', {id: app.user.id}) }}" onsubmit="return confirm('Êtes vous sûre de vouloir supprimer votre compte? Cet action est sans aucun retour possible.')">
+				<input type="submit" class="btn btn-danger p-3" value="Supprimer mon compte">
+			</form>
 		</section>
 	</div>
 {% endblock %}
