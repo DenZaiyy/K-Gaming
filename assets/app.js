@@ -12,6 +12,7 @@ import './styles/style.css';
 import './bootstrap';
 import './themeSwitch';
 import './rating';
+import './tarteaucitron';
 
 import noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';

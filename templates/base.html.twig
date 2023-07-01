@@ -19,14 +19,15 @@
 		      crossorigin="anonymous">
 		{{ encore_entry_link_tags('app') }}
 	{% endblock %}
-	
+
 	{% block javascripts %}
 		<script src="https://code.jquery.com/jquery-3.6.4.js"
-		        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous" defer></script>
+				integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous" defer></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous" defer></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"
-		        integrity="sha512-i9cEfJwUwViEPFKdC1enz4ZRGBj8YQo6QByFTF92YXHi7waCqyexvRD75S5NVTsSiTv7rKWqG9Y5eFxmRsOn0A=="
-		        crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+				integrity="sha512-i9cEfJwUwViEPFKdC1enz4ZRGBj8YQo6QByFTF92YXHi7waCqyexvRD75S5NVTsSiTv7rKWqG9Y5eFxmRsOn0A=="
+				crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+		<script src="{{ asset('/tarteaucitron/tarteaucitron.js') }}"></script>
 		{{ encore_entry_script_tags('app') }}
 	{% endblock %}
 </head>
