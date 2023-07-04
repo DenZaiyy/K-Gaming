@@ -81,12 +81,16 @@
 						</div>
 						<div class="card w-50 p-3">
 							{{ form_start(passwordForm, {attr: {class: 'd-flex align-items-center flex-column gap-3'}}) }}
-							<div>{{ form_errors(passwordForm.currentPassword) }}</div>
+							{% if form_errors(passwordForm.currentPassword) %}
+								<div>{{ form_errors(passwordForm.currentPassword) }}</div>
+							{% endif %}
 							<div class="form-floating w-100">
 								{{ form_widget(passwordForm.currentPassword) }}
 								{{ form_label(passwordForm.currentPassword) }}
 							</div>
-							<div>{{ form_errors(passwordForm.plainPassword.first) }}</div>
+							{% if form_errors(passwordForm.plainPassword.first) %}
+								<div>{{ form_errors(passwordForm.plainPassword.first) }}</div>
+							{% endif %}
 							<div class="new-password d-flex flex-row w-100 gap-3">
 								<div class="form-floating w-100">
 									{{ form_widget(passwordForm.plainPassword.first) }}
