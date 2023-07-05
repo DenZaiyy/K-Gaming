@@ -30,6 +30,22 @@ body {
   background-color: var(--bgColor);
 }
 
+.password-container {
+  position: relative;
+}
+
+.fa-eye, .fa-eye-slash {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: lightgray;
+}
+.fa-eye:hover, .fa-eye-slash:hover {
+  color: gray;
+}
+
 *, ::before, ::after {
   margin: 0;
   padding: 0;

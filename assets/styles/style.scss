@@ -33,6 +33,23 @@ body {
 	background-color: var(--bgColor);
 }
 
+.password-container {
+	position: relative;
+}
+
+.fa-eye, .fa-eye-slash {
+	position: absolute;
+	top: 50%;
+	right: 15px;
+	transform: translateY(-50%);
+	cursor: pointer;
+	color: lightgray;
+	
+	&:hover {
+		color: gray;
+	}
+}
+
 // START : Reset style pour tout les éléments du site
 *, ::before, ::after {
 	margin: 0;

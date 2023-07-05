@@ -171,19 +171,15 @@ window.addEventListener('load', (e) => {
 	//END ACCORDION MENU BURGER
 
 	// START SHOW PASSWORD
-	const showPassword = document.getElementById("showPassword"); // on récupère l'élément avec l'id showPassword
 	const password = document.getElementById("inputPassword"); // on récupère l'élément avec l'id password
-	const labelPassword = document.getElementById("labelPassword"); // on récupère l'élément avec l'id labelPassword
+	const eye = document.getElementById("eye") // on récupère l'élément avec l'id eye
 
-	if (showPassword) { // si l'élément existe
-		showPassword.addEventListener("click", function () { // on écoute l'événement click sur l'élément
-			if (password.type === "password") { // si le type de l'élément est password
-				password.type = "text"; // on change le type de l'élément
-				labelPassword.innerHTML = "Masquer le mot de passe"; // on change le texte de l'élément
-			} else { // sinon
-				password.type = "password"; // on change le type de l'élément
-				labelPassword.innerHTML = "Voir le mot de passe"; // on change le texte de l'élément
-			}
+	if (eye) { // si l'élément existe
+		eye.addEventListener("click", function () { // on écoute l'événement click sur l'élément
+			this.classList.toggle('fa-eye'); // on ajoute ou on enlève la classe fa-eye à l'élément
+			this.classList.toggle('fa-eye-slash'); // on ajoute ou on enlève la classe fa-eye-slash à l'élément
+			const type = password.getAttribute('type') === 'password' ? 'text' : 'password'; // on récupère le type de l'élément
+			password.setAttribute('type', type); // on change le type de l'élément
 		})
 	}
 })
