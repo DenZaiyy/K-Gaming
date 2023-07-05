@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
--- Listage des données de la table kgaming.doctrine_migration_versions : ~6 rows (environ)
+-- Listage des données de la table kgaming.doctrine_migration_versions : ~19 rows (environ)
 DELETE FROM `doctrine_migration_versions`;
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 	('DoctrineMigrations\\Version20230601144500', NULL, NULL),
@@ -414,7 +414,7 @@ CREATE TABLE IF NOT EXISTS `newsletter_user` (
   `token` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_rgpd` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table kgaming.newsletter_user : ~2 rows (environ)
 DELETE FROM `newsletter_user`;
@@ -494,7 +494,7 @@ CREATE TABLE IF NOT EXISTS `rating` (
   CONSTRAINT `FK_D8892622FFE6496F` FOREIGN KEY (`platform_id`) REFERENCES `plateform` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.rating : ~0 rows (environ)
+-- Listage des données de la table kgaming.rating : ~4 rows (environ)
 DELETE FROM `rating`;
 INSERT INTO `rating` (`id`, `game_id`, `note`, `user_id`, `message`, `platform_id`, `created_at`, `updated_at`) VALUES
 	(11, 2, 4, 2, 'Bien malgré les nouveaux recul qui facilite trop les nouveaux joueurs', 6, '2023-06-08 14:51:54', NULL),
@@ -522,7 +522,7 @@ CREATE TABLE IF NOT EXISTS `recap_details` (
   CONSTRAINT `FK_1D1FD69F65E9B0F` FOREIGN KEY (`order_product_id`) REFERENCES `purchase` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.recap_details : ~0 rows (environ)
+-- Listage des données de la table kgaming.recap_details : ~3 rows (environ)
 DELETE FROM `recap_details`;
 INSERT INTO `recap_details` (`id`, `order_product_id`, `quantity`, `game_label`, `price`, `total_recap`, `platform_label`, `game_id`, `platform_id`, `game_slug`, `platform_slug`) VALUES
 	(59, 98, 2, 'Diablo IV', 19.99, '39.98', 'Battle.net', 7, 3, 'diablo-iv', 'battle-net'),
@@ -566,7 +566,7 @@ CREATE TABLE IF NOT EXISTS `stock` (
   CONSTRAINT `FK_4B365660E48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=543 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.stock : ~0 rows (environ)
+-- Listage des données de la table kgaming.stock : ~541 rows (environ)
 DELETE FROM `stock`;
 INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_key`, `date_availability`, `is_available`) VALUES
 	(1, 2, 99, 1, '3D35-8828-9BF9-6896', '2023-06-06 09:08:47', 0),
@@ -1126,9 +1126,9 @@ CREATE TABLE IF NOT EXISTS `user` (
   `updated_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649F85E0677` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.user : ~2 rows (environ)
+-- Listage des données de la table kgaming.user : ~3 rows (environ)
 DELETE FROM `user`;
 INSERT INTO `user` (`id`, `username`, `roles`, `password`, `email`, `avatar`, `is_verified`, `create_at`, `is_banned`, `updated_at`) VALUES
 	(1, 'denZ', '["ROLE_ADMIN"]', '$2y$13$4eyOQ1oZxhWzR3PLYIlRXe.5Yvrtgk14xqeU8sYp8GZYKe/yiwc9G', 'denzoubiden@gmail.com', 'https://api.multiavatar.com/315.png?apikey=oE7Qgxe34yjiMh', 1, '2023-05-14 20:43:59', 0, '2023-06-25 23:44:06'),
