@@ -132,8 +132,9 @@
 			{% if ratings %}
 				<div class="moyenne d-flex justify-content-center gap-2 align-items-center my-3">
 					Note du jeu ({{ ratings|length }} avis) :
+					{# TODO: Check how to calculate float value of moyenne, for show half star if value is float #}
 					<div class="note d-flex ">
-						{% for i in 1..moyenne %}
+						{% for i in 1..moyenne|round %}
 							<i class="bi bi-star-fill"></i>
 						{% endfor %}
 						{% if moyenne < 5 %}
