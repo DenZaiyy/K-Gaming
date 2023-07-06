@@ -149,7 +149,7 @@
 						<div class="card-body">
 							<p>{{ rating.message }}</p>
 						</div>
-						<div class="card-footer d-flex flex-wrap justify-content-between">
+						<div class="card-footer d-flex flex-wrap align-items-center justify-content-between">
 							<div class="createdAt">
 								{% if rating.updatedAt %}
 									<small>Mis à jour le <strong>{{ fullDateFR(rating.updatedAt) }}</strong></small>
@@ -159,8 +159,8 @@
 							</div>
 							{% if app.user.id == rating.user.id %}
 								<div class="actions">
-									<a href="{{ path('rating_edit', {gameSlug: rating.game.slug, platformSlug: rating.platform.slug}) }}"><i class="bi bi-gear"></i></a>
-									<a href="{{ path('rating_delete', {gameSlug: rating.game.slug, platformSlug: rating.platform.slug}) }}"><i class="bi bi-trash"></i></a>
+									<a href="{{ path('rating_edit', {gameSlug: rating.game.slug, platformSlug: rating.platform.slug}) }}" class="edit-btn"><i class="bi bi-gear"></i></a>
+									<a href="{{ path('rating_delete', {gameSlug: rating.game.slug, platformSlug: rating.platform.slug}) }}" class="del-btn" onclick="return confirm('Êtes-vous sure de vouloir supprimer votre avis ?')"><i class="bi bi-trash"></i></a>
 								</div>
 							{% endif %}
 						</div>

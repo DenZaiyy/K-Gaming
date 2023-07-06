@@ -459,11 +459,23 @@ main .user-profil .user-ratings .ratings .card .card-header .game img {
   width: 32px;
   height: 32px;
 }
+main .user-profil .user-ratings .ratings .card .card-footer .actions .edit-btn, main .user-profil .user-ratings .ratings .card .card-footer .actions .del-btn {
+  font-size: 1.5rem;
+  color: var(--blue);
+  transition: var(--animation);
+}
+main .user-profil .user-ratings .ratings .card .card-footer .actions .edit-btn:hover, main .user-profil .user-ratings .ratings .card .card-footer .actions .del-btn:hover {
+  color: var(--orange) !important;
+  transition: var(--animation);
+}
+main .user-profil .user-ratings .ratings .card .card-footer .actions .del-btn {
+  color: darkred !important;
+}
 main .bi-star-fill {
   color: var(--orange);
 }
 main .bi-star, main .bi-star-fill {
-  font-size: 1.3em;
+  font-size: 1.5rem;
 }
 main .detailGame .detail {
   padding: 30px;
@@ -1143,9 +1155,6 @@ footer .f-flex small {
   .user-profil .user-ratings .ratings .card .card-footer .actions {
     display: flex !important;
     gap: 10px !important;
-  }
-  .user-profil .user-ratings .ratings .card .card-footer .actions a {
-    font-size: 1.5em;
   }
   .detailGame .detail, .detailGame .about {
     padding: 20px !important;

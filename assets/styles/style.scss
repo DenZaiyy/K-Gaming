@@ -572,6 +572,24 @@ main {
 							}
 						}
 					}
+					.card-footer {
+						.actions {
+							.edit-btn, .del-btn {
+								font-size: 1.5rem;
+								color: var(--blue);
+								transition: var(--animation);
+								
+								&:hover {
+									color: var(--orange) !important;
+									transition: var(--animation);
+								}
+							}
+							
+							.del-btn {
+								color: darkred !important;
+							}
+						}
+					}
 				}
 			}
 		}
@@ -583,7 +601,7 @@ main {
 	}
 
 	.bi-star, .bi-star-fill {
-		font-size: 1.3em;
+		font-size: 1.5rem;
 	}
 	// END: style for stars
 
