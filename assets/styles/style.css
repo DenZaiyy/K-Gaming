@@ -1087,6 +1087,15 @@ footer .f-flex small {
   .user-profil .user-infos .settings .avatar .card .new-password, .user-profil .user-infos .settings .username .card .new-password, .user-profil .user-infos .settings .email .card .new-password, .user-profil .user-infos .settings .password .card .new-password {
     flex-direction: column !important;
   }
+  .user-profil .user-address .address {
+    flex-direction: column !important;
+  }
+  .user-profil .user-address .address .infos {
+    width: 100% !important;
+  }
+  .user-profil .user-address .address .card .btns {
+    flex-direction: column !important;
+  }
   .user-profil .user-ratings .ratings .card {
     max-width: unset !important;
   }

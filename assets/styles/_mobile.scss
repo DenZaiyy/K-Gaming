@@ -263,6 +263,22 @@
 			}
 		}
 		
+		.user-address {
+			.address {
+				flex-direction: column !important;
+				
+				.infos {
+					width: 100% !important;
+				}
+				
+				.card {
+					.btns {
+						flex-direction: column !important;
+					}
+				}
+			}
+		}
+		
 		.user-ratings {
 			.ratings {
 				.card {
