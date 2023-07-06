@@ -35,6 +35,7 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
 	    $currentUser = $this->em->getRepository(User::class)->findOneBy(['username' => $user->getUsername()]);
+        $userAddress = $this->em->getRepository(Address::class)->findBy(['user' => $currentUser]);
 
         $avatars = $multiAvatars->getFiveRandomlyAvatar();
 
@@ -118,6 +119,7 @@ class UserController extends AbstractController
 	        'usernameForm' => $usernameForm->createView(),
             'emailForm' => $emailForm->createView(),
 	        'passwordForm' => $passwordForm->createView(),
+            'user_address' => $userAddress,
         ]);
     }
 
@@ -196,7 +198,51 @@ class UserController extends AbstractController
 
         return $this->render('security/user/address/add.html.twig', [
             'formAddAddress' => $form->createView(),
+            'edit' => false
         ]);
+    }
+
+    #[Route('/profil/edit-address/{id}', name: 'user_edit_address')]
+    public function editAddress(Address $address, Request $request): Response
+    {
+        $form = $this->createForm(AddressType::class, $address);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $address = $form->getData();
+
+            $this->em->persist($address);
+            $this->em->flush();
+
+            $this->addFlash('success', 'Votre adresse a bien été modifié');
+            return $this->redirectToRoute('user_my_account');
+        }
+
+        return $this->render('security/user/address/add.html.twig', [
+            'formAddAddress' => $form->createView(),
+            'edit' => $address->getId(),
+        ]);
+    }
+
+    #[Route('/profil/delete-address/{id}', name: 'user_delete_address')]
+    public function deleteAddress(Address $address) : Response
+    {
+        if ($address->getUser() !== $this->getUser()) {
+            $this->addFlash('danger', 'Vous ne pouvez pas supprimer cette adresse');
+            return $this->redirectToRoute('user_my_account');
+        }
+
+        if (!$this->getUser())
+        {
+            $this->addFlash('danger', 'Vous devez être connecté pour supprimer une adresse');
+            return $this->redirectToRoute('app_login');
+        }
+
+        $this->em->remove($address);
+        $this->em->flush();
+
+        $this->addFlash('success', 'Votre adresse a bien été supprimé');
+        return $this->redirectToRoute('user_my_account');
     }
 
     #[Route('/profil/delete-account/{id}', name: 'user_delete_account')]
@@ -206,6 +252,6 @@ class UserController extends AbstractController
         $this->em->flush();
 
         $this->addFlash('success', 'Votre compte a bien été supprimé');
-        return $this->redirectToRoute('home');
+        return $this->redirectToRoute('app_home');
     }
 }

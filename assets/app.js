@@ -182,4 +182,27 @@ window.addEventListener('load', (e) => {
 			password.setAttribute('type', type); // on change le type de l'élément
 		})
 	}
+	// END SHOW PASSWORD
+
+	// START USER ADDRESS SELECT
+	const selectAddress = document.getElementById("user_address")
+	const editAddress = document.getElementById("edit-user_address")
+	const deleteAddress = document.getElementById("delete-user_address")
+
+	if (selectAddress) {
+		selectAddress.addEventListener("change", function () {
+			if (selectAddress.value !== "default") {
+				editAddress.classList.contains("d-none") ? editAddress.classList.remove("d-none") : null
+				deleteAddress.classList.contains("d-none") ? deleteAddress.classList.remove("d-none") : null
+				editAddress.setAttribute("href", "/profil/edit-address/" + selectAddress.value)
+				deleteAddress.setAttribute("href", "/profil/delete-address/" + selectAddress.value)
+			} else {
+				editAddress.removeAttribute("href")
+				deleteAddress.removeAttribute("href")
+				editAddress.classList.add("d-none")
+				deleteAddress.classList.add("d-none")
+			}
+		})
+	}
+	// END USER ADDRESS SELECT
 })

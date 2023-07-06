@@ -2,8 +2,12 @@
 {% block title %} Ajouter une adresse{% endblock %}
 
 {% block body %}
-	<h1>Ajouter une adresse</h1>
-	
+	{% if edit %}
+		<h1>Modifier une adresse</h1>
+		{% else %}
+		<h1>Ajouter une adresse</h1>
+	{% endif %}
+
 	<div class="card w-50 p-3 m-auto">
 		{{ form_start(formAddAddress) }}
 		<div class="card-body">
@@ -38,8 +42,13 @@
 					{{ form_label(formAddAddress.city) }}
 				</div>
 			</div>
-			
-			{{ form_widget(formAddAddress.submit) }}
+
+			{% if edit %}
+				{{ form_widget(formAddAddress.submit, {label: "Modifier"}) }}
+				{% else %}
+					{{ form_widget(formAddAddress.submit) }}
+			{% endif %}
+
 		</div>
 		{{ form_end(formAddAddress) }}
 	</div>

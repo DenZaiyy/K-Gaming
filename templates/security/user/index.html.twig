@@ -108,6 +108,32 @@
 				</div>
 			</div>
 		</div>
+		<div class="user-address my-5">
+			<h2>Vos adresses</h2>
+			<div class="address d-flex align-items-center flex-row gap-3">
+				<div class="infos w-50">
+					<h3>Liste d'adresse de facturation</h3>
+					<p>
+						Vous pouvez modifier ou supprimer vos adresses de facturation enregistrées.
+					</p>
+				</div>
+				<div class="card w-50 p-3">
+					{% if user_address %}
+						<select class="form-select" aria-label="Select for user address" name="user_address" id="user_address">
+							<option value="default" selected>-- Selectionner une adresse --</option>
+							{% for address in user_address %}
+								<option value="{{ address.id }}">{{ address.label }}</option>
+							{% endfor %}
+						</select>
+					{% endif %}
+					<div class="btns d-flex flex-row w-100 gap-2 mt-3">
+						<a href="{{ path('user_add_address') }}" class="btn btn-primary w-100 p-2">Ajouter une adresse</a>
+						<a class="btn btn-secondary w-100 p-2 d-none" id="edit-user_address">Modifier une adresse</a>
+						<a class="btn btn-danger w-100 p-2 d-none" id="delete-user_address" onclick="return confirm('Êtes vous sur de vouloir supprimer l\'adresse de facturation?')">Supprimer une adresse</a>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="user-ratings">
 			<h2>Vos avis</h2>
 			<div class="ratings">
