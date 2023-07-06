@@ -205,4 +205,18 @@ window.addEventListener('load', (e) => {
 		})
 	}
 	// END USER ADDRESS SELECT
+
+	// START SCROLL TO TOP BUTTON
+	const goUp = document.querySelector(".goUp"); // on récupère l'élément qui permet de nous ramener en haut de la page
+
+	window.addEventListener("scroll", function () {
+		const scrollHeight = window.pageYOffset;
+
+		if (scrollHeight > 500) {
+			goUp.classList.add("show-up");
+		} else {
+			goUp.classList.remove("show-up");
+		}
+	});
+	// END SCROLL TO TOP BUTTON
 })

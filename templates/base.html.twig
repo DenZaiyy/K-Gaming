@@ -28,7 +28,7 @@
 		{{ encore_entry_script_tags('app') }}
 	{% endblock %}
 </head>
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column h-100" id="top">
 {{ render(controller('App\\Controller\\HomeController::navBar')) }}
 <main>
 	{% for key, value in app.flashes %}
@@ -68,5 +68,8 @@
 		<small>K-GAMING &copy; {{ 'now'|date('Y') }} - Tous droits réservés</small>
 	</div>
 </footer>
+<a href="#top" class="scroll-link goUp">
+	<i class="fa-solid fa-arrow-up"></i>
+</a>
 </body>
 </html>

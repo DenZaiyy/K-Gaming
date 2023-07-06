@@ -798,6 +798,37 @@ footer .f-flex small {
   display: none !important;
 }
 
+.goUp {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #3E3E3E;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  opacity: 0;
+  color: var(--white);
+  transition: var(--animationLinear);
+  visibility: hidden;
+  z-index: -1;
+}
+.goUp:hover {
+  transition: var(--animationLinear);
+  transform: scale(0.9);
+  background-color: var(--orange);
+}
+
+.show-up {
+  transition: var(--animationLinear);
+  visibility: visible;
+  opacity: 1;
+  z-index: 9;
+}
+
 .overlay-menu {
   display: block;
   height: 100%;
