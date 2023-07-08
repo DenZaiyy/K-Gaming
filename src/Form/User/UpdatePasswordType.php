@@ -46,10 +46,10 @@ class UpdatePasswordType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez entrer un mot de passe.',
                     ]),
-                    new Regex([ //la regex impose des conditions pour le mdp: 1 majuscule, 1 minuscule, 1 nombre, 1 charactère spéciale
-                        'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.$!%*?&])[A-Za-z\d@.$!%*?&]{12,}$/',
+                    new Regex([
+                        'pattern' => '/^(?=.*\d)(?=.*[!-/:-@[-`{-~À-ÿ§µ²°£])(?=.*[a-z])(?=.*[A-Z])(?=.*[A-Za-z]).{12,32}$/',
                         'match' => true,
-                        'message' => 'Le mot de passe doit contenir au moins 1 majuscule, 1 minuscule, 1 nombre, 1 caractère spéciale (@.$!%*?&) et doit faire au moins 12 caractères.',
+                        'message' => 'Le mot de passe doit contenir au moins 1 majuscule, 1 minuscule, 1 nombre, 1 caractère spéciale et doit faire au moins 12 caractères.',
                     ]),
                 ],
             ])
