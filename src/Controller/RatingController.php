@@ -146,4 +146,14 @@ class RatingController extends AbstractController
         $this->addFlash('success', 'La note a bien été supprimée');
         return $this->redirectToRoute('user_my_account');
     }
+
+    #[Route('/ratings', name: 'rating_list')]
+    public function ratingsList(EntityManagerInterface $em): Response
+    {
+        $ratings = $em->getRepository(Rating::class)->findBy([], ['created_at' => 'DESC']);
+
+        return $this->render('rating/list.html.twig', [
+            'ratings' => $ratings
+        ]);
+    }
 }

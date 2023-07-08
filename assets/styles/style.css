@@ -455,7 +455,16 @@ main .user-profil .user-ratings .ratings .card {
   width: 100%;
   max-width: 350px;
 }
-main .user-profil .user-ratings .ratings .card .card-header .game img {
+main .user-profil .user-ratings .ratings .card .card-header .game a {
+  text-decoration: none;
+  color: var(--blue);
+  transition: var(--animation);
+}
+main .user-profil .user-ratings .ratings .card .card-header .game a:hover {
+  color: var(--orange);
+  transition: var(--animation);
+}
+main .user-profil .user-ratings .ratings .card .card-header .game a img {
   width: 32px;
   height: 32px;
 }
@@ -475,7 +484,7 @@ main .bi-star-fill {
   color: var(--orange);
 }
 main .bi-star, main .bi-star-fill {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 main .detailGame .detail {
   padding: 30px;
@@ -601,21 +610,21 @@ main .detailGame .videos .content {
   display: grid;
   grid-template-columns: 0fr 0fr 0fr;
 }
-main .detailGame .ratings .rating-cards {
+main .ratings .rating-cards {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
 }
-main .detailGame .ratings .rating-cards .card {
+main .ratings .rating-cards .card {
   width: 100%;
   max-width: 350px;
 }
-main .detailGame .ratings .rating-cards .card .card-header .user img {
+main .ratings .rating-cards .card .card-header .user img {
   width: 48px;
   height: 48px;
 }
-main .detailGame .ratings .rating-cards .card .card-footer .platform img {
+main .ratings .rating-cards .card .card-footer .platform img {
   width: 32px;
   height: 32px;
 }

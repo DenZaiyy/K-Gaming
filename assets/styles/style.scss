@@ -566,10 +566,21 @@ main {
 					max-width: 350px;
 					.card-header {
 						.game {
-							img {
-								width: 32px;
-								height: 32px;
+							a {
+								text-decoration: none;
+								color: var(--blue);
+								transition: var(--animation);
+								
+								&:hover {
+									color: var(--orange);
+									transition: var(--animation);
+								}
+								img {
+									width: 32px;
+									height: 32px;
+								}
 							}
+							
 						}
 					}
 					.card-footer {
@@ -601,7 +612,7 @@ main {
 	}
 
 	.bi-star, .bi-star-fill {
-		font-size: 1.5rem;
+		font-size: 1.3rem;
 	}
 	// END: style for stars
 
@@ -757,38 +768,41 @@ main {
 
 			}*/
 		}
-
-		.ratings {
-			.rating-cards {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 20px;
-				justify-content: center;
-
-				.card {
-					width: 100%;
-					max-width: 350px;
-					.card-header {
-						.user {
-							img {
-								width: 48px;
-								height: 48px;
-							}
+	}
+	// END: Style pour le détail d'un jeu
+	
+	// START : styles for ratings card in detail game and list of rate
+	.ratings {
+		.rating-cards {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 20px;
+			justify-content: center;
+			
+			.card {
+				width: 100%;
+				max-width: 350px;
+				.card-header {
+					.user {
+						img {
+							width: 48px;
+							height: 48px;
 						}
 					}
-					.card-footer {
-						.platform {
-							img {
-								width: 32px;
-								height: 32px;
-							}
+				}
+				
+				.card-footer {
+					.platform {
+						img {
+							width: 32px;
+							height: 32px;
 						}
 					}
 				}
 			}
 		}
 	}
-	// END: Style pour le détail d'un jeu
+	// STOP : styles for ratings card in detail game and list of rate
 
 	.cart {
 		margin: 0 auto;
