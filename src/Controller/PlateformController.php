@@ -8,6 +8,7 @@ use App\Entity\Plateform;
 use App\Form\SearchForm;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,14 +21,15 @@ class PlateformController extends AbstractController
 	 * Méthode permettant d'afficher la liste des jeux d'une plateforme en prenant en compte les filtres de recherche en ajax
 	 */
 	#[Route('/platform/{platformSlug}', name: 'app_game_platform')]
-	public function index(EntityManagerInterface $em, Request $request, $platformSlug, SessionInterface $session): Response
+	public function index(EntityManagerInterface $em, Request $request, $platformSlug): Response
 	{
 		$data = new SearchData(); // Création d'un objet SearchData
 		$data->page = $request->get('page', 1); // Récupération de la page en cours sinon 1 par défaut
 		$form = $this->createForm(SearchForm::class, $data);
 		$form->handleRequest($request);
 
-        $screenWidth = $session->get('screenWidth');
+        $cookies = $request->cookies;
+        $screenWidth = $cookies->get('screenWidth');
 
         if ($screenWidth < 768) {
             $resultPerPage = 3;
@@ -74,11 +76,25 @@ class PlateformController extends AbstractController
 	}
 
     #[Route('/screen-size', name: 'app_screen_size')]
-    public function checkWindowSize(Request $request, SessionInterface $session): Response
+    public function checkWindowSize(Request $request): Response
     {
         $screenWidth = $request->request->get('screenWidth');
 
-        $session->set('screenWidth', $screenWidth);
+        $cookie = new Cookie(
+            'screenWidth',    // Cookie name
+            $screenWidth,    // Cookie value
+            (new \DateTime('now'))->modify('+7 days'),   // Expires after 7 days
+            '/',                // Path
+            "127.0.0.1",               // Domain
+            $request->getScheme() === "https",              // Secure
+            true,                // HttpOnly
+            true,                 // Raw
+            'Lax'            // SameSite attribute
+        );
+
+        $response = new Response();
+        $response->headers->setCookie($cookie);
+        $response->send();
 
         $data = [
             'screenWidth' => $screenWidth

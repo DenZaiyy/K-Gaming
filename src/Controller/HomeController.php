@@ -10,6 +10,7 @@ use App\Entity\Stock;
 use App\Service\CartService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,9 +21,10 @@ class HomeController extends AbstractController
 	 * Méthode permettant d'afficher la page d'accueil du site avec les informations nécessaires tel que les jeux en tendances, les précommandes et les genres
 	 */
 	#[Route('/', name: 'app_home')]
-	public function index(EntityManagerInterface $em, SessionInterface $session): Response
+	public function index(EntityManagerInterface $em, Request $request): Response
 	{
-        $screenWidth = $session->get('screenWidth');
+        $cookies = $request->cookies;
+        $screenWidth = $cookies->get('screenWidth');
 
         if ($screenWidth < 768) {
             $resultPerPage = 2;
