@@ -14,7 +14,7 @@
 			min-height: 60vh !important;
 		}
 		
-		.hero-text, .tendencies, .rating, .preorders, .newsletter, .genres {
+		.hero-text, .tendencies, .rating, .preorders, .newsletter, .genres, .listGenres {
 			padding: 20px !important;
 		}
 		
@@ -56,13 +56,14 @@
 			}
 		}
 		
-		.genres {
+		.genres, .listGenres {
 			margin: 0 !important;
 			.cards {
-				display: flex !important;
-				flex-wrap: wrap;
+				flex-wrap: nowrap;
 				flex-direction: column;
 				gap: 20px !important;
+				width: 100%;
+				margin: 0;
 				
 				.genreCard {
 					figure {

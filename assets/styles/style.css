@@ -392,11 +392,15 @@ main .genres, main .listGenres {
   margin-top: 30px;
 }
 main .genres .cards, main .listGenres .cards {
-  display: grid;
-  grid-template-columns: 0fr 0fr 0fr;
+  display: flex;
+  flex-wrap: wrap;
   gap: 50px;
+  width: 70%;
+  margin: 0 auto;
 }
 main .genres .cards a, main .listGenres .cards a {
+  flex: 0 0 33.333%;
+  max-width: 450px;
   text-decoration: none;
 }
 main .genres .cards a .genreCard, main .listGenres .cards a .genreCard {
@@ -412,9 +416,10 @@ main .genres .cards a .genreCard figure, main .listGenres .cards a .genreCard fi
   margin: 0;
 }
 main .genres .cards a .genreCard figure img, main .listGenres .cards a .genreCard figure img {
-  width: 400px;
-  height: 300px;
+  width: 100%;
   opacity: 0.9;
+  aspect-ratio: 3/2;
+  object-fit: cover;
 }
 main .genres .cards a .genreCard figure figcaption, main .listGenres .cards a .genreCard figure figcaption {
   position: absolute;
@@ -975,7 +980,7 @@ footer .f-flex small {
     height: auto !important;
     min-height: 60vh !important;
   }
-  main .hero-text, main .tendencies, main .rating, main .preorders, main .newsletter, main .genres {
+  main .hero-text, main .tendencies, main .rating, main .preorders, main .newsletter, main .genres, main .listGenres {
     padding: 20px !important;
   }
   main .hero-text {
@@ -1004,20 +1009,21 @@ footer .f-flex small {
     width: 100% !important;
     text-align: justify !important;
   }
-  main .genres {
+  main .genres, main .listGenres {
     margin: 0 !important;
   }
-  main .genres .cards {
-    display: flex !important;
-    flex-wrap: wrap;
+  main .genres .cards, main .listGenres .cards {
+    flex-wrap: nowrap;
     flex-direction: column;
     gap: 20px !important;
+    width: 100%;
+    margin: 0;
   }
-  main .genres .cards .genreCard figure img {
+  main .genres .cards .genreCard figure img, main .listGenres .cards .genreCard figure img {
     width: 100% !important;
     max-height: 200px !important;
   }
-  main .genres .cards .genreCard:hover {
+  main .genres .cards .genreCard:hover, main .listGenres .cards .genreCard:hover {
     transform: none !important;
   }
   main .show-more {

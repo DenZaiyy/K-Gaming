@@ -482,11 +482,15 @@ main {
 		margin-top: 30px;
 
 		.cards {
-			display: grid;
-			grid-template-columns: 0fr 0fr 0fr;
+			display: flex;
+			flex-wrap: wrap;
 			gap: 50px;
+			width: 70%;
+			margin: 0 auto;
 
 			a {
+				flex: 0 0 33.333%;
+				max-width: 450px;
 				text-decoration: none;
 
 				.genreCard {
@@ -502,9 +506,10 @@ main {
 						margin: 0;
 
 						img {
-							width: 400px;
-							height: 300px;
-							opacity: .9;
+							width: 100%;
+							opacity: 0.9;
+							aspect-ratio: 3/2;
+							object-fit: cover;
 						}
 
 						figcaption {
