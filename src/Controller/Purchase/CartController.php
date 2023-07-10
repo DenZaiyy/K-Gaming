@@ -23,6 +23,7 @@ class CartController extends AbstractController
 
 	/**
 	 * La fonction addToCart permet d'ajouter un jeu au panier
+     * TODO: Fix le bug qui fait ajouter le jeu 2 fois au panier a la place de modifier la quantité
 	 */
 	#[Route('/cart/add/{platformSlug}/{gameSlug}', name: 'app_add_cart')]
 	public function addToCart(CartService $cartService, $platformSlug, $gameSlug): Response
