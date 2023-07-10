@@ -33,7 +33,7 @@ class OrderType extends AbstractType
                 'multiple' => false,
                 'choices' => [
                     'Carte bancaire' => 'stripe',
-                    'Paypal' => 'paypal'
+                    'PayPal' => 'paypal'
                 ],
                 'expanded' => true,
                 'attr' => [
