@@ -19,20 +19,22 @@
 									</div>
 								</a>
 								<div class="infos d-flex flex-column justify-content-center">
-									<div class="game-platform d-flex align-items-center gap-2">
-										<div class="platform-logo">
-											<img src="{{ item.platform.logo }}"
-											     draggable="false"
-											     alt="plateforme {{ item.platform.label }}"
-												 loading="lazy">
+									<a href="{{ path('app_show_game_platform', {platformSlug: item.platform.slug, gameSlug: item.game.slug}) }}">
+										<div class="game-platform d-flex align-items-center gap-2">
+											<div class="platform-logo">
+												<img src="{{ item.platform.logo }}"
+													 draggable="false"
+													 alt="plateforme {{ item.platform.label }}"
+													 loading="lazy">
+											</div>
+											<div class="game-name">
+												{{ item.game.label }}
+											</div>
 										</div>
-										<div class="game-name">
-											<span>{{ item.game.label }}</span>
-										</div>
-									</div>
+									</a>
 									<div class="delete-icon">
 										<a href="{{ path('app_remove_cart', {'gameSlug': item.game.slug, 'platformSlug': item.platform.slug}) }}">
-											<i class="bi bi-trash3-fill"></i> Retirer
+											<i class="bi bi-trash3-fill fa-lg"></i> Retirer
 										</a>
 									</div>
 								</div>
@@ -79,9 +81,9 @@
 						</strong>
 					</div>
 					<div class="btns w-100">
-						<a href="{{ path('order_create') }}" class="btn btn-outline-primary w-100">Passer la commande</a>
+						<a href="{{ path('order_create') }}" class="btn-primary-orange w-100">Passer la commande</a>
 						<hr>
-						<a href="{{ path('app_home') }}" class="btn btn-outline-secondary w-100">Continuer mes
+						<a href="{{ path('app_home') }}" class="btn-secondary-blue w-100">Continuer mes
 							achats</a>
 					</div>
 				</div>

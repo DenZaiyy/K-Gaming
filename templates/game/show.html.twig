@@ -65,18 +65,19 @@
 
 						<div class="btns">
 							{% if date(game.dateRelease) > date() %}
-								<a href="" class="btn btn-primary w-100">Précommander</a>
+								<a href="" class="btn-primary-orange w-100">Précommander</a>
 							{% else %}
 								{% if gameStock[0].total > 0 %}
 									<a href="{{ path('app_add_cart', {gameSlug: game.slug, platformSlug: gamePlatform[0].platform_slug}) }}"
-									   class="btn btn-primary"><i
-												class="bi bi-bag-plus"></i></a>
+									   class="btn-primary-orange">
+										<i class="bi bi-cart-plus fa-lg"></i>
+									</a>
 									<a href="{{ path('app_buy_now', {gameSlug: game.slug, platformSlug: gamePlatform[0].platform_slug}) }}"
-									   class="btn btn-primary w-100">Acheter
+									   class="btn-primary-orange w-100">Acheter
 										maintenant</a>
 								{% else %}
-									<a class="btn btn-primary disabled"><i class="bi bi-bag-plus"></i></a>
-									<a class="btn btn-primary w-100 disabled">Acheter maintenant</a>
+									<a class="btn-primary-orange disabled"><i class="bi bi-cart-plus fa-lg"></i></a>
+									<a class="btn-primary-orange w-100 disabled">Acheter maintenant</a>
 								{% endif %}
 							{% endif %}
 						</div>

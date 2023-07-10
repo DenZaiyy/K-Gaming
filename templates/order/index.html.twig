@@ -20,7 +20,7 @@
 									{{ form_widget(form.addresses)|replace({'[-br]': '</br>'})|raw }}
 								</div>
 								<div class="new-address">
-									<a href="{{ path('user_add_address') }}" class="btn btn-outline-primary w-100">Ajouter une nouvelle adresse</a>
+									<a href="{{ path('user_add_address') }}" class="btn-primary-orange w-100">Ajouter une nouvelle adresse</a>
 								</div>
 							{% endif %}
 						</div>
@@ -28,6 +28,7 @@
 					<div class="payment-methods">
 						<h2>Moyen de paiement</h2>
 						<div class="card d-flex gap-3 p-3">
+							<strong>Selectionner un moyen de paiement</strong>
 							{{ form_widget(form.payment) }}
 						</div>
 					</div>
@@ -76,7 +77,7 @@
 							</div>
 
 							<div class="validate">
-								<button type="submit" class="btn btn-outline-primary w-100">Payer</button>
+								<button type="submit" class="btn-primary-orange w-100">Payer</button>
 							</div>
 						</div>
 					</div>

@@ -192,7 +192,7 @@ body {
 
 	.icons {
 		display: flex;
-		gap: 10px;
+		gap: 20px;
 
 		a {
 			i {
@@ -209,12 +209,36 @@ body {
 
 		.dropdown {
 			.dropBtn {
+				position: relative;
 				border: none;
 				background: transparent;
 				font-size: 2em;
 				color: var(--orange);
 				transition: var(--animationLinear);
 				height: max-content;
+				
+				.cart-count-badge {
+					position: absolute;
+					top: 0;
+					right: 0;
+					left: 60%;
+					bottom: 60%;
+					background-color: var(--blue);
+					border: 2px solid var(--white);
+					border-radius: 50%;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					width: 25px;
+					height: 25px;
+					transition: var(--animationLinear);
+					
+					.notif_count {
+						color: var(--white);
+						font-size: initial;
+						font-weight: normal;
+					}
+				}
 
 				.profilePicture {
 					width: 48px;
@@ -225,6 +249,11 @@ body {
 				}
 
 				&:hover {
+					
+					.cart-count-badge {
+						background-color: var(--orange);
+						transition: var(--animationLinear);
+					}
 					color: var(--blue);
 					transition: var(--animationLinear);
 				}
@@ -290,7 +319,7 @@ main {
 
 	.hero-image {
 		position: relative;
-		background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/accueil.jpg");
+		background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../img/accueil.jpg");
 		height: calc(100vh - 65vh);
 		background-position: center;
 		background-repeat: no-repeat;
@@ -312,7 +341,7 @@ main {
 
 			p {
 				font-family: "Quicksand Book", sans-serif;
-				font-size: 1.1em;
+				font-size: 1.2em;
 				margin: auto;
 				color: #fffdff;
 
@@ -437,7 +466,7 @@ main {
 			.star {
 				color: var(--orange);
 				cursor: pointer;
-				font-size: 1.2em;
+				font-size: 1.5em;
 			}
 		}
 
@@ -446,22 +475,22 @@ main {
 			width: 70%;
 			text-align: center;
 			font-family: "Source Sans Pro", sans-serif;
-			font-size: 1.1em;
+			font-size: 1.3em;
 			text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 		}
 
-		.btn-ratings {
+		.btn-ratings, .btn-newsletter {
 			margin-top: 20px;
 			
 			a {
 				background: transparent;
-				color: var(--orange);
+				color: var(--white);
 				font-family: "Source Sans Pro", sans-serif;
-				font-weight: bold;
-				font-size: 1em;
+				//font-weight: bold;
+				font-size: 1.2em;
 				text-decoration: none;
 				padding: 10px 20px;
-				border: 1px solid var(--orange);
+				border: 1px solid var(--white);
 				border-radius: 5px;
 				transition: var(--animation);
 				
@@ -620,6 +649,57 @@ main {
 		font-size: 1.3rem;
 	}
 	// END: style for stars
+	
+	// START: style for button
+	.btn-primary-orange {
+		display: block;
+		padding: 5px 15px;
+		border-radius: 10px;
+		background-color: transparent;
+		border: 1px solid var(--orange);
+		color: var(--orange);
+		transition: var(--animationLinear);
+		text-decoration: none;
+		font-size: 1.2rem;
+		text-align: center;
+		
+		&:hover {
+			background-color: var(--orange);
+			color: var(--white);
+			transition: var(--animationLinear);
+		}
+	}
+	
+	.btn-secondary-blue {
+		display: block;
+		padding: 5px 15px;
+		border-radius: 10px;
+		background-color: transparent;
+		border: 1px solid var(--blue);
+		color: var(--blue);
+		transition: var(--animationLinear);
+		text-decoration: none;
+		font-size: 1.2rem;
+		text-align: center;
+		
+		&:hover {
+			background-color: var(--blue);
+			color: var(--white);
+			transition: var(--animationLinear);
+		}
+	}
+	// END: style for button
+	
+	// START: style for input checkbox
+	.form-check {
+		.form-check-input {
+			&:checked {
+				background-color: var(--orange);
+				border-color: var(--orange);
+			}
+		}
+	}
+	// END: style for input checkbox
 
 	// START: Style pour le détail d'un jeu
 	.detailGame {
@@ -635,6 +715,9 @@ main {
 
 				.cover {
 					width: auto;
+					img {
+						border-radius: 10px;
+					}
 				}
 
 				.desc {
@@ -709,7 +792,7 @@ main {
 					width: 50%;
 					text-align: justify;
 					font-family: "Source Sans Pro", sans-serif;
-					font-size: 1em;
+					font-size: 1.2em;
 					font-weight: lighter;
 					color: var(--white);
 					text-shadow: var(--textShadow);
@@ -724,7 +807,7 @@ main {
 						display: flex;
 						gap: 5px;
 						font-family: "Source Sans Pro", sans-serif;
-						font-size: 1em;
+						font-size: 1.2em;
 						color: var(--white);
 
 						strong {
@@ -747,6 +830,10 @@ main {
 				max-width: 1000px;
 				//width: 50%;
 				margin: 0 auto;
+				
+				.carousel-inner {
+					border-radius: 10px;
+				}
 			}
 		}
 
@@ -819,7 +906,15 @@ main {
 				width: 100%;
 
 				.about {
+					.image {
+						img {
+							border-radius: 10px;
+						}
+					}
 					.infos {
+						a {
+							text-decoration: none;
+						}
 						.game-platform {
 							.platform-logo {
 								img {
@@ -827,11 +922,38 @@ main {
 									height: 32px;
 								}
 							}
+							
+							.game-name {
+								color: var(--blue);
+								font-size: 1.2rem;
+							}
 						}
 						.delete-icon {
-							font-size: small;
+							font-size: 1rem;
 							width: max-content;
 							padding-left: 5px;
+							
+							a {
+								text-decoration: none;
+								color: var(--blue);
+								transition: var(--animation);
+								
+								i {
+									color: var(--orange);
+									transition: var(--animation);
+								}
+								
+								&:hover {
+									
+									i {
+										color: var(--blue);
+										transition: var(--animation);
+									}
+									
+									color: var(--orange);
+									transition: var(--animation);
+								}
+							}
 						}
 					}
 				}
@@ -839,6 +961,11 @@ main {
 				.price {
 					select {
 						width: max-content;
+					}
+					
+					strong {
+						font-size: 1.2rem;
+						color: var(--blue);
 					}
 				}
 			}
@@ -850,7 +977,6 @@ main {
 		flex-direction: column;
 
 		.order-header {
-
 			.recap {
 				width: 40%;
 			}
