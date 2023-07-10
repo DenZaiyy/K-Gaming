@@ -27,7 +27,14 @@
 		<div class="icons">
 			<div class="dropdown">
 				<button class="dropBtn" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownCart">
-					<i class="bi bi-cart4"></i>
+					<i class="cart-icon bi bi-cart4"></i>
+					{% if app.session.get('cart') %}
+						<div class="cart-count-badge">
+							<div class="notif_count">
+								{{ app.session.get('cart')|length }}
+							</div>
+						</div>
+					{% endif %}
 				</button>
 				<div class="dropdown-menu" aria-labelledby="dropdownCart">
 					{% if app.session.get('cart') %}
