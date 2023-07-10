@@ -1079,6 +1079,7 @@ footer .f-flex small {
   main .hero-image {
     height: auto !important;
     min-height: 60vh !important;
+    background-position: left !important;
   }
   main .hero-text, main .tendencies, main .rating, main .preorders, main .newsletter, main .genres, main .listGenres {
     padding: 20px !important;
