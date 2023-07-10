@@ -122,4 +122,25 @@ class OrderController extends AbstractController
 
 		return $this->redirectToRoute('app_cart_index');
 	}
+
+    #[Route('/order/cancel/{reference}', name: 'order_cancel')]
+    public function cancelOrder($reference): Response
+    {
+        $purchase = $this->em->getRepository(Purchase::class)->findOneBy(['reference' => $reference]);
+
+        if (!$purchase || $purchase->getUser() != $this->getUser()) {
+            return $this->redirectToRoute('app_home');
+        }
+
+        if ($purchase->isIsPaid() == 1) {
+            return $this->redirectToRoute('app_home');
+        }
+
+        $this->em->remove($purchase);
+        $this->em->flush();
+
+        $this->addFlash('success', 'Votre commande a bien été annulée.');
+
+        return $this->redirectToRoute('app_home');
+    }
 }

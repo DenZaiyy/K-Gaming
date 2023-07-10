@@ -58,18 +58,21 @@
 								</div>
 							</div>
 							
-							<div class="validate">
+							<div class="validate d-flex flex-column w-100 gap-3">
 								{% if method == 'stripe' %}
 									<form method="post" action="{{ path('app_stripe_checkout', {reference: reference}) }}">
-										<button type="submit" class="btn btn-outline-primary w-100">Payer par stripe
+										<button type="submit" class="btn-primary-orange w-100">Payer par stripe
 											| {{ (cartTotal + TVA)|price }}</button>
 									</form>
 								{% else %}
 									<form method="post" action="{{ path('app_paypal_checkout', {reference: reference}) }}">
-										<button type="submit" class="btn btn-outline-primary w-100">Payer par paypal
+										<button type="submit" class="btn-primary-orange w-100">Payer par paypal
 											| {{ (cartTotal + TVA)|price }}</button>
 									</form>
 								{% endif %}
+								<form method="post" action="{{ path('order_cancel', {reference: reference}) }}">
+									<button type="submit" class="btn-secondary-blue w-100">Annulez la commande</button>
+								</form>
 							</div>
 						</div>
 					</div>
