@@ -59,7 +59,7 @@ class AddressType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => 'Ajouter',
                 'attr' => [
-                    'class' => 'btn btn-primary px-5 py-2'
+                    'class' => 'btn-primary-orange px-5 py-2'
                 ]
             ])
         ;

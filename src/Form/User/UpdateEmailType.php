@@ -31,7 +31,7 @@ class UpdateEmailType extends AbstractType
 	        ->add('submit', SubmitType::class, [
 		        'label' => 'Modifier',
 		        'attr' => [
-			        'class' => 'btn btn-primary'
+			        'class' => 'btn-primary-orange'
 		        ]
 	        ])
         ;

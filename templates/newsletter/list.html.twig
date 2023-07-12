@@ -29,9 +29,9 @@
 						<td>{{ newsletter.createdAt|date('d/m/Y H:i', 'Europe/Paris') }}</td>
 						<td>
 							{% if newsletter.isSent == false and users|length > 0 %}
-								<a href="{{ path('newsletter_send', {id: newsletter.id}) }}" class="btn btn-primary">Envoyer</a>
+								<a href="{{ path('newsletter_send', {id: newsletter.id}) }}" class="btn-primary-orange">Envoyer</a>
 							{% endif %}
-							<a href="{{ path('newsletter_edit', {id: newsletter.id}) }}" class="btn btn-secondary">Modifier</a>
+							<a href="{{ path('newsletter_edit', {id: newsletter.id}) }}" class="btn-secondary-blue">Modifier</a>
 							<a href="{{ path('newsletter_delete', {id: newsletter.id}) }}" class="btn btn-danger">Supprimer</a>
 						</td>
 					</tr>

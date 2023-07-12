@@ -19,7 +19,7 @@ class NewsletterType extends AbstractType
             ->add('content', CKEditorType::class)
 	        ->add('enregistrer', SubmitType::class, [
 		        'attr' => [
-			        'class' => 'btn btn-primary',
+			        'class' => 'btn-primary-orange',
 		        ],
 	        ])
         ;
