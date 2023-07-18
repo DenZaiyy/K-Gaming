@@ -313,9 +313,11 @@ main {
 		display: block;
 	}
 	
+	// START: button toggle pour afficher les filtres de recherche sur mobile/tablette
 	.toggle-filters {
 		display: none;
 	}
+	// STOP: button toggle pour afficher les filtres de recherche sur mobile/tablette
 
 	.hero-image {
 		position: relative;
