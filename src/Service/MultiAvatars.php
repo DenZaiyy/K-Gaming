@@ -31,7 +31,7 @@ class MultiAvatars extends AbstractController
         return rand(1, 1000);
     }
 
-    public function getFiveRandomlyAvatar(): array
+    public function getEightRandomlyAvatar(): array
     {
         for ($i = 0; $i < 8; $i++) {
             $avatars[] = $this->api($this->getRandomAvatar());

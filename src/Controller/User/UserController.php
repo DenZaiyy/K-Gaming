@@ -35,9 +35,10 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
 	    $currentUser = $this->em->getRepository(User::class)->findOneBy(['username' => $user->getUsername()]);
+        $currentDate = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'));
         $userAddress = $this->em->getRepository(Address::class)->findBy(['user' => $currentUser]);
 
-        $avatars = $multiAvatars->getFiveRandomlyAvatar();
+        $avatars = $multiAvatars->getEightRandomlyAvatar();
 
 		$usernameForm = $this->createForm(UpdateUsernameType::class, $user);
         $passwordForm = $this->createForm(UpdatePasswordType::class, $user);
@@ -53,7 +54,7 @@ class UserController extends AbstractController
 				return $this->redirectToRoute('user_my_account');
 			}
 
-			$currentUser->setUpdatedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris')));
+			$currentUser->setUpdatedAt($currentDate);
 			$currentUser->setUsername($usernameForm->get('username')->getData());
 
 			$this->em->persist($currentUser);
@@ -73,7 +74,7 @@ class UserController extends AbstractController
                 return $this->redirectToRoute('user_my_account');
             }
 
-            $currentUser->setUpdatedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris')));
+            $currentUser->setUpdatedAt($currentDate);
             $currentUser->setIsVerified(false);
             $currentUser->setEmail($emailForm->get('email')->getData());
 
@@ -97,7 +98,7 @@ class UserController extends AbstractController
 		{
             if ($hasher->isPasswordValid($currentUser, $passwordForm->get('currentPassword')->getData()))
             {
-                $currentUser->setUpdatedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris')));
+                $currentUser->setUpdatedAt($currentDate);
                 $currentUser->setPassword($hasher->hashPassword($currentUser, $passwordForm->get('plainPassword')->getData()));
 
                 $this->em->persist($currentUser);
@@ -124,7 +125,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/profil/update-avatar/{image}', name: 'user_update_avatar')]
-    public function updateUserAvatar($image, Request $request, MultiAvatars $multiAvatars) : Response
+    public function updateUserAvatar($image, MultiAvatars $multiAvatars) : Response
     {
         $user = $this->getUser();
         $currentUser = $this->em->getRepository(User::class)->findOneBy(['username' => $user->getUsername()]);
@@ -132,6 +133,7 @@ class UserController extends AbstractController
         if($currentUser)
         {
             $currentUser->setAvatar($multiAvatars->setAvatarUrl($image));
+            $currentUser->setUpdatedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris')));
             $this->em->persist($currentUser);
             $this->em->flush();
             $this->addFlash('success', 'Votre avatar a bien été modifié');
