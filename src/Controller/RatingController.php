@@ -105,7 +105,7 @@ class RatingController extends AbstractController
 
         if ($ratingForm->isSubmitted() && $ratingForm->isValid()) {
             $rating = $ratingForm->getData();
-            $rating->setUpdatedAt(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
+            $rating->setUpdatedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris')));
 
             $em->persist($rating);
             $em->flush();
