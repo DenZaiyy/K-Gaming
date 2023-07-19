@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Game;
 use App\Entity\Plateform;
+use App\Entity\Stock;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -23,18 +24,27 @@ class CartService extends AbstractController
         $cart = $this->getSession()->get('cart', []);
         $game = $this->em->getRepository(Game::class)->findOneBy(['slug' => $gameSlug]);
         $platform = $this->em->getRepository(Plateform::class)->findOneBy(['slug' => $platformSlug]);
+        $gameStock = $this->em->getRepository(Stock::class)->findAvailableGameStockByPlatform($game->getId(), $platform->getId());
 
-        $found = false;
+        $found = null;
+        $flashType = 'success';
+        $flashMessage = 'Le jeu a bien été ajouté au panier !';
 
         foreach ($cart as $key => $item) {
-            if ($item['game'] == $game && $item['platform'] == $platform) {
+            if ($item['game']->getId() == $game->getId() && $item['platform']->getId() == $platform->getId()) {
                 $found = $key;
                 break;
             }
         }
 
-        if ($found !== false) {
-            $cart[$found]['quantity']++;
+        if ($found !== null) {
+            if($cart[$found]['quantity'] < $gameStock[0]['total']) {
+                $cart[$found]['quantity']++;
+            } else {
+                $flashType = 'danger';
+                $flashMessage = 'Vous ne pouvez pas ajouter plus de jeux à votre panier';
+                $this->redirectToRoute('app_show_game', ['gameSlug' => $gameSlug]);
+            }
         } else {
             $cart[] = [
                 'game' => $game,
@@ -44,6 +54,7 @@ class CartService extends AbstractController
         }
 
         $this->getSession()->set('cart', $cart);
+        $this->addFlash($flashType, $flashMessage);
     }
 
 	/*
