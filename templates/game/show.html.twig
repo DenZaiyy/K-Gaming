@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{ gamePlatform[0].game_label }}
+	{{ gamePlatform.game_label }}
 {% endblock %}
 
 {% block body %}
@@ -10,20 +10,20 @@
 			<h1>Detail produit</h1>
 			<div class="coverDesc">
 				<div class="cover">
-					<img src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: gamePlatform[0].game_label })) }}.jpg"
+					<img src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: gamePlatform.game_label })) }}.jpg"
 					     draggable="false"
-					     alt="cover for game: {{ gamePlatform[0].game_label }}"
+					     alt="cover for game: {{ gamePlatform.game_label }}"
 						 loading="lazy">
 				</div>
 				<div class="desc">
-					<h2>{{ gamePlatform[0].game_label }}</h2>
+					<h2>{{ gamePlatform.game_label }}</h2>
 					<div class="flex-content">
 						<div class="infos">
 							<div class="plateform">
-								<img src="{{ gamePlatform[0].platform_logo }}"
-								     alt="logo of {{ gamePlatform[0].platform_label }}"
+								<img src="{{ gamePlatform.platform_logo }}"
+								     alt="logo of {{ gamePlatform.platform_label }}"
 									 loading="lazy">
-								{{ gamePlatform[0].platform_label }}
+								{{ gamePlatform.platform_label }}
 							</div>
 
 							<div class="stock">
@@ -33,11 +33,11 @@
 										Disponible en précommande</p>
 								{% else %}
 									{% if gameStock %}
-										{% if gameStock[0].total > 0 %}
+										{% if gameStock.total > 0 %}
 											<p>
 												<i class="bi bi-check-lg text-success"></i>
 												En stock
-												({{ gameStock[0].total }} {{ (gameStock[0].total > 1) ? 'disponibles' : 'disponible' }}
+												({{ gameStock.total }} {{ (gameStock.total > 1) ? 'disponibles' : 'disponible' }}
 												)</p>
 										{% else %}
 											<p>
@@ -60,7 +60,7 @@
 									<option value="{{ plateform.slug }}">{{ plateform.label }}</option>
 								{% endfor %}
 							</select>
-							<p>{{ gamePlatform[0].price|price }} (HT)</p>
+							<p>{{ gamePlatform.price|price }} (HT)</p>
 						</div>
 
 						<div class="btns">
@@ -70,12 +70,12 @@
 								<a href="" class="btn-primary-orange w-100">Précommander</a>
 							{% else %}
 								{# Sinon, on vérfie le nombre de stock est supérieur à 0 et affiche un button ajouter au panier et un button acheter maintenant #}
-								{% if gameStock[0].total > 0 %}
-									<a href="{{ path('app_add_cart', {gameSlug: game.slug, platformSlug: gamePlatform[0].platform_slug}) }}"
+								{% if gameStock.total > 0 %}
+									<a href="{{ path('app_add_cart', {gameSlug: game.slug, platformSlug: gamePlatform.platform_slug}) }}"
 									   class="btn-primary-orange">
 										<i class="bi bi-cart-plus fa-lg"></i>
 									</a>
-									<a href="{{ path('app_buy_now', {gameSlug: game.slug, platformSlug: gamePlatform[0].platform_slug}) }}"
+									<a href="{{ path('app_buy_now', {gameSlug: game.slug, platformSlug: gamePlatform.platform_slug}) }}"
 									   class="btn-primary-orange w-100">Acheter
 										maintenant</a>
 								{% else %}

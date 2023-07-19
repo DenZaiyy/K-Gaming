@@ -106,7 +106,8 @@ class StockRepository extends ServiceEntityRepository
 				'platformID' => $platformID // permet de définir la valeur de l'ID de la plateforme
 			])
 			->getQuery() // getQuery permet de récupérer la requête
-			->getResult(); // getResult permet de récupérer le résultat de la requête
+            ->getSingleResult() // getSingleResult permet de récupérer un seul résultat
+            ;
 	}
 
 	/**

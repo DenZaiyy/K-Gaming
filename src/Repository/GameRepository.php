@@ -87,7 +87,8 @@ class GameRepository extends ServiceEntityRepository
                 ]
             )
             ->getQuery()
-            ->getResult();
+            ->getSingleResult()
+            ;
     }
 
 	/*

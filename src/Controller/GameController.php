@@ -57,7 +57,7 @@ class GameController extends AbstractController
 
 		return $this->render('game/show.html.twig', [
 			'game' => $game,
-			'gameStock' => $gameStock,
+			'gameStock' => $gameStock[0],
 			'gamePlatform' => $gamePlatform,
 			'ratings' => $ratings,
 			'moyenne' => $moyenne,
