@@ -46,6 +46,42 @@ body {
   color: gray;
 }
 
+.btn-primary-orange {
+  display: block;
+  padding: 5px 15px;
+  border-radius: 10px;
+  background-color: transparent;
+  border: 1px solid var(--orange);
+  color: var(--orange);
+  transition: var(--animationLinear);
+  text-decoration: none;
+  font-size: 1.2rem;
+  text-align: center;
+}
+.btn-primary-orange:hover {
+  background-color: var(--orange);
+  color: var(--white);
+  transition: var(--animationLinear);
+}
+
+.btn-secondary-blue {
+  display: block;
+  padding: 5px 15px;
+  border-radius: 10px;
+  background-color: transparent;
+  border: 1px solid var(--blue);
+  color: var(--blue);
+  transition: var(--animationLinear);
+  text-decoration: none;
+  font-size: 1.2rem;
+  text-align: center;
+}
+.btn-secondary-blue:hover {
+  background-color: var(--blue);
+  color: var(--white);
+  transition: var(--animationLinear);
+}
+
 *, ::before, ::after {
   margin: 0;
   padding: 0;
@@ -515,40 +551,6 @@ main .bi-star-fill {
 }
 main .bi-star, main .bi-star-fill {
   font-size: 1.3rem;
-}
-main .btn-primary-orange {
-  display: block;
-  padding: 5px 15px;
-  border-radius: 10px;
-  background-color: transparent;
-  border: 1px solid var(--orange);
-  color: var(--orange);
-  transition: var(--animationLinear);
-  text-decoration: none;
-  font-size: 1.2rem;
-  text-align: center;
-}
-main .btn-primary-orange:hover {
-  background-color: var(--orange);
-  color: var(--white);
-  transition: var(--animationLinear);
-}
-main .btn-secondary-blue {
-  display: block;
-  padding: 5px 15px;
-  border-radius: 10px;
-  background-color: transparent;
-  border: 1px solid var(--blue);
-  color: var(--blue);
-  transition: var(--animationLinear);
-  text-decoration: none;
-  font-size: 1.2rem;
-  text-align: center;
-}
-main .btn-secondary-blue:hover {
-  background-color: var(--blue);
-  color: var(--white);
-  transition: var(--animationLinear);
 }
 main .form-check .form-check-input:checked {
   background-color: var(--orange);

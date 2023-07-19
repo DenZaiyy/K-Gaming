@@ -50,6 +50,46 @@ body {
 	}
 }
 
+// START: style for button
+.btn-primary-orange {
+	display: block;
+	padding: 5px 15px;
+	border-radius: 10px;
+	background-color: transparent;
+	border: 1px solid var(--orange);
+	color: var(--orange);
+	transition: var(--animationLinear);
+	text-decoration: none;
+	font-size: 1.2rem;
+	text-align: center;
+	
+	&:hover {
+		background-color: var(--orange);
+		color: var(--white);
+		transition: var(--animationLinear);
+	}
+}
+
+.btn-secondary-blue {
+	display: block;
+	padding: 5px 15px;
+	border-radius: 10px;
+	background-color: transparent;
+	border: 1px solid var(--blue);
+	color: var(--blue);
+	transition: var(--animationLinear);
+	text-decoration: none;
+	font-size: 1.2rem;
+	text-align: center;
+	
+	&:hover {
+		background-color: var(--blue);
+		color: var(--white);
+		transition: var(--animationLinear);
+	}
+}
+// END: style for button
+
 // START : Reset style pour tout les éléments du site
 *, ::before, ::after {
 	margin: 0;
@@ -651,46 +691,6 @@ main {
 		font-size: 1.3rem;
 	}
 	// END: style for stars
-	
-	// START: style for button
-	.btn-primary-orange {
-		display: block;
-		padding: 5px 15px;
-		border-radius: 10px;
-		background-color: transparent;
-		border: 1px solid var(--orange);
-		color: var(--orange);
-		transition: var(--animationLinear);
-		text-decoration: none;
-		font-size: 1.2rem;
-		text-align: center;
-		
-		&:hover {
-			background-color: var(--orange);
-			color: var(--white);
-			transition: var(--animationLinear);
-		}
-	}
-	
-	.btn-secondary-blue {
-		display: block;
-		padding: 5px 15px;
-		border-radius: 10px;
-		background-color: transparent;
-		border: 1px solid var(--blue);
-		color: var(--blue);
-		transition: var(--animationLinear);
-		text-decoration: none;
-		font-size: 1.2rem;
-		text-align: center;
-		
-		&:hover {
-			background-color: var(--blue);
-			color: var(--white);
-			transition: var(--animationLinear);
-		}
-	}
-	// END: style for button
 	
 	// START: style for input checkbox
 	.form-check {
