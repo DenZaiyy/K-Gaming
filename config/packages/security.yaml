@@ -31,8 +31,9 @@ security:
                 # following line to always enable it.
                 always_remember_me: true
 
-            # by default, the feature allows 5 login attempts per minute
-            login_throttling: ~
+            # configuring the maximum login attempts (per minute)
+            login_throttling:
+                max_attempts: 3
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
             
