@@ -64,9 +64,12 @@
 						</div>
 
 						<div class="btns">
+							{# Condition permettant de vérifier si la date de sortie du jeu est supérieur à la date actuelle #}
 							{% if date(game.dateRelease) > date() %}
+								{# Si c'est le cas, on affiche un button précommander #}
 								<a href="" class="btn-primary-orange w-100">Précommander</a>
 							{% else %}
+								{# Sinon, on vérfie le nombre de stock est supérieur à 0 et affiche un button ajouter au panier et un button acheter maintenant #}
 								{% if gameStock[0].total > 0 %}
 									<a href="{{ path('app_add_cart', {gameSlug: game.slug, platformSlug: gamePlatform[0].platform_slug}) }}"
 									   class="btn-primary-orange">
@@ -76,6 +79,7 @@
 									   class="btn-primary-orange w-100">Acheter
 										maintenant</a>
 								{% else %}
+									{# Sinon, on affiche les button en les rendant incliquable, en affichant rupture de stock #}
 									<a class="btn-primary-orange disabled"><i class="bi bi-cart-plus fa-lg"></i></a>
 									<a class="btn-primary-orange w-100 disabled">Acheter maintenant</a>
 								{% endif %}

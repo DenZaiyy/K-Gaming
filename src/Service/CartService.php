@@ -21,39 +21,55 @@ class CartService extends AbstractController
 	 */
     public function addToCart($gameSlug, $platformSlug): void
     {
+        // On récupère le panier dans la session actuelle
         $cart = $this->getSession()->get('cart', []);
+        // On récupère l'objet jeu
         $game = $this->em->getRepository(Game::class)->findOneBy(['slug' => $gameSlug]);
+        // On récupère l'objet plateforme
         $platform = $this->em->getRepository(Plateform::class)->findOneBy(['slug' => $platformSlug]);
+        // On récupère le stock disponible du jeu pour la plateforme
         $gameStock = $this->em->getRepository(Stock::class)->findAvailableGameStockByPlatform($game->getId(), $platform->getId());
 
+        // Variable pour vérifier si le jeu est déjà dans le panier
         $found = null;
+        // Variable pour définir le type de message flash
         $flashType = 'success';
+        // Variable pour définir le message flash
         $flashMessage = 'Le jeu a bien été ajouté au panier !';
 
+        // Vérification si le jeu est déjà dans le panier
         foreach ($cart as $key => $item) {
+            // Si le jeu est déjà dans le panier, on récupère sa position dans le panier
             if ($item['game']->getId() == $game->getId() && $item['platform']->getId() == $platform->getId()) {
                 $found = $key;
                 break;
             }
         }
 
+        // Si le jeu est déjà dans le panier, on vérifie si la quantité est inférieure au stock disponible
         if ($found !== null) {
             if($cart[$found]['quantity'] < $gameStock[0]['total']) {
+                // Si la quantité est inférieure au stock disponible, on ajoute 1 à la quantité
                 $cart[$found]['quantity']++;
             } else {
+                // Sinon, on affiche un message d'erreur
                 $flashType = 'danger';
                 $flashMessage = 'Vous ne pouvez pas ajouter plus de jeux à votre panier';
+                // Et on redirige vers la page du jeu
                 $this->redirectToRoute('app_show_game', ['gameSlug' => $gameSlug]);
             }
         } else {
+            // Si le jeu n'est pas dans le panier, on l'ajoute au panier
             $cart[] = [
-                'game' => $game,
-                'platform' => $platform,
-                'quantity' => 1
+                'game' => $game, // On ajoute le jeu
+                'platform' => $platform, // On ajoute la plateforme
+                'quantity' => 1 // On définit la quantité à 1 par défaut
             ];
         }
 
+        // On enregistre le panier dans la session
         $this->getSession()->set('cart', $cart);
+        // On affiche le message flash
         $this->addFlash($flashType, $flashMessage);
     }
 

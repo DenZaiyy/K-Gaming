@@ -79,19 +79,34 @@ class StockRepository extends ServiceEntityRepository
 	 */
 	public function findAvailableGameStockByPlatform($gameID, $platformID): array
 	{
-		return $this->createQueryBuilder('s')
-			->select('p.id AS platform_id', 'g.id AS game_id', 'g.label', 'g.slug', 'p.label AS platform_label', 'p.slug AS platform_slug', 'COUNT(s.game) AS total')
+		return $this->createQueryBuilder('s') // "s" est l'alias de la table stock
+            // select permet de sélectionner les colonnes que l'on souhaite récupérer
+			->select(
+                'p.id AS platform_id', // permet de récupérer l'ID de la plateforme
+                'g.id AS game_id', // permet de récupérer l'ID du jeu
+                'g.label', // permet de récupérer le label du jeu
+                'g.slug', // permet de récupérer le slug du jeu
+                'p.label AS platform_label', // permet de récupérer le label de la plateforme
+                'p.slug AS platform_slug', // permet de récupérer le slug de la plateforme
+                'COUNT(s.game) AS total' // permet de compter le nombre de stock disponible
+            )
+            // "g" est l'alias de la table game
 			->leftJoin('s.game', 'g')
+            // "p" est l'alias de la table plateform
 			->leftJoin('s.plateform', 'p')
+            // condition permettant de récupérer le jeu en fonction de son ID
 			->where('g.id = :gameID')
+            // condition permettant de récupérer la plateforme en fonction de son ID
 			->andWhere('p.id = :platformID')
+            // condition permettant de récupérer les stocks disponibles
 			->andWhere('s.is_available = true')
+            // setParameters permet de définir les paramètres de la requête en fonction des variables passées en paramètre de la méthode
 			->setParameters([
-				'gameID' => $gameID,
-				'platformID' => $platformID
+				'gameID' => $gameID, // permet de définir la valeur de l'ID du jeu
+				'platformID' => $platformID // permet de définir la valeur de l'ID de la plateforme
 			])
-			->getQuery()
-			->getResult();
+			->getQuery() // getQuery permet de récupérer la requête
+			->getResult(); // getResult permet de récupérer le résultat de la requête
 	}
 
 	/**
