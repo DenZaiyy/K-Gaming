@@ -9,8 +9,7 @@
 				<h2>Panier</h2>
 				<div class="card d-flex gap-1 p-4">
 					{% for item in cart %}
-						<div class="game d-flex flex-wrap justify-content-between gap-2" id="gameCart"
-						     data-id="{{ loop.index0 }}">
+						<div class="game d-flex flex-wrap justify-content-between gap-2" id="gameCart" data-id="{{ loop.index0 }}">
 							<div class="about d-flex flex-wrap gap-3">
 								<a href="{{ path('app_show_game_platform', {platformSlug: item.platform.slug, gameSlug: item.game.slug}) }}">
 									<div class="image">
@@ -41,17 +40,27 @@
 							</div>
 							
 							<div class="price d-flex align-items-center gap-2">
+								{# Initialisation d'une variable amount à la valeur null pour permettre de récupérer le stock par jeu #}
 								{% set amount = null %}
+								{# Boucle permettant d'effectuer une condition pour chaque stock du jeu #}
 								{% for stock in item.game.stocks %}
+									{# 	Condition pour vérifier :
+									 		- La disponibilité du stock
+											- La plateforme du stock est bien égale à la plateforme du jeu du panier
+											- Le stock n'a pas été encore assigné à une commande #}
 									{% if stock.isavailable == true and stock.plateform.id == item.platform.id and stock.purchase == null %}
+										{# Si toute les conditions sont respecter, j'incrémente la valeur de amount #}
 										{% set amount = amount + 1 %}
 									{% endif %}
 								{% endfor %}
-								
-								<select name="qtt" class="form-select qtt"
-								        data-game="{{ item.game.id }}"
-								        data-platform="{{ item.platform.id }}">
+
+								{# Création de la balise select pour afin de pouvoir récupérer une valeur "qtt" grâce a la class "qtt" #}
+								<select name="qtt" class="form-select qtt">
+									{# Boucle permettant de généré des options dans une fourchette entre 1 et la valeur de la variable "amount" #}
 									{% for i in range(1, amount) %}
+										{# 	Condition permettant de vérifier si la valeur de i est égale à la quantité du jeu
+											Si c'est le cas, alors l'option sera sélectionné par défaut
+											Sinon, si la valeur de i est inférieur ou égale à 5, alors l'option sera généré #}
 										{% if i == item.quantity %}
 											<option value="{{ i }}" selected>{{ i }}</option>
 										{% else %}

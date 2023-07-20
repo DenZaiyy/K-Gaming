@@ -78,14 +78,19 @@ class CartService extends AbstractController
 	 */
     public function removeToCart($gameSlug, $platformSlug): void
     {
+        // On récupère le panier dans la session actuelle
         $cart = $this->getSession()->get('cart', []);
 
+        // On parcourt le panier
         foreach ($cart as $key => $item) {
+            // Si le jeu et la plateforme correspondent à ceux passés en paramètre, on supprime le jeu du panier
             if ($item['game']->getSlug() === $gameSlug && $item['platform']->getSlug() === $platformSlug) {
+                // On supprime le jeu du panier
                 unset($cart[$key]);
             }
         }
 
+        // On enregistre le panier dans la session
         $this->getSession()->set('cart', $cart);
     }
 
@@ -94,14 +99,19 @@ class CartService extends AbstractController
 	 */
     public function changeQtt($id, $qtt): void
     {
+        // On récupère le panier dans la session actuelle
         $cart = $this->getSession()->get('cart', []);
 
+        // On vérifie si le jeu est dans le panier
         if (array_key_exists($id, $cart)) {
+            // Si la quantité est supérieure à 0, on modifie la quantité du jeu dans le panier
             $cart[$id]['quantity'] = $qtt;
         } else {
+            // Sinon, on supprime le jeu du panier
             unset($cart[$id]);
         }
 
+        // On enregistre le panier dans la session
         $this->getSession()->set('cart', $cart);
     }
 
@@ -110,6 +120,7 @@ class CartService extends AbstractController
 	 */
     public function removeCartAll()
     {
+        // On supprime la session du panier en entier
         return $this->getSession()->remove('cart');
     }
 
