@@ -19,10 +19,10 @@
 								<div class="select d-none">
 									{{ form_widget(form.addresses)|replace({'[-br]': '</br>'})|raw }}
 								</div>
-								<div class="new-address">
-									<a href="{{ path('user_add_address') }}" class="btn-primary-orange w-100">Ajouter une nouvelle adresse</a>
-								</div>
 							{% endif %}
+							<div class="new-address">
+								<a href="{{ path('user_add_address') }}" class="btn-primary-orange w-100">Ajouter une nouvelle adresse</a>
+							</div>
 						</div>
 					</div>
 					<div class="payment-methods">
