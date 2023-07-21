@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class AddressType extends AbstractType
 {
@@ -19,6 +20,11 @@ class AddressType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'class' => 'form-floating',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez entrer un nom pour l\'adresse.',
+                    ])
                 ]
             ])
             ->add('firstname', TextType::class, [
@@ -26,6 +32,11 @@ class AddressType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'class' => 'form-floating',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez entrer votre prénom.',
+                    ])
                 ]
             ])
             ->add('lastname', TextType::class, [
@@ -33,6 +44,11 @@ class AddressType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'class' => 'form-floating',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez entrer votre nom de famille.',
+                    ])
                 ]
             ])
             ->add('address', TextType::class, [
@@ -40,6 +56,11 @@ class AddressType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'class' => 'form-floating',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez entrer votre adresse de facturation.',
+                    ])
                 ]
             ])
             ->add('cp', TextType::class, [
@@ -47,6 +68,11 @@ class AddressType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'class' => 'form-floating',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez entrer votre code postal.',
+                    ])
                 ]
             ])
             ->add('city', TextType::class, [
@@ -54,6 +80,11 @@ class AddressType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'class' => 'form-floating',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez entrer votre ville.',
+                    ])
                 ]
             ])
             ->add('submit', SubmitType::class, [
