@@ -28,20 +28,28 @@ class Authenticator extends AbstractLoginFormAuthenticator
 
     public function authenticate(Request $request): Passport
     {
+        // utilisation de request pour récupérer les données du formulaire
         $username = $request->request->get('username', '');
+        // On récupère la valeur du champ caché
         $honeypot = $request->request->get('_hp_protect', '');
 
+        // Si le champ n'est pas vide, on est en présence d'un bot
         if(!empty($honeypot)) {
             throw new \Exception('You are a bot !');
         }
 
+        // On stocke le nom d'utilisateur dans la session pour le réafficher dans le formulaire en cas d'erreur
         $request->getSession()->set(Security::LAST_USERNAME, $username);
 
+        // On retourne un objet Passport qui contient les informations de connexion
         return new Passport(
             new UserBadge($username),
+            // On récupère le mot de passe dans la requête
             new PasswordCredentials($request->request->get('password', '')),
             [
+                // Cette classe permet de vérifier le jeton CSRF (Cross-Site Request Forgery)
                 new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),
+                // Cette classe permet de gérer la case à cocher "Se souvenir de moi"
                 new RememberMeBadge(),
             ]
         );

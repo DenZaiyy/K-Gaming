@@ -79,7 +79,7 @@ class StockRepository extends ServiceEntityRepository
 	 */
 	public function findAvailableGameStockByPlatform($gameID, $platformID): array
 	{
-		return $this->createQueryBuilder('s') // "s" est l'alias de la table stock
+		return $this->createQueryBuilder('s') // crée une instance de QueryBuilder pour la table stock et l'alias "s"
             // select permet de sélectionner les colonnes que l'on souhaite récupérer
 			->select(
                 'p.id AS platform_id', // permet de récupérer l'ID de la plateforme
@@ -115,18 +115,30 @@ class StockRepository extends ServiceEntityRepository
 	 */
 	public function findLicenseKeyAvailableByGamesAndPlatform($gameID, $platformID, $quantity): array
 	{
+        // createQueryBuilder permet de créer une instance de QueryBuilder pour la table stock et l'alias "s"
 		return $this->createQueryBuilder('s')
+            // leftJoin permet de faire une jointure avec la table game et l'alias "g"
 			->leftJoin('s.game', 'g')
+            // leftJoin permet de faire une jointure avec la table plateform et l'alias "p"
 			->leftJoin('s.plateform', 'p')
+            // condition permettant de récupérer le jeu en fonction de son ID grâce au marqueur nommée ":gameID"
 			->where('g.id = :gameID')
+            /* condition permettant de récupérer la plateforme
+               en fonction de son ID grâce au marqueur nommée ":platformID" */
 			->andWhere('p.id = :platformID')
+            // condition permettant de récupérer les stocks disponibles
 			->andWhere('s.is_available = true')
+            // setMaxResults permet de définir le nombre de résultats à récupérer
 			->setMaxResults($quantity)
+            /*  setParameters permet de définir les paramètres de la requête
+                en fonction des variables passées en paramètre de la méthode */
 			->setParameters([
 				'gameID' => $gameID,
 				'platformID' => $platformID
 			])
+            // getQuery permet de récupérer la requête avec les conditions définies précédemment
 			->getQuery()
+            // getResult permet de récupérer les résultats en format tableau
 			->getResult();
 	}
 	
