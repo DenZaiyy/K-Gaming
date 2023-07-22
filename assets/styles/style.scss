@@ -405,10 +405,10 @@ main {
 
 			.gameCard {
 				cursor: pointer;
-				transition: var(--animation);
 
 				.cover-img {
 					border-radius: 10px;
+					overflow: hidden;
 					width: 100%;
 
 					box-shadow: 5px -5px 5px 0px rgba(0, 0, 0, 0.34);
@@ -419,11 +419,17 @@ main {
 						max-width: 300px;
 						height: max-content;
 						border-radius: 10px;
+						transition: var(--animation);
 
 						user-select: none;
 						-moz-user-select: none;
 						-webkit-user-select: none;
 						-ms-user-select: none;
+						
+						&:hover {
+							transition: var(--animation);
+							transform: scale(1.05);
+						}
 					}
 				}
 
@@ -464,11 +470,6 @@ main {
 						font-size: .8em;
 						color: var(--orange);
 					}
-				}
-
-				&:hover {
-					transition: var(--animation);
-					transform: scale(1.05);
 				}
 			}
 		}
@@ -556,7 +557,7 @@ main {
 			display: flex;
 			flex-wrap: wrap;
 			gap: 50px;
-			width: 70%;
+			width: 80%;
 			margin: 0 auto;
 
 			a {
@@ -567,7 +568,6 @@ main {
 				.genreCard {
 					color: var(--white);
 					border-radius: 10px;
-					transition: var(--animation);
 					filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.7));
 
 					figure {
@@ -581,6 +581,14 @@ main {
 							opacity: 0.9;
 							aspect-ratio: 3/2;
 							object-fit: cover;
+							overflow: hidden;
+							transition: var(--animation);
+							
+							
+							&:hover {
+								transition: var(--animation);
+								transform: scale(1.03);
+							}
 						}
 
 						figcaption {
@@ -591,11 +599,6 @@ main {
 							padding: 5px;
 							width: 100%;
 						}
-					}
-
-					&:hover {
-						transition: var(--animation);
-						transform: scale(1.03);
 					}
 				}
 			}
@@ -911,6 +914,7 @@ main {
 					.image {
 						img {
 							border-radius: 10px;
+							box-shadow: -3px 3px 5px rgba(0,0,0, 0.3);
 						}
 					}
 					.infos {

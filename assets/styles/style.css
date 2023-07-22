@@ -334,10 +334,10 @@ main .cards a {
 }
 main .cards a .gameCard {
   cursor: pointer;
-  transition: var(--animation);
 }
 main .cards a .gameCard .cover-img {
   border-radius: 10px;
+  overflow: hidden;
   width: 100%;
   box-shadow: 5px -5px 5px 0px rgba(0, 0, 0, 0.34);
   -webkit-box-shadow: 5px -5px 5px 0px rgba(0, 0, 0, 0.34);
@@ -347,10 +347,15 @@ main .cards a .gameCard .cover-img img {
   max-width: 300px;
   height: max-content;
   border-radius: 10px;
+  transition: var(--animation);
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+}
+main .cards a .gameCard .cover-img img:hover {
+  transition: var(--animation);
+  transform: scale(1.05);
 }
 main .cards a .gameCard .infos {
   display: flex;
@@ -383,10 +388,6 @@ main .cards a .gameCard .preco .badge {
   border-radius: 5px;
   font-size: 0.8em;
   color: var(--orange);
-}
-main .cards a .gameCard:hover {
-  transition: var(--animation);
-  transform: scale(1.05);
 }
 main .tendencies, main .preorders, main .listGames {
   padding: 30px 0;
@@ -456,7 +457,7 @@ main .genres .cards, main .listGenres .cards {
   display: flex;
   flex-wrap: wrap;
   gap: 50px;
-  width: 70%;
+  width: 80%;
   margin: 0 auto;
 }
 main .genres .cards a, main .listGenres .cards a {
@@ -467,7 +468,6 @@ main .genres .cards a, main .listGenres .cards a {
 main .genres .cards a .genreCard, main .listGenres .cards a .genreCard {
   color: var(--white);
   border-radius: 10px;
-  transition: var(--animation);
   filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.7));
 }
 main .genres .cards a .genreCard figure, main .listGenres .cards a .genreCard figure {
@@ -481,6 +481,12 @@ main .genres .cards a .genreCard figure img, main .listGenres .cards a .genreCar
   opacity: 0.9;
   aspect-ratio: 3/2;
   object-fit: cover;
+  overflow: hidden;
+  transition: var(--animation);
+}
+main .genres .cards a .genreCard figure img:hover, main .listGenres .cards a .genreCard figure img:hover {
+  transition: var(--animation);
+  transform: scale(1.03);
 }
 main .genres .cards a .genreCard figure figcaption, main .listGenres .cards a .genreCard figure figcaption {
   position: absolute;
@@ -489,10 +495,6 @@ main .genres .cards a .genreCard figure figcaption, main .listGenres .cards a .g
   text-align: center;
   padding: 5px;
   width: 100%;
-}
-main .genres .cards a .genreCard:hover, main .listGenres .cards a .genreCard:hover {
-  transition: var(--animation);
-  transform: scale(1.03);
 }
 main .user-profil .user-about .avatar img {
   width: 100px;
@@ -715,6 +717,7 @@ main .cart .cart-item .game {
 }
 main .cart .cart-item .game .about .image img {
   border-radius: 10px;
+  box-shadow: -3px 3px 5px rgba(0, 0, 0, 0.3);
 }
 main .cart .cart-item .game .about .infos a {
   text-decoration: none;
