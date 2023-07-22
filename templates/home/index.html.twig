@@ -19,28 +19,34 @@
 	</div>
 	<section class="tendencies">
 		<h2>Tendances</h2>
-		<div class="cards">
-			{% for tendency in tendencies %}
-				<a href="{{ path('app_show_game', {gameSlug: tendency.slug}) }}">
-					<div class="gameCard">
-						<div class="cover-img">
-							<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: tendency.label })) }}.jpg"
-								 draggable="false"
-								 alt="cover for game: {{ tendency.label }}"
-								 loading="lazy">
-						</div>
-						<div class="infos">
-							<div class="label">
-								{{ tendency.label }}
+		{% if tendencies is empty %}
+			<div class="text-content">
+				Il n'y a pas de jeu en tendances pour le moment.
+			</div>
+			{% else %}
+				<div class="cards">
+					{% for tendency in tendencies %}
+						<a href="{{ path('app_show_game', {gameSlug: tendency.slug}) }}">
+							<div class="gameCard">
+								<div class="cover-img">
+									<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: tendency.label })) }}.jpg"
+										 draggable="false"
+										 alt="cover for game: {{ tendency.label }}"
+										 loading="lazy">
+								</div>
+								<div class="infos">
+									<div class="label">
+										{{ tendency.label }}
+									</div>
+									<div class="price">
+										{{ tendency.price }} €
+									</div>
+								</div>
 							</div>
-							<div class="price">
-								{{ tendency.price }} €
-							</div>
-						</div>
-					</div>
-				</a>
-			{% endfor %}
-		</div>
+						</a>
+					{% endfor %}
+				</div>
+		{% endif %}
 	</section>
 
 	<section class="rating">
@@ -73,14 +79,22 @@
 
 	<section class="preorders">
 		<h2>Précommandes</h2>
-		<div class="cards">
-			{% for game in preorders %}
-				{% include 'components/card/_card-game.html.twig' %}
-			{% endfor %}
-		</div>
-		<div class="show-more">
-			<a href="{{ path('app_show_preorders') }}">Voir plus</a>
-		</div>
+		{% if preorders is empty %}
+			<div class="text-content">
+				Il n'y a pas de précommandes pour le moment.
+			</div>
+			{% else %}
+				<div class="cards">
+					{% for game in preorders %}
+						{% include 'components/card/_card-game.html.twig' %}
+					{% endfor %}
+				</div>
+		{% endif %}
+		{% if preorders|length > 3 %}
+			<div class="show-more">
+				<a href="{{ path('app_show_preorders') }}">Voir plus</a>
+			</div>
+		{% endif %}
 	</section>
 
 	<section class="newsletter">
