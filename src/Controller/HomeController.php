@@ -34,8 +34,8 @@ class HomeController extends AbstractController
             $resultPerPage = 6;
         }
 
-		$tendencies = $em->getRepository(Stock::class)->findGamesInTendencies($resultPerPage);
-		$preorders = $em->getRepository(Game::class)->findGamesInPreOrders($resultPerPage);
+		$tendencies = $em->getRepository(Stock::class)->findGamesInTendencies(3);
+		$preorders = $em->getRepository(Game::class)->findGamesInPreOrders(3);
 		$genres = $em->getRepository(Genre::class)->findGenres($resultPerPage);
 
 		return $this->render('home/index.html.twig', [
