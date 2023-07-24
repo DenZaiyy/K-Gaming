@@ -38,6 +38,11 @@ class NewsletterController extends AbstractController
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid()) {
+            $title = strip_tags($form->get('name')->getData());
+            $content = $form->get('content')->getData();
+
+            $newsletter->setName($title);
+            $newsletter->setContent($content);
 			$this->em->persist($newsletter);
 			$this->em->flush();
 
@@ -61,6 +66,12 @@ class NewsletterController extends AbstractController
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid()) {
+            $title = strip_tags($form->get('name')->getData());
+            $content = $form->get('content')->getData();
+
+            $newsletter->setName($title);
+            $newsletter->setContent($content);
+
 			$this->em->flush();
 
 			$this->addFlash('success', 'La newsletter a bien été modifiée');

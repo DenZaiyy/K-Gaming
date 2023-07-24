@@ -65,7 +65,13 @@ class RatingController extends AbstractController
 			$rating->setUser($user); // Ajout de l'utilisateur à la notation
 			$rating->setGame($game); // Ajout du jeu à la notation
 			$rating->setPlatform($platform); // Ajout de la plateforme à la notation
-			$rating = $ratingForm->getData();// Récupération des données du formulaire
+
+            $note = $ratingForm->getData()->getNote(); // Récupération de la note
+            $message = strip_tags($ratingForm->getData()->getMessage()); // Récupération du message et suppression des balises HTML avec strip_tags (pour éviter les failles XSS)
+
+            // Ajout de la note et du message à la notation
+			$rating->setNote($note);
+            $rating->setMessage($message);
 
 			$em->persist($rating); // Sauvegarde de la notation
 			$em->flush(); // Enregistrement de la notation
@@ -104,7 +110,11 @@ class RatingController extends AbstractController
         $ratingForm->handleRequest($request);
 
         if ($ratingForm->isSubmitted() && $ratingForm->isValid()) {
-            $rating = $ratingForm->getData();
+            $note = $ratingForm->getData()->getNote(); // Récupération de la note
+            $message = strip_tags($ratingForm->getData()->getMessage()); // Récupération du message et suppression des balises HTML avec strip_tags (pour éviter les failles XSS)
+
+            $rating->setNote($note);
+            $rating->setMessage($message);
             $rating->setUpdatedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris')));
 
             $em->persist($rating);

@@ -49,6 +49,9 @@ class RegistrationController extends AbstractController
                 return $this->redirectToRoute('app_register');
             }
 
+            $username = strip_tags($form->get('username')->getData());
+            $user->setUsername($username);
+
             // encode the plain password
             $user->setPassword(
                 $userPasswordHashed->hashPassword(

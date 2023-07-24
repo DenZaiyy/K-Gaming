@@ -55,7 +55,9 @@ class UserController extends AbstractController
 			}
 
 			$currentUser->setUpdatedAt($currentDate);
-			$currentUser->setUsername($usernameForm->get('username')->getData());
+
+            $username = strip_tags($usernameForm->get('username')->getData());
+			$currentUser->setUsername($username);
 
 			$this->em->persist($currentUser);
 			$this->em->flush();
@@ -76,7 +78,8 @@ class UserController extends AbstractController
 
             $currentUser->setUpdatedAt($currentDate);
             $currentUser->setIsVerified(false);
-            $currentUser->setEmail($emailForm->get('email')->getData());
+            $email = strip_tags($emailForm->get('email')->getData());
+            $currentUser->setEmail($email);
 
             $this->em->persist($currentUser);
             $this->em->flush();
