@@ -343,7 +343,10 @@ main .cards a .gameCard .cover-img {
   -webkit-box-shadow: 5px -5px 5px 0px rgba(0, 0, 0, 0.34);
   -moz-box-shadow: 5px -5px 5px 0px rgba(0, 0, 0, 0.34);
 }
-main .cards a .gameCard .cover-img img {
+main .cards a .gameCard .cover-img figure {
+  margin: 0;
+}
+main .cards a .gameCard .cover-img figure img {
   max-width: 300px;
   height: max-content;
   border-radius: 10px;
@@ -353,7 +356,7 @@ main .cards a .gameCard .cover-img img {
   -webkit-user-select: none;
   -ms-user-select: none;
 }
-main .cards a .gameCard .cover-img img:hover {
+main .cards a .gameCard .cover-img figure img:hover {
   transition: var(--animation);
   transform: scale(1.05);
 }
@@ -571,7 +574,10 @@ main .detailGame .detail .coverDesc {
 main .detailGame .detail .coverDesc .cover {
   width: auto;
 }
-main .detailGame .detail .coverDesc .cover img {
+main .detailGame .detail .coverDesc .cover figure {
+  margin: 0;
+}
+main .detailGame .detail .coverDesc .cover figure img {
   border-radius: 10px;
 }
 main .detailGame .detail .coverDesc .desc {

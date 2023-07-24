@@ -414,21 +414,24 @@ main {
 					box-shadow: 5px -5px 5px 0px rgba(0, 0, 0, 0.34);
 					-webkit-box-shadow: 5px -5px 5px 0px rgba(0, 0, 0, 0.34);
 					-moz-box-shadow: 5px -5px 5px 0px rgba(0, 0, 0, 0.34);
-
-					img {
-						max-width: 300px;
-						height: max-content;
-						border-radius: 10px;
-						transition: var(--animation);
-
-						user-select: none;
-						-moz-user-select: none;
-						-webkit-user-select: none;
-						-ms-user-select: none;
-						
-						&:hover {
+					
+					figure {
+						margin: 0;
+						img {
+							max-width: 300px;
+							height: max-content;
+							border-radius: 10px;
 							transition: var(--animation);
-							transform: scale(1.05);
+							
+							user-select: none;
+							-moz-user-select: none;
+							-webkit-user-select: none;
+							-ms-user-select: none;
+							
+							&:hover {
+								transition: var(--animation);
+								transform: scale(1.05);
+							}
 						}
 					}
 				}
@@ -720,8 +723,12 @@ main {
 
 				.cover {
 					width: auto;
-					img {
-						border-radius: 10px;
+					figure {
+						margin: 0;
+						
+						img {
+							border-radius: 10px;
+						}
 					}
 				}
 

@@ -10,10 +10,12 @@
 			<h1>Detail produit</h1>
 			<div class="coverDesc">
 				<div class="cover">
-					<img src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: gamePlatform.game_label })) }}.jpg"
-					     draggable="false"
-					     alt="cover for game: {{ gamePlatform.game_label }}"
-						 loading="lazy">
+					<figure>
+						<img src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: gamePlatform.game_label })) }}.jpg"
+							 draggable="false"
+							 alt="cover for game: {{ gamePlatform.game_label }}"
+							 loading="lazy">
+					</figure>
 				</div>
 				<div class="desc">
 					<h2>{{ gamePlatform.game_label }}</h2>
