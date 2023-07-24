@@ -56,9 +56,12 @@ class UserController extends AbstractController
 
 			$currentUser->setUpdatedAt($currentDate);
 
+            // On récupère le nom d'utilisateur et on le nettoie pour éviter les failles XSS
             $username = strip_tags($usernameForm->get('username')->getData());
+            // On met à jour le nom d'utilisateur
 			$currentUser->setUsername($username);
 
+            // On met à jour les informations de l'utilisateur
 			$this->em->persist($currentUser);
 			$this->em->flush();
 

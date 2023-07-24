@@ -29,10 +29,12 @@
 						<a href="{{ path('app_show_game', {gameSlug: tendency.slug}) }}">
 							<div class="gameCard">
 								<div class="cover-img">
-									<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: tendency.label })) }}.jpg"
-										 draggable="false"
-										 alt="cover for game: {{ tendency.label }}"
-										 loading="lazy">
+									<figure>
+										<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: tendency.label })) }}.jpg"
+											 draggable="false"
+											 alt="cover for game: {{ tendency.label }}"
+											 loading="lazy">
+									</figure>
 								</div>
 								<div class="infos">
 									<div class="label">
