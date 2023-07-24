@@ -63,10 +63,18 @@ class GameRepository extends ServiceEntityRepository
     public function findGamesInPlatform($platformID): array
     {
         return $this->createQueryBuilder('g')
+            /* leftJoin permettant de joindre la table plateform à la table game
+             grâce à la collection de plateform dans l'entité game */
             ->leftJoin('g.plateforms', 'p')
+            /* where permettant de récupérer les jeux en fonction de la plateforme
+             grâce au marqueur nommé/interrogative (ici :platformID) */
             ->where('p.id = :platformID')
+            /* setParameter permettant de définir la valeur du marqueur nommé/interrogative
+             en fonction de la variable $platformID */
             ->setParameter('platformID', $platformID)
+            /* getQuery permettant l'exécution de la requête */
             ->getQuery()
+            /* getResult permettant de récupérer le résultat de la requête sous forme de tableau */
             ->getResult();
     }
 
