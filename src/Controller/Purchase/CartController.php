@@ -79,6 +79,7 @@ class CartController extends AbstractController
 	public function removeAll(CartService $cartService): Response
 	{
 		$cartService->removeCartAll();
+        $this->addFlash('success', 'Votre panier a bien été vidé !');
 		
 		return $this->redirectToRoute('app_home');
 	}

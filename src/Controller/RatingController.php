@@ -29,8 +29,7 @@ class RatingController extends AbstractController
 	    // Vérification si l'utilisateur a déjà voté pour ce jeu
 		$rating = $em->getRepository(Rating::class)->findOneBy([
 				'user' => $user,
-				'game' => $game,
-				'platform' => $platform
+				'game' => $game
 			]
 	    );
 

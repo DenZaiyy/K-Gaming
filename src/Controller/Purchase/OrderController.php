@@ -32,7 +32,7 @@ class OrderController extends AbstractController
 		$address = $this->em->getRepository(Address::class)->findBy(['user' => $user]);
 
 		if (!$user) {
-			$this->addFlash('error', 'Vous devez être connecté pour passer une commande.');
+			$this->addFlash('danger', 'Vous devez être connecté pour passer une commande.');
 			return $this->redirectToRoute('app_login');
 		}
 
