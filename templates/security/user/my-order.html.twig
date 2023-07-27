@@ -63,14 +63,20 @@
                             </div>
                             <hr>
                             <div class="purchase-infos d-flex flex-row justify-content-between">
-                                <div class="infos d-flex flex-row gap-2">
-                                    <div class="method">
-                                        <strong>Paiement:</strong> {{ purchase.method|upper }}
+                                {% if purchase.isPaid %}
+                                    <div class="infos d-flex flex-row gap-2">
+                                        <div class="method">
+                                            <strong>Paiement:</strong> {{ purchase.method|upper }}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="bill">
-                                    <a href="/uploads/factures/{{ purchase.facture }}" target="_blank" class="link" download>Télécharger facture</a>
-                                </div>
+                                    <div class="bill">
+                                        <a href="/uploads/factures/{{ purchase.facture }}" target="_blank" class="link"
+                                           download>Télécharger facture</a>
+                                    </div>
+                                {% else %}
+                                    <a href="{{ path('order_cancel', {reference: purchase.reference}) }}"
+                                       class="btn-secondary-blue w-100">Annulez la commande</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
