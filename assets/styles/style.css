@@ -435,6 +435,7 @@ main .rating .btn-ratings, main .rating .btn-newsletter, main .newsletter .btn-r
   margin-top: 20px;
 }
 main .rating .btn-ratings a, main .rating .btn-newsletter a, main .newsletter .btn-ratings a, main .newsletter .btn-newsletter a {
+  display: block;
   background: transparent;
   color: var(--white);
   font-family: "Source Sans Pro", sans-serif;
@@ -465,7 +466,7 @@ main .genres .cards, main .listGenres .cards {
 }
 main .genres .cards a, main .listGenres .cards a {
   flex: 0 0 33.333%;
-  max-width: 450px;
+  max-width: 500px;
   text-decoration: none;
 }
 main .genres .cards a .genreCard, main .listGenres .cards a .genreCard {
@@ -896,6 +897,8 @@ footer .f-flex .footer .logo a:hover {
 }
 footer .f-flex .footer .links {
   color: var(--white);
+  display: flex;
+  gap: 20px;
 }
 footer .f-flex .footer .links a {
   color: var(--white);
@@ -1080,7 +1083,7 @@ footer .f-flex small {
   cursor: pointer;
 }
 
-@media (max-width: 575.98px) {
+@media screen and (max-width: 575.98px) {
   .menus, .icons {
     display: none !important;
   }
@@ -1346,6 +1349,12 @@ footer .f-flex small {
   footer .footer {
     flex-direction: column !important;
     gap: 20px !important;
+  }
+  footer .footer .links {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    align-items: center;
   }
 }
 

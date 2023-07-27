@@ -529,6 +529,7 @@ main {
 			margin-top: 20px;
 			
 			a {
+				display: block;
 				background: transparent;
 				color: var(--white);
 				font-family: "Source Sans Pro", sans-serif;
@@ -565,7 +566,7 @@ main {
 
 			a {
 				flex: 0 0 33.333%;
-				max-width: 450px;
+				max-width: 500px;
 				text-decoration: none;
 
 				.genreCard {
@@ -1149,6 +1150,8 @@ footer {
 
 			.links {
 				color: var(--white);
+				display: flex;
+				gap: 20px;
 
 				a {
 					color: var(--white);
