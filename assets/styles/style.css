@@ -57,6 +57,7 @@ body {
   text-decoration: none;
   font-size: 1.2rem;
   text-align: center;
+  height: max-content;
 }
 .btn-primary-orange:hover {
   background-color: var(--orange);
@@ -75,6 +76,7 @@ body {
   text-decoration: none;
   font-size: 1.2rem;
   text-align: center;
+  height: max-content;
 }
 .btn-secondary-blue:hover {
   background-color: var(--blue);
@@ -772,6 +774,30 @@ main .order {
 }
 main .order .order-header .recap {
   width: 40%;
+}
+main .current-purchase .cards .card .card-body .details .game a {
+  text-decoration: none;
+}
+main .current-purchase .cards .card .card-body .details .game a img {
+  border-radius: 5px;
+}
+main .current-purchase .cards .card .card-body .details .game .infos a:first-child {
+  text-decoration: none;
+  color: var(--blue);
+  transition: var(--animation);
+}
+main .current-purchase .cards .card .card-body .details .game .infos a:first-child:hover {
+  color: var(--orange);
+  transition: var(--animation);
+}
+main .current-purchase .cards .card .card-body .details .game .infos a:last-child {
+  text-decoration: underline;
+  color: var(--orange);
+  transition: var(--animation);
+}
+main .current-purchase .cards .card .card-body .details .game .infos a:last-child:hover {
+  color: var(--blue);
+  transition: var(--animation);
 }
 main .toggle-container {
   display: flex;

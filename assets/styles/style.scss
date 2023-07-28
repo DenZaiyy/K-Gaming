@@ -62,6 +62,7 @@ body {
 	text-decoration: none;
 	font-size: 1.2rem;
 	text-align: center;
+	height: max-content;
 	
 	&:hover {
 		background-color: var(--orange);
@@ -81,6 +82,7 @@ body {
 	text-decoration: none;
 	font-size: 1.2rem;
 	text-align: center;
+	height: max-content;
 	
 	&:hover {
 		background-color: var(--blue);
@@ -993,6 +995,52 @@ main {
 		.order-header {
 			.recap {
 				width: 40%;
+			}
+		}
+	}
+	
+	.current-purchase {
+		.cards {
+			.card {
+				.card-body {
+					.details {
+						.game {
+							a {
+								text-decoration: none;
+								
+								img {
+									border-radius: 5px;
+								}
+							}
+							
+							.infos {
+								a {
+									&:first-child {
+										text-decoration: none;
+										color: var(--blue);
+										transition: var(--animation);
+										
+										&:hover {
+											color: var(--orange);
+											transition: var(--animation);
+										}
+									}
+									
+									&:last-child {
+										text-decoration: underline;
+										color: var(--orange);
+										transition: var(--animation);
+										
+										&:hover {
+											color: var(--blue);
+											transition: var(--animation);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
