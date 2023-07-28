@@ -52,7 +52,8 @@ class NewsletterController extends AbstractController
 
 		return $this->render('newsletter/form.html.twig', [
 			'form' => $form->createView(),
-			'edit' => false
+			'edit' => false,
+            'description' => "Création d'une nouvelle newsletter"
 		]);
 	}
 
@@ -80,7 +81,8 @@ class NewsletterController extends AbstractController
 
 		return $this->render('newsletter/form.html.twig', [
 			'form' => $form->createView(),
-			'edit' => $newsletter->getId()
+			'edit' => $newsletter->getId(),
+            'description' => null
 		]);
 	}
 
@@ -108,7 +110,8 @@ class NewsletterController extends AbstractController
 
 		return $this->render('newsletter/list.html.twig', [
 			'newsletters' => $newsletters,
-			'users' => $users
+			'users' => $users,
+            'description' => "Liste de toutes les newsletters créées"
 		]);
 	}
 

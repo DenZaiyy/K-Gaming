@@ -61,6 +61,7 @@ class GameController extends AbstractController
 			'gamePlatform' => $gamePlatform,
 			'ratings' => $ratings,
 			'moyenne' => $moyenne,
+            'description' => "Retrouvez toutes les informations concernant le jeu " . $game->getLabel() . " sur K-Gaming."
 		]);
 	}
 
@@ -96,6 +97,7 @@ class GameController extends AbstractController
 			'gameStock' => $gameStock,
 			'ratings' => $ratings,
 			'moyenne' => $moyenne,
+            'description' => "Retrouvez toutes les informations concernant le jeu " . $game->getLabel() . " sur K-Gaming."
 		]);
 	}
 
@@ -110,6 +112,7 @@ class GameController extends AbstractController
 
 		return $this->render('game/preOrder/index.html.twig', [
 			'gamePreorder' => $gamePreorder,
+            'description' => "Retrouvez toutes les informations concernant les jeux en précommande sur K-Gaming."
 		]);
 	}
 
@@ -141,6 +144,7 @@ class GameController extends AbstractController
 			'games' => $pagination,
 			'gameAvailable' => $games,
 			'genre' => $genre,
+            'description' => "Retrouvez toutes les informations concernant les jeux du genre " . $genre->getLabel() . " sur K-Gaming."
 		]);
 	}
 

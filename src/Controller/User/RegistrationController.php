@@ -83,6 +83,7 @@ class RegistrationController extends AbstractController
 
         return $this->render('security/registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'description' => "Inscrivez-vous sur K-Gaming et rejoignez une communauté de joueurs !"
         ]);
     }
 

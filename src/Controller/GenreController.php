@@ -20,6 +20,7 @@ class GenreController extends AbstractController
 
         return $this->render('genre/index.html.twig', [
 			'genres' => $genres,
+            'description' => "Liste des genres de jeux vidéo disponibles sur le site K-GAMING."
         ]);
     }
 }

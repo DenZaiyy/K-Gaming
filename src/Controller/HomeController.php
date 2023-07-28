@@ -42,6 +42,7 @@ class HomeController extends AbstractController
 			'tendencies' => $tendencies,
 			'preorders' => $preorders,
 			'genres' => $genres,
+            'description' => "Bienvenue sur le site K-GAMING, le site de vente de jeux vidéo en ligne. Retrouvez les dernières nouveautés et les meilleurs jeux du moment."
 		]);
 	}
 

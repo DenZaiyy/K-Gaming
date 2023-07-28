@@ -72,6 +72,7 @@ class PlateformController extends AbstractController
 			'platform' => $platform,
 			'min' => $min,
 			'max' => $max,
+            'description' => "Liste des jeux de la plateforme " . $platform->getLabel() . " disponibles sur le site K-GAMING."
 		]);
 	}
 

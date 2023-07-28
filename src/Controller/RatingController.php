@@ -84,7 +84,8 @@ class RatingController extends AbstractController
 	        'game' => $game,
 	        'platform' => $platform,
             'edit' => false,
-            'ratingValue' => 0
+            'ratingValue' => 0,
+            'description' => null
         ]);
     }
 
@@ -128,7 +129,8 @@ class RatingController extends AbstractController
             'game' => $game,
             'platform' => $platform,
             'edit' => true,
-            'ratingValue' => $rating->getNote()
+            'ratingValue' => $rating->getNote(),
+            'description' => null
         ]);
     }
 
@@ -162,7 +164,8 @@ class RatingController extends AbstractController
         $ratings = $em->getRepository(Rating::class)->findBy([], ['created_at' => 'DESC']);
 
         return $this->render('rating/list.html.twig', [
-            'ratings' => $ratings
+            'ratings' => $ratings,
+            'description' => "Retrouvez ici toutes les notes des jeux disponibles sur le site."
         ]);
     }
 }

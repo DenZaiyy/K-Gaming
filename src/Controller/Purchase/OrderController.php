@@ -48,6 +48,7 @@ class OrderController extends AbstractController
 			'recapCart' => $cartService->getTotal(),
 			'cartTotal' => $cartService->getTotalCart(),
 			'address' => $address,
+            'description' => "Récapitulatif de votre commande sur K-Gaming."
 		]);
 	}
 
@@ -117,6 +118,7 @@ class OrderController extends AbstractController
 				'cartTotal' => $cartService->getTotalCart(),
 				'delivery' => $deliveryForPurchase,
 				'reference' => $purchase->getReference(),
+                'description' => "Récapitulatif de votre commande sur K-Gaming."
 			]);
 		}
 

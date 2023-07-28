@@ -66,7 +66,8 @@ class SubscriptionController extends AbstractController
 		}
 
 		return $this->render('newsletter/subscribe.html.twig', [
-			'form' => $form->createView()
+			'form' => $form->createView(),
+            'description' => "Inscrivez-vous à la newsletter de K-GAMING pour recevoir les dernières actualités et promotions !"
 		]);
 	}
 

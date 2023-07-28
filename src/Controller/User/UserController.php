@@ -127,6 +127,7 @@ class UserController extends AbstractController
             'emailForm' => $emailForm->createView(),
 	        'passwordForm' => $passwordForm->createView(),
             'user_address' => $userAddress,
+            'description' => "Accéder à votre compte et modifier vos informations personnelles"
         ]);
     }
 
@@ -164,6 +165,8 @@ class UserController extends AbstractController
 
         return $this->render('security/user/my-order.html.twig', [
             'purchases' => $purchases,
+            'user' => $this->getUser(),
+            'description' => "Accéder à l'historique de vos commandes passées sur K-Gaming"
         ]);
     }
 
@@ -177,6 +180,7 @@ class UserController extends AbstractController
 		$newsletter = $this->em->getRepository(NewsletterUser::class)->findOneBy(['email' => $user->getEmail()]);
         return $this->render('security/user/my-preference.html.twig', [
 			'newsletter' => $newsletter,
+            'description' => "Accéder à vos préférences pour la newsletter et le thème du site K-Gaming"
         ]);
     }
 
@@ -206,7 +210,8 @@ class UserController extends AbstractController
 
         return $this->render('security/user/address/add.html.twig', [
             'formAddAddress' => $form->createView(),
-            'edit' => false
+            'edit' => false,
+            'description' => null
         ]);
     }
 
@@ -229,6 +234,7 @@ class UserController extends AbstractController
         return $this->render('security/user/address/add.html.twig', [
             'formAddAddress' => $form->createView(),
             'edit' => $address->getId(),
+            'description' => null
         ]);
     }
 

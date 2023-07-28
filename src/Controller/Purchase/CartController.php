@@ -18,6 +18,7 @@ class CartController extends AbstractController
 		return $this->render('order/cart/index.html.twig', [
 			'cart' => $cartService->getTotal(),
 			'cartTotal' => $cartService->getTotalCart(),
+            'description' => "Récupérer la liste de vos produits dans le panier"
 		]);
 	}
 
@@ -32,7 +33,8 @@ class CartController extends AbstractController
 		
 		return $this->redirectToRoute('app_show_game_platform', [
 			'gameSlug' => $gameSlug,
-			'platformSlug' => $platformSlug
+			'platformSlug' => $platformSlug,
+            'description' => "Ajouter un nouveau produit en panier"
 		]);
 	}
 
