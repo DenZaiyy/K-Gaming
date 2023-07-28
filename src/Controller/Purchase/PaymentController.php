@@ -55,9 +55,10 @@ class PaymentController extends AbstractController
 	{
 		$productStripe = []; //initialize the array to store the products
 		
-		$purchase = $this->em->getRepository(Purchase::class)->findOneBy(['reference' => $reference]); //get the purchase by the reference
+		$purchase = $this->em->getRepository(Purchase::class)->findOneBy(['reference' => $reference, 'method' => 'stripe']); //get the purchase by the reference
 		
 		if (!$purchase) { //if the purchase doesn't exist, redirect to the cart
+            $this->addFlash('danger', "La commande avec la référence $reference n'existe pas");
 			return $this->redirectToRoute('app_cart_index');
 		}
 		
@@ -230,6 +231,7 @@ class PaymentController extends AbstractController
 			'reference' => $reference,
 			'products' => $products,
 			'purchase' => $purchase,
+            'description' => null
 		]);
 	}
 	
@@ -248,6 +250,7 @@ class PaymentController extends AbstractController
 		
 		return $this->render('order/payment/error.html.twig', [
 			'reference' => $reference,
+            'description' => null
 		]);
 	}
 	
@@ -255,8 +258,10 @@ class PaymentController extends AbstractController
 	#[Route('/order/create-session-paypal/{reference}', name: 'app_paypal_checkout')]
 	public function createSessionPaypal($reference): RedirectResponse
 	{
-		$purchase = $this->em->getRepository(Purchase::class)->findOneBy(['reference' => $reference]);
+		$purchase = $this->em->getRepository(Purchase::class)->findOneBy(['reference' => $reference, 'method' => 'paypal']);
 		if (!$purchase) {
+            $this->addFlash('danger', "La commande avec la reference $reference n'existe pas");
+            //if the purchase doesn't exist, redirect to the cart
 			return $this->redirectToRoute('app_cart_index');
 		}
 		
