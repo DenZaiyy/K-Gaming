@@ -34,13 +34,27 @@
                                 {% set total = total + (recap.price * recap.quantity) %}
                                 <div class="details d-flex align-items-center justify-content-between flex-row">
                                     <div class="game d-flex flex-row align-items-center gap-3">
-                                        <img src="https://images.igdb.com/igdb/image/upload/t_cover_small/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: recap.gameLabel })) }}.jpg"
-                                             draggable="false" alt="cover for game: {{ recap.gameLabel }}" loading="lazy">
+                                        <a href="{{ path('app_show_game_platform', {gameSlug: recap.gameSlug, platformSlug: recap.platformSlug}) }}">
+                                            <img src="https://images.igdb.com/igdb/image/upload/t_cover_small/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: recap.gameLabel })) }}.jpg"
+                                             draggable="false" alt="cover for game: {{ recap.gameLabel }}"
+                                             loading="lazy">
+                                        </a>
                                         <div class="infos d-flex flex-column text-start">
-                                            <strong>{{ recap.gameLabel|upper }}</strong>
-                                            <small>Plateforme: <strong>{{ recap.platformLabel }}</strong></small>
-                                            <small>Quantité: <strong>{{ recap.quantity }}</strong></small>
-                                            <a href="{{ path('app_game_rating', {gameSlug: recap.gameSlug, platformSlug: recap.platformSlug}) }}">Donner mon avis</a>
+                                            <a href="{{ path('app_show_game_platform', {gameSlug: recap.gameSlug, platformSlug: recap.platformSlug}) }}">
+                                                <b>{{ recap.gameLabel|upper }}</b>
+                                            </a>
+                                            <small>Plateforme: <b>{{ recap.platformLabel }}</b></small>
+                                            <small>Quantité: <b>{{ recap.quantity }}</b></small>
+                                            {% set gameRate = null %}
+                                            {% for rating in user.ratings %}
+                                                {% if rating.game.id == recap.gameId and rating.platform.id == recap.platformId %}
+                                                    {% set gameRate = rating %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            {% if gameRate == null %}
+                                                <a href="{{ path('app_game_rating', {gameSlug: recap.gameSlug, platformSlug: recap.platformSlug}) }}">Donner
+                                                    mon avis</a>
+                                            {% endif %}
                                         </div>
                                     </div>
                                     <div class="game-price">
@@ -52,30 +66,41 @@
                             <div class="detail-price d-flex flex-column">
                                 <div class="TVA d-flex justify-content-between">
                                     {% set TVA = total * 0.2 %}
-                                    <strong>TVA (20%)</strong>
+                                    <b>TVA (20%)</b>
                                     <small>{{ TVA|price }}</small>
                                 </div>
                                 <div class="total-ttc d-flex justify-content-between">
                                     {% set totalTTC = total + TVA %}
-                                    <strong>Total TTC</strong>
+                                    <b>Total TTC</b>
                                     <small>{{ totalTTC|price }}</small>
                                 </div>
                             </div>
                             <hr>
-                            <div class="purchase-infos d-flex flex-row justify-content-between">
-                                {% if purchase.isPaid %}
-                                    <div class="infos d-flex flex-row gap-2">
-                                        <div class="method">
-                                            <strong>Paiement:</strong> {{ purchase.method|upper }}
-                                        </div>
+                            <div class="purchase-infos d-flex flex-row justify-content-between align-items-center">
+
+                                <div class="infos">
+                                    <div class="method">
+                                        <b>Paiement:</b> {{ purchase.method|upper }}
                                     </div>
+                                </div>
+                                {% if purchase.isPaid %}
                                     <div class="bill">
                                         <a href="/uploads/factures/{{ purchase.facture }}" target="_blank" class="link"
                                            download>Télécharger facture</a>
                                     </div>
                                 {% else %}
-                                    <a href="{{ path('order_cancel', {reference: purchase.reference}) }}"
-                                       class="btn-secondary-blue w-100">Annulez la commande</a>
+                                    <div class="bill d-flex gap-3 flex-row flex-wrap">
+                                        {% if purchase.method == "stripe" %}
+                                            <a href="{{ path('app_stripe_checkout', {reference: purchase.reference}) }}"
+                                               class="btn-primary-orange">Payer la commande</a>
+                                        {% else %}
+                                            <a href="{{ path('app_paypal_checkout', {reference: purchase.reference}) }}"
+                                               class="btn-primary-orange">Payer la commande</a>
+                                        {% endif %}
+
+                                        <a href="{{ path('order_cancel', {reference: purchase.reference}) }}"
+                                           class="btn-secondary-blue">Annulez la commande</a>
+                                    </div>
                                 {% endif %}
                             </div>
                         </div>
