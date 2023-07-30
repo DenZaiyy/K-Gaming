@@ -47,7 +47,7 @@
                                             <small>Quantité: <b>{{ recap.quantity }}</b></small>
                                             {% set gameRate = null %}
                                             {% for rating in user.ratings %}
-                                                {% if rating.game.id == recap.gameId and rating.platform.id == recap.platformId %}
+                                                {% if rating.game.id == recap.gameId %}
                                                     {% set gameRate = rating %}
                                                 {% endif %}
                                             {% endfor %}
