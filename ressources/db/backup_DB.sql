@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
--- Listage des données de la table kgaming.doctrine_migration_versions : ~22 rows (environ)
+-- Listage des données de la table kgaming.doctrine_migration_versions : ~20 rows (environ)
 DELETE FROM `doctrine_migration_versions`;
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 	('DoctrineMigrations\\Version20230601144500', NULL, NULL),
@@ -94,15 +94,16 @@ CREATE TABLE IF NOT EXISTS `facture` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_FE866410558FBEB9` (`purchase_id`),
   CONSTRAINT `FK_FE866410558FBEB9` FOREIGN KEY (`purchase_id`) REFERENCES `purchase` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.facture : ~3 rows (environ)
+-- Listage des données de la table kgaming.facture : ~5 rows (environ)
 DELETE FROM `facture`;
 INSERT INTO `facture` (`id`, `purchase_id`, `reference`, `facture`, `created_at`) VALUES
 	(5, 98, '64904e905eaaf', 'facture-64904e905eaaf.pdf', '2023-06-19 14:48:16'),
 	(6, 99, '649aae6b4b194', 'facture-649aae6b4b194.pdf', '2023-06-27 11:39:55'),
 	(7, 100, '64abadffce51f', 'facture-64abadffce51f.pdf', '2023-07-10 09:06:39'),
-	(8, 112, '64c215be2a520', 'facture-64c215be2a520.pdf', '2023-07-27 08:59:10');
+	(8, 112, '64c215be2a520', 'facture-64c215be2a520.pdf', '2023-07-27 08:59:10'),
+	(9, 114, '64c3c4e9dff36', 'facture-64c3c4e9dff36.pdf', '2023-07-28 15:38:49');
 
 -- Listage de la structure de la table kgaming. game
 CREATE TABLE IF NOT EXISTS `game` (
@@ -393,11 +394,8 @@ CREATE TABLE IF NOT EXISTS `newsletter` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.newsletter : ~2 rows (environ)
+-- Listage des données de la table kgaming.newsletter : ~0 rows (environ)
 DELETE FROM `newsletter`;
-INSERT INTO `newsletter` (`id`, `name`, `content`, `created_at`, `is_sent`) VALUES
-	(4, 'jghjgjghjg', '<p>gjgjgjgjg</p>', '2023-06-25 22:35:54', 0),
-	(5, 'test', '<p>test</p>', '2023-07-23 16:03:52', 0);
 
 -- Listage de la structure de la table kgaming. newsletter_user
 CREATE TABLE IF NOT EXISTS `newsletter_user` (
@@ -410,7 +408,7 @@ CREATE TABLE IF NOT EXISTS `newsletter_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.newsletter_user : ~1 rows (environ)
+-- Listage des données de la table kgaming.newsletter_user : ~0 rows (environ)
 DELETE FROM `newsletter_user`;
 INSERT INTO `newsletter_user` (`id`, `email`, `is_verified`, `created_at`, `token`, `is_rgpd`) VALUES
 	(4, 'itekmodding@gmail.com', 0, '2023-06-16 14:58:56', '6eeb2377185f20d65acfd767b9bccee3', 1);
@@ -458,15 +456,16 @@ CREATE TABLE IF NOT EXISTS `purchase` (
   KEY `IDX_6117D13BF5B7AF75` (`address_id`),
   CONSTRAINT `FK_6117D13BA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL,
   CONSTRAINT `FK_6117D13BF5B7AF75` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.purchase : ~4 rows (environ)
+-- Listage des données de la table kgaming.purchase : ~6 rows (environ)
 DELETE FROM `purchase`;
 INSERT INTO `purchase` (`id`, `user_id`, `address_id`, `created_at`, `is_paid`, `method`, `reference`, `stripe_session_id`, `paypal_order_id`, `delivery`, `user_full_name`) VALUES
 	(98, 1, 1, '2023-06-19 14:48:08', 1, 'paypal', '19062023-64904e88178fc', NULL, '2W914654NV2084723', '29 rue du ban</br>68200 - Mulhouse', 'Kevin GRISCHKO'),
 	(99, 1, 1, '2023-06-27 11:39:27', 1, 'stripe', '27062023-649aae4f75a95', 'cs_test_b1za2a0yqTIzvc9xHh4bj9vfNoC0bjASdLDSOpEQhcj5Nq8OKj0MZpvR1U', NULL, '29 rue du ban</br>68200 - Mulhouse', 'Kevin GRISCHKO'),
 	(100, 1, 1, '2023-07-10 09:06:04', 1, 'stripe', '10072023-64abaddc1806c', 'cs_test_a1r6Dn7Hek7ckxPn0eHmuTtrxNmMDuV4BOqOIoC0v4uZLolYOvPbJA6p7i', NULL, '9 rue de moosch</br>68200 - Mulhouse', 'Kevin GRISCHKO'),
-	(112, 1, 17, '2023-07-27 08:58:19', 1, 'stripe', '27072023-64c2158b0f9ff', 'cs_test_a1rvV8tCIwP61pKdgs4RdwtqEc8whsgIyP1gL2zwDAF93ItpmtIYQSaHie', NULL, '12 hdfsdh</br>68200 - Mulhouse', 'Kevin GRISCHKO');
+	(112, 1, 17, '2023-07-27 08:58:19', 1, 'stripe', '27072023-64c2158b0f9ff', 'cs_test_a1rvV8tCIwP61pKdgs4RdwtqEc8whsgIyP1gL2zwDAF93ItpmtIYQSaHie', NULL, '12 hdfsdh</br>68200 - Mulhouse', 'Kevin GRISCHKO'),
+	(114, 1, 1, '2023-07-28 15:38:30', 1, 'stripe', '28072023-64c3c4d6bdef9', 'cs_test_a1dCWwuAska7RqjOrWRdTUsuOiOtcrEJ1Ofko4GitgOfC0B6K6YmoA5dkE', NULL, '9 rue de moosch</br>68200 - Mulhouse', 'Kevin GRISCHKO');
 
 -- Listage de la structure de la table kgaming. rating
 CREATE TABLE IF NOT EXISTS `rating` (
@@ -512,9 +511,9 @@ CREATE TABLE IF NOT EXISTS `recap_details` (
   PRIMARY KEY (`id`),
   KEY `IDX_1D1FD69F65E9B0F` (`order_product_id`),
   CONSTRAINT `FK_1D1FD69F65E9B0F` FOREIGN KEY (`order_product_id`) REFERENCES `purchase` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.recap_details : ~6 rows (environ)
+-- Listage des données de la table kgaming.recap_details : ~8 rows (environ)
 DELETE FROM `recap_details`;
 INSERT INTO `recap_details` (`id`, `order_product_id`, `quantity`, `game_label`, `price`, `total_recap`, `platform_label`, `game_id`, `platform_id`, `game_slug`, `platform_slug`) VALUES
 	(59, 98, 2, 'Diablo IV', 19.99, '39.98', 'Battle.net', 7, 3, 'diablo-iv', 'battle-net'),
@@ -522,7 +521,8 @@ INSERT INTO `recap_details` (`id`, `order_product_id`, `quantity`, `game_label`,
 	(61, 99, 1, 'Diablo IV', 19.99, '19.99', 'Steam', 7, 1, 'diablo-iv', 'steam'),
 	(62, 99, 1, 'Counter-Strike 2', 19.99, '19.99', 'Steam', 6, 1, 'counter-strike-2', 'steam'),
 	(63, 100, 1, 'Diablo IV', 19.99, '19.99', 'Steam', 7, 1, 'diablo-iv', 'steam'),
-	(75, 112, 2, 'Satisfactory', 24.99, '49.98', 'Epic Games', 14, 4, 'satisfactory', 'epic-games');
+	(75, 112, 2, 'Satisfactory', 24.99, '49.98', 'Epic Games', 14, 4, 'satisfactory', 'epic-games'),
+	(77, 114, 1, 'Red Dead Redemption 2', 24.99, '24.99', 'Steam', 27, 1, 'red-dead-redemption-2', 'steam');
 
 -- Listage de la structure de la table kgaming. reset_password_request
 CREATE TABLE IF NOT EXISTS `reset_password_request` (
@@ -972,7 +972,7 @@ INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_ke
 	(409, 26, NULL, 8, '891A-9C48-1EA0-A45E', '2023-06-06 09:08:47', 1),
 	(410, 26, NULL, 9, '1B7C-D2EA-BA01-308F', '2023-06-06 09:08:47', 1),
 	(411, 26, NULL, 9, '47C7-AA58-C671-2B16', '2023-06-06 09:08:47', 1),
-	(412, 27, NULL, 1, '8D39-23B2-F33F-B2BB', '2023-06-06 09:08:47', 1),
+	(412, 27, 114, 1, '8D39-23B2-F33F-B2BB', '2023-06-06 09:08:47', 0),
 	(413, 27, NULL, 1, 'DC6E-AB22-8C33-1BBF', '2023-06-06 09:08:47', 1),
 	(414, 27, NULL, 1, '9598-D91B-AEAB-B2C1', '2023-06-06 09:08:47', 1),
 	(415, 27, NULL, 1, '09A4-B6AD-B97B-F6B4', '2023-06-06 09:08:47', 1),
