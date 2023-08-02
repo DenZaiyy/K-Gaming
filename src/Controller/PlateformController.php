@@ -29,7 +29,7 @@ class PlateformController extends AbstractController
 		$form->handleRequest($request);
 
         $cookies = $request->cookies;
-        $screenWidth = $cookies->get('screenWidth');
+        $screenWidth = $cookies->get('sw');
 
         if ($screenWidth < 768) {
             $resultPerPage = 3;
@@ -75,32 +75,4 @@ class PlateformController extends AbstractController
             'description' => "Liste des jeux de la plateforme " . $platform->getLabel() . " disponibles sur le site K-GAMING."
 		]);
 	}
-
-    #[Route('/screen-size', name: 'app_screen_size')]
-    public function checkWindowSize(Request $request): Response
-    {
-        $screenWidth = $request->request->get('screenWidth');
-
-        $cookie = new Cookie(
-            'screenWidth',    // Cookie name
-            $screenWidth,    // Cookie value
-            (new \DateTime('now'))->modify('+7 days'),   // Expires after 7 days
-            '/',                // Path
-            "127.0.0.1",               // Domain
-            $request->getScheme() === "https",              // Secure
-            true,                // HttpOnly
-            true,                 // Raw
-            'Lax'            // SameSite attribute
-        );
-
-        $response = new Response();
-        $response->headers->setCookie($cookie);
-        $response->send();
-
-        $data = [
-            'screenWidth' => $screenWidth
-        ];
-
-        return $this->json($data);
-    }
 }

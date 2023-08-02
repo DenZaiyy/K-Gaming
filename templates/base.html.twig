@@ -8,7 +8,7 @@
 	<meta name="copyright" content="K-Gaming">
 	<title>K-GAMING - {% block title %}{% endblock %}</title>
 	<link rel="icon"
-	      href="/img/favicon.png">
+	      href="{{ asset('img/logo_Kgaming_fx.png') }}">
 	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
 	{% block stylesheets %}
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -20,6 +20,7 @@
 	{% block javascripts %}
 		<script src="https://code.jquery.com/jquery-3.6.4.js"
 				integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous" defer></script>
+		<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js" defer></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous" defer></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"
 				integrity="sha512-i9cEfJwUwViEPFKdC1enz4ZRGBj8YQo6QByFTF92YXHi7waCqyexvRD75S5NVTsSiTv7rKWqG9Y5eFxmRsOn0A=="
@@ -44,7 +45,7 @@
 		<div class="footer">
 			<div class="logo">
 				<a href="{{ path('app_home') }}">
-					K-GAMING
+					<img src="{{ asset('img/logo_Kgaming_baseColor.png') }}" alt="Logo of website">
 				</a>
 			</div>
 			<div class="links">

@@ -13,6 +13,7 @@ import './bootstrap';
 import './themeSwitch';
 import './rating';
 import './tarteaucitron';
+import './screenWidth';
 
 import noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
@@ -138,20 +139,6 @@ window.addEventListener('load', (e) => {
 		})
 	}
 	// END SHOW FILTERS IN RESPONSIVE
-
-	// START SCREEN SIZE
-	let screenWidth = window.screen.width; // on récupère la largeur de l'écran
-
-	let xHttp = new XMLHttpRequest(); // on crée une nouvelle requête
-	xHttp.onreadystatechange = function() { // on écoute l'événement readyStateChange de la requête
-		if (this.readyState == 4 && this.status == 200) { // si la requête est terminée et que le statut est 200
-			let response = JSON.parse(this.responseText); // on parse la réponse en JSON
-		}
-	};
-	xHttp.open('POST', '/screen-size', true); // on ouvre la requête en POST sur l'URL /screen-size
-	xHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); // on définit le header de la requête
-	xHttp.send("screenWidth=" + screenWidth); // on envoie la requête avec la largeur de l'écran
-	// END SCREEN SIZE
 
 	//START ACCORDION MENU BURGER
 	let acc = document.getElementsByClassName("accordion"); // on récupère tous les éléments avec la classe accordion

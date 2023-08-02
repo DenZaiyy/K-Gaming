@@ -130,6 +130,13 @@ body {
   text-decoration: none;
   color: var(--orange);
 }
+.header-flex .logo a img {
+  height: 50px;
+  width: 50px;
+}
+.header-flex .logo a span {
+  font-size: 0.7em !important;
+}
 .header-flex .menus {
   height: max-content;
   display: flex;
@@ -916,6 +923,11 @@ footer .f-flex .footer .logo a {
   text-decoration: none;
   color: var(--orange);
   transition: var(--animation);
+}
+footer .f-flex .footer .logo a img {
+  filter: drop-shadow(0px 0px 2px black);
+  width: 50px;
+  height: 50px;
 }
 footer .f-flex .footer .logo a:hover {
   color: var(--white);

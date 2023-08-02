@@ -24,7 +24,7 @@ class HomeController extends AbstractController
 	public function index(EntityManagerInterface $em, Request $request): Response
 	{
         $cookies = $request->cookies;
-        $screenWidth = $cookies->get('screenWidth');
+        $screenWidth = $cookies->get('sw');
 
         if ($screenWidth < 768) {
             $resultPerPage = 2;
