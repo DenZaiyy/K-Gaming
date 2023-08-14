@@ -141,7 +141,7 @@
 					<div class="card">
 						<div class="card-header d-flex flex-wrap justify-content-between align-items-center">
 							<div class="game d-flex align-items-center gap-2">
-								<a href="{{ path('app_show_game_platform', {gameSlug: rating.game.slug, platformSlug: rating.platform.slug}) }}">
+								<a href="{{ path('app_show_game_platform', {categoryLabel: rating.platform.category.label|lower, gameSlug: rating.game.slug, platformSlug: rating.platform.slug}) }}">
 									<img src="{{ rating.platform.logo }}" alt="logo {{ rating.platform.label }}">
 									<strong>{{ rating.game.label }}</strong>
 								</a>

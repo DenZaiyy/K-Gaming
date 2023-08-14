@@ -34,13 +34,13 @@
                                 {% set total = total + (recap.price * recap.quantity) %}
                                 <div class="details d-flex align-items-center justify-content-between flex-row">
                                     <div class="game d-flex flex-row align-items-center gap-3">
-                                        <a href="{{ path('app_show_game_platform', {gameSlug: recap.gameSlug, platformSlug: recap.platformSlug}) }}">
+                                        <a href="{{ path('app_show_game_platform', {categoryLabel: purchase.category.label|lower, gameSlug: recap.gameSlug, platformSlug: recap.platformSlug}) }}">
                                             <img src="https://images.igdb.com/igdb/image/upload/t_cover_small/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: recap.gameLabel })) }}.jpg"
                                              draggable="false" alt="cover for game: {{ recap.gameLabel }}"
                                              loading="lazy">
                                         </a>
                                         <div class="infos d-flex flex-column text-start">
-                                            <a href="{{ path('app_show_game_platform', {gameSlug: recap.gameSlug, platformSlug: recap.platformSlug}) }}">
+                                            <a href="{{ path('app_show_game_platform', {categoryLabel: purchase.category.label|lower, gameSlug: recap.gameSlug, platformSlug: recap.platformSlug}) }}">
                                                 <b>{{ recap.gameLabel|upper }}</b>
                                             </a>
                                             <small>Plateforme: <b>{{ recap.platformLabel }}</b></small>
