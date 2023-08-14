@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste de plateformes{% endblock %}
+
+{% block body %}
+<section class="category">
+    <h1>{{ category.label }}</h1>
+    <div class="platforms d-flex justify-content-center gap-4">
+        {% for platform in platforms %}
+            <div class="platform">
+                <a href="{{ path('app_game_platform', { categoryLabel: category.label|lower, platformSlug: platform.slug }) }}" class="d-flex flex-column gap-2 justify-content-center align-items-center">
+                    <img src="{{ asset(platform.logo) }}" alt="logo de la plateforme '{{ platform.label }}'" height="100" width="100">
+                    <p>{{ platform.label }}</p>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

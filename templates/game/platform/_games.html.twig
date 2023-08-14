@@ -1,5 +1,5 @@
 {% for game in games %}
-	<a href="{{ path('app_show_game_platform', {gameSlug: game.slug, platformSlug: platform.slug }) }}" id="game-{{ game.id }}">
+	<a href="{{ path('app_show_game_platform', {gameSlug: game.slug, platformSlug: platform.slug, categoryLabel: platform.category.label|lower }) }}" id="game-{{ game.id }}">
 		<div class="gameCard">
 			<div class="cover-img">
 				<figure>

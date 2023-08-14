@@ -16,7 +16,7 @@
 					<div class="dropdown-menu" aria-labelledby="dropdown{{ category.label }}">
 						{% for plateform in plateforms %}
 							{% if plateform.category.label == category.label %}
-								<a href="{{ path('app_game_platform', {platformSlug: plateform.slug}) }}" class="dropdown-item">
+								<a href="{{ path('app_game_platform', {platformSlug: plateform.slug, categoryLabel: category.label|lower }) }}" class="dropdown-item">
 									<img src="{{ plateform.logo }}" alt="logo of {{ plateform.label }}" loading="lazy">{{ plateform.label }}
 								</a>
 							{% endif %}
@@ -103,7 +103,7 @@
 						<div class="panel">
 							{% for plateform in plateforms %}
 								{% if plateform.category.label == category.label %}
-									<a href="{{ path('app_game_platform', {platformSlug: plateform.slug}) }}">
+									<a href="{{ path('app_game_platform', {platformSlug: plateform.slug, categoryLabel: category.label|lower }) }}">
 										{{ plateform.label }}
 									</a>
 								{% endif %}
@@ -142,4 +142,5 @@
 			</div>
 		</div>
 	</nav>
+	{{ wo_render_breadcrumbs() }}
 </header>
