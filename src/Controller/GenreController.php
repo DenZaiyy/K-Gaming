@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Genre;
+use App\Service\BreadCrumbsService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,10 +14,17 @@ class GenreController extends AbstractController
 	/*
 	 * Méthode permettant d'afficher la liste des genres
 	 */
-    #[Route('/genre', name: 'app_genre_list')]
-    public function index(EntityManagerInterface $em): Response
+    #[Route('/genres', name: 'app_genre_list')]
+    public function index(EntityManagerInterface $em, BreadCrumbsService $breadCrumbsService): Response
     {
 		$genres = $em->getRepository(Genre::class)->findAll();
+
+        $breadCrumbsService->BCGenerate(
+            [],
+            [],
+            [],
+            []
+        );
 
         return $this->render('genre/index.html.twig', [
 			'genres' => $genres,

@@ -3,16 +3,16 @@
 namespace App\Controller;
 
 use App\Data\SearchData;
+use App\Entity\Category;
 use App\Entity\Game;
 use App\Entity\Plateform;
 use App\Form\SearchForm;
+use App\Service\BreadCrumbsService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PlateformController extends AbstractController
@@ -20,8 +20,8 @@ class PlateformController extends AbstractController
 	/*
 	 * Méthode permettant d'afficher la liste des jeux d'une plateforme en prenant en compte les filtres de recherche en ajax
 	 */
-	#[Route('/platform/{platformSlug}', name: 'app_game_platform')]
-	public function index(EntityManagerInterface $em, Request $request, $platformSlug): Response
+	#[Route('/platform/{categoryLabel}/{platformSlug}', name: 'app_game_platform')]
+	public function index(EntityManagerInterface $em, Request $request, $platformSlug, BreadCrumbsService $breadCrumbsService): Response
 	{
 		$data = new SearchData(); // Création d'un objet SearchData
 		$data->page = $request->get('page', 1); // Récupération de la page en cours sinon 1 par défaut
@@ -65,6 +65,21 @@ class PlateformController extends AbstractController
 			]);
 		}
 
+        $breadCrumbsService->BCGenerate(
+            [
+                'label' => $platform->getCategory()->getLabel(),
+                'route' => "app_platform_categories",
+                'params' => ['categoryLabel' => $platform->getCategory()->getLabel()]
+            ],
+            [
+                'label' => $platform->getLabel(),
+                'route' => "app_game_platform",
+                'params' => ['categoryLabel' => $platform->getCategory()->getLabel(), 'platformSlug' => $platform->getSlug()]
+            ],
+            [],
+            []
+        );
+
 		return $this->render('game/platform/index.html.twig', [
 			'form' => $form->createView(),
 			'gameAvailable' => $gamesAvailable,
@@ -75,4 +90,28 @@ class PlateformController extends AbstractController
             'description' => "Liste des jeux de la plateforme " . $platform->getLabel() . " disponibles sur le site K-GAMING."
 		]);
 	}
+
+    #[Route('/platform/{categoryLabel}', name: 'app_platform_categories')]
+    public function categories(EntityManagerInterface $em, $categoryLabel, BreadCrumbsService $breadCrumbsService): Response
+    {
+        $category = $em->getRepository(Category::class)->findOneBy(['label' => $categoryLabel]);
+        $platforms = $em->getRepository(Plateform::class)->findBy(['category' => $category->getId()]);
+
+        $breadCrumbsService->BCGenerate(
+            [
+                'label' => $category->getLabel(),
+                'route' => "app_platform_categories",
+                'params' => ['categoryLabel' => $category->getLabel()]
+            ],
+            [],
+            [],
+            []
+        );
+
+        return $this->render('game/platform/categories.html.twig', [
+            'platforms' => $platforms,
+            'category' => $category,
+            'description' => "Liste des plateformes de la catégorie " . $category->getLabel() . " disponibles sur le site K-GAMING."
+        ]);
+    }
 }

@@ -7,6 +7,7 @@ use App\Entity\Genre;
 use App\Entity\Plateform;
 use App\Entity\Rating;
 use App\Entity\Stock;
+use App\Service\BreadCrumbsService;
 use App\Service\CallApiService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -29,7 +30,7 @@ class GameController extends AbstractController
 	 * Méthode permettant d'afficher le detail d'un jeu grâce au slug
 	 */
 	#[Route('/{gameSlug}', name: 'app_show_game', priority: -1)]
-	public function showGame(EntityManagerInterface $em, $gameSlug): Response
+	public function showGame(EntityManagerInterface $em, $gameSlug, BreadCrumbsService $breadCrumbsService): Response
 	{
 		$game = $em->getRepository(Game::class)->findOneBy(['slug' => $gameSlug]);
         if (!$game)
@@ -39,8 +40,39 @@ class GameController extends AbstractController
         }
 		$gameStock = $em->getRepository(Stock::class)->findStockByGameID($game->getId());
 		$gamePlatform = $em->getRepository(Game::class)->findOneGameInPlatform($game->getId(), $gameStock[0]['platform_id']);
+        $platform = $em->getRepository(Plateform::class)->findOneBy(['id' => $gamePlatform['platform_id']]);
 
 		$ratings = $em->getRepository(Rating::class)->findBy(['game' => $game->getId()]);
+
+        // TODO: Refactor this
+        /*$breadcrumbs->addRouteItem($game->getLabel(), "app_show_game", ['gameSlug' => $gameSlug]);
+        $breadcrumbs->prependRouteItem($gamePlatform['platform_label'], "app_game_platform", ['categoryLabel' => $platform->getCategory()->getLabel(),'platformSlug' => $gamePlatform['platform_slug']]);
+        $breadcrumbs->prependRouteItem($platform->getCategory()->getLabel(), "app_platform_categories", ['categoryLabel' => $platform->getCategory()->getLabel()]);
+        $breadcrumbs->prependRouteItem("Accueil", "app_home");*/
+
+        //TODO: This is a temporary solution until we can refactor the breadcrumbs service
+        $breadCrumbsService->BCGenerate(
+            [
+                'label' => $platform->getCategory()->getLabel(),
+                'route' => 'app_platform_categories',
+                'params' => ['categoryLabel' => strtolower($platform->getCategory()->getLabel())]
+            ],
+            [
+                'label' => $gamePlatform['platform_label'],
+                'route' => 'app_game_platform',
+                'params' => [
+                    'categoryLabel' => $platform->getCategory()->getLabel(),
+                    'platformSlug' => $gamePlatform['platform_slug'
+                    ]
+                ]
+            ],
+            [
+                'label' => $game->getLabel(),
+                'route' => 'app_show_game',
+                'params' => ['gameSlug' => $gameSlug]
+            ],
+            []
+        );
 
 		$moyenne = 0;
 		// Verification si le jeu a des notes pour calculer la moyenne
@@ -68,8 +100,8 @@ class GameController extends AbstractController
 	/*
 	 * Méthode permettant d'afficher le detail d'un jeu dans une plateforme grâce aux slugs
 	 */
-	#[Route('/platform/{platformSlug}/{gameSlug}', name: 'app_show_game_platform')]
-	public function showGameInPlatform(EntityManagerInterface $em, $platformSlug, $gameSlug): Response
+	#[Route('/platform/{categoryLabel}/{platformSlug}/{gameSlug}', name: 'app_show_game_platform')]
+	public function showGameInPlatform(EntityManagerInterface $em, $platformSlug, $gameSlug, BreadCrumbsService $breadCrumbsService): Response
 	{
 		$game = $em->getRepository(Game::class)->findOneBy(['slug' => $gameSlug]);
 		$platform = $em->getRepository(Plateform::class)->findOneBy(['slug' => $platformSlug]);
@@ -77,6 +109,32 @@ class GameController extends AbstractController
 		$gameStock = $em->getRepository(Stock::class)->findAvailableGameStockByPlatform($game->getId(), $platform->getId());
 
 		$ratings = $em->getRepository(Rating::class)->findBy(['game' => $game->getId()]);
+
+        // TODO: Refactor this
+        /*$breadcrumbs->addRouteItem($game->getLabel(), "app_show_game", ['gameSlug' => $gameSlug]);
+        $breadcrumbs->prependRouteItem($gamePlatform['platform_label'], "app_game_platform", ['platformSlug' => $gamePlatform['platform_slug'], 'categoryLabel' => $platform->getCategory()->getLabel()]);
+        $breadcrumbs->prependRouteItem($platform->getCategory()->getLabel(), "app_platform_categories", ['categoryLabel' => $platform->getCategory()->getLabel()]);
+        $breadcrumbs->prependRouteItem("Accueil", "app_home");*/
+
+        //TODO: This is a temporary solution until we can refactor the breadcrumbs service
+        $breadCrumbsService->BCGenerate(
+            [
+                'label' => $platform->getCategory()->getLabel(),
+                'route' => 'app_platform_categories',
+                'params' => ['categoryLabel' => $platform->getCategory()->getLabel()]
+            ],
+            [
+                'label' => $gamePlatform['platform_label'],
+                'route' => 'app_game_platform',
+                'params' => ['platformSlug' => $gamePlatform['platform_slug'], 'categoryLabel' => $platform->getCategory()->getLabel()]
+            ],
+            [
+                'label' => $game->getLabel(),
+                'route' => 'app_show_game',
+                'params' => ['gameSlug' => $gameSlug]
+            ],
+            []
+        );
 
 		$moyenne = 0;
 		// Verification si le jeu a des notes pour calculer la moyenne
@@ -97,6 +155,7 @@ class GameController extends AbstractController
 			'gameStock' => $gameStock,
 			'ratings' => $ratings,
 			'moyenne' => $moyenne,
+            'category' => $platform->getCategory()->getLabel(),
             'description' => "Retrouvez toutes les informations concernant le jeu " . $game->getLabel() . " sur K-Gaming."
 		]);
 	}
@@ -104,7 +163,7 @@ class GameController extends AbstractController
 	/*
 	 * Méthode permettant d'afficher la liste des jeux en précommande
 	 */
-	#[Route('/preoder/game', name: 'app_show_preorders')]
+	#[Route('/preorder/game', name: 'app_show_preorders')]
 	public function showGameInPreorder(EntityManagerInterface $em): Response
 	{
 		$date = new \DateTime(); // Date du jour
@@ -120,7 +179,7 @@ class GameController extends AbstractController
 	 * Méthode permettant d'afficher la liste des jeux associés à un genre grâce au slug
 	 */
 	#[Route('/game/genre/{genreSlug}', name: 'app_show_game_genre')]
-	public function showGameByGenre(EntityManagerInterface $em, Request $request, PaginatorInterface $paginator, $genreSlug): Response
+	public function showGameByGenre(EntityManagerInterface $em, Request $request, PaginatorInterface $paginator, $genreSlug, BreadCrumbsService $breadCrumbsService): Response
 	{
 		$games = $em->getRepository(Game::class)->findGameByGenre($genreSlug); // Récupérer la liste des jeux associés à un genre
 		$genre = $em->getRepository(Genre::class)->findOneBy(['slug' => $genreSlug]);
@@ -139,6 +198,21 @@ class GameController extends AbstractController
 			'span_class' => 'whatever',
 		]);
 		// Fin pagination
+
+        /*$breadcrumbs->addRouteItem($genre->getLabel(), "app_show_game_genre", ['genreSlug' => $genreSlug]);
+        $breadcrumbs->prependRouteItem("Genres", "app_genre_list");
+        $breadcrumbs->prependRouteItem("Accueil", "app_home");*/
+
+        $breadCrumbsService->BCGenerate(
+            [],
+            [],
+            [],
+            [
+                'label' => $genre->getLabel(),
+                'route' => 'app_show_game_genre',
+                'params' => ['genreSlug' => $genreSlug]
+            ]
+        );
 
 		return $this->render('game/genre/show.html.twig', [
 			'games' => $pagination,
