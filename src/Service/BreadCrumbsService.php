@@ -17,11 +17,15 @@ class BreadCrumbsService extends AbstractController
             $this->breadcrumbs->addRouteItem($game['label'], $game['route'], $game['params']);
         }
 
-        if($platform) {
+        if($platform && !$game) {
+            $this->breadcrumbs->addRouteItem($platform['label'], $platform['route'], $platform['params']);
+        } else if($platform) {
             $this->breadcrumbs->prependRouteItem($platform['label'], $platform['route'], $platform['params']);
         }
 
-        if($category) {
+        if($category && !$platform) {
+            $this->breadcrumbs->addRouteItem($category['label'], $category['route'], $category['params']);
+        } else if ($category) {
             $this->breadcrumbs->prependRouteItem($category['label'], $category['route'], $category['params']);
         }
 
