@@ -1,0 +1,10 @@
+white_october_breadcrumbs:
+  separator:          ''
+  separatorClass:     'separator'
+  listId:             'wo-breadcrumbs'
+  listClass:          'breadcrumb px-3 mb-0'
+  itemClass:          'breadcrumb-item'
+  linkRel:            ''
+  locale:             fr # defaults to null, so the default locale is used
+  translation_domain: fr # defaults to null, so the default domain is used
+  viewTemplate:       '@WhiteOctoberBreadcrumbs/microdata.html.twig'
