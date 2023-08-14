@@ -58,7 +58,7 @@
 							<select class="form-select" name="plateform" id="plateform">
 								<option value="" selected disabled hidden>Selectionner une plateforme</option>
 								{% for plateform in game.plateforms %}
-									<option value="{{ plateform.slug }}">{{ plateform.label }}</option>
+									<option value="{{ plateform.slug }}" data-category="{{ plateform.category.label|lower }}">{{ plateform.label }}</option>
 								{% endfor %}
 							</select>
 							<p>{{ gamePlatform.price|price }} (HT)</p>

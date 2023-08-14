@@ -74,12 +74,13 @@ window.addEventListener('load', (e) => {
 	const plateform = document.getElementById("plateform"); // on récupère l'élément avec l'id plateform
 	
 	if (plateform) { // si l'élément existe
-		plateform.addEventListener("change", function () { // on écoute l'événement change sur l'élément
-			var idPlateform = plateform.value; // on récupère la valeur de l'élément
-			var url = window.location.pathname; // on récupère l'url de la page
-			var idGame = url.substring(url.lastIndexOf("/") + 1); // on récupère l'id du jeu dans l'url
-			
-			window.location.href = "/platform/" + idPlateform + "/" + idGame; // on redirige vers la page avec l'id de la plateforme et du jeu
+		plateform.addEventListener("change", function (e) { // on écoute l'événement change sur l'élément
+			let idPlateform = plateform.value; // on récupère la valeur de l'élément
+			let category = e.target.options[e.target.selectedIndex].dataset.category; // on récupère la valeur de l'attribut data-category de l'option sélectionnée
+			let url = window.location.pathname; // on récupère l'url de la page
+			let idGame = url.substring(url.lastIndexOf("/") + 1); // on récupère l'id du jeu dans l'url
+
+			window.location.href = "/platform/" + category + "/" + idPlateform + "/" + idGame; // on redirige vers la page avec l'id de la plateforme et du jeu
 		})
 	}
 	// END PLATEFORME CHANGE
