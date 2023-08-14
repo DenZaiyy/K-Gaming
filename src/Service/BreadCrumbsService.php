@@ -29,8 +29,11 @@ class BreadCrumbsService extends AbstractController
             $this->breadcrumbs->prependRouteItem($category['label'], $category['route'], $category['params']);
         }
 
-        if($genre) {
-            $this->breadcrumbs->prependRouteItem($genre['label'], $genre['route'], $genre['params']);
+        if($genre && !$game) {
+            $this->breadcrumbs->addRouteItem($genre['label'], $genre['route'], $genre['params']);
+            $this->breadcrumbs->prependRouteItem("Genres", "app_genre_list");
+        } else if (!$genre && !$game) {
+            $this->breadcrumbs->prependRouteItem("Genres", "app_genre_list");
         }
 
         $this->breadcrumbs->prependRouteItem("Accueil", "app_home");
