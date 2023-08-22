@@ -474,8 +474,7 @@ main .genres .cards, main .listGenres .cards {
   margin: 0 auto;
 }
 main .genres .cards a, main .listGenres .cards a {
-  flex: 0 0 33.333%;
-  max-width: 500px;
+  flex: 0 0 30%;
   text-decoration: none;
 }
 main .genres .cards a .genreCard, main .listGenres .cards a .genreCard {

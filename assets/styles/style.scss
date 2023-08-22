@@ -576,8 +576,9 @@ main {
 			margin: 0 auto;
 
 			a {
-				flex: 0 0 33.333%;
-				max-width: 500px;
+				//flex: 0 0 33.333%;
+				//max-width: 500px;
+				flex: 0 0 30%;
 				text-decoration: none;
 
 				.genreCard {
