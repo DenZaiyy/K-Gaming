@@ -2,9 +2,7 @@
 
 namespace App\Controller\Purchase;
 
-use App\Entity\Plateform;
 use App\Service\CartService;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,17 +25,16 @@ class CartController extends AbstractController
 	/*
 	 * La fonction addToCart permet d'ajouter un jeu au panier
 	 */
-	#[Route('/cart/add/{platformSlug}/{gameSlug}', name: 'app_add_cart')]
-	public function addToCart(CartService $cartService, $platformSlug, $gameSlug, EntityManagerInterface $em): Response
+	#[Route('/cart/add/{categoryLabel}/{platformSlug}/{gameSlug}', name: 'app_add_cart')]
+	public function addToCart(CartService $cartService, $categoryLabel, $platformSlug, $gameSlug): Response
 	{
-		$platform = $em->getRepository(Plateform::class)->findOneBy(['slug' => $platformSlug]);
 		// Utilisation du service CartService pour ajouter un jeu au panier en lui renseignant le slug du jeu et de la plateforme
 		$cartService->addToCart($gameSlug, $platformSlug);
 		
 		return $this->redirectToRoute('app_show_game_platform', [
 			'gameSlug' => $gameSlug,
 			'platformSlug' => $platformSlug,
-			'categoryLabel' => strtolower($platform->getCategory()->getLabel())
+			'categoryLabel' => strtolower($categoryLabel)
 		]);
 	}
 	
