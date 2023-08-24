@@ -371,16 +371,21 @@ main .cards a .gameCard .cover-img figure img:hover {
 }
 main .cards a .gameCard .infos {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  padding: 0 5px;
   font-size: 1.2em;
+  max-width: 264px;
 }
 main .cards a .gameCard .infos .label, main .cards a .gameCard .infos .price {
   font-family: "Source Sans Pro", sans-serif;
   color: var(--blue);
 }
+main .cards a .gameCard .infos .label {
+  width: 75%;
+}
 main .cards a .gameCard .infos .price {
   font-weight: bold;
+  width: 25%;
 }
 main .cards a .gameCard .preco {
   display: flex;

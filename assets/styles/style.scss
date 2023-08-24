@@ -449,9 +449,11 @@ main {
 
 				.infos {
 					display: flex;
+					flex-wrap: wrap;
 					justify-content: space-between;
-					padding: 0 5px;
+					//padding: 0 5px;
 					font-size: 1.2em;
+					max-width: 264px;
 
 
 					.label, .price {
@@ -459,8 +461,13 @@ main {
 						color: var(--blue);
 					}
 
+					.label {
+						width: 75%;
+					}
+					
 					.price {
 						font-weight: bold;
+						width: 25%;
 					}
 				}
 
