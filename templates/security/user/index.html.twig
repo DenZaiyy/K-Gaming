@@ -137,37 +137,41 @@
 		<div class="user-ratings">
 			<h2>Vos avis</h2>
 			<div class="ratings">
-				{% for rating in user.ratings %}
-					<div class="card">
-						<div class="card-header d-flex flex-wrap justify-content-between align-items-center">
-							<div class="game d-flex align-items-center gap-2">
-								<a href="{{ path('app_show_game_platform', {categoryLabel: rating.platform.category.label|lower, gameSlug: rating.game.slug, platformSlug: rating.platform.slug}) }}">
-									<img src="{{ rating.platform.logo }}" alt="logo {{ rating.platform.label }}">
-									<strong>{{ rating.game.label }}</strong>
-								</a>
+				{% if user.ratings is null %}
+					{% for rating in user.ratings %}
+						<div class="card">
+							<div class="card-header d-flex flex-wrap justify-content-between align-items-center">
+								<div class="game d-flex align-items-center gap-2">
+									<a href="{{ path('app_show_game_platform', {categoryLabel: rating.platform.category.label|lower, gameSlug: rating.game.slug, platformSlug: rating.platform.slug}) }}">
+										<img src="{{ rating.platform.logo }}" alt="logo {{ rating.platform.label }}">
+										<strong>{{ rating.game.label }}</strong>
+									</a>
+								</div>
+								{% include 'components/rating/_rating.html.twig' %}
 							</div>
-							{% include 'components/rating/_rating.html.twig' %}
-						</div>
-						<div class="card-body">
-							<p>{{ rating.message }}</p>
-						</div>
-						<div class="card-footer d-flex flex-wrap align-items-center justify-content-between">
-							<div class="createdAt">
-								{% if rating.updatedAt %}
-									<small>Mis à jour le <strong>{{ fullDateFR(rating.updatedAt) }}</strong></small>
-									{% else %}
-									<small>Posté le <strong>{{ fullDateFR(rating.createdAt) }}</strong></small>
+							<div class="card-body">
+								<p>{{ rating.message }}</p>
+							</div>
+							<div class="card-footer d-flex flex-wrap align-items-center justify-content-between">
+								<div class="createdAt">
+									{% if rating.updatedAt %}
+										<small>Mis à jour le <strong>{{ fullDateFR(rating.updatedAt) }}</strong></small>
+										{% else %}
+										<small>Posté le <strong>{{ fullDateFR(rating.createdAt) }}</strong></small>
+									{% endif %}
+								</div>
+								{% if app.user.id == rating.user.id %}
+									<div class="actions">
+										<a href="{{ path('rating_edit', {gameSlug: rating.game.slug, platformSlug: rating.platform.slug}) }}" class="edit-btn"><i class="bi bi-gear"></i></a>
+										<a href="{{ path('rating_delete', {gameSlug: rating.game.slug, platformSlug: rating.platform.slug}) }}" class="del-btn" onclick="return confirm('Êtes-vous sure de vouloir supprimer votre avis ?')"><i class="bi bi-trash"></i></a>
+									</div>
 								{% endif %}
 							</div>
-							{% if app.user.id == rating.user.id %}
-								<div class="actions">
-									<a href="{{ path('rating_edit', {gameSlug: rating.game.slug, platformSlug: rating.platform.slug}) }}" class="edit-btn"><i class="bi bi-gear"></i></a>
-									<a href="{{ path('rating_delete', {gameSlug: rating.game.slug, platformSlug: rating.platform.slug}) }}" class="del-btn" onclick="return confirm('Êtes-vous sure de vouloir supprimer votre avis ?')"><i class="bi bi-trash"></i></a>
-								</div>
-							{% endif %}
 						</div>
-					</div>
-				{% endfor %}
+					{% endfor %}
+				{% else %}
+					<p>Vous n'avez pas encore posté d'avis.</p>
+				{% endif %}
 			</div>
 		</div>
 	</div>
