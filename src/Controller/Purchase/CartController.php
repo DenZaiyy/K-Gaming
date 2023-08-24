@@ -2,10 +2,12 @@
 
 namespace App\Controller\Purchase;
 
+use App\Entity\Plateform;
 use App\Service\CartService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CartController extends AbstractController
 {
@@ -18,26 +20,27 @@ class CartController extends AbstractController
 		return $this->render('order/cart/index.html.twig', [
 			'cart' => $cartService->getTotal(),
 			'cartTotal' => $cartService->getTotalCart(),
-            'description' => "Récupérer la liste de vos produits dans le panier"
+			'description' => "Récupérer la liste de vos produits dans le panier"
 		]);
 	}
-
+	
 	/*
 	 * La fonction addToCart permet d'ajouter un jeu au panier
 	 */
 	#[Route('/cart/add/{platformSlug}/{gameSlug}', name: 'app_add_cart')]
-	public function addToCart(CartService $cartService, $platformSlug, $gameSlug): Response
+	public function addToCart(CartService $cartService, $platformSlug, $gameSlug, EntityManagerInterface $em): Response
 	{
-        // Utilisation du service CartService pour ajouter un jeu au panier en lui renseignant le slug du jeu et de la plateforme
+		$platform = $em->getRepository(Plateform::class)->findOneBy(['slug' => $platformSlug]);
+		// Utilisation du service CartService pour ajouter un jeu au panier en lui renseignant le slug du jeu et de la plateforme
 		$cartService->addToCart($gameSlug, $platformSlug);
 		
 		return $this->redirectToRoute('app_show_game_platform', [
 			'gameSlug' => $gameSlug,
 			'platformSlug' => $platformSlug,
-            'description' => "Ajouter un nouveau produit en panier"
+			'categoryLabel' => strtolower($platform->getCategory()->getLabel())
 		]);
 	}
-
+	
 	/*
 	 * La fonction buyNow permet d'ajouter un jeu au panier et d'aller directement sur la page de commande
 	 */
@@ -48,21 +51,21 @@ class CartController extends AbstractController
 		
 		return $this->redirectToRoute('order_create');
 	}
-
+	
 	/*
 	 * La fonction removeToCart permet de supprimer un jeu du panier
 	 */
 	#[Route('/cart/remove/{platformSlug}/{gameSlug}', name: 'app_remove_cart')]
 	public function removeToCart(CartService $cartService, $platformSlug, $gameSlug): Response
 	{
-        // Utilisation du service CartService pour supprimer un jeu du panier
-        // en lui renseignant le slug du jeu et de la plateforme
+		// Utilisation du service CartService pour supprimer un jeu du panier
+		// en lui renseignant le slug du jeu et de la plateforme
 		$cartService->removeToCart($gameSlug, $platformSlug);
-
-        // Redirection vers la page du panier
+		
+		// Redirection vers la page du panier
 		return $this->redirectToRoute('app_cart_index');
 	}
-
+	
 	/*
 	 * La fonction quantityChange permet de modifier la quantité d'un jeu dans le panier
 	 */
@@ -73,7 +76,7 @@ class CartController extends AbstractController
 		
 		return $this->redirectToRoute('app_cart_index');
 	}
-
+	
 	/*
 	 * La fonction removeAll permet de supprimer tous les jeux du panier
 	 */
@@ -81,7 +84,7 @@ class CartController extends AbstractController
 	public function removeAll(CartService $cartService): Response
 	{
 		$cartService->removeCartAll();
-        $this->addFlash('success', 'Votre panier a bien été vidé !');
+		$this->addFlash('success', 'Votre panier a bien été vidé !');
 		
 		return $this->redirectToRoute('app_home');
 	}
