@@ -93,6 +93,7 @@ class GameController extends AbstractController
 			'gamePlatform' => $gamePlatform,
 			'ratings' => $ratings,
 			'moyenne' => $moyenne,
+			'category' => strtolower($platform->getCategory()->getLabel()),
             'description' => "Retrouvez toutes les informations concernant le jeu " . $game->getLabel() . " sur K-Gaming."
 		]);
 	}
@@ -155,7 +156,7 @@ class GameController extends AbstractController
 			'gameStock' => $gameStock,
 			'ratings' => $ratings,
 			'moyenne' => $moyenne,
-            'category' => $platform->getCategory()->getLabel(),
+            'category' => strtolower($platform->getCategory()->getLabel()),
             'description' => "Retrouvez toutes les informations concernant le jeu " . $game->getLabel() . " sur K-Gaming."
 		]);
 	}

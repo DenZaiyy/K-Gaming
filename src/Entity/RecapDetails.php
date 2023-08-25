@@ -44,6 +44,10 @@ class RecapDetails
 	#[ORM\Column(length: 255)]
 	private ?string $platform_slug = null;
 
+	#[ORM\ManyToOne]
+	#[ORM\JoinColumn(nullable: false)]
+	private ?Category $category = null;
+
 	public function getId(): ?int
 	{
 		return $this->id;
@@ -165,6 +169,18 @@ class RecapDetails
 	public function setPlatformSlug(string $platform_slug): static
 	{
 		$this->platform_slug = $platform_slug;
+
+		return $this;
+	}
+
+	public function getCategory(): ?Category
+	{
+		return $this->category;
+	}
+
+	public function setCategory(?Category $category): static
+	{
+		$this->category = $category;
 
 		return $this;
 	}

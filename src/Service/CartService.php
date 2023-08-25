@@ -145,6 +145,7 @@ class CartService extends AbstractController
                 $cartData[] = [
                     'game' => $game,
                     'platform' => $platform,
+	                'category' => $platform->getCategory(),
                     'quantity' => $value['quantity']
                 ];
             }

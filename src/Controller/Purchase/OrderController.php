@@ -106,6 +106,7 @@ class OrderController extends AbstractController
 				$recapDetails->setTotalRecap(
 					$product['game']->getPrice() * $product['quantity']
 				);
+				$recapDetails->setCategory($product['category']);
 
 				$this->em->persist($recapDetails);
 			}
