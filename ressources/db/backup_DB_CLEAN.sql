@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `address` (
   CONSTRAINT `FK_D4E6F81A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.address : ~3 rows (environ)
+-- Listage des données de la table kgaming.address : ~2 rows (environ)
 DELETE FROM `address`;
 INSERT INTO `address` (`id`, `user_id`, `label`, `firstname`, `lastname`, `address`, `cp`, `city`) VALUES
 	(1, 1, 'Maison', 'Kevin', 'GRISCHKO', '9 rue de moosch', '68200', 'Mulhouse'),
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
--- Listage des données de la table kgaming.doctrine_migration_versions : ~22 rows (environ)
+-- Listage des données de la table kgaming.doctrine_migration_versions : ~23 rows (environ)
 DELETE FROM `doctrine_migration_versions`;
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 	('DoctrineMigrations\\Version20230601144500', NULL, NULL),
@@ -81,7 +81,8 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 	('DoctrineMigrations\\Version20230619125322', '2023-06-19 12:53:27', 27),
 	('DoctrineMigrations\\Version20230622145918', '2023-06-22 14:59:22', 32),
 	('DoctrineMigrations\\Version20230630091556', '2023-07-05 21:28:37', 56),
-	('DoctrineMigrations\\Version20230712124604', '2023-07-12 12:46:15', 66);
+	('DoctrineMigrations\\Version20230712124604', '2023-07-12 12:46:15', 66),
+	('DoctrineMigrations\\Version20230825231035', '2023-08-25 23:10:39', 115);
 
 -- Listage de la structure de la table kgaming. facture
 CREATE TABLE IF NOT EXISTS `facture` (
@@ -93,9 +94,9 @@ CREATE TABLE IF NOT EXISTS `facture` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_FE866410558FBEB9` (`purchase_id`),
   CONSTRAINT `FK_FE866410558FBEB9` FOREIGN KEY (`purchase_id`) REFERENCES `purchase` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.facture : ~5 rows (environ)
+-- Listage des données de la table kgaming.facture : ~0 rows (environ)
 DELETE FROM `facture`;
 
 -- Listage de la structure de la table kgaming. game
@@ -385,7 +386,7 @@ CREATE TABLE IF NOT EXISTS `newsletter` (
   `created_at` datetime NOT NULL,
   `is_sent` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table kgaming.newsletter : ~0 rows (environ)
 DELETE FROM `newsletter`;
@@ -401,7 +402,7 @@ CREATE TABLE IF NOT EXISTS `newsletter_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.newsletter_user : ~1 rows (environ)
+-- Listage des données de la table kgaming.newsletter_user : ~0 rows (environ)
 DELETE FROM `newsletter_user`;
 
 -- Listage de la structure de la table kgaming. plateform
@@ -447,9 +448,9 @@ CREATE TABLE IF NOT EXISTS `purchase` (
   KEY `IDX_6117D13BF5B7AF75` (`address_id`),
   CONSTRAINT `FK_6117D13BA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL,
   CONSTRAINT `FK_6117D13BF5B7AF75` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.purchase : ~5 rows (environ)
+-- Listage des données de la table kgaming.purchase : ~0 rows (environ)
 DELETE FROM `purchase`;
 
 -- Listage de la structure de la table kgaming. rating
@@ -469,9 +470,9 @@ CREATE TABLE IF NOT EXISTS `rating` (
   CONSTRAINT `FK_D8892622A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL,
   CONSTRAINT `FK_D8892622E48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`),
   CONSTRAINT `FK_D8892622FFE6496F` FOREIGN KEY (`platform_id`) REFERENCES `plateform` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.rating : ~5 rows (environ)
+-- Listage des données de la table kgaming.rating : ~0 rows (environ)
 DELETE FROM `rating`;
 
 -- Listage de la structure de la table kgaming. recap_details
@@ -487,12 +488,15 @@ CREATE TABLE IF NOT EXISTS `recap_details` (
   `platform_id` int NOT NULL,
   `game_slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `platform_slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_1D1FD69F65E9B0F` (`order_product_id`),
+  KEY `IDX_1D1FD6912469DE2` (`category_id`),
+  CONSTRAINT `FK_1D1FD6912469DE2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
   CONSTRAINT `FK_1D1FD69F65E9B0F` FOREIGN KEY (`order_product_id`) REFERENCES `purchase` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.recap_details : ~7 rows (environ)
+-- Listage des données de la table kgaming.recap_details : ~0 rows (environ)
 DELETE FROM `recap_details`;
 
 -- Listage de la structure de la table kgaming. reset_password_request
@@ -524,7 +528,7 @@ CREATE TABLE IF NOT EXISTS `stock` (
   KEY `IDX_4B365660E48FD905` (`game_id`),
   KEY `IDX_4B365660558FBEB9` (`purchase_id`),
   KEY `IDX_4B365660CCAA542F` (`plateform_id`),
-  CONSTRAINT `FK_4B365660558FBEB9` FOREIGN KEY (`purchase_id`) REFERENCES `purchase` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `FK_4B365660558FBEB9` FOREIGN KEY (`purchase_id`) REFERENCES `purchase` (`id`),
   CONSTRAINT `FK_4B365660CCAA542F` FOREIGN KEY (`plateform_id`) REFERENCES `plateform` (`id`) ON DELETE CASCADE,
   CONSTRAINT `FK_4B365660E48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1617 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
