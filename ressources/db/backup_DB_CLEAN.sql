@@ -15,6 +15,7 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 -- Listage de la structure de la table kgaming. address
+DROP TABLE IF EXISTS `address`;
 CREATE TABLE IF NOT EXISTS `address` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
@@ -29,13 +30,14 @@ CREATE TABLE IF NOT EXISTS `address` (
   CONSTRAINT `FK_D4E6F81A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table kgaming.address : ~2 rows (environ)
+-- Listage des données de la table kgaming.address : ~3 rows (environ)
 DELETE FROM `address`;
 INSERT INTO `address` (`id`, `user_id`, `label`, `firstname`, `lastname`, `address`, `cp`, `city`) VALUES
 	(1, 1, 'Maison', 'Kevin', 'GRISCHKO', '9 rue de moosch', '68200', 'Mulhouse'),
 	(3, 1, 'Travail', 'Kevin', 'GRISCHKO', '16 rue de la rose', '68270', 'Wittenheim');
 
 -- Listage de la structure de la table kgaming. category
+DROP TABLE IF EXISTS `category`;
 CREATE TABLE IF NOT EXISTS `category` (
   `id` int NOT NULL AUTO_INCREMENT,
   `label` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -50,6 +52,7 @@ INSERT INTO `category` (`id`, `label`) VALUES
 	(3, 'Xbox');
 
 -- Listage de la structure de la table kgaming. doctrine_migration_versions
+DROP TABLE IF EXISTS `doctrine_migration_versions`;
 CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
   `version` varchar(191) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `executed_at` datetime DEFAULT NULL,
@@ -57,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
--- Listage des données de la table kgaming.doctrine_migration_versions : ~23 rows (environ)
+-- Listage des données de la table kgaming.doctrine_migration_versions : ~22 rows (environ)
 DELETE FROM `doctrine_migration_versions`;
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 	('DoctrineMigrations\\Version20230601144500', NULL, NULL),
@@ -85,6 +88,7 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 	('DoctrineMigrations\\Version20230825231035', '2023-08-25 23:10:39', 115);
 
 -- Listage de la structure de la table kgaming. facture
+DROP TABLE IF EXISTS `facture`;
 CREATE TABLE IF NOT EXISTS `facture` (
   `id` int NOT NULL AUTO_INCREMENT,
   `purchase_id` int NOT NULL,
@@ -100,6 +104,7 @@ CREATE TABLE IF NOT EXISTS `facture` (
 DELETE FROM `facture`;
 
 -- Listage de la structure de la table kgaming. game
+DROP TABLE IF EXISTS `game`;
 CREATE TABLE IF NOT EXISTS `game` (
   `id` int NOT NULL AUTO_INCREMENT,
   `label` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -137,6 +142,7 @@ INSERT INTO `game` (`id`, `label`, `price`, `date_release`, `slug`) VALUES
 	(32, 'No Man\'s Sky', 24.99, '2016-08-08', 'no-mans-sky');
 
 -- Listage de la structure de la table kgaming. game_genre
+DROP TABLE IF EXISTS `game_genre`;
 CREATE TABLE IF NOT EXISTS `game_genre` (
   `game_id` int NOT NULL,
   `genre_id` int NOT NULL,
@@ -222,6 +228,7 @@ INSERT INTO `game_genre` (`game_id`, `genre_id`) VALUES
 	(32, 11);
 
 -- Listage de la structure de la table kgaming. game_plateform
+DROP TABLE IF EXISTS `game_plateform`;
 CREATE TABLE IF NOT EXISTS `game_plateform` (
   `game_id` int NOT NULL,
   `plateform_id` int NOT NULL,
@@ -331,6 +338,7 @@ INSERT INTO `game_plateform` (`game_id`, `plateform_id`) VALUES
 	(32, 9);
 
 -- Listage de la structure de la table kgaming. genre
+DROP TABLE IF EXISTS `genre`;
 CREATE TABLE IF NOT EXISTS `genre` (
   `id` int NOT NULL AUTO_INCREMENT,
   `label` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -361,6 +369,7 @@ INSERT INTO `genre` (`id`, `label`, `slug`, `image`) VALUES
 	(17, 'Arcade', 'arcade', 'img/genres/arcade.jpg');
 
 -- Listage de la structure de la table kgaming. messenger_messages
+DROP TABLE IF EXISTS `messenger_messages`;
 CREATE TABLE IF NOT EXISTS `messenger_messages` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `body` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -379,6 +388,7 @@ CREATE TABLE IF NOT EXISTS `messenger_messages` (
 DELETE FROM `messenger_messages`;
 
 -- Listage de la structure de la table kgaming. newsletter
+DROP TABLE IF EXISTS `newsletter`;
 CREATE TABLE IF NOT EXISTS `newsletter` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -392,6 +402,7 @@ CREATE TABLE IF NOT EXISTS `newsletter` (
 DELETE FROM `newsletter`;
 
 -- Listage de la structure de la table kgaming. newsletter_user
+DROP TABLE IF EXISTS `newsletter_user`;
 CREATE TABLE IF NOT EXISTS `newsletter_user` (
   `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -406,6 +417,7 @@ CREATE TABLE IF NOT EXISTS `newsletter_user` (
 DELETE FROM `newsletter_user`;
 
 -- Listage de la structure de la table kgaming. plateform
+DROP TABLE IF EXISTS `plateform`;
 CREATE TABLE IF NOT EXISTS `plateform` (
   `id` int NOT NULL AUTO_INCREMENT,
   `category_id` int NOT NULL,
@@ -431,6 +443,7 @@ INSERT INTO `plateform` (`id`, `category_id`, `label`, `logo`, `slug`) VALUES
 	(9, 3, 'Xbox One', 'https://www.svgrepo.com/show/303464/xbox-one-3-logo.svg', 'xbox-one');
 
 -- Listage de la structure de la table kgaming. purchase
+DROP TABLE IF EXISTS `purchase`;
 CREATE TABLE IF NOT EXISTS `purchase` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
@@ -454,6 +467,7 @@ CREATE TABLE IF NOT EXISTS `purchase` (
 DELETE FROM `purchase`;
 
 -- Listage de la structure de la table kgaming. rating
+DROP TABLE IF EXISTS `rating`;
 CREATE TABLE IF NOT EXISTS `rating` (
   `id` int NOT NULL AUTO_INCREMENT,
   `game_id` int NOT NULL,
@@ -476,6 +490,7 @@ CREATE TABLE IF NOT EXISTS `rating` (
 DELETE FROM `rating`;
 
 -- Listage de la structure de la table kgaming. recap_details
+DROP TABLE IF EXISTS `recap_details`;
 CREATE TABLE IF NOT EXISTS `recap_details` (
   `id` int NOT NULL AUTO_INCREMENT,
   `order_product_id` int NOT NULL,
@@ -500,6 +515,7 @@ CREATE TABLE IF NOT EXISTS `recap_details` (
 DELETE FROM `recap_details`;
 
 -- Listage de la structure de la table kgaming. reset_password_request
+DROP TABLE IF EXISTS `reset_password_request`;
 CREATE TABLE IF NOT EXISTS `reset_password_request` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
@@ -516,6 +532,7 @@ CREATE TABLE IF NOT EXISTS `reset_password_request` (
 DELETE FROM `reset_password_request`;
 
 -- Listage de la structure de la table kgaming. stock
+DROP TABLE IF EXISTS `stock`;
 CREATE TABLE IF NOT EXISTS `stock` (
   `id` int NOT NULL AUTO_INCREMENT,
   `game_id` int NOT NULL,
@@ -2153,6 +2170,7 @@ INSERT INTO `stock` (`id`, `game_id`, `purchase_id`, `plateform_id`, `license_ke
 	(1616, 32, NULL, 9, 'F20C-89A1-CA26-BB59', '2023-08-22 21:12:24', 1);
 
 -- Listage de la structure de la table kgaming. user
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(180) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2172,7 +2190,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Listage des données de la table kgaming.user : ~1 rows (environ)
 DELETE FROM `user`;
 INSERT INTO `user` (`id`, `username`, `roles`, `password`, `email`, `avatar`, `is_verified`, `create_at`, `is_banned`, `updated_at`) VALUES
-	(1, 'denZ', '["ROLE_ADMIN"]', '$2y$13$4eyOQ1oZxhWzR3PLYIlRXe.5Yvrtgk14xqeU8sYp8GZYKe/yiwc9G', 'denzoubiden@gmail.com', 'https://api.multiavatar.com/850.png?apikey=oE7Qgxe34yjiMh', 1, '2023-05-14 20:43:59', 0, '2023-07-24 20:58:06');
+	(1, 'denZ', '["ROLE_ADMIN"]', '$2y$13$hbT3OXEYA/Zeak7c4t51beaCfgQmnlIeSyu96Un9CoqN6aROxB9ye', 'denzoubiden@gmail.com', 'https://api.multiavatar.com/850.png?apikey=oE7Qgxe34yjiMh', 1, '2023-05-14 20:43:59', 0, '2023-08-26 01:35:11');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
