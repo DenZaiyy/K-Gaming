@@ -1,6 +1,9 @@
 # K-GAMING
 This is a e-commerce website for selling games. We are using PayPal and Stripe for payment.
+
 <img src="ressources/logo_mockup/MOCKUP/gamingScene_Kgamin.jpg" alt="mockup website" width="100%" height="300">
+
+<a href="https://k-gaming.k-grischko.fr/" target="_blank">Visit online website here</a>
 
 ## Features
 - Registration/Login
