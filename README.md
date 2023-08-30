@@ -18,20 +18,11 @@ This is a e-commerce website for selling games. We are using PayPal and Stripe f
 - Newsletter
 
 ## Technologies
-- Symfony 6.2
+- <a href="https://symfony.com/doc/current/setup.html" target="_blank">Symfony 6.2</a>
 - MySQL
-- Bootstrap 5
-- PHP 8.2
+- <a href="https://getbootstrap.com/docs/5.3/getting-started/introduction/" target="_blank">Bootstrap 5</a>
+- <a href="https://windows.php.net/download#php-8.2" target="_blank">PHP 8.2</a>
 - JavaScript
-
-<div align="center">
-<a href="https://symfony.com/doc/current/setup.html" target="_blank">
-  <img src="https://symfony.com/logos/symfony_black_02.png" alt="logo symfony" height="50">
-</a>
-<a href="https://getbootstrap.com/docs/5.3/getting-started/introduction/" target="_blank">
-  <img src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" alt="logo bootstrap" height="50">
-</a>
-</div>
 
 ## Installation
 
