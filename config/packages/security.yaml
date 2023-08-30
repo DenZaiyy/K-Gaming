@@ -20,7 +20,7 @@ security:
             logout:
                 path: app_logout
                 # where to redirect after logout
-                target: app_login
+                target: app_home
             user_checker: App\Security\UserChecker
             
             remember_me:
