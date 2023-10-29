@@ -5,6 +5,7 @@ namespace App\Controller\User;
 use App\Controller\UploadedFile;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use App\Service\FileUploader;
 use App\Service\MultiAvatars;
@@ -91,13 +92,22 @@ class RegistrationController extends AbstractController
 	 * Fonction permettant de vérifier l'email de l'utilisateur pour l'inscription
 	 */
     #[Route('/verify/email', name: 'app_verify_email')]
-    public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
+    public function verifyUserEmail(Request $request, TranslatorInterface $translator, UserRepository $userRepository): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        //$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+	    $id = $request->query->get('id'); // retrieve the user id from the url
+	    $user = $userRepository->find($id);
+
+
+	    // Verify the user id exists and is not null
+	    if (null === $id || null === $user) {
+		    return $this->redirectToRoute('app_home');
+	    }
 
         // validate email confirmation link, sets User::isVerified=true and persists
         try {
-            $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
+            $this->emailVerifier->handleEmailConfirmation($request, $user);
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
 
