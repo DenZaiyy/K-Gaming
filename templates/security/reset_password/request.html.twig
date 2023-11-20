@@ -5,7 +5,7 @@
 {% block body %}
 	<div class="container">
 		<h1>Réinitialiser votre mot de passe</h1>
-		<div class="card w-25 p-3 d-flex flex-column m-auto gap-3">
+		<div class="card w-50 p-3 d-flex flex-column m-auto gap-3">
 			{% for flash_error in app.flashes('reset_password_error') %}
 				<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
 			{% endfor %}
@@ -17,7 +17,7 @@
 			<div>
 				Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.
 			</div>
-			<div>
+			<div class="text-center">
 				<button class="btn-primary-orange mt-3">Envoyer le mail de réinitialisation de mot de passe</button>
 			</div>
 			{{ form_end(requestForm) }}
