@@ -40,6 +40,18 @@ class Game
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: Rating::class)]
     private Collection $ratings;
 
+    #[ORM\Column]
+    private ?bool $is_promotion = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $promo_percent = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $old_price = null;
+
+    #[ORM\Column]
+    private ?bool $is_sellable = true;
+
     public function __construct()
     {
         $this->genres = new ArrayCollection();
@@ -210,6 +222,54 @@ class Game
                 $rating->setGame(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isIsPromotion(): ?bool
+    {
+        return $this->is_promotion;
+    }
+
+    public function setIsPromotion(bool $is_promotion): static
+    {
+        $this->is_promotion = $is_promotion;
+
+        return $this;
+    }
+
+    public function getPromoPercent(): ?float
+    {
+        return $this->promo_percent;
+    }
+
+    public function setPromoPercent(?float $promo_percent): static
+    {
+        $this->promo_percent = $promo_percent;
+
+        return $this;
+    }
+
+    public function getOldPrice(): ?float
+    {
+        return $this->old_price;
+    }
+
+    public function setOldPrice(?float $old_price): static
+    {
+        $this->old_price = $old_price;
+
+        return $this;
+    }
+
+    public function isIsSellable(): ?bool
+    {
+        return $this->is_sellable;
+    }
+
+    public function setIsSellable(bool $is_sellable): static
+    {
+        $this->is_sellable = $is_sellable;
 
         return $this;
     }
