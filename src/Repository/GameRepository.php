@@ -51,6 +51,7 @@ class GameRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('g')
             ->where('g.date_release > :date')
+	        ->andWhere('g.is_sellable = true')
             ->setParameter('date', new \DateTime())
             ->setMaxResults($resultPerPage)
             ->getQuery()
@@ -69,6 +70,7 @@ class GameRepository extends ServiceEntityRepository
             /* where permettant de récupérer les jeux en fonction de la plateforme
              grâce au marqueur nommé/interrogative (ici :platformID) */
             ->where('p.id = :platformID')
+	        ->andWhere('g.is_sellable = true')
             /* setParameter permettant de définir la valeur du marqueur nommé/interrogative
              en fonction de la variable $platformID */
             ->setParameter('platformID', $platformID)
@@ -84,9 +86,10 @@ class GameRepository extends ServiceEntityRepository
     public function findOneGameInPlatform($gameID, $platformID): array
     {
         return $this->createQueryBuilder('g')
-            ->select('g.id AS game_id', 'g.label AS game_label', 'g.slug AS game_slug', 'g.price', 'g.date_release', 'p.id AS platform_id', 'p.label as platform_label', 'p.slug AS platform_slug', 'p.logo as platform_logo')
+            ->select('g.id AS game_id', 'g.label AS game_label', 'g.slug AS game_slug', 'g.price', 'g.old_price', 'g.is_promotion AS inPromotion', 'g.date_release', 'p.id AS platform_id', 'p.label as platform_label', 'p.slug AS platform_slug', 'p.logo as platform_logo')
             ->leftJoin('g.plateforms', 'p')
             ->where('p.id = :platformID')
+	        ->andWhere('g.is_sellable = true')
             ->andWhere('g.id = :gameID')
             ->setParameters(
                 [
@@ -106,6 +109,7 @@ class GameRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('g')
             ->where('g.date_release > :date')
+	        ->andWhere('g.is_sellable = true')
             ->setParameter('date', $date)
             ->getQuery()
             ->getResult();
@@ -119,6 +123,7 @@ class GameRepository extends ServiceEntityRepository
 		return $this->createQueryBuilder('g')
 			->leftJoin('g.genres', 'gr')
 			->where('gr.slug = :Genre')
+			->andWhere('g.is_sellable = true')
 			->setParameter('Genre', $genre)
 			->getQuery()
 			->getResult();
@@ -132,6 +137,7 @@ class GameRepository extends ServiceEntityRepository
 		return $this->createQueryBuilder('g')
 			->leftJoin('g.genres', 'gr')
 			->where('gr.slug = :Genre')
+			->andWhere('g.is_sellable = true')
 			->setParameter('Genre', $genre)
 			->getQuery();
 	}
@@ -185,6 +191,7 @@ class GameRepository extends ServiceEntityRepository
 			->join('g.genres', 'gr')
 			->leftJoin('g.plateforms', 'p')
 			->andWhere('p.id = :platform')
+			->andWhere('g.is_sellable = true')
 			->setParameter('platform', $platform)
 			;
 

@@ -45,11 +45,12 @@ class StockRepository extends ServiceEntityRepository
 	public function findGamesInTendencies($resultPerPage): array
 	{
 		return $this->createQueryBuilder('s')
-			->select('g.id', 'g.label', 'g.slug', 'g.price', 'g.date_release')
+			->select('g.id', 'g.label', 'g.slug', 'g.price', 'g.is_promotion', 'g.old_price', 'g.date_release')
 			->leftJoin('s.game', 'g')
 			->leftJoin('s.purchase', 'p')
 			->Where('s.is_available = false')
 			->andWhere('s.purchase IS NOT NULL')
+			->andWhere('g.is_sellable = true')
 			->groupBy('g.id', 'g.label', 'g.slug', 'g.price', 'g.date_release')
 			->orderBy('COUNT(s.id)', 'DESC')
 			->setMaxResults($resultPerPage)
@@ -68,6 +69,7 @@ class StockRepository extends ServiceEntityRepository
 			->leftJoin('s.plateform', 'p')
 			->where('g.id = :gameID')
 			->andwhere('s.is_available = true')
+			->andWhere('g.is_sellable = true')
 			->groupBy('g.label', 'p.label', 'p.logo', 'p.id')
 			->setParameter('gameID', $gameID)
 			->getQuery()
@@ -100,6 +102,8 @@ class StockRepository extends ServiceEntityRepository
 			->andWhere('p.id = :platformID')
             // condition permettant de récupérer les stocks disponibles
 			->andWhere('s.is_available = true')
+			// condition permettant de vérifier que le jeu est vendable
+			->andWhere('g.is_sellable = true')
             // setParameters permet de définir les paramètres de la requête en fonction des variables passées en paramètre de la méthode
 			->setParameters([
 				'gameID' => $gameID, // permet de définir la valeur de l'ID du jeu
@@ -128,6 +132,7 @@ class StockRepository extends ServiceEntityRepository
 			->andWhere('p.id = :platformID')
             // condition permettant de récupérer les stocks disponibles
 			->andWhere('s.is_available = true')
+			->andWhere('g.is_sellable = true')
             // setMaxResults permet de définir le nombre de résultats à récupérer
 			->setMaxResults($quantity)
             /*  setParameters permet de définir les paramètres de la requête
