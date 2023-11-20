@@ -461,13 +461,45 @@ main {
 						color: var(--blue);
 					}
 
-					.label {
+					/*.label {
 						width: 75%;
+					}*/
+					
+					.promotion-price {
+						position: relative;
+						//width: 25%;
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						gap: 5px;
+						
+						.price {
+							font-weight: bold;
+							width: max-content;
+						}
+						
+						.old-price {
+							text-decoration: line-through;
+							text-decoration-color: blue;
+							text-decoration-style: solid;
+							font-weight: bold;
+							color: var(--orange);
+							font-size: .9rem;
+						}
+						
+						.promo-badge {
+							display: flex;
+							align-items: center;
+							img {
+								width: 24px;
+								height: 24px;
+							}
+						}
 					}
 					
 					.price {
 						font-weight: bold;
-						width: 25%;
+						//width: 25%;
 					}
 				}
 
@@ -480,7 +512,7 @@ main {
 					font-family: "Source Sans Pro", sans-serif;
 					font-weight: bold;
 					font-size: 1em;
-
+					
 					.badge {
 						display: flex;
 						align-items: center;
