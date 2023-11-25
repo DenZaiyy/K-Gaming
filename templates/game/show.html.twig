@@ -63,8 +63,20 @@
 									        data-category="{{ plateform.category.label|lower }}">{{ plateform.label }}</option>
 								{% endfor %}
 							</select>
-							<p>{{ gamePlatform.price|price }}
-								(HT)</p>
+							{% if game.isPromotion %}
+								<p class="promotion-price">
+									<span class="old-price">
+										<i class="bi bi-tag"></i>
+										{{ gamePlatform.old_price|oldPrice }}
+									</span>
+									<span class="promo-percent">{{ gamePlatform.promo_percent|promo }}</span>
+									<span class="new-price">{{ gamePlatform.price|price }}</span>
+									(HT)
+								</p>
+								{% else %}
+								<p>{{ gamePlatform.price|price }}
+									(HT)</p>
+							{% endif %}
 						</div>
 						
 						<div
