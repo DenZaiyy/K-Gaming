@@ -49,6 +49,10 @@ class SearchForm extends AbstractType
 				'label' => 'En précommande',
 				'required' => false
 			])
+			->add('promotion', CheckboxType::class, [
+				'label' => 'En promotion',
+				'required' => false
+			])
 		;
 	}
 

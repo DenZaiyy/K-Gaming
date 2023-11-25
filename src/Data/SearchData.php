@@ -16,4 +16,6 @@ class SearchData // Création d'une classe SearchData qui va contenir les donné
 
 	public bool $preorder = false; // Recherche par précommande
 
+	public bool $promotion = false; // Recherche par promotion
+
 }

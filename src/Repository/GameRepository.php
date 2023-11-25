@@ -86,7 +86,7 @@ class GameRepository extends ServiceEntityRepository
     public function findOneGameInPlatform($gameID, $platformID): array
     {
         return $this->createQueryBuilder('g')
-            ->select('g.id AS game_id', 'g.label AS game_label', 'g.slug AS game_slug', 'g.price', 'g.old_price', 'g.is_promotion AS inPromotion', 'g.date_release', 'p.id AS platform_id', 'p.label as platform_label', 'p.slug AS platform_slug', 'p.logo as platform_logo')
+            ->select('g.id AS game_id', 'g.label AS game_label', 'g.slug AS game_slug', 'g.price', 'g.old_price', 'g.is_promotion AS inPromotion', 'g.promo_percent', 'g.date_release', 'p.id AS platform_id', 'p.label as platform_label', 'p.slug AS platform_slug', 'p.logo as platform_logo')
             ->leftJoin('g.plateforms', 'p')
             ->where('p.id = :platformID')
 	        ->andWhere('g.is_sellable = true')
@@ -219,6 +219,11 @@ class GameRepository extends ServiceEntityRepository
 			$query = $query
 				->andWhere('g.date_release > :date')
 				->setParameter('date', $date);
+		}
+
+		if(!empty($search->promotion)) {
+			$query = $query
+				->andWhere('g.is_promotion = true');
 		}
 
 		if(!empty($search->genres)) {
