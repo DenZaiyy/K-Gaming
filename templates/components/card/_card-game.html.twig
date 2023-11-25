@@ -7,6 +7,11 @@
                      alt="cover for game: {{ game.label }}"
                      loading="lazy">
             </figure>
+            {% if game.is_promotion %}
+                <div class="in-promotion">
+                    {{ game.promo_percent|promo }}
+                </div>
+            {% endif %}
         </div>
         <div class="infos">
             <div class="label">
