@@ -22,41 +22,41 @@ class DashboardController extends AbstractDashboardController
 	#[Route('/admin', name: 'app_admin')]
 	public function index(): Response
 	{
-		//        return parent::index();
-
-		// Option 1. You can make your dashboard redirect to some common page of your backend
-		//
 		 $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
 		 return $this->redirect($adminUrlGenerator->setController(GameCrudController::class)->generateUrl());
-
-		// Option 2. You can make your dashboard redirect to different pages depending on the user
-		//
-		// if ('jane' === $this->getUser()->getUsername()) {
-		//     return $this->redirect('...');
-		// }
-
-		// Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
-		// (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
-		//
-		// return $this->render('some/path/my-dashboard.html.twig');
 	}
 
 	public function configureDashboard(): Dashboard
 	{
 		return Dashboard::new()
-			->setTitle('K-Gaming');
+			->setTitle('K-Gaming')
+			->setLocales(['fr', 'en']);
 	}
 
 	public function configureMenuItems(): iterable
 	{
-		yield MenuItem::linkToCrud('Jeux', 'fa-solid fa-gamepad', Game::class);
-        yield MenuItem::linkToCrud('Genre', 'fa-solid fa-icons', Genre::class);
-		yield MenuItem::linkToCrud('Note', 'fa-solid fa-star', Rating::class);
-        yield MenuItem::linkToCrud('Stock', 'fa-solid fa-shop', Stock::class);
-        yield MenuItem::linkToCrud('Commande', 'fa-solid fa-laptop', Purchase::class);
-        yield MenuItem::linkToCrud('Utilisateur', 'fa-solid fa-user-gear', User::class);
-        yield MenuItem::linkToCrud('Utilisateur newsletter', 'fa-solid fa-users-gear', NewsletterUser::class);
-        yield MenuItem::linkToCrud('Newsletter', 'fa-solid fa-envelope-circle-check', Newsletter::class);
-        yield MenuItem::linkToRoute('Retour sur le site', 'fas fa-home', 'app_home');
+		return [
+			MenuItem::linkToRoute('Retour sur le site', 'fas fa-home', 'app_home'),
+
+			MenuItem::section('Jeux'),
+			MenuItem::linkToCrud('Jeux', 'fa-solid fa-gamepad', Game::class),
+			MenuItem::linkToCrud('Genre', 'fa-solid fa-icons', Genre::class),
+			MenuItem::linkToCrud('Note', 'fa-solid fa-star', Rating::class),
+
+			MenuItem::section('Boutique'),
+			MenuItem::linkToCrud('Utilisateurs', 'fa-solid fa-user-gear', User::class),
+			MenuItem::linkToCrud('Commandes', 'fa-solid fa-laptop', Purchase::class),
+			MenuItem::linkToCrud('Stocks', 'fa-solid fa-shop', Stock::class),
+
+			MenuItem::section('Marketing'),
+			MenuItem::linkToCrud('Newsletter', 'fa-solid fa-paper-plane', Newsletter::class),
+			MenuItem::linkToCrud('Utilisateur', 'fa-solid fa-users-gear', NewsletterUser::class),
+
+			MenuItem::section('Paramètres'),
+			MenuItem::linkToRoute('Maintenance', 'fa-solid fa-shield-halved', ''),
+			MenuItem::linkToRoute('Gestion du site', 'fa-solid fa-user-tie', ''),
+			MenuItem::linkToRoute('Mode de paiements', 'fa-solid fa-paypal', ''),
+			MenuItem::linkToRoute('Administrateurs', 'fa-solid fa-user-tie', ''),
+		];
 	}
 }
