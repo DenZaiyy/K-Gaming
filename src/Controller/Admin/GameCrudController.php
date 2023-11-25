@@ -6,6 +6,8 @@ use App\Entity\Game;
 use DateTime;
 use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -60,10 +62,29 @@ class GameCrudController extends AbstractCrudController
 	public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('Game')
-            ->setEntityLabelInPlural('Game')
-            ->setSearchFields(['id', 'label', 'price', 'is_promotion', 'slug', 'date_release']);
+	        ->setEntityLabelInSingular(
+		        fn (?Game $product, ?string $pageName) => $product ? $product->getLabel() : 'Jeux'
+	        )
+            ->setEntityLabelInPlural('Liste de jeux')
+            ->setSearchFields(['id', 'label', 'price', 'is_promotion', 'slug', 'date_release'])
+	        ->setEntityPermission('ROLE_EDITOR')
+	        ->showEntityActionsInlined();
     }
+
+	public function configureActions(Actions $actions): Actions
+	{
+		return $actions
+			->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
+				return $action->setIcon('fa fa-square-plus');
+			})
+			->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
+				return $action->setIcon('fa fa-pen-to-square');
+			})
+			->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
+				return $action->setIcon('fa fa-trash-can');
+			})
+			;
+	}
 
     public function configureFilters(Filters $filters): Filters
     {

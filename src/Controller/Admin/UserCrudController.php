@@ -5,6 +5,8 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use DateTime;
 use DateTimeZone;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -27,7 +29,24 @@ class UserCrudController extends AbstractCrudController
 		return $crud
 			->setEntityLabelInSingular('User')
 			->setEntityLabelInPlural('User')
-			->setSearchFields(['id', 'username', 'roles', 'email', 'avatar', 'is_verified', 'is_banned', 'create_at']);
+			->setSearchFields(['id', 'username', 'roles', 'email', 'avatar', 'is_verified', 'is_banned', 'create_at'])
+			->setEntityPermission('ROLE_EDITOR')
+			->showEntityActionsInlined();
+	}
+
+	public function configureActions(Actions $actions): Actions
+	{
+		return $actions
+			->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
+				return $action->setIcon('fa fa-square-plus');
+			})
+			->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
+				return $action->setIcon('fa fa-pen-to-square');
+			})
+			->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
+				return $action->setIcon('fa fa-trash-can');
+			})
+			;
 	}
 	
 	public function configureFilters(Filters $filters): Filters
