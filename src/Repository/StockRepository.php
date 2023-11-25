@@ -45,7 +45,7 @@ class StockRepository extends ServiceEntityRepository
 	public function findGamesInTendencies($resultPerPage): array
 	{
 		return $this->createQueryBuilder('s')
-			->select('g.id', 'g.label', 'g.slug', 'g.price', 'g.is_promotion', 'g.old_price', 'g.date_release')
+			->select('g.id', 'g.label', 'g.slug', 'g.price', 'g.is_promotion', 'g.old_price', 'g.promo_percent', 'g.date_release')
 			->leftJoin('s.game', 'g')
 			->leftJoin('s.purchase', 'p')
 			->Where('s.is_available = false')
@@ -64,7 +64,7 @@ class StockRepository extends ServiceEntityRepository
 	public function findStockByGameID($gameID): array
 	{
 		return $this->createQueryBuilder('s')
-			->select('p.id AS platform_id', 'g.id AS game_id', 'g.label', 'COUNT(s.game) AS total', 'p.label AS platform_label', 'p.logo')
+			->select('p.id AS platform_id', 'g.id AS game_id', 'g.label', 'COUNT(s.game) AS total', 'g.promo_percent', 'p.label AS platform_label', 'p.logo')
 			->leftJoin('s.game', 'g')
 			->leftJoin('s.plateform', 'p')
 			->where('g.id = :gameID')
