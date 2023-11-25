@@ -35,6 +35,11 @@
 											 alt="cover for game: {{ tendency.label }}"
 											 loading="lazy">
 									</figure>
+									{% if tendency.is_promotion %}
+										<div class="in-promotion">
+											{{ tendency.promo_percent|promo }}
+										</div>
+									{% endif %}
 								</div>
 								<div class="infos">
 									<div class="label">
