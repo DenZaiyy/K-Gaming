@@ -14,6 +14,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
@@ -102,22 +103,41 @@ class GameCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield NumberField::new('id')->hideOnForm();
-        yield TextField::new('label');
-        yield SlugField::new('slug')->setTargetFieldName('label');
-	    yield BooleanField::new('is_sellable');
-        yield MoneyField::new('price')->setCurrency('EUR');
-		yield MoneyField::new('old_price')->setCurrency('EUR')->setDisabled(true);
-		yield BooleanField::new('is_promotion')->setDisabled(true);
-		yield NumberField::new('promo_percent')->setDisabled(true);
-        yield AssociationField::new('plateforms');
-        yield AssociationField::new('genres');
 
-        $dateRelease = DateTimeField::new('date_release')
-            ->setFormat('dd-MM-yyyy')
-            ->setFormTypeOptions([
-                'data' => new DateTime('now', new DateTimeZone('Europe/Paris')), // default data
-                'widget' => 'single_text',
-            ]);
+		yield FormField::addTab('Informations générales');
+		    yield FormField::addColumn(4);
+		    yield FormField::addPanel('Nom du jeux');
+		        yield TextField::new('label');
+		    yield FormField::addColumn(4);
+		    yield FormField::addPanel('Slug');
+                yield SlugField::new('slug')->setTargetFieldName('label');
+		    yield FormField::addColumn(4);
+		    yield FormField::addPanel('Statut');
+			    yield BooleanField::new('is_sellable');
+	    yield FormField::addTab('Informations sur le prix');
+			yield FormField::addColumn(4);
+			yield FormField::addPanel('Prix');
+		        yield MoneyField::new('price')->setCurrency('EUR');
+				yield MoneyField::new('old_price')->setCurrency('EUR')->setDisabled(true);
+		    yield FormField::addColumn(4);
+		    yield FormField::addPanel('Promotion');
+				yield BooleanField::new('is_promotion')->setDisabled(true);
+				yield NumberField::new('promo_percent')->setDisabled(true);
+	    yield FormField::addTab('Informations sur le jeu');
+		    yield FormField::addColumn(4);
+		    yield FormField::addPanel('Plateformes associées');
+                yield AssociationField::new('plateforms');
+		    yield FormField::addColumn(4);
+		    yield FormField::addPanel('Genres associés');
+                yield AssociationField::new('genres');
+		    yield FormField::addColumn(4);
+		    yield FormField::addPanel('Date de sortie');
+		        $dateRelease = DateTimeField::new('date_release')
+		            ->setFormat('dd-MM-yyyy')
+		            ->setFormTypeOptions([
+		                'data' => new DateTime('now', new DateTimeZone('Europe/Paris')), // default data
+		                'widget' => 'single_text',
+		            ]);
 
         if (Crud::PAGE_EDIT === $pageName) {
             yield $dateRelease->setFormTypeOption('disabled', true);
