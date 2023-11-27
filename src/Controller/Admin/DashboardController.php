@@ -30,6 +30,7 @@ class DashboardController extends AbstractDashboardController
 	{
 		return Dashboard::new()
 			->setTitle('K-Gaming')
+			->renderContentMaximized()
 			->setLocales(['fr', 'en']);
 	}
 
