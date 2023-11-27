@@ -12,8 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -27,8 +26,8 @@ class UserCrudController extends AbstractCrudController
 	public function configureCrud(Crud $crud): Crud
 	{
 		return $crud
-			->setEntityLabelInSingular('User')
-			->setEntityLabelInPlural('User')
+			->setEntityLabelInSingular(fn (?User $user, ?string $pageName) => $user ? $user->getUsername() : 'User')
+			->setEntityLabelInPlural('Users')
 			->setSearchFields(['id', 'username', 'roles', 'email', 'avatar', 'is_verified', 'is_banned', 'create_at'])
 			->setEntityPermission('ROLE_EDITOR')
 			->showEntityActionsInlined();
@@ -61,15 +60,15 @@ class UserCrudController extends AbstractCrudController
 	public function configureFields(string $pageName): iterable
 	{
 		yield NumberField::new('id')->hideOnForm();
-		yield TextField::new('username');
+		yield TextField::new('username')->setSortable(false);
 		yield ChoiceField::class::new('roles')
 			->setChoices([
-					'ROLE_USER' => 'ROLE_USER',
-					'ROLE_ADMIN' => 'ROLE_ADMIN',
+					'Membre' => 'ROLE_USER',
+					'Administrateur' => 'ROLE_ADMIN',
 				]
 			)
 			->allowMultipleChoices();
-		yield TextField::new('email');
+		yield TextField::new('email')->setSortable(false);
 		
 		$verifiedAcc = BooleanField::new('is_verified')
 			->hideOnForm()
@@ -77,12 +76,11 @@ class UserCrudController extends AbstractCrudController
 		
 		$isBanned = BooleanField::new('is_banned')->hideOnForm();
 		
-		$createdAt = DateTimeField::new('CreateAt')
+		$createdAt = DateField::new('create_at')
 			->setFormat('dd-MM-yyyy')
 			->setFormTypeOptions([
 				'data' => new DateTime('now', new DateTimeZone('Europe/Paris')), // default data
 				'widget' => 'single_text',
-				'disabled' => true,
 			]);
 		
 		if (Crud::PAGE_EDIT === $pageName) {
