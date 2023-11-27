@@ -16,6 +16,8 @@ This is a e-commerce website for selling games. We are using PayPal and Stripe f
 - Search games by name
 - Pagination
 - Newsletter
+- Game promotion
+- Game status (sellable or not)
 
 ## Technologies
 - <a href="https://symfony.com/doc/current/setup.html" target="_blank">Symfony 6.2</a>
