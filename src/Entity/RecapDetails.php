@@ -184,4 +184,9 @@ class RecapDetails
 
 		return $this;
 	}
+
+	public function __toString (): string
+	{
+		return 'Jeux : ' . $this->getGameLabel() . ' | Plateforme : ' . $this->getPlatformLabel() . ' | Quantité : ' . $this->getQuantity() . ' | Prix unitaire : ' . $this->getPrice();
+	}
 }
