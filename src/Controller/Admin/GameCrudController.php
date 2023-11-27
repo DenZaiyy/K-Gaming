@@ -140,7 +140,7 @@ class GameCrudController extends AbstractCrudController
 		            ]);
 
         if (Crud::PAGE_EDIT === $pageName) {
-            yield $dateRelease->setFormTypeOption('disabled', true);
+            yield $dateRelease->setFormTypeOption('disabled', false);
 	        yield BooleanField::new('is_promotion')->setDisabled(false);
 	        yield NumberField::new('promo_percent')->setDisabled(false);
 
