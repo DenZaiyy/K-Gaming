@@ -30,8 +30,9 @@
 	{% endblock %}
 </head>
 <body class="d-flex flex-column h-100" id="top">
-<div class="alert alert-danger text-center">
-	Veuillez noter que notre site est une plateforme de démonstration à des fins éducatives uniquement. Les jeux présentés ainsi que les moyens de paiement associés sont fictifs et ne représentent pas de transactions réelles. Merci de votre compréhension.
+<div class="alert alert-danger text-center d-flex align-items-center flex-column justify-content-center">
+	<span>Veuillez noter que notre site est une plateforme de démonstration à des fins éducatives uniquement. Les jeux présentés ainsi que les moyens de paiement associés sont fictifs et ne représentent pas de transactions réelles.</span>
+	<span>Merci de votre compréhension.</span>
 </div>
 {{ render(controller('App\\Controller\\HomeController::navBar')) }}
 <main>
