@@ -102,9 +102,8 @@ class GameCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield NumberField::new('id')->hideOnForm();
-
 		yield FormField::addTab('Informations générales');
+            yield NumberField::new('id')->hideOnForm();
 		    yield FormField::addColumn(4);
 		    yield FormField::addPanel('Nom du jeux');
 		        yield TextField::new('label');
@@ -112,7 +111,7 @@ class GameCrudController extends AbstractCrudController
 		    yield FormField::addPanel('Slug');
                 yield SlugField::new('slug')->setTargetFieldName('label');
 		    yield FormField::addColumn(4);
-		    yield FormField::addPanel('Statut');
+		    yield FormField::addPanel('Statut')->setHelp("Si vous cochez cette case, le jeux sera disponible à la vente");
 			    yield BooleanField::new('is_sellable');
 	    yield FormField::addTab('Informations sur le prix');
 			yield FormField::addColumn(4);
@@ -125,10 +124,10 @@ class GameCrudController extends AbstractCrudController
 				yield NumberField::new('promo_percent')->setDisabled(true);
 	    yield FormField::addTab('Informations sur le jeu');
 		    yield FormField::addColumn(4);
-		    yield FormField::addPanel('Plateformes associées');
+		    yield FormField::addPanel()->setHelp("Vous pouvez ajouter ou supprimer des plateformes associées à ce jeux");
                 yield AssociationField::new('plateforms');
 		    yield FormField::addColumn(4);
-		    yield FormField::addPanel('Genres associés');
+		    yield FormField::addPanel()->setHelp("Vous pouvez ajouter ou supprimer des genres associés à ce jeux");
                 yield AssociationField::new('genres');
 		    yield FormField::addColumn(4);
 		    yield FormField::addPanel('Date de sortie');
@@ -141,8 +140,11 @@ class GameCrudController extends AbstractCrudController
 
         if (Crud::PAGE_EDIT === $pageName) {
             yield $dateRelease->setFormTypeOption('disabled', false);
-	        yield BooleanField::new('is_promotion')->setDisabled(false);
-	        yield NumberField::new('promo_percent')->setDisabled(false);
+
+	        yield AssociationField::new('genres', 'Genres associés');
+	        yield AssociationField::new('plateforms', 'Plateformes associées');
+	        yield BooleanField::new('is_promotion')->setDisabled(false)->setHelp("Si vous cochez cette case, le prix du jeux sera modifié en fonction du pourcentage de promotion");
+	        yield NumberField::new('promo_percent')->setDisabled(false)->setHelp("Si vous cochez la case 'Promotion', vous devez renseigner le pourcentage de promotion");
 
         } else {
             yield $dateRelease;
