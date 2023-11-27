@@ -51,13 +51,13 @@ class DashboardController extends AbstractDashboardController
 
 			MenuItem::section('Marketing'),
 			MenuItem::linkToCrud('Newsletter', 'fa-solid fa-paper-plane', Newsletter::class),
-			MenuItem::linkToCrud('Utilisateur', 'fa-solid fa-users-gear', NewsletterUser::class),
+			MenuItem::linkToCrud('Utilisateurs inscrits', 'fa-solid fa-users-gear', NewsletterUser::class),
 
-			MenuItem::section('Paramètres'),
-			MenuItem::linkToRoute('Maintenance', 'fa-solid fa-shield-halved', ''),
-			MenuItem::linkToRoute('Gestion du site', 'fa-solid fa-user-tie', ''),
-			MenuItem::linkToRoute('Mode de paiements', 'fa-solid fa-paypal', ''),
-			MenuItem::linkToRoute('Administrateurs', 'fa-solid fa-user-tie', ''),
+			MenuItem::section('Paramètres')->setPermission('ROLE_ADMIN'),
+			MenuItem::linkToUrl('Maintenance', 'fa-solid fa-shield-halved', '')->setPermission('ROLE_ADMIN')->setBadge('<X>', 'danger'),
+			MenuItem::linkToRoute('Gestion du site', 'fa-solid fa-user-tie', '')->setPermission('ROLE_ADMIN')->setBadge('<X>', 'danger'),
+//			MenuItem::linkToRoute('Mode de paiements', 'fa-solid fa-money-check', '')->setPermission('ROLE_ADMIN')->setBadge('Not up', 'danger'),
+			MenuItem::linkToRoute('Administrateurs', 'fa-solid fa-user-tie', '')->setPermission('ROLE_ADMIN')->setBadge('<X>', 'danger'),
 		];
 	}
 }
