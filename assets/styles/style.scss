@@ -309,6 +309,15 @@ body {
 					transition: var(--animationLinear);
 				}
 			}
+			
+			&.locale {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				.dropBtn {
+					font-size: 1.2em;
+				}
+			}
 		}
 	}
 }
@@ -957,10 +966,14 @@ main {
 	// START : styles for ratings card in detail game and list of rate
 	.ratings {
 		.rating-cards {
-			display: flex;
+			/*display: flex;
 			flex-wrap: wrap;
 			gap: 20px;
+			justify-content: center;*/
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 			justify-content: center;
+			grid-gap: 20px;
 			
 			.card {
 				width: 100%;

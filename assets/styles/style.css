@@ -259,6 +259,14 @@ body {
   background-color: var(--orange);
   transition: var(--animationLinear);
 }
+.header-flex .icons .dropdown.locale {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-flex .icons .dropdown.locale .dropBtn {
+  font-size: 1.2em;
+}
 
 h2, h1 {
   text-transform: uppercase;
@@ -754,10 +762,14 @@ main .detailGame .videos .content {
   grid-template-columns: 0fr 0fr 0fr;
 }
 main .ratings .rating-cards {
-  display: flex;
+  /*display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  justify-content: center;*/
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   justify-content: center;
+  grid-gap: 20px;
 }
 main .ratings .rating-cards .card {
   width: 100%;
