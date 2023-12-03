@@ -13,12 +13,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/{_locale<%app.supported_locales%>}/rating', name: 'rating_')]
 class RatingController extends AbstractController
 {
 	/*
 	 * Méthode permettant d'afficher la page du formulaire permettant la notation d'un jeu
 	 */
-    #[Route('/rating/{gameSlug}/{platformSlug}', name: 'app_game_rating')]
+    #[Route('/{gameSlug}/{platformSlug}', name: 'game')]
     public function index(EntityManagerInterface $em, Request $request, $gameSlug, $platformSlug): Response
     {
 		$game = $em->getRepository(Game::class)->findOneBy(['slug' => $gameSlug]); // Récupération du jeu grâce au slug
@@ -58,7 +59,7 @@ class RatingController extends AbstractController
 			if($ratingForm->getData()->getNote() == 0)
 			{
 				$this->addFlash('danger', 'Vous devez mettre une note au jeu');
-				return $this->redirectToRoute('app_game_rating', ['gameSlug' => $gameSlug, 'platformSlug' => $platformSlug]);
+				return $this->redirectToRoute('rating_game', ['gameSlug' => $gameSlug, 'platformSlug' => $platformSlug]);
 			}
 
 			$rating->setUser($user); // Ajout de l'utilisateur à la notation
@@ -89,7 +90,7 @@ class RatingController extends AbstractController
         ]);
     }
 
-    #[Route('/rating/edit/{gameSlug}/{platformSlug}', name: 'rating_edit')]
+    #[Route('/edit/{gameSlug}/{platformSlug}', name: 'edit')]
     public function edit(EntityManagerInterface $em, Request $request, $gameSlug, $platformSlug): Response
     {
         $platform = $em->getRepository(Plateform::class)->findOneBy(['slug' => $platformSlug]);
@@ -134,7 +135,7 @@ class RatingController extends AbstractController
         ]);
     }
 
-    #[Route('/rating/delete/{gameSlug}/{platformSlug}', name: 'rating_delete')]
+    #[Route('/delete/{gameSlug}/{platformSlug}', name: 'delete')]
     public function delete(EntityManagerInterface $em, $gameSlug, $platformSlug): Response
     {
         $platform = $em->getRepository(Plateform::class)->findOneBy(['slug' => $platformSlug]);
@@ -158,7 +159,7 @@ class RatingController extends AbstractController
         return $this->redirectToRoute('user_my_account');
     }
 
-    #[Route('/ratings', name: 'rating_list')]
+    #[Route('/list', name: 'list')]
     public function ratingsList(EntityManagerInterface $em): Response
     {
         $ratings = $em->getRepository(Rating::class)->findBy([], ['created_at' => 'DESC']);

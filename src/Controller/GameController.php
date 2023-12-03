@@ -29,7 +29,7 @@ class GameController extends AbstractController
 	/*
 	 * Méthode permettant d'afficher le detail d'un jeu grâce au slug
 	 */
-	#[Route('/{gameSlug}', name: 'app_show_game', priority: -1)]
+	#[Route('/{_locale<%app.supported_locales%>}/{gameSlug}', name: 'app_show_game', priority: -1)]
 	public function showGame(EntityManagerInterface $em, $gameSlug, BreadCrumbsService $breadCrumbsService): Response
 	{
 		$game = $em->getRepository(Game::class)->findOneBy(['slug' => $gameSlug]);
@@ -46,20 +46,20 @@ class GameController extends AbstractController
 
         // TODO: Refactor this
         /*$breadcrumbs->addRouteItem($game->getLabel(), "app_show_game", ['gameSlug' => $gameSlug]);
-        $breadcrumbs->prependRouteItem($gamePlatform['platform_label'], "app_game_platform", ['categoryLabel' => $platform->getCategory()->getLabel(),'platformSlug' => $gamePlatform['platform_slug']]);
-        $breadcrumbs->prependRouteItem($platform->getCategory()->getLabel(), "app_platform_categories", ['categoryLabel' => $platform->getCategory()->getLabel()]);
+        $breadcrumbs->prependRouteItem($gamePlatform['platform_label'], "platform_game", ['categoryLabel' => $platform->getCategory()->getLabel(),'platformSlug' => $gamePlatform['platform_slug']]);
+        $breadcrumbs->prependRouteItem($platform->getCategory()->getLabel(), "platform_categories", ['categoryLabel' => $platform->getCategory()->getLabel()]);
         $breadcrumbs->prependRouteItem("Accueil", "app_home");*/
 
         //TODO: This is a temporary solution until we can refactor the breadcrumbs service
         $breadCrumbsService->BCGenerate(
             [
                 'label' => $platform->getCategory()->getLabel(),
-                'route' => 'app_platform_categories',
+                'route' => 'platform_categories',
                 'params' => ['categoryLabel' => strtolower($platform->getCategory()->getLabel())]
             ],
             [
                 'label' => $gamePlatform['platform_label'],
-                'route' => 'app_game_platform',
+                'route' => 'platform_game',
                 'params' => [
                     'categoryLabel' => $platform->getCategory()->getLabel(),
                     'platformSlug' => $gamePlatform['platform_slug'
@@ -101,7 +101,7 @@ class GameController extends AbstractController
 	/*
 	 * Méthode permettant d'afficher le detail d'un jeu dans une plateforme grâce aux slugs
 	 */
-	#[Route('/platform/{categoryLabel}/{platformSlug}/{gameSlug}', name: 'app_show_game_platform')]
+	#[Route('/{_locale<%app.supported_locales%>}/platform/{categoryLabel}/{platformSlug}/{gameSlug}', name: 'app_show_game_platform')]
 	public function showGameInPlatform(EntityManagerInterface $em, $platformSlug, $gameSlug, BreadCrumbsService $breadCrumbsService): Response
 	{
 		$game = $em->getRepository(Game::class)->findOneBy(['slug' => $gameSlug]);
@@ -113,20 +113,20 @@ class GameController extends AbstractController
 
         // TODO: Refactor this
         /*$breadcrumbs->addRouteItem($game->getLabel(), "app_show_game", ['gameSlug' => $gameSlug]);
-        $breadcrumbs->prependRouteItem($gamePlatform['platform_label'], "app_game_platform", ['platformSlug' => $gamePlatform['platform_slug'], 'categoryLabel' => $platform->getCategory()->getLabel()]);
-        $breadcrumbs->prependRouteItem($platform->getCategory()->getLabel(), "app_platform_categories", ['categoryLabel' => $platform->getCategory()->getLabel()]);
+        $breadcrumbs->prependRouteItem($gamePlatform['platform_label'], "platform_game", ['platformSlug' => $gamePlatform['platform_slug'], 'categoryLabel' => $platform->getCategory()->getLabel()]);
+        $breadcrumbs->prependRouteItem($platform->getCategory()->getLabel(), "platform_categories", ['categoryLabel' => $platform->getCategory()->getLabel()]);
         $breadcrumbs->prependRouteItem("Accueil", "app_home");*/
 
         //TODO: This is a temporary solution until we can refactor the breadcrumbs service
         $breadCrumbsService->BCGenerate(
             [
                 'label' => $platform->getCategory()->getLabel(),
-                'route' => 'app_platform_categories',
+                'route' => 'platform_categories',
                 'params' => ['categoryLabel' => $platform->getCategory()->getLabel()]
             ],
             [
                 'label' => $gamePlatform['platform_label'],
-                'route' => 'app_game_platform',
+                'route' => 'platform_game',
                 'params' => ['platformSlug' => $gamePlatform['platform_slug'], 'categoryLabel' => $platform->getCategory()->getLabel()]
             ],
             [
@@ -164,7 +164,7 @@ class GameController extends AbstractController
 	/*
 	 * Méthode permettant d'afficher la liste des jeux en précommande
 	 */
-	#[Route('/preorder/game', name: 'app_show_preorders')]
+	#[Route('/{_locale<%app.supported_locales%>}/preorder/game', name: 'app_show_preorders')]
 	public function showGameInPreorder(EntityManagerInterface $em): Response
 	{
 		$date = new \DateTime(); // Date du jour
@@ -179,7 +179,7 @@ class GameController extends AbstractController
 	/*
 	 * Méthode permettant d'afficher la liste des jeux associés à un genre grâce au slug
 	 */
-	#[Route('/game/genre/{genreSlug}', name: 'app_show_game_genre')]
+	#[Route('/{_locale<%app.supported_locales%>}/game/genre/{genreSlug}', name: 'app_show_game_genre')]
 	public function showGameByGenre(EntityManagerInterface $em, Request $request, PaginatorInterface $paginator, $genreSlug, BreadCrumbsService $breadCrumbsService): Response
 	{
 		$games = $em->getRepository(Game::class)->findGameByGenre($genreSlug); // Récupérer la liste des jeux associés à un genre
@@ -201,7 +201,7 @@ class GameController extends AbstractController
 		// Fin pagination
 
         /*$breadcrumbs->addRouteItem($genre->getLabel(), "app_show_game_genre", ['genreSlug' => $genreSlug]);
-        $breadcrumbs->prependRouteItem("Genres", "app_genre_list");
+        $breadcrumbs->prependRouteItem("Genres", "genre_list");
         $breadcrumbs->prependRouteItem("Accueil", "app_home");*/
 
         $breadCrumbsService->BCGenerate(

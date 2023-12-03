@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/{_locale<%app.supported_locales%>}/profil', name: 'user_')]
 class UserController extends AbstractController
 {
 	/*
@@ -30,7 +31,7 @@ class UserController extends AbstractController
     {
     }
 
-    #[Route('/profil', name: 'user_my_account')]
+    #[Route('', name: 'my_account')]
     public function index(Request $request, UserPasswordHasherInterface $hasher, MultiAvatars $multiAvatars): Response
     {
         $user = $this->getUser();
@@ -131,7 +132,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/profil/update-avatar/{image}', name: 'user_update_avatar')]
+    #[Route('/update-avatar/{image}', name: 'update_avatar')]
     public function updateUserAvatar($image, MultiAvatars $multiAvatars) : Response
     {
         $user = $this->getUser();
@@ -155,7 +156,7 @@ class UserController extends AbstractController
 	/**
 	 * Fonction permettant d'afficher la liste des commandes effectuées par l'utilisateur connecté
 	 */
-    #[Route('/profil/my-order', name: 'user_my_order')]
+    #[Route('/my-order', name: 'my_order')]
     public function myOrder(): Response
     {
         $purchases = $this->em->getRepository(Purchase::class)->findBy(
@@ -173,8 +174,8 @@ class UserController extends AbstractController
 	/**
 	 * Fonction permettant d'accéder aux préférences utilisateur, notamment la newsletter et le choix du theme
 	 */
-    #[Route('/profil/my-preference', name: 'user_my_preference')]
-    public function myPreference(): Response
+    #[Route('/my-preference', name: 'my_preference')]
+    public function myPreference(Request $request): Response
     {
 		$user = $this->getUser();
 		$newsletter = $this->em->getRepository(NewsletterUser::class)->findOneBy(['email' => $user->getEmail()]);
@@ -187,7 +188,7 @@ class UserController extends AbstractController
 	/*
 	 * Fonction permettant d'ajouter une nouvelle adresse de facturation à l'utilisateur connecté
 	 */
-    #[Route('/profil/add-address', name: 'user_add_address')]
+    #[Route('/add-address', name: 'add_address')]
     public function addAddress(Request $request): Response
     {
         $address = new Address();
@@ -215,7 +216,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/profil/edit-address/{id}', name: 'user_edit_address')]
+    #[Route('/edit-address/{id}', name: 'edit_address')]
     public function editAddress(Address $address, Request $request): Response
     {
         $form = $this->createForm(AddressType::class, $address);
@@ -238,7 +239,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/profil/delete-address/{id}', name: 'user_delete_address')]
+    #[Route('/delete-address/{id}', name: 'delete_address')]
     public function deleteAddress(Address $address) : Response
     {
         if ($address->getUser() !== $this->getUser()) {
@@ -259,7 +260,7 @@ class UserController extends AbstractController
         return $this->redirectToRoute('user_my_account');
     }
 
-    #[Route('/profil/delete-account/{id}', name: 'user_delete_account')]
+    #[Route('/delete-account/{id}', name: 'delete_account')]
     public function deleteUser(User $user): RedirectResponse
     {
         $this->em->remove($user);

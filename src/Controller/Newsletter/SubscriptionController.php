@@ -13,7 +13,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/newsletter', name: 'newsletter_')]
+#[Route('/{_locale<%app.supported_locales%>}/newsletter', name: 'newsletter_')]
 class SubscriptionController extends AbstractController
 {
 

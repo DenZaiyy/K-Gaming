@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SecurityController extends AbstractController
 {
-    #[Route('/404', name: 'app_404')]
+    #[Route('/{_locale<%app.supported_locales%>}/404', name: 'app_404')]
     public function accessDenied(): Response
     {
         $this->addFlash('danger', 'La page demandée n\'existe pas');

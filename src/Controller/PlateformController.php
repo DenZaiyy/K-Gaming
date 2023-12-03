@@ -15,12 +15,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/{_locale<%app.supported_locales%>}/platform', name: 'platform_')]
 class PlateformController extends AbstractController
 {
 	/*
 	 * Méthode permettant d'afficher la liste des jeux d'une plateforme en prenant en compte les filtres de recherche en ajax
 	 */
-	#[Route('/platform/{categoryLabel}/{platformSlug}', name: 'app_game_platform')]
+	#[Route('/{categoryLabel}/{platformSlug}', name: 'game')]
 	public function index(EntityManagerInterface $em, Request $request, $platformSlug, BreadCrumbsService $breadCrumbsService): Response
 	{
 		$data = new SearchData(); // Création d'un objet SearchData
@@ -68,12 +69,12 @@ class PlateformController extends AbstractController
         $breadCrumbsService->BCGenerate(
             [
                 'label' => $platform->getCategory()->getLabel(),
-                'route' => "app_platform_categories",
+                'route' => "platform_categories",
                 'params' => ['categoryLabel' => $platform->getCategory()->getLabel()]
             ],
             [
                 'label' => $platform->getLabel(),
-                'route' => "app_game_platform",
+                'route' => "platform_game",
                 'params' => ['categoryLabel' => $platform->getCategory()->getLabel(), 'platformSlug' => $platform->getSlug()]
             ],
             [],
@@ -91,7 +92,7 @@ class PlateformController extends AbstractController
 		]);
 	}
 
-    #[Route('/platform/{categoryLabel}', name: 'app_platform_categories')]
+    #[Route('/{categoryLabel}', name: 'categories')]
     public function categories(EntityManagerInterface $em, $categoryLabel, BreadCrumbsService $breadCrumbsService): Response
     {
         $category = $em->getRepository(Category::class)->findOneBy(['label' => $categoryLabel]);
@@ -100,7 +101,7 @@ class PlateformController extends AbstractController
         $breadCrumbsService->BCGenerate(
             [
                 'label' => $category->getLabel(),
-                'route' => "app_platform_categories",
+                'route' => "platform_categories",
                 'params' => ['categoryLabel' => $category->getLabel()]
             ],
             [],

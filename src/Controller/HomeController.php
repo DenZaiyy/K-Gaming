@@ -17,10 +17,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
+
+	#[Route('/')]
+	public function indexNoLocale(Request $request): Response
+	{
+	    return $this->redirectToRoute('app_home', ['_locale' => $request->getLocale()]);
+	}
 	/*
 	 * Méthode permettant d'afficher la page d'accueil du site avec les informations nécessaires tel que les jeux en tendances, les précommandes et les genres
 	 */
-	#[Route('/', name: 'app_home')]
+	#[Route('/{_locale<%app.supported_locales%>}', name: 'app_home')]
 	public function index(EntityManagerInterface $em, Request $request): Response
 	{
         $cookies = $request->cookies;

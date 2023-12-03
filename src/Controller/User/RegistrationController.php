@@ -2,12 +2,10 @@
 
 namespace App\Controller\User;
 
-use App\Controller\UploadedFile;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
-use App\Service\FileUploader;
 use App\Service\MultiAvatars;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
@@ -33,7 +31,7 @@ class RegistrationController extends AbstractController
 	/**
 	 * Fonction permettant de s'inscrire sur le site
 	 */
-    #[Route('/register', name: 'app_register')]
+    #[Route('/{_locale<%app.supported_locales%>}/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHashed, EntityManagerInterface $entityManager, MultiAvatars $avatar): Response
     {
         $user = new User();
@@ -91,7 +89,7 @@ class RegistrationController extends AbstractController
 	/**
 	 * Fonction permettant de vérifier l'email de l'utilisateur pour l'inscription
 	 */
-    #[Route('/verify/email', name: 'app_verify_email')]
+    #[Route('/{_locale<%app.supported_locales%>}/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator, UserRepository $userRepository): Response
     {
         //$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');

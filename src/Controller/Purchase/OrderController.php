@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/{_locale<%app.supported_locales%>}/order', name: 'order_')]
 class OrderController extends AbstractController
 {
 	public function __construct(private EntityManagerInterface $em, private RequestStack $requestStack)
@@ -24,7 +25,7 @@ class OrderController extends AbstractController
 	/**
 	 * Fonction permettant de créer une commande en sélectionnant une adresse de facturation et le moyen de paiement
 	 */
-	#[Route('/order/create', name: 'order_create')]
+	#[Route('/create', name: 'create')]
 	public function index(CartService $cartService, Request $request): Response
 	{
 		$user = $this->getUser();
@@ -56,7 +57,7 @@ class OrderController extends AbstractController
 	 * Fonction permettant de vérifier la commande avant de la valider et de passer au paiement
 	 * TODO: Trouver comment supprimer la commande si on quitte la page
 	 */
-	#[Route('/order/verify', name: 'order_prepare', methods: ['POST'])]
+	#[Route('/verify', name: 'prepare', methods: ['POST'])]
 	public function prepareOrder(CartService $cartService, Request $request): Response
 	{
 		if (!$this->getUser()) {
@@ -123,10 +124,10 @@ class OrderController extends AbstractController
 			]);
 		}
 
-		return $this->redirectToRoute('app_cart_index');
+		return $this->redirectToRoute('cart_index');
 	}
 
-    #[Route('/order/cancel/{reference}', name: 'order_cancel')]
+    #[Route('/cancel/{reference}', name: 'cancel')]
     public function cancelOrder($reference): Response
     {
         $purchase = $this->em->getRepository(Purchase::class)->findOneBy(['reference' => $reference]);

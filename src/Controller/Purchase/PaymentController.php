@@ -10,6 +10,7 @@ use App\Entity\User;
 use App\Service\CartService;
 use App\Service\PdfService;
 use Doctrine\ORM\EntityManagerInterface;
+use FontLib\Table\Type\name;
 use PayPalCheckoutSdk\Core\PayPalHttpClient;
 use PayPalCheckoutSdk\Core\SandboxEnvironment;
 use PayPalCheckoutSdk\Orders\OrdersCreateRequest;
@@ -27,6 +28,7 @@ use Symfony\Component\Mime\Part\File;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+#[Route('/{_locale<%app.supported_locales%>}/order', name: 'payment_')]
 class PaymentController extends AbstractController
 {
 	//Constructor to get the EntityManagerInterface and the UrlGeneratorInterface
@@ -53,7 +55,7 @@ class PaymentController extends AbstractController
 	/**
 	 * Fonction permettant de créer une session Stripe pour le paiement
 	 */
-	#[Route('/order/create-session-stripe/{reference}', name: 'app_stripe_checkout')]
+	#[Route('/create-session-stripe/{reference}', name: 'stripe_checkout')]
 	public function index($reference): RedirectResponse
 	{
 		$productStripe = []; //initialize the array to store the products
@@ -62,7 +64,7 @@ class PaymentController extends AbstractController
 		
 		if (!$purchase) { //if the purchase doesn't exist, redirect to the cart
             $this->addFlash('danger', "La commande avec la référence $reference n'existe pas");
-			return $this->redirectToRoute('app_cart_index');
+			return $this->redirectToRoute('cart_index');
 		}
 		
 		foreach ($purchase->getRecapDetails()->getValues() as $product) {
@@ -124,7 +126,7 @@ class PaymentController extends AbstractController
 	}
 	
 	//Function to redirect to the success page
-	#[Route('/order/success/{reference}', name: 'payment_success')]
+	#[Route('/success/{reference}', name: 'success')]
 	public function purchaseSuccess($reference, CartService $cartService, MailerInterface $mailer, PdfService $pdf): Response
 	{
         //Récupération de la commande par la référence
@@ -295,14 +297,14 @@ class PaymentController extends AbstractController
 	}
 	
 	//Function to redirect to the error page
-	#[Route('/order/error/{reference}', name: 'payment_error')]
+	#[Route('/error/{reference}', name: 'error')]
 	public function purchaseError($reference, CartService $cartService): Response
 	{
 		$purchase = $this->em->getRepository(Purchase::class)->findOneBy(['reference' => $reference]); //get the purchase by the reference
 		
 		if(!$purchase) {
 			//if the purchase doesn't exist, redirect to the cart
-			return $this->redirectToRoute('app_cart_index');
+			return $this->redirectToRoute('cart_index');
 		}
 		
 		$this->em->getRepository(Purchase::class)->remove($purchase, true); //remove the purchase
@@ -314,7 +316,7 @@ class PaymentController extends AbstractController
 	}
 	
 	//Function to create a session with Paypal and redirect to the Paypal page to pay
-	#[Route('/order/create-session-paypal/{reference}', name: 'app_paypal_checkout')]
+	#[Route('/create-session-paypal/{reference}', name: 'paypal_checkout')]
 	public function createSessionPaypal($reference): RedirectResponse
 	{
         //Variable pour vérifier si la commande existe bien en base de données et que la méthode est paypal
@@ -323,7 +325,7 @@ class PaymentController extends AbstractController
 		if (!$purchase) {
             $this->addFlash('danger', "La commande avec la reference $reference n'existe pas");
             //if the purchase doesn't exist, redirect to the cart
-			return $this->redirectToRoute('app_cart_index');
+			return $this->redirectToRoute('cart_index');
 		}
 
         //Initialisation de la variable pour stocker les produits
@@ -430,7 +432,7 @@ class PaymentController extends AbstractController
 
         //Si la requête n'est pas un succès, on redirige vers le panier
 		if ($response->statusCode != 201) {
-			return $this->redirectToRoute('app_cart_index');
+			return $this->redirectToRoute('cart_index');
 		}
 
         //On récupère le lien de redirection vers Paypal
@@ -446,7 +448,7 @@ class PaymentController extends AbstractController
 
         //Si le lien d'approbation est vide, on redirige vers le panier
 		if (empty($approvalLink)) {
-			return $this->redirectToRoute('app_cart_index');
+			return $this->redirectToRoute('cart_index');
 		}
 
         //On stocke l'ID de la session Paypal dans la session

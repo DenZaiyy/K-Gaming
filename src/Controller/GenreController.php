@@ -14,7 +14,7 @@ class GenreController extends AbstractController
 	/*
 	 * Méthode permettant d'afficher la liste des genres
 	 */
-    #[Route('/genres', name: 'app_genre_list')]
+    #[Route('/{_locale<%app.supported_locales%>}/genres', name: 'genre_list')]
     public function index(EntityManagerInterface $em, BreadCrumbsService $breadCrumbsService): Response
     {
 		$genres = $em->getRepository(Genre::class)->findAll();
