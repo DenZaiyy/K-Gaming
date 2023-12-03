@@ -21,7 +21,7 @@
             {% endif %}
         </div>
         <div class="platform">
-            <a href="{{ path('app_show_game_platform', {gameSlug: rating.game.slug, platformSlug: rating.platform.slug}) }}">
+            <a href="{{ path('app_show_game_platform', {categoryLabel: rating.platform.category.label, gameSlug: rating.game.slug, platformSlug: rating.platform.slug}) }}">
             <img src="{{ rating.platform.logo }}"
                  alt="logo de le plateforme {{ rating.platform.label }}">
             {{ rating.game.label }}</a>

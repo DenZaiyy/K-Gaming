@@ -60,12 +60,12 @@
 							
 							<div class="validate d-flex flex-column w-100 gap-3">
 								{% if method == 'stripe' %}
-									<form method="post" action="{{ path('app_stripe_checkout', {reference: reference}) }}">
+									<form method="post" action="{{ path('payment_stripe_checkout', {reference: reference}) }}">
 										<button type="submit" class="btn-primary-orange w-100">Payer par stripe
 											| {{ (cartTotal + TVA)|price }}</button>
 									</form>
 								{% else %}
-									<form method="post" action="{{ path('app_paypal_checkout', {reference: reference}) }}">
+									<form method="post" action="{{ path('payment_paypal_checkout', {reference: reference}) }}">
 										<button type="submit" class="btn-primary-orange w-100">Payer par paypal
 											| {{ (cartTotal + TVA)|price }}</button>
 									</form>

@@ -52,7 +52,7 @@
                                                 {% endif %}
                                             {% endfor %}
                                             {% if gameRate == null %}
-                                                <a href="{{ path('app_game_rating', {gameSlug: recap.gameSlug, platformSlug: recap.platformSlug}) }}">Donner
+                                                <a href="{{ path('rating_game', {gameSlug: recap.gameSlug, platformSlug: recap.platformSlug}) }}">Donner
                                                     mon avis</a>
                                             {% endif %}
                                         </div>
@@ -91,10 +91,10 @@
                                 {% else %}
                                     <div class="bill d-flex gap-3 flex-row flex-wrap">
                                         {% if purchase.method == "stripe" %}
-                                            <a href="{{ path('app_stripe_checkout', {reference: purchase.reference}) }}"
+                                            <a href="{{ path('payment_stripe_checkout', {reference: purchase.reference}) }}"
                                                class="btn-primary-orange">Payer la commande</a>
                                         {% else %}
-                                            <a href="{{ path('app_paypal_checkout', {reference: purchase.reference}) }}"
+                                            <a href="{{ path('payment_paypal_checkout', {reference: purchase.reference}) }}"
                                                class="btn-primary-orange">Payer la commande</a>
                                         {% endif %}
 
