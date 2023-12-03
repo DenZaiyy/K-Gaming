@@ -1,0 +1,30 @@
+locale:
+    fr: "Français"
+    en: "Anglais"
+
+user:
+    preference:
+        theme:
+            title: "Thème du site"
+            description: "Choisissez votre thème."
+            light: "Clair"
+            dark: "Sombre"
+            switch: "Basculer"
+        language:
+            title: "Langue du site"
+            description: "Choisissez votre langue."
+            fr: "Français"
+            en: "Anglais"
+            submit: "Envoyer"
+        newsletter:
+            title: "Newsletter"
+            description: "Voulez-vous recevoir notre newsletter ?"
+            already_subscribed: "Vous êtes déjà abonné à notre newsletter."
+            not_subscribed: "Vous n'êtes pas encore abonné à notre newsletter."
+            subscribe: "S'abonner"
+            unsubscribe: "Se désabonner"
+        delete_account:
+            title: "Supprimer mon compte"
+            description: "Vous n'avez plus envie d'avoir un compte sur notre site ? Pas de problème, vous pouvez le supprimer ici."
+            delete_confirmation: "Êtes vous sûre de vouloir supprimer votre compte? Cet action est sans aucun retour possible."
+            submit: "Supprimer mon compte"

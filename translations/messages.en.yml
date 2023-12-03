@@ -1,0 +1,30 @@
+locale:
+    fr: "French"
+    en: "English"
+
+user:
+    preference:
+        theme:
+            title: "Theme of the site"
+            description: "Choose your theme."
+            light: "Light"
+            dark: "Dark"
+            switch: "Switch"
+        language:
+            title: "Language of the site"
+            description: "Choose your language."
+            fr: "French"
+            en: "English"
+            submit: "Submit"
+        newsletter:
+            title: "Newsletter"
+            description: "Do you want to receive our newsletter?"
+            already_subscribed: "You are already subscribed to our newsletter."
+            not_subscribed: "You are not yet subscribed to our newsletter."
+            subscribe: "Subscribe"
+            unsubscribe: "Unsubscribe"
+        delete_account:
+            title: "Delete my account"
+            description: "You don't want to have an account on our site anymore? No problem, you can delete it here."
+            delete_confirmation: "Are you sure you want to delete your account? This action is without any possible return."
+            submit: "Delete my account"

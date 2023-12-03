@@ -5,34 +5,33 @@
 {% block body %}
 	<div class="container text-center">
 		<section class="theme-switcher my-3">
-			<h2>Thème du site</h2>
-			<span>Light</span>
+			<h2>{{ 'user.preference.theme.title'|trans }}</h2>
 			<div class="toggle-container">
 				<input class="container_toggle" type="checkbox" id="switch" name="mode">
-				<label for="switch">Toggle</label>
+				<label for="switch">{{ 'user.preference.theme.switch'|trans }}</label>
 			</div>
 		</section>
 		<hr class="w-75 mx-auto">
 		<section id="newsletter" class="my-3">
-			<h2>Newsletter</h2>
+			<h2>{{ 'user.preference.newsletter.title'|trans }}</h2>
 			{% if newsletter %}
 				<div class="newsletter_subscribed text-center">
-					<p>Vous êtes actuellement inscrit à la newsletter</p>
-					<a href="{{ path('newsletter_unsubscribe', {'id': newsletter.id, 'token': newsletter.token})}}" class="btn btn-danger">Se désinscrire</a>
+					<p>{{ 'user.preference.newsletter.already_subscribed'|trans }}</p>
+					<a href="{{ path('newsletter_unsubscribe', {'id': newsletter.id, 'token': newsletter.token})}}" class="btn btn-danger">{{ 'user.preference.newsletter.unsubscribe'|trans }}</a>
 				</div>
 			{% else %}
 				<div class="newsletter_unsubscribed text-center">
-					<p>Vous n'êtes actuellement pas inscrit à la newsletter</p>
-					<a href="{{ path('newsletter_subscribe') }}" class="btn-primary-orange">S'inscrire</a>
+					<p>{{ 'user.preference.newsletter.not_subscribed'|trans }}</p>
+					<a href="{{ path('newsletter_subscribe') }}" class="btn-primary-orange">{{ 'user.preference.newsletter.subscribe'|trans }}</a>
 				</div>
 			{% endif %}
 		</section>
 		<hr class="w-75 mx-auto">
 		<section id="delete-account">
-			<h2>Supprimer mon compte</h2>
-			<p>Vous n'avez plus envie d'avoir un compte sur notre site ? Pas de problème, vous pouvez le supprimer</p>
-			<form action="{{ path('user_delete_account', {id: app.user.id}) }}" onsubmit="return confirm('Êtes vous sûre de vouloir supprimer votre compte? Cet action est sans aucun retour possible.')">
-				<input type="submit" class="btn btn-danger p-3" value="Supprimer mon compte">
+			<h2>{{ 'user.preference.delete_account.title'|trans }}</h2>
+			<p>{{ 'user.preference.delete_account.description'|trans }}</p>
+			<form action="{{ path('user_delete_account', {id: app.user.id}) }}" onsubmit="return confirm({{ 'user.preference.delete_account.delete_confirmation'|trans }})">
+				<input type="submit" class="btn btn-danger p-3" value="{{ 'user.preference.delete_account.submit'|trans }}">
 			</form>
 		</section>
 	</div>

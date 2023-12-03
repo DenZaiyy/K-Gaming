@@ -16,7 +16,7 @@
 					<div class="dropdown-menu" aria-labelledby="dropdown{{ category.label }}">
 						{% for plateform in plateforms %}
 							{% if plateform.category.label == category.label %}
-								<a href="{{ path('app_game_platform', {platformSlug: plateform.slug, categoryLabel: category.label|lower }) }}" class="dropdown-item">
+								<a href="{{ path('platform_game', {platformSlug: plateform.slug, categoryLabel: category.label|lower }) }}" class="dropdown-item">
 									<img src="{{ plateform.logo }}" alt="logo of {{ plateform.label }}" loading="lazy">{{ plateform.label }}
 								</a>
 							{% endif %}
@@ -26,7 +26,7 @@
 			{% endfor %}
 		</div>
 		<div class="icons">
-			<div class="dropdown">
+			<div class="dropdown cart">
 				<button class="dropBtn" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownCart">
 					<i class="cart-icon bi bi-cart4"></i>
 					{% if app.session.get('cart') %}
@@ -49,10 +49,10 @@
 									<p><strong>Total :</strong> {{ cartTotal|price }}</p>
 								</div>
 							</div>
-							<a href="{{ path('app_cart_index') }}" class="btn-primary-orange">Voir le panier</a>
+							<a href="{{ path('cart_index') }}" class="btn-primary-orange">Voir le panier</a>
 						</div>
 						<div class="dropdown-item">
-							<a href="{{ path('app_remove_all_cart') }}" class="btn-secondary-blue">Vider le
+							<a href="{{ path('cart_remove_all') }}" class="btn-secondary-blue">Vider le
 								panier</a>
 						</div>
 					{% else %}
@@ -62,7 +62,7 @@
 					{% endif %}
 				</div>
 			</div>
-			<div class="dropdown">
+			<div class="dropdown user">
 				<button class="dropBtn" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownUser">
 					{% if app.user %}
 						{% if app.user.avatar %}
@@ -92,6 +92,23 @@
 					{% endif %}
 				</div>
 			</div>
+			<div class="dropdown locale">
+				<button class="dropBtn locale" data-bs-toggle="dropdown" aria-expanded="false" id="dropdownLocale">
+					{% if app.request.locale == "en" %}
+						ENG
+						{% else %}
+						FRA
+					{% endif %}
+				</button>
+				<div class="dropdown-menu text-small shadow right" aria-labelledby="dropdownLocale">
+					<a href="{{ path('app_home', {_locale: 'fr'}) }}" class="dropdown-item">
+						{{ 'locale.fr'|trans }}
+					</a>
+					<a href="{{ path('app_home', {_locale: 'en'}) }}" class="dropdown-item">
+						{{ 'locale.en'|trans }}
+					</a>
+				</div>
+			</div>
 		</div>
 		<span class="burger-btn">&#9776;</span>
 		<div id="menu-burger" class="overlay-menu">
@@ -103,7 +120,7 @@
 						<div class="panel">
 							{% for plateform in plateforms %}
 								{% if plateform.category.label == category.label %}
-									<a href="{{ path('app_game_platform', {platformSlug: plateform.slug, categoryLabel: category.label|lower }) }}">
+									<a href="{{ path('platform_game', {platformSlug: plateform.slug, categoryLabel: category.label|lower }) }}">
 										{{ plateform.label }}
 									</a>
 								{% endif %}
@@ -137,7 +154,7 @@
 				</div>
 				<hr>
 				<div class="cart-menu">
-					<a href="{{ path('app_cart_index') }}" class="cart-btn">Accéder au panier</a>
+					<a href="{{ path('cart_index') }}" class="cart-btn">Accéder au panier</a>
 				</div>
 			</div>
 		</div>
