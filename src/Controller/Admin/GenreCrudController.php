@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class GenreCrudController extends AbstractCrudController
 {
@@ -23,8 +24,9 @@ class GenreCrudController extends AbstractCrudController
 	public function configureCrud(Crud $crud): Crud
 	{
 		return $crud
-			->setEntityLabelInSingular('Genre')
-			->setEntityLabelInPlural('Genre')
+			->setEntityLabelInSingular(fn (?Genre $gender, ?string $pageName) => $gender ? $gender->getLabel() : new TranslatableMessage('menu.game.gender', [], 'admin'))
+			->setEntityLabelInPlural(new TranslatableMessage('gender.index.title', [], 'admin'))
+			->setHelp(Crud::PAGE_INDEX, new TranslatableMessage('gender.index.description', [], 'admin'))
 			->setSearchFields(['id', 'label', 'slug'])
 			->setEntityPermission('ROLE_EDITOR')
 			->showEntityActionsInlined();
@@ -53,9 +55,9 @@ class GenreCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield NumberField::new('id')->hideOnForm();
-        yield TextField::new('label');
-        yield SlugField::new('slug')->setTargetFieldName('label');
+        yield NumberField::new('id', new TranslatableMessage('gender.table.id', [], 'admin'))->hideOnForm();
+        yield TextField::new('label',new TranslatableMessage('gender.table.label', [], 'admin'));
+        yield SlugField::new('slug', new TranslatableMessage('gender.table.slug', [], 'admin'))->setTargetFieldName('label');
     }
 
 }

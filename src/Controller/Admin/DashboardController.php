@@ -16,10 +16,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\Contracts\Translation\TranslatableInterface;
 
 class DashboardController extends AbstractDashboardController
 {
-	#[Route('/admin', name: 'app_admin')]
+	#[Route('/{_locale<%app.supported_locales%>}/admin/', name: 'app_admin')]
 	public function index(): Response
 	{
 		 $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
@@ -31,33 +33,37 @@ class DashboardController extends AbstractDashboardController
 		return Dashboard::new()
 			->setTitle('K-Gaming')
 			->renderContentMaximized()
+			->setTranslationDomain('admin')
 			->setLocales(['fr', 'en']);
 	}
 
 	public function configureMenuItems(): iterable
 	{
 		return [
-			MenuItem::linkToRoute('Retour sur le site', 'fas fa-home', 'app_home'),
+			MenuItem::linkToRoute(new TranslatableMessage('menu.back_home', [], 'admin'), 'fas fa-home', 'app_home'),
 
-			MenuItem::section('Jeux'),
-			MenuItem::linkToCrud('Jeux', 'fa-solid fa-gamepad', Game::class),
-			MenuItem::linkToCrud('Genre', 'fa-solid fa-icons', Genre::class),
-			MenuItem::linkToCrud('Note', 'fa-solid fa-star', Rating::class),
+			MenuItem::section(new TranslatableMessage('menu.game.index', [], 'admin')),
+			MenuItem::linkToCrud(new TranslatableMessage('menu.game.index', [], 'admin'), 'fa-solid fa-gamepad', Game::class),
+			MenuItem::linkToCrud(new TranslatableMessage('menu.game.gender', [], 'admin'), 'fa-solid fa-icons', Genre::class),
+			MenuItem::linkToCrud(new TranslatableMessage('menu.game.rating', [], 'admin'), 'fa-solid fa-star', Rating::class),
 
-			MenuItem::section('Boutique'),
-			MenuItem::linkToCrud('Utilisateurs', 'fa-solid fa-user-gear', User::class),
-			MenuItem::linkToCrud('Commandes', 'fa-solid fa-laptop', Purchase::class),
-			MenuItem::linkToCrud('Stocks', 'fa-solid fa-shop', Stock::class),
+			/*MenuItem::section(new TranslatableMessage('menu.category.index', [], 'admin')),
+			MenuItem::linkToCrud(new TranslatableMessage('menu.category.platform', [], 'admin'), 'fa-solid fa-gamepad', Plateform::class),*/
 
-			MenuItem::section('Marketing'),
-			MenuItem::linkToCrud('Newsletter', 'fa-solid fa-paper-plane', Newsletter::class),
-			MenuItem::linkToCrud('Utilisateurs inscrits', 'fa-solid fa-users-gear', NewsletterUser::class),
+			MenuItem::section(new TranslatableMessage('menu.store.index', [], 'admin')),
+			MenuItem::linkToCrud(new TranslatableMessage('menu.store.users.index', [], 'admin'), 'fa-solid fa-user-gear', User::class),
+			MenuItem::linkToCrud(new TranslatableMessage('menu.store.orders', [], 'admin'), 'fa-solid fa-laptop', Purchase::class),
+			MenuItem::linkToCrud(new TranslatableMessage('menu.store.stocks', [], 'admin'), 'fa-solid fa-shop', Stock::class),
 
-			MenuItem::section('Paramètres')->setPermission('ROLE_ADMIN'),
-			MenuItem::linkToUrl('Maintenance', 'fa-solid fa-shield-halved', '')->setPermission('ROLE_ADMIN')->setBadge('<X>', 'danger'),
-			MenuItem::linkToRoute('Gestion du site', 'fa-solid fa-user-tie', '')->setPermission('ROLE_ADMIN')->setBadge('<X>', 'danger'),
-//			MenuItem::linkToRoute('Mode de paiements', 'fa-solid fa-money-check', '')->setPermission('ROLE_ADMIN')->setBadge('Not up', 'danger'),
-			MenuItem::linkToRoute('Administrateurs', 'fa-solid fa-user-tie', '')->setPermission('ROLE_ADMIN')->setBadge('<X>', 'danger'),
+			MenuItem::section(new TranslatableMessage('menu.marketing.index', [], 'admin')),
+			MenuItem::linkToCrud(new TranslatableMessage('menu.marketing.newsletter', [], 'admin'), 'fa-solid fa-paper-plane', Newsletter::class),
+			MenuItem::linkToCrud(new TranslatableMessage('menu.marketing.registered_users', [], 'admin'), 'fa-solid fa-users-gear', NewsletterUser::class),
+
+			MenuItem::section(new TranslatableMessage('menu.settings.index', [], 'admin'))->setPermission('ROLE_ADMIN'),
+			MenuItem::linkToUrl(new TranslatableMessage('menu.settings.maintenance', [], 'admin'), 'fa-solid fa-shield-halved', '')->setPermission('ROLE_ADMIN')->setBadge('<X>', 'danger'),
+			MenuItem::linkToRoute(new TranslatableMessage('menu.settings.site_management', [], 'admin'), 'fa-solid fa-user-tie', '')->setPermission('ROLE_ADMIN')->setBadge('<X>', 'danger'),
+//			MenuItem::linkToRoute(new TranslatableMessage('menu.settings.method_of_payment', [], 'admin'), 'fa-solid fa-money-check', '')->setPermission('ROLE_ADMIN')->setBadge('Not up', 'danger'),
+			MenuItem::linkToRoute(new TranslatableMessage('menu.settings.administrators', [], 'admin'), 'fa-solid fa-user-tie', '')->setPermission('ROLE_ADMIN')->setBadge('<X>', 'danger'),
 		];
 	}
 }

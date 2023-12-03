@@ -1,0 +1,134 @@
+game:
+    index:
+        title: "Liste des jeux"
+        description: "Voici la liste de tous les jeux présents dans la base de données."
+        no_game: "Aucun jeu trouvé."
+    table:
+        id: "ID"
+        label: "Libellé"
+        slug: "Slug"
+        is_sellable: "Est vendable"
+        price: "Prix"
+        old_price: "Ancien prix"
+        is_promotion: "Est en promotion"
+        promotion_start_date: "Date de début de promotion"
+        promotion_end_date: "Date de fin de promotion"
+        promotion_percent: "Réduction de la promotion"
+        platforms: "Plateformes"
+        genders: "Genres"
+        release_date: "Date de sortie"
+    detail:
+        general_information: "Informations générales"
+        price_information: "Informations sur le prix"
+        game_information: "Informations sur le jeu"
+        name_game: "Nom du jeu"
+        slug: "Slug"
+        status: "Statut"
+        status_description: "Si vous cochez cette case, le jeu sera disponible à la vente."
+        price: "Prix"
+        old_price: "Ancien prix"
+        promotion: "Promotion"
+        promotion_description: "Si vous cochez cette case, le prix du jeu sera modifié en fonction du pourcentage de promotion."
+        promotion_percent: "Pourcentage de promotion"
+        promotion_start_date: "Date de début de promotion"
+        promotion_end_date: "Date de fin de promotion"
+        promotion_percent_description: "Si vous cochez la case 'Promotion', vous devez entrer le pourcentage de promotion."
+        game_platforms: "Plateformes associées"
+        game_platforms_description: "Vous pouvez ajouter ou supprimer des plateformes associées à ce jeu."
+        game_genders: "Genres associés"
+        game_genders_description: "Vous pouvez ajouter ou supprimer des genres associés à ce jeu."
+        date_release: "Date de sortie"
+
+gender:
+    index:
+        title: "Liste des genres"
+        description: "Voici la liste de tous les genres présents dans la base de données."
+    table:
+        id: "ID"
+        label: "Libellé"
+        slug: "Slug"
+
+rating:
+    index:
+        title: "Liste des notes"
+        description: "Voici la liste de toutes les notes présentes dans la base de données."
+    table:
+        id: "ID"
+        comment: "Commentaire"
+        rating: "Note"
+        user: "Utilisateur"
+        game: "Jeu"
+        platform: "Plateforme"
+        created_at: "Créé le"
+        updated_at: "Mis à jour le"
+    detail:
+        rating: "Note"
+        rating_description: "La note doit être comprise entre 0 et 5."
+        comment: "Commentaire"
+        comment_and_rating: "Commentaire et note"
+        complementary_informations: "Informations complémentaires"
+        created_by: "Créé par"
+        created_by_description: "L'utilisateur qui a créé ce commentaire. Si la valeur est vide, le commentaire a été créé par un utilisateur supprimé."
+        game: "Jeu"
+        game_description: "Le jeu auquel le commentaire est lié."
+        platform: "Plateforme"
+        platform_description: "La plateforme à laquelle le commentaire est lié au jeu"
+        dates: "Dates"
+        dates_description: "Les dates de création et de modification sont générées automatiquement."
+        created_at: "Créé le"
+        updated_at: "Mis à jour le"
+
+user:
+    index:
+        title: "Liste des utilisateurs"
+        description: "Voici la liste de tous les utilisateurs présents dans la base de données."
+    table:
+        id: "ID"
+        username: "Nom d'utilisateur"
+        email: "Email"
+        roles:
+            index: "Rôles"
+            description: "Vous pouvez ajouter ou supprimer des rôles à cet utilisateur."
+            ROLE_USER: "Utilisateur"
+            ROLE_EDITOR: "Éditeur"
+            ROLE_ADMIN: "Administrateur"
+        created_at: "Créé le"
+        updated_at: "Mis à jour le"
+        is_verified: "Est vérifié"
+        is_banned: "Est banni"
+        is_banned_description: "Si vous cochez cette case, l'utilisateur ne pourra plus se connecter au site."
+    detail:
+        user_informations: "Informations sur l'utilisateur"
+        roles: "Rôles de l'utilisateur"
+        status: "Statut"
+        dates: "Date d'inscription et de mise à jour"
+
+menu:
+    back_home: "Retour à l'accueil"
+    game:
+        singular: "Game"
+        index: "Jeux"
+        gender: "Genres"
+        rating: "Notes"
+    category:
+        singular: "Catégorie"
+        index: "Catégories"
+        platform: "Plateforme"
+    store:
+        index: "Boutique"
+        users:
+            index: "Utilisateurs"
+            registered_users: "Utilisateurs inscrits"
+            banned_users: "Utilisateurs bannis"
+        orders: "Commandes"
+        stocks: "Stocks"
+    marketing:
+        index: "Marketing"
+        newsletter: "Newsletter"
+        registered_users: "Utilisateurs inscrits"
+    settings:
+        index: "Paramètres"
+        site_management: "Gestion du site"
+        method_of_payment: "Moyen de paiement"
+        administrators: "Administrateurs"
+        maintenance: "Maintenance"

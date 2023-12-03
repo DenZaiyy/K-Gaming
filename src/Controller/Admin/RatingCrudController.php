@@ -14,6 +14,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class RatingCrudController extends AbstractCrudController
 {
@@ -25,9 +26,11 @@ class RatingCrudController extends AbstractCrudController
 	public function configureCrud(Crud $crud): Crud
 	{
 		return $crud
-			->setEntityLabelInSingular('Rating')
-			->setEntityLabelInPlural('Rating')
+			->setEntityLabelInSingular(new TranslatableMessage('rating.detail.rating', [], 'admin'))
+			->setEntityLabelInPlural(new TranslatableMessage('rating.index.title', [], 'admin'))
+			->setHelp(Crud::PAGE_INDEX, new TranslatableMessage('rating.index.description', [], 'admin'))
 			->setSearchFields(['id', 'game_id', 'user_id', 'platform_id', 'note', 'message', 'created_at'])
+			->setDefaultSort(['created_at' => 'DESC', 'updated_at' => 'DESC'])
 			->setEntityPermission('ROLE_EDITOR')
 			->showEntityActionsInlined();
 	}
@@ -60,26 +63,19 @@ class RatingCrudController extends AbstractCrudController
 
 	public function configureFields(string $pageName): iterable
 	{
-		yield NumberField::new('id')->hideOnForm();
+		yield NumberField::new('id', new TranslatableMessage('rating.table.id', [], 'admin'))->hideOnForm();
 		yield FormField::addColumn(4);
-		yield FormField::addPanel('Commentaire et note');
-		yield TextareaField::new('message', 'Commentaire');
-		yield NumberField::new('note', 'Note');
+		yield FormField::addPanel(new TranslatableMessage('rating.detail.comment_and_rating', [], 'admin'));
+		yield TextareaField::new('message', new TranslatableMessage('rating.detail.comment', [], 'admin'));
+		yield NumberField::new('note', new TranslatableMessage('rating.detail.rating', [], 'admin'))->setHelp(new TranslatableMessage('rating.detail.rating_description', [], 'admin'));
 		yield FormField::addColumn(4);
-		yield FormField::addPanel('Informations complémentaires');
-		yield AssociationField::new('user', 'Utilisateur');
-		yield AssociationField::new('game', 'Jeux');
-		yield AssociationField::new('platform', 'Plateforme');
+		yield FormField::addPanel(new TranslatableMessage('rating.detail.complementary_informations', [], 'admin'));
+		yield AssociationField::new('user', new TranslatableMessage('rating.detail.created_by', [], 'admin'))->setHelp(new TranslatableMessage('rating.detail.created_by_description', [], 'admin'))->setDisabled(true);
+		yield AssociationField::new('game', new TranslatableMessage('rating.detail.game', [], 'admin'))->setHelp(new TranslatableMessage('rating.detail.game_description', [], 'admin'))->setDisabled(true);
+		yield AssociationField::new('platform', new TranslatableMessage('rating.detail.platform', [], 'admin'))->setHelp(new TranslatableMessage('rating.detail.platform_description', [], 'admin'))->setDisabled(true);
 		yield FormField::addColumn(4);
-		yield FormField::addPanel('Dates')->setHelp("Les dates de création et de modification sont automatiquement générées.");
-		yield DateField::new('created_at', 'Date de création')->setDisabled(true);
-		yield DateField::new('updated_at', 'Date de modification')->setDisabled(true);
-
-		if($pageName === Crud::PAGE_EDIT || $pageName === Crud::PAGE_NEW)
-		{
-			yield AssociationField::new('user', 'Crée par')->setDisabled(true)->setHelp("L'utilisateur qui a crée ce commentaire, si la valeur est vide, c'est que le commentaire a été crée par un utilisateur supprimé.");
-			yield AssociationField::new('game', 'Jeux')->setDisabled(true)->setHelp("Le jeux auquel le commentaire est lié");
-			yield AssociationField::new('platform', 'Plateforme')->setDisabled(true)->setHelp("La plateforme auquel le commentaire est lié par rapport au jeux");
-		}
+		yield FormField::addPanel(new TranslatableMessage('rating.detail.dates', [], 'admin'))->setHelp(new TranslatableMessage('rating.detail.dates_description', [], 'admin'));
+		yield DateField::new('created_at', new TranslatableMessage('rating.detail.created_at', [], 'admin'))->setDisabled(true);
+		yield DateField::new('updated_at', new TranslatableMessage('rating.detail.updated_at', [], 'admin'))->setDisabled(true);
 	}
 }

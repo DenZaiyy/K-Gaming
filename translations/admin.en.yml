@@ -1,0 +1,133 @@
+game:
+    index:
+        title: "List of games"
+        description: "Here is the list of all the games in the database."
+        no_game: "No game found."
+    table:
+        id: "ID"
+        label: "Label"
+        slug: "Slug"
+        is_sellable: "Is sellable"
+        price: "Price"
+        old_price: "Old price"
+        is_promotion: "Is promotion"
+        promotion_start_date: "Promotion start date"
+        promotion_end_date: "Promotion end date"
+        promotion_percent: "Promotion discount"
+        platforms: "Platforms"
+        genders: "Genders"
+        release_date: "Release date"
+    detail:
+        general_information: "General information"
+        price_information: "Price information"
+        game_information: "Game information"
+        name_game: "Name of the game"
+        slug: "Slug"
+        status: "Status"
+        status_description: "If you tick this box, the game will be available for sale."
+        price: "Price"
+        old_price: "Old price"
+        promotion: "Promotion"
+        promotion_description: "If you check this box, the game price will be modified according to the promotion percentage."
+        promotion_percent: "Promotion percentage"
+        promotion_start_date: "Promotion start date"
+        promotion_end_date: "Promotion end date"
+        promotion_percent_description: "If you check the 'Promotion' box, you must enter the promotion percentage."
+        game_platforms: "Associated platforms"
+        game_platforms_description: "You can add or remove platforms associated with this game."
+        game_genders: "Associated genders"
+        game_genders_description: "You can add or remove genres associated with this game."
+        date_release: "Release date"
+
+gender:
+    index:
+        title: "List of genders"
+        description: "Here's a list of all the genres in the database."
+    table:
+        id: "ID"
+        label: "Label"
+        slug: "Slug"
+
+rating:
+    index:
+        title: "List of ratings"
+        description: "Here is the list of all the ratings in the database."
+    table:
+        id: "ID"
+        comment: "Comment"
+        rating: "Rating"
+        user: "User"
+        game: "Game"
+        platform: "Platform"
+        created_at: "Created at"
+        updated_at: "Updated at"
+    detail:
+        rating: "Rating"
+        rating_description: "The rating must be between 0 and 5."
+        comment: "Comment"
+        comment_and_rating: "Comment and rating"
+        complementary_informations: "Complementary informations"
+        created_by: "Created by"
+        created_by_description: "The user who created this comment. If the value is empty, the comment was created by a deleted user."
+        game: "Game"
+        game_description: "The game to which the comment is linked"
+        platform: "Platform"
+        platform_description: "The platform to which the comment is linked in relation to the game"
+        dates: "Dates"
+        dates_description: "Creation and modification dates are automatically generated."
+        created_at: "Created at"
+        updated_at: "Updated at"
+
+user:
+    index:
+        title: "List of users"
+        description: "Here is the list of all the users in the database."
+    table:
+        id: "ID"
+        username: "Username"
+        email: "Email"
+        roles:
+            index: "Roles"
+            description: "You can add or remove roles from this user."
+            ROLE_USER: "User"
+            ROLE_EDITOR: "Editor"
+            ROLE_ADMIN: "Administrator"
+        created_at: "Created at"
+        updated_at: "Updated at"
+        is_verified: "Is verified"
+        is_banned: "Is banned"
+        is_banned_description: "If you check this box, the user will be banned."
+    detail:
+        user_informations: "User informations"
+        roles: "Roles of the user"
+        status: "Status"
+        dates: "Registration and modification date"
+
+menu:
+    back_home: "Back to home"
+    game:
+        singular: "Game"
+        index: "Games"
+        gender: "Genders"
+        rating: "Ratings"
+    category:
+        index: "Category"
+        platform: "Platform"
+    store:
+        index: "Store"
+        users:
+            index: "Users"
+            registered_users: "Registered users"
+            banned_users: "Banned users"
+        orders: "Orders"
+        stocks: "Stocks"
+    marketing:
+        index: "Marketing"
+        newsletter: "Newsletter"
+        registered_users: "Registered users"
+    settings:
+        index: "Settings"
+        site_management: "Site management"
+        method_of_payment: "Method of payment"
+        administrators: "Administrators"
+        maintenance: "Maintenance"

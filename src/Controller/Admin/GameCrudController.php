@@ -20,6 +20,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class GameCrudController extends AbstractCrudController
 {
@@ -64,11 +65,12 @@ class GameCrudController extends AbstractCrudController
     {
         return $crud
 	        ->setEntityLabelInSingular(
-		        fn (?Game $product, ?string $pageName) => $product ? $product->getLabel() : 'Jeux'
+		        fn (?Game $product, ?string $pageName) => $product ? $product->getLabel() : new TranslatableMessage('menu.game.singular', [], 'admin')
 	        )
-            ->setEntityLabelInPlural('Liste de jeux')
+            ->setEntityLabelInPlural(new TranslatableMessage('game.index.title', [], 'admin'))
+	        ->setHelp(Crud::PAGE_INDEX, new TranslatableMessage('game.index.description', [], 'admin'))
             ->setSearchFields(['id', 'label', 'price', 'is_promotion', 'slug', 'date_release'])
-	        ->setEntityPermission('ROLE_EDITOR')
+	        ->setEntityPermission('ROLE_ADMIN')
 	        ->showEntityActionsInlined();
     }
 
@@ -102,53 +104,41 @@ class GameCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-		yield FormField::addTab('Informations générales');
-            yield NumberField::new('id')->hideOnForm();
+		yield FormField::addTab(new TranslatableMessage('game.detail.general_information', [], 'admin'));
+            yield NumberField::new('id', new TranslatableMessage('game.table.id', [], 'admin'))->hideOnForm();
 		    yield FormField::addColumn(4);
-		    yield FormField::addPanel('Nom du jeux');
-		        yield TextField::new('label');
+		    yield FormField::addPanel(new TranslatableMessage('game.detail.name_game', [], 'admin'));
+		        yield TextField::new('label', new TranslatableMessage('game.table.label', [], 'admin'));
 		    yield FormField::addColumn(4);
-		    yield FormField::addPanel('Slug');
-                yield SlugField::new('slug')->setTargetFieldName('label');
+		    yield FormField::addPanel(new TranslatableMessage('game.detail.slug', [], 'admin'));
+                yield SlugField::new('slug', new TranslatableMessage('game.table.slug', [], 'admin'))->setTargetFieldName('label');
 		    yield FormField::addColumn(4);
-		    yield FormField::addPanel('Statut')->setHelp("Si vous cochez cette case, le jeux sera disponible à la vente");
-			    yield BooleanField::new('is_sellable');
-	    yield FormField::addTab('Informations sur le prix');
+		    yield FormField::addPanel(new TranslatableMessage('game.detail.status', [], 'admin'))->setHelp(new TranslatableMessage('game.detail.status_description', [], 'admin'));
+			    yield BooleanField::new('is_sellable', new TranslatableMessage('game.table.is_sellable', [], 'admin'));
+	    yield FormField::addTab(new TranslatableMessage('game.detail.price_information', [], 'admin'));
 			yield FormField::addColumn(4);
-			yield FormField::addPanel('Prix');
-		        yield MoneyField::new('price')->setCurrency('EUR');
-				yield MoneyField::new('old_price')->setCurrency('EUR')->setDisabled(true);
+			yield FormField::addPanel(new TranslatableMessage('game.detail.price', [], 'admin'));
+		        yield MoneyField::new('price', new TranslatableMessage('game.table.price', [], 'admin'))->setCurrency('EUR');
+				yield MoneyField::new('old_price', new TranslatableMessage('game.table.old_price', [], 'admin'))->setCurrency('EUR')->setDisabled(true);
 		    yield FormField::addColumn(4);
-		    yield FormField::addPanel('Promotion');
-				yield BooleanField::new('is_promotion')->setDisabled(true);
-				yield NumberField::new('promo_percent')->setDisabled(true);
-	    yield FormField::addTab('Informations sur le jeu');
+		    yield FormField::addPanel(new TranslatableMessage('game.detail.promotion', [], 'admin'));
+				yield BooleanField::new('is_promotion', new TranslatableMessage('game.table.is_promotion', [], 'admin'))->setHelp(new TranslatableMessage('game.detail.promotion_description', [], 'admin'));
+				yield NumberField::new('promo_percent', new TranslatableMessage('game.table.promotion_percent', [], 'admin'))->setHelp(new TranslatableMessage('game.detail.promotion_percent_description', [], 'admin'));
+	    yield FormField::addTab(new TranslatableMessage('game.detail.game_information', [], 'admin'));
 		    yield FormField::addColumn(4);
-		    yield FormField::addPanel()->setHelp("Vous pouvez ajouter ou supprimer des plateformes associées à ce jeux");
-                yield AssociationField::new('plateforms');
+		    yield FormField::addPanel()->setHelp(new TranslatableMessage('game.detail.game_platforms_description', [], 'admin'));
+                yield AssociationField::new('plateforms', new TranslatableMessage('game.table.platforms', [], 'admin'))->renderAsNativeWidget();
 		    yield FormField::addColumn(4);
-		    yield FormField::addPanel()->setHelp("Vous pouvez ajouter ou supprimer des genres associés à ce jeux");
-                yield AssociationField::new('genres');
+		    yield FormField::addPanel()->setHelp(new TranslatableMessage('game.detail.game_genders_description', [], 'admin'));
+                yield AssociationField::new('genres', new TranslatableMessage('game.table.genders', [], 'admin'));
 		    yield FormField::addColumn(4);
-		    yield FormField::addPanel('Date de sortie');
-		        $dateRelease = DateTimeField::new('date_release')
+		    yield FormField::addPanel(new TranslatableMessage('game.detail.date_release', [], 'admin'));
+			yield DateTimeField::new('date_release', new TranslatableMessage('game.table.release_date', [], 'admin'))
 		            ->setFormat('dd-MM-yyyy')
 		            ->setFormTypeOptions([
 		                'data' => new DateTime('now', new DateTimeZone('Europe/Paris')), // default data
 		                'widget' => 'single_text',
+			            'disabled' => true,
 		            ]);
-
-        if (Crud::PAGE_EDIT === $pageName) {
-            yield $dateRelease->setFormTypeOption('disabled', false);
-
-	        yield AssociationField::new('genres', 'Genres associés');
-	        yield AssociationField::new('plateforms', 'Plateformes associées');
-	        yield BooleanField::new('is_promotion')->setDisabled(false)->setHelp("Si vous cochez cette case, le prix du jeux sera modifié en fonction du pourcentage de promotion");
-	        yield NumberField::new('promo_percent')->setDisabled(false)->setHelp("Si vous cochez la case 'Promotion', vous devez renseigner le pourcentage de promotion");
-
-        } else {
-            yield $dateRelease;
-        }
-
     }
 }

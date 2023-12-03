@@ -13,8 +13,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -27,7 +30,7 @@ class UserCrudController extends AbstractCrudController
 	{
 		return $crud
 			->setEntityLabelInSingular(fn (?User $user, ?string $pageName) => $user ? $user->getUsername() : 'User')
-			->setEntityLabelInPlural('Users')
+			->setEntityLabelInPlural(new TranslatableMessage('user.index.title', [], 'admin'))
 			->setSearchFields(['id', 'username', 'roles', 'email', 'avatar', 'is_verified', 'is_banned', 'create_at'])
 			->setEntityPermission('ROLE_EDITOR')
 			->showEntityActionsInlined();
@@ -59,37 +62,48 @@ class UserCrudController extends AbstractCrudController
 	
 	public function configureFields(string $pageName): iterable
 	{
-		yield NumberField::new('id')->hideOnForm();
-		yield TextField::new('username')->setSortable(false);
-		yield ChoiceField::class::new('roles')
-			->setChoices([
-					'Membre' => 'ROLE_USER',
-					'Administrateur' => 'ROLE_ADMIN',
-				]
-			)
+		yield FormField::addColumn(4);
+		yield FormField::addPanel(new TranslatableMessage('user.detail.user_informations', [], 'admin'));
+		yield NumberField::new('id', new TranslatableMessage('user.table.id', [], 'admin'))
+			->hideOnForm();
+		yield TextField::new('username', new TranslatableMessage('user.table.username', [], 'admin'))
+			->setSortable(false);
+		yield TextField::new('email', new TranslatableMessage('user.table.email', [], 'admin'))
+			->setSortable(false);
+		yield FormField::addColumn(4);
+		yield FormField::addPanel(new TranslatableMessage('user.detail.roles', [], 'admin'))
+			->setHelp(new TranslatableMessage('user.table.roles.description', [], 'admin'));
+		yield ChoiceField::class::new('roles', new TranslatableMessage('user.table.roles.index', [], 'admin'))
+			->setTranslatableChoices([
+				'ROLE_USER' => new TranslatableMessage('user.table.roles.ROLE_USER', [], 'admin'),
+				'ROLE_ADMIN' => new TranslatableMessage('user.table.roles.ROLE_ADMIN', [], 'admin'),
+				'ROLE_EDITOR' => new TranslatableMessage('user.table.roles.ROLE_EDITOR', [], 'admin'),
+			])
+			->renderExpanded()
 			->allowMultipleChoices();
-		yield TextField::new('email')->setSortable(false);
-		
-		$verifiedAcc = BooleanField::new('is_verified')
-			->hideOnForm()
-			->setFormTypeOption('disabled', true);
-		
-		$isBanned = BooleanField::new('is_banned')->hideOnForm();
-		
-		$createdAt = DateField::new('create_at')
+
+		yield FormField::addColumn(4);
+		yield FormField::addPanel(new TranslatableMessage('user.detail.status', [], 'admin'))
+			->setHelp(new TranslatableMessage('user.table.is_banned_description', [], 'admin'));
+			yield BooleanField::new('is_verified', new TranslatableMessage('user.table.is_verified', [], 'admin'))
+				->hideOnForm()
+				->setDisabled(true);
+			yield BooleanField::new('is_banned', new TranslatableMessage('user.table.is_banned', [], 'admin'));
+		yield FormField::addColumn(4);
+		yield FormField::addPanel(new TranslatableMessage('user.detail.dates', [], 'admin'));
+		yield DateTimeField::new('create_at', new TranslatableMessage('user.table.created_at', [], 'admin'))
 			->setFormat('dd-MM-yyyy')
 			->setFormTypeOptions([
-				'data' => new DateTime('now', new DateTimeZone('Europe/Paris')), // default data
+				'data' => new \DateTimeImmutable('now', new DateTimeZone('Europe/Paris')), // default data
 				'widget' => 'single_text',
+				'disabled' => true,
 			]);
-		
-		if (Crud::PAGE_EDIT === $pageName) {
-			yield $createdAt->setFormTypeOption('disabled', true);
-			yield $isBanned->setFormTypeOption('disabled', true);
-		} else {
-			yield $createdAt;
-			yield $verifiedAcc;
-			yield $isBanned;
-		}
+
+		yield DateTimeField::new('updated_at', new TranslatableMessage('user.table.updated_at', [], 'admin'))
+			->setFormat('dd-MM-yyyy')
+			->setFormTypeOptions([
+				'widget' => 'single_text',
+				'disabled' => true,
+			]);
 	}
 }
