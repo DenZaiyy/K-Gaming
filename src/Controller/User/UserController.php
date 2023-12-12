@@ -12,6 +12,8 @@ use App\Form\User\UpdatePasswordType;
 use App\Form\User\UpdateUsernameType;
 use App\Security\EmailVerifier;
 use App\Service\MultiAvatars;
+use DateTimeImmutable;
+use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,7 +29,7 @@ class UserController extends AbstractController
 	/*
 	 * Constructeur permettant d'instancier l'entityManager et l'utiliser dans les fonctions
 	 */
-    public function __construct(private EntityManagerInterface $em, private EmailVerifier $emailVerifier)
+    public function __construct(private readonly EntityManagerInterface $em, private readonly EmailVerifier $emailVerifier)
     {
     }
 
@@ -35,8 +37,13 @@ class UserController extends AbstractController
     public function index(Request $request, UserPasswordHasherInterface $hasher, MultiAvatars $multiAvatars): Response
     {
         $user = $this->getUser();
+		if(!$user)
+		{
+			$this->addFlash('danger', 'Vous devez être connecté pour accéder à votre compte');
+			return $this->redirectToRoute('app_login');
+		}
 	    $currentUser = $this->em->getRepository(User::class)->findOneBy(['username' => $user->getUsername()]);
-        $currentDate = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'));
+        $currentDate = new DateTimeImmutable('now', new DateTimeZone('Europe/Paris'));
         $userAddress = $this->em->getRepository(Address::class)->findBy(['user' => $currentUser]);
 
         $avatars = $multiAvatars->getEightRandomlyAvatar();
@@ -141,7 +148,7 @@ class UserController extends AbstractController
         if($currentUser)
         {
             $currentUser->setAvatar($multiAvatars->setAvatarUrl($image));
-            $currentUser->setUpdatedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris')));
+            $currentUser->setUpdatedAt(new DateTimeImmutable('now', new DateTimeZone('Europe/Paris')));
             $this->em->persist($currentUser);
             $this->em->flush();
             $this->addFlash('success', 'Votre avatar a bien été modifié');
@@ -175,7 +182,7 @@ class UserController extends AbstractController
 	 * Fonction permettant d'accéder aux préférences utilisateur, notamment la newsletter et le choix du theme
 	 */
     #[Route('/my-preference', name: 'my_preference')]
-    public function myPreference(Request $request): Response
+    public function myPreference(): Response
     {
 		$user = $this->getUser();
 		$newsletter = $this->em->getRepository(NewsletterUser::class)->findOneBy(['email' => $user->getEmail()]);
