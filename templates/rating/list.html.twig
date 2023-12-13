@@ -6,12 +6,16 @@
     <div class="container">
         <div class="ratings">
             <h1 class="ratings__title">Liste des avis utilisateurs</h1>
-            <p class="text-center">Voici la liste des avis publiée du plus récent au plus ancien</p>
-            <div class="rating-cards mt-5">
-                {% for rating in ratings %}
-                    {% include 'components/rating/_card-list.html.twig' %}
-                {% endfor %}
-            </div>
+            {% if ratings %}
+                <p class="text-center">Voici la liste des avis publiée du plus récent au plus ancien</p>
+                <div class="rating-cards mt-5">
+                    {% for rating in ratings %}
+                        {% include 'components/rating/_card-list.html.twig' %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-center">Aucun avis n'a été publié pour le moment</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
