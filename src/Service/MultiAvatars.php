@@ -15,7 +15,7 @@ class MultiAvatars extends AbstractController
     {
         $response = $this->client->request(
             'GET',
-            'https://api.multiavatar.com/' . $imageID . '.png?apikey=oE7Qgxe34yjiMh',
+            'https://api.multiavatar.com/' . $imageID . '.png',
         );
 
         return $response->getInfo('url');
