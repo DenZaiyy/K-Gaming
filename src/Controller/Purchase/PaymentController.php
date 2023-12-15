@@ -237,6 +237,12 @@ class PaymentController extends AbstractController
 
         //Initialisation du chemin d'enregistrement de la facture
         $path = $this->getParameter('pdf_directory');
+
+		//Vérification si le dossier existe, sinon création du dossier
+		if(!is_dir($path)) {
+			mkdir($path, 0777, true);
+		}
+
         //Initialisation du nom de la facture
         $name = 'facture-' . $idUniq . '.pdf';
 
