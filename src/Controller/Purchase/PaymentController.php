@@ -70,7 +70,8 @@ class PaymentController extends AbstractController
 		foreach ($purchase->getRecapDetails()->getValues() as $product) {
 			//get the product from the recapDetails
 			$productData = $this->em->getRepository(Game::class)->findOneBy(['label' => $product->getGameLabel()]); //get the game by the label
-			$amount = str_replace('.', '', $productData->getPrice()); //replace the dot by nothing to get the price in cents
+			$price = $productData->getPrice() * 100;
+			$amount = str_replace('.', '', $price); //replace the dot by nothing to get the price in cents
 			
 			//add the product to the array
 			$productStripe[] = [
