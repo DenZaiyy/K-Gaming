@@ -6,7 +6,7 @@
     <div class="container">
         <div class="ratings">
             <h1 class="ratings__title">Liste des avis utilisateurs</h1>
-            {% if ratings %}
+            {% if ratings is not empty %}
                 <p class="text-center">Voici la liste des avis publiée du plus récent au plus ancien</p>
                 <div class="rating-cards mt-5">
                     {% for rating in ratings %}
