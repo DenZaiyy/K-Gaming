@@ -313,7 +313,6 @@ main .toggle-filters {
 main .hero-image {
   position: relative;
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../img/accueil.jpg");
-  height: 35vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -475,16 +474,26 @@ main .rating .text-content, main .newsletter .text-content {
   font-size: 1.3em;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 }
-main .rating .btn-ratings, main .rating .btn-newsletter, main .newsletter .btn-ratings, main .newsletter .btn-newsletter {
+main .rating .newsletter-form, main .newsletter .newsletter-form {
+  margin-top: 20px;
+  width: 70%;
+}
+main .rating .newsletter-form form, main .newsletter .newsletter-form form {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+}
+main .rating .btn-ratings, main .newsletter .btn-ratings {
   margin-top: 20px;
 }
-main .rating .btn-ratings a, main .rating .btn-newsletter a, main .newsletter .btn-ratings a, main .newsletter .btn-newsletter a {
+main .rating .btn-ratings, main .rating .btn-newsletter, main .newsletter .btn-ratings, main .newsletter .btn-newsletter {
   display: block;
+  cursor: pointer;
   background: transparent;
   color: var(--white);
   font-family: "Source Sans Pro", sans-serif;
   font-size: 1.2em;
-  text-decoration: none;
   padding: 10px 20px;
   border: 1px solid var(--white);
   border-radius: 5px;
@@ -493,23 +502,29 @@ main .rating .btn-ratings a, main .rating .btn-newsletter a, main .newsletter .b
   -webkit-box-shadow: 0 4px 8px -4px rgb(0, 0, 0);
   -moz-box-shadow: 0 4px 8px -4px rgb(0, 0, 0);
 }
-main .rating .btn-ratings a:hover, main .rating .btn-newsletter a:hover, main .newsletter .btn-ratings a:hover, main .newsletter .btn-newsletter a:hover {
+main .rating .btn-ratings:hover, main .rating .btn-newsletter:hover, main .newsletter .btn-ratings:hover, main .newsletter .btn-newsletter:hover {
   background-color: var(--orange);
   color: var(--white);
   transition: var(--animation);
+}
+main .rating .btn-ratings a, main .rating .btn-newsletter a, main .newsletter .btn-ratings a, main .newsletter .btn-newsletter a {
+  color: var(--white);
+  text-decoration: none;
 }
 main .genres, main .listGenres {
   margin-top: 30px;
 }
 main .genres .cards, main .listGenres .cards {
-  display: flex;
+  /*display: flex;
   flex-wrap: wrap;
-  gap: 50px;
+  gap: 50px;*/
   width: 80%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 500px);
+  justify-content: center;
   margin: 0 auto;
 }
 main .genres .cards a, main .listGenres .cards a {
-  flex: 0 0 30%;
   text-decoration: none;
 }
 main .genres .cards a .genreCard, main .listGenres .cards a .genreCard {
@@ -767,7 +782,7 @@ main .ratings .rating-cards {
   gap: 20px;
   justify-content: center;*/
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, 350px);
   justify-content: center;
   grid-gap: 20px;
 }
@@ -1068,6 +1083,28 @@ footer .f-flex small {
   z-index: 9;
 }
 
+.prevention {
+  position: fixed;
+  background: none;
+  border: none;
+  padding: 10px;
+  bottom: 50%;
+  left: 10px;
+  animation: blink 2s ease 1s infinite normal none;
+}
+.prevention i {
+  font-size: 2em;
+  color: var(--orange);
+}
+
+@keyframes blink {
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+  25%, 75% {
+    opacity: 0;
+  }
+}
 .overlay-menu {
   display: block;
   height: 100%;
@@ -1189,9 +1226,12 @@ footer .f-flex small {
   .burger-btn, .overlay-menu {
     display: block !important;
   }
+  .prevention {
+    bottom: 50px;
+  }
   main .hero-image {
-    height: auto !important;
-    min-height: 60vh !important;
+    /*height: auto !important;
+    min-height: 60vh !important;*/
     background-position: left !important;
   }
   main .hero-text, main .tendencies, main .rating, main .preorders, main .newsletter, main .genres, main .listGenres {
@@ -1208,8 +1248,8 @@ footer .f-flex small {
     text-align: justify;
   }
   main .tendencies .cards, main .preorders .cards, main .content .cards, main .listGames .cards {
-    display: flex !important;
-    flex-direction: column !important;
+    display: flex;
+    flex-direction: column;
     align-items: center !important;
     gap: 20px !important;
   }
@@ -1219,7 +1259,7 @@ footer .f-flex small {
   main .tendencies .cards a .gameCard:hover, main .preorders .cards a .gameCard:hover, main .content .cards a .gameCard:hover, main .listGames .cards a .gameCard:hover {
     transform: unset !important;
   }
-  main .newsletter .text-content, main .rating .text-content {
+  main .newsletter .text-content, main .newsletter .newsletter-form, main .rating .text-content, main .rating .newsletter-form {
     width: 100% !important;
     text-align: justify !important;
   }
@@ -1243,206 +1283,206 @@ footer .f-flex small {
   main .show-more {
     margin: 20px auto 0 auto !important;
   }
-  .container {
+  main .login .container {
+    padding: 20px;
+    margin: 0;
+  }
+  main .login .container .card {
+    width: 100%;
+  }
+  main .login .container .card .card-body {
+    width: 100%;
+    padding: 0;
+  }
+  main .login .container .login, main .login .container .register {
     padding: 20px !important;
-    margin: 0 !important;
   }
-  .container .card {
-    width: 100% !important;
-  }
-  .container .card .card-body {
-    width: 100% !important;
-    padding: 0 !important;
-  }
-  .container .login, .container .register {
-    padding: 20px !important;
-  }
-  .container .login .card-body .passwords, .container .register .card-body .passwords {
+  main .login .container .login .card-body .passwords, main .login .container .register .card-body .passwords {
     flex-direction: column !important;
     gap: 10px !important;
   }
-  .container .login .card-body .passwords .col, .container .register .card-body .passwords .col {
+  main .login .container .login .card-body .passwords .col, main .login .container .register .card-body .passwords .col {
     width: 100% !important;
   }
-  .container .login .card-footer, .container .register .card-footer {
+  main .login .container .login .card-footer, main .login .container .register .card-footer {
     align-items: center !important;
   }
-  .container .login .card-footer .actions, .container .register .card-footer .actions {
+  main .login .container .login .card-footer .actions, main .login .container .register .card-footer .actions {
     display: flex !important;
     gap: 10px !important;
   }
-  .container .login .card-footer .actions a, .container .register .card-footer .actions a {
+  main .login .container .login .card-footer .actions a, main .login .container .register .card-footer .actions a {
     font-size: 1.5em;
   }
-  .container .login .checkbox, .container .register .checkbox {
+  main .login .container .login .checkbox, main .login .container .register .checkbox {
     text-align: center !important;
   }
-  .container .login .btns .btns-con-pass, .container .register .btns .btns-con-pass {
+  main .login .container .login .btns .btns-con-pass, main .login .container .register .btns .btns-con-pass {
     flex-direction: column !important;
   }
-  .container .login .btn, .container .register .btn {
+  main .login .container .login .btn, main .login .container .register .btn {
     width: 100% !important;
   }
-  .cart {
+  main .cart {
     padding: 20px !important;
     flex-direction: column !important;
   }
-  .cart .cart-item .card, .cart .summary .card {
+  main .cart .cart-item .card, main .cart .summary .card {
     padding: 20px !important;
   }
-  .cart .cart-item {
+  main .cart .cart-item {
     width: 100% !important;
   }
-  .cart .cart-item .card .game {
+  main .cart .cart-item .card .game {
     flex-direction: column !important;
     justify-content: space-between !important;
   }
-  .cart .cart-item .card .game .about {
+  main .cart .cart-item .card .game .about {
     flex-direction: column !important;
     align-items: center !important;
     gap: 10px !important;
   }
-  .cart .cart-item .card .game .about .infos {
+  main .cart .cart-item .card .game .about .infos {
     flex-direction: row !important;
     align-items: center !important;
     gap: 10px !important;
   }
-  .cart .cart-item .card .game .price {
+  main .cart .cart-item .card .game .price {
     flex-direction: row !important;
     justify-content: center !important;
   }
-  .cart .summary {
+  main .cart .summary {
     width: 100% !important;
   }
-  .order .order-header {
+  main .order .order-header {
     flex-direction: column !important;
     gap: 20px !important;
   }
-  .order .order-header .recap {
+  main .order .order-header .recap {
     width: 100% !important;
   }
-  .order-success .alert {
+  main .order-success .alert {
     width: 100% !important;
   }
-  .order-success .order-content {
+  main .order-success .order-content {
     width: 100% !important;
   }
-  .current-purchase {
+  main .current-purchase {
     padding: 20px !important;
   }
-  .current-purchase .cards .card {
+  main .current-purchase .cards .card {
     width: 100% !important;
   }
-  .rating-form {
+  main .rating-form {
     padding: 20px !important;
   }
-  .rating-form .card {
+  main .rating-form .card {
     width: 100% !important;
     padding: 20px !important;
   }
-  .rating-form .card .form .rating .ratingStars i {
+  main .rating-form .card .form .rating .ratingStars i {
     font-size: 2em !important;
   }
-  .user-profil .user-infos {
+  main .user-profil .user-infos {
     margin: 30px auto !important;
   }
-  .user-profil .user-infos .settings .avatar, .user-profil .user-infos .settings .username, .user-profil .user-infos .settings .email, .user-profil .user-infos .settings .password {
+  main .user-profil .user-infos .settings .avatar, main .user-profil .user-infos .settings .username, main .user-profil .user-infos .settings .email, main .user-profil .user-infos .settings .password {
     flex-direction: column !important;
   }
-  .user-profil .user-infos .settings .avatar .infos, .user-profil .user-infos .settings .username .infos, .user-profil .user-infos .settings .email .infos, .user-profil .user-infos .settings .password .infos {
+  main .user-profil .user-infos .settings .avatar .infos, main .user-profil .user-infos .settings .username .infos, main .user-profil .user-infos .settings .email .infos, main .user-profil .user-infos .settings .password .infos {
     width: 100% !important;
   }
-  .user-profil .user-infos .settings .avatar .card, .user-profil .user-infos .settings .username .card, .user-profil .user-infos .settings .email .card, .user-profil .user-infos .settings .password .card {
+  main .user-profil .user-infos .settings .avatar .card, main .user-profil .user-infos .settings .username .card, main .user-profil .user-infos .settings .email .card, main .user-profil .user-infos .settings .password .card {
     width: 100% !important;
     grid-gap: 10px !important;
   }
-  .user-profil .user-infos .settings .avatar .card .new-password, .user-profil .user-infos .settings .username .card .new-password, .user-profil .user-infos .settings .email .card .new-password, .user-profil .user-infos .settings .password .card .new-password {
+  main .user-profil .user-infos .settings .avatar .card .new-password, main .user-profil .user-infos .settings .username .card .new-password, main .user-profil .user-infos .settings .email .card .new-password, main .user-profil .user-infos .settings .password .card .new-password {
     flex-direction: column !important;
   }
-  .user-profil .user-address .address {
+  main .user-profil .user-address .address {
     flex-direction: column !important;
   }
-  .user-profil .user-address .address .infos {
+  main .user-profil .user-address .address .infos {
     width: 100% !important;
   }
-  .user-profil .user-address .address .card .btns {
+  main .user-profil .user-address .address .card .btns {
     flex-direction: column !important;
   }
-  .user-profil .user-ratings .ratings .card {
+  main .user-profil .user-ratings .ratings .card {
     max-width: unset !important;
   }
-  .user-profil .user-ratings .ratings .card .card-body {
+  main .user-profil .user-ratings .ratings .card .card-body {
     width: 100% !important;
     padding: 10px !important;
   }
-  .user-profil .user-ratings .ratings .card .card-body p {
+  main .user-profil .user-ratings .ratings .card .card-body p {
     margin: 0 !important;
   }
-  .user-profil .user-ratings .ratings .card .card-footer {
+  main .user-profil .user-ratings .ratings .card .card-footer {
     align-items: center !important;
   }
-  .user-profil .user-ratings .ratings .card .card-footer .actions {
+  main .user-profil .user-ratings .ratings .card .card-footer .actions {
     display: flex !important;
     gap: 10px !important;
   }
-  .detailGame .detail, .detailGame .about {
+  main .detailGame .detail, main .detailGame .about {
     padding: 20px !important;
   }
-  .detailGame .detail .coverDesc {
+  main .detailGame .detail .coverDesc {
     flex-direction: column !important;
     align-items: center !important;
     gap: unset !important;
   }
-  .detailGame .detail .coverDesc .desc .flex-content {
+  main .detailGame .detail .coverDesc .desc .flex-content {
     gap: 10px !important;
   }
-  .detailGame .about .content {
+  main .detailGame .about .content {
     flex-direction: column !important;
     gap: 20px !important;
   }
-  .detailGame .about .content .description {
+  main .detailGame .about .content .description {
     width: 100% !important;
   }
-  .detailGame .about .content .infos .release, .detailGame .about .content .infos .genres {
+  main .detailGame .about .content .infos .release, main .detailGame .about .content .infos .genres {
     padding: 0 !important;
   }
-  .detailGame .screenshots {
+  main .detailGame .screenshots {
     padding: 20px !important;
   }
-  .listGames .toggle-display {
+  main .listGames .toggle-display {
     display: none !important;
   }
-  .listGames .container {
+  main .listGames.container {
     padding: 20px !important;
   }
-  .listGames .container .page-content {
+  main .listGames.container.page-content {
     display: flex !important;
     flex-direction: column !important;
     gap: 20px;
   }
-  .listGames .container .page-content .toggle-filters {
+  main .listGames.container.page-content.toggle-filters {
     display: block !important;
   }
-  .listGames .container .page-content .filter-content {
+  main .listGames.container.page-content.filter-content {
     position: unset !important;
     top: unset !important;
   }
-  .listGames .container .page-content .filter-content .show {
+  main .listGames.container.page-content.filter-content.show {
     display: block !important;
   }
-  .listGames .container .page-content .filter-content .filter #genres {
+  main .listGames.container.page-content.filter-content.filter #genres {
     display: grid;
     grid-template-columns: repeat(3, 0fr);
     grid-gap: 10px;
   }
-  .listGames .container .page-content .filter-content .filter #price-slider {
+  main .listGames.container.page-content.filter-content.filter #price-slider {
     width: 90% !important;
     margin: 10px auto !important;
   }
-  .listGames .container .page-content .content .sorting {
+  main .listGames.container.page-content.content.sorting {
     justify-content: center !important;
   }
-  .listGames .container .page-content .content .pagination-platform {
+  main .listGames.container.page-content.content.pagination-platform {
     margin-top: 30px !important;
   }
   footer .footer {
