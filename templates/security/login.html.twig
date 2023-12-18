@@ -3,63 +3,65 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-    <div class="container mt-5 mb-5" style="max-width: 600px;">
-        <div class="login card p-5 rounded">
-            <form method="post" class="d-flex flex-column justify-content-start">
-                {% if error %}
-                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                {% endif %}
+    <div class="login">
+        <div class="container mt-5 mb-5" style="max-width: 600px;">
+            <div class="login card p-5 rounded">
+                <form method="post" class="d-flex flex-column justify-content-start">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
 
-                {% if app.flashes('success') %}
-                    {% for flash_message in app.flashes('success') %}
-                        <div class="alert alert-success" role="alert">{{ flash_message }}</div>
-                    {% endfor %}
-                {% else %}
-                    {% for flash_message in app.flashes('danger') %}
-                        <div class="alert alert-danger" role="alert">{{ flash_message }}</div>
-                    {% endfor %}
-                {% endif %}
+                    {% if app.flashes('success') %}
+                        {% for flash_message in app.flashes('success') %}
+                            <div class="alert alert-success" role="alert">{{ flash_message }}</div>
+                        {% endfor %}
+                    {% else %}
+                        {% for flash_message in app.flashes('danger') %}
+                            <div class="alert alert-danger" role="alert">{{ flash_message }}</div>
+                        {% endfor %}
+                    {% endif %}
 
-                <h1 class="mb-3 font-weight-normal">Connexion</h1>
-                <div class="form-floating mb-3">
-                    <input type="text" value="{{ last_username }}" name="username" id="inputUsername"
-                           class="form-control" autocomplete="username" placeholder="example" required autofocus>
-                    <label for="inputUsername">Utilisateur</label>
-                </div>
-
-                <div class="password-container mb-3">
-                    <div class="form-floating">
-                        <input type="password" name="password" id="inputPassword" class="form-control"
-                               autocomplete="current-password" placeholder="Mot de passe" required>
-                        <label for="inputPassword">Mot de passe</label>
-                    </div>
-                    <i class="fa-solid fa-eye" id="eye"></i>
-                </div>
-
-
-                <div class="checkbox mb-3 float-start">
-                    <label>
-                        <input type="checkbox" name="_remember_me" class="form-check-input"> Se souvenir de moi
-                    </label>
-                </div>
-
-                <!-- HONEYPOT SECTION -->
-                <input type="hidden" name="_hp_protect" autocomplete="false" value="" tabindex="-1">
-                <!-- END HONEYPOT SECTION -->
-                <!-- CSRF TOKEN -->
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                <!-- END CSRF TOKEN -->
-
-                <div class="btns d-flex flex-column gap-3">
-                    <div class="btns-con-pass d-flex flex-row w-100 gap-3">
-                        <button class="btn-primary-orange btn-lg w-100" type="submit">Se connecter</button>
-                        <a href="{{ path('app_forgot_password_request') }}" class="btn btn-lg btn-danger w-100">Mot de passe
-                            oublié</a>
+                    <h1 class="mb-3 font-weight-normal">Connexion</h1>
+                    <div class="form-floating mb-3">
+                        <input type="text" value="{{ last_username }}" name="username" id="inputUsername"
+                               class="form-control" autocomplete="username" placeholder="example" required autofocus>
+                        <label for="inputUsername">Utilisateur</label>
                     </div>
 
-                    <a href="{{ path('app_register') }}" class="btn-lg btn-secondary-blue">S'inscrire</a>
-                </div>
-            </form>
+                    <div class="password-container mb-3">
+                        <div class="form-floating">
+                            <input type="password" name="password" id="inputPassword" class="form-control"
+                                   autocomplete="current-password" placeholder="Mot de passe" required>
+                            <label for="inputPassword">Mot de passe</label>
+                        </div>
+                        <i class="fa-solid fa-eye" id="eye"></i>
+                    </div>
+
+
+                    <div class="checkbox mb-3 float-start">
+                        <label>
+                            <input type="checkbox" name="_remember_me" class="form-check-input"> Se souvenir de moi
+                        </label>
+                    </div>
+
+                    <!-- HONEYPOT SECTION -->
+                    <input type="hidden" name="_hp_protect" autocomplete="false" value="" tabindex="-1">
+                    <!-- END HONEYPOT SECTION -->
+                    <!-- CSRF TOKEN -->
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <!-- END CSRF TOKEN -->
+
+                    <div class="btns d-flex flex-column gap-3">
+                        <div class="btns-con-pass d-flex flex-row w-100 gap-3">
+                            <button class="btn-primary-orange btn-lg w-100" type="submit">Se connecter</button>
+                            <a href="{{ path('app_forgot_password_request') }}" class="btn btn-lg btn-danger w-100">Mot de passe
+                                oublié</a>
+                        </div>
+
+                        <a href="{{ path('app_register') }}" class="btn-lg btn-secondary-blue">S'inscrire</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 {% endblock %}
