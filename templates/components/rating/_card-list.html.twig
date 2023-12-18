@@ -2,7 +2,7 @@
     <div class="card-header d-flex flex-wrap justify-content-between align-items-center">
         <div class="user d-flex gap-2 align-items-center">
             {% if rating.user is null %}
-                <img src="{{ asset('img/default.png') }}" alt="image d'avatar par défaut" loading="lazy">Utilisateur supprimé
+                <img src="{{ asset('img/default.png') }}" alt="image d'avatar par défaut" loading="lazy">{{ 'user.deleted_user'|trans }}
             {% else %}
                 <img src="{{ rating.user.avatar }}" alt="avatar of user {{ rating.user.username }}" loading="lazy">{{ rating.user.username }}
             {% endif %}
@@ -15,9 +15,17 @@
     <div class="card-footer d-flex flex-wrap justify-content-between align-items-center">
         <div class="date">
             {% if rating.updatedAt %}
-                <small>Mis à jour le <strong>{{ fullDateFR(rating.updatedAt) }}</strong></small>
+                {% if app.request.get('_locale') == "en" %}
+                        {{ 'game.detail.rating.updated_at'|trans({"%date%": fullDateTranslated(rating.updatedAt, "en")})|raw }}
+                    {% else %}
+                        {{ 'game.detail.rating.updated_at'|trans({"%date%": fullDateTranslated(rating.updatedAt, "fr")})|raw }}
+                {% endif %}
             {% else %}
-                <small>Posté le <strong>{{ fullDateFR(rating.createdAt) }}</strong></small>
+                {% if app.request.get('_locale') == "en" %}
+                        {{ 'game.detail.rating.posted_at'|trans({"%date%": fullDateTranslated(rating.createdAt, "en")})|raw }}
+                    {% else %}
+                        {{ 'game.detail.rating.posted_at'|trans({"%date%": fullDateTranslated(rating.createdAt, "fr")})|raw }}
+                {% endif %}
             {% endif %}
         </div>
         <div class="platform">

@@ -46,18 +46,17 @@
 						<div class="dropdown-item">
 							<div class="cart-item">
 								<div class="cart-item-info">
-									<p><strong>Total :</strong> {{ cartTotal|price }}</p>
+									<p>{{ 'cart.menu.total'|trans({'%total%': cartTotal|price})|raw }}</p>
 								</div>
 							</div>
-							<a href="{{ path('cart_index') }}" class="btn-primary-orange">Voir le panier</a>
+							<a href="{{ path('cart_index') }}" class="btn-primary-orange">{{ 'cart.menu.show_cart'|trans }}</a>
 						</div>
 						<div class="dropdown-item">
-							<a href="{{ path('cart_remove_all') }}" class="btn-secondary-blue">Vider le
-								panier</a>
+							<a href="{{ path('cart_remove_all') }}" class="btn-secondary-blue">{{ 'cart.menu.clear_cart'|trans }}</a>
 						</div>
 					{% else %}
 						<div class="dropdown-item">
-							<p>Votre panier est vide</p>
+							<p>{{ 'cart.menu.empty_cart'|trans }}</p>
 						</div>
 					{% endif %}
 				</div>
@@ -76,19 +75,19 @@
 				<div class="dropdown-menu text-small shadow right" aria-labelledby="dropdownUser">
 					{% if app.user %}
 						{% if is_granted("ROLE_ADMIN") %}
-							<a href="{{ path('app_admin') }}">Administration</a>
-							<a href="{{ path('newsletter_list') }}">Newsletter</a>
+							<a href="{{ path('app_admin') }}">{{ 'user.menu.admin'|trans }}</a>
+							<a href="{{ path('newsletter_list') }}">{{ 'user.menu.newsletter'|trans }}</a>
 							<hr class="dropdown-divider">
 						{% endif %}
-						<a href="{{ path('user_my_account') }}">Mon compte</a>
-						<a href="{{ path('user_my_order') }}">Mes commandes</a>
-						<a href="{{ path('user_my_preference') }}">Mes préférences</a>
+						<a href="{{ path('user_my_account') }}">{{ 'user.menu.my_account'|trans }}</a>
+						<a href="{{ path('user_my_order') }}">{{ 'user.menu.my_orders'|trans }}</a>
+						<a href="{{ path('user_my_preference') }}">{{ 'user.menu.my_preference'|trans }}</a>
 						<hr class="dropdown-divider">
-						<a href="{{ logout_path() }}" class="disconnect">Déconnexion</a>
-					
+						<a href="{{ logout_path() }}" class="disconnect">{{ 'user.menu.logout'|trans }}</a>
+
 					{% else %}
-						<a href="{{ path('app_login') }}">Connexion</a>
-						<a href="{{ path('app_register') }}">Inscription</a>
+						<a href="{{ path('app_login') }}">{{ 'user.menu.login'|trans }}</a>
+						<a href="{{ path('app_register') }}">{{ 'user.menu.register'|trans }}</a>
 					{% endif %}
 				</div>
 			</div>
@@ -101,10 +100,10 @@
 					{% endif %}
 				</button>
 				<div class="dropdown-menu text-small shadow right" aria-labelledby="dropdownLocale">
-					<a href="{{ path('app_home', {_locale: 'fr'}) }}" class="dropdown-item">
+					<a href="{{ path('change_language', {_locale: 'fr'}) }}" class="dropdown-item">
 						{{ 'locale.fr'|trans }}
 					</a>
-					<a href="{{ path('app_home', {_locale: 'en'}) }}" class="dropdown-item">
+					<a href="{{ path('change_language', {_locale: 'en'}) }}" class="dropdown-item">
 						{{ 'locale.en'|trans }}
 					</a>
 				</div>
@@ -134,21 +133,21 @@
 						<button class="accordion">{{ app.user.username }}</button>
 						<div class="panel">
 							{% if is_granted("ROLE_ADMIN") %}
-								<a href="{{ path('app_admin') }}">Administration</a>
-								<a href="{{ path('newsletter_list') }}">Newsletter</a>
+								<a href="{{ path('app_admin') }}">{{ 'user.menu.admin'|trans }}</a>
+								<a href="{{ path('newsletter_list') }}">{{ 'user.menu.newsletter'|trans }}</a>
 								<hr>
 							{% endif %}
-							<a href="{{ path('user_my_account') }}">Mon compte</a>
-							<a href="{{ path('user_my_order') }}">Mes commandes</a>
-							<a href="{{ path('user_my_preference') }}">Mes préférences</a>
+							<a href="{{ path('user_my_account') }}">{{ 'user.menu.my_account'|trans }}</a>
+							<a href="{{ path('user_my_order') }}">{{ 'user.menu.my_orders'|trans }}</a>
+							<a href="{{ path('user_my_preference') }}">{{ 'user.menu.my_preference'|trans }}</a>
 							<hr>
-							<a href="{{ logout_path() }}" class="disconnect">Déconnexion</a>
+							<a href="{{ logout_path() }}" class="disconnect">{{ 'user.menu.logout'|trans }}</a>
 						</div>
 						{% else %}
-							<button class="accordion">Compte</button>
+							<button class="accordion">{{ 'user.menu.account'|trans }}</button>
 							<div class="panel">
-								<a href="{{ path('app_login') }}">Connexion</a>
-								<a href="{{ path('app_register') }}">Inscription</a>
+								<a href="{{ path('app_login') }}">{{ 'user.menu.login'|trans }}</a>
+								<a href="{{ path('app_register') }}">{{ 'user.menu.register'|trans }}</a>
 							</div>
 					{% endif %}
 				</div>

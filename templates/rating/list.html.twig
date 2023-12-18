@@ -1,21 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des avis utilisateurs{% endblock %}
+{% block title %}{{ 'game.detail.rating.list.title'|trans }}{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="ratings">
-            <h1 class="ratings__title">Liste des avis utilisateurs</h1>
-            {% if ratings is not empty %}
-                <p class="text-center">Voici la liste des avis publiée du plus récent au plus ancien</p>
-                <div class="rating-cards mt-5">
-                    {% for rating in ratings %}
-                        {% include 'components/rating/_card-list.html.twig' %}
-                    {% endfor %}
-                </div>
-            {% else %}
-                <p class="text-center">Aucun avis n'a été publié pour le moment</p>
-            {% endif %}
+	<div class="ratings-list">
+        <div class="container">
+            <div class="ratings">
+                <h1 class="ratings__title">{{ 'game.detail.rating.list.title'|trans }}</h1>
+                {% if ratings is not empty %}
+                    <p class="text-center">{{ 'game.detail.rating.list.description'|trans }}</p>
+                    <div class="rating-cards mt-5">
+                        {% for rating in ratings %}
+                            {% include 'components/rating/_card-list.html.twig' %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-center">{{ 'game.detail.rating.list.no_rating'|trans }}</p>
+                {% endif %}
+            </div>
         </div>
-    </div>
+	</div>
 {% endblock %}

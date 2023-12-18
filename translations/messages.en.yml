@@ -2,7 +2,99 @@ locale:
     fr: "French"
     en: "English"
 
+breadcrumb:
+    home: "Home"
+    gender: "Genders"
+
+home:
+    hero:
+        title: "K-gaming: The ultimate platform for gamers"
+        description: "K-gaming is the destination of choice for all video game <strong>enthusiasts</strong>.<br>With a wide selection of <strong>dematerialized game keys</strong> at <strong>competitive</strong> prices, we're the must-have platform for all gamers.<br>Experience our <strong>superior customer</strong> service and exceptional delivery speed.<br>Join the K-gaming community now and discover our selection of games!"
+    tendencies:
+        title: "Tendencies"
+        no_content: "There are no trending games at the moment."
+    rating:
+        content: "Have you already read the user reviews on K-GAMING? <br>Our customers are delighted to share their experience of buying dematerialized game keys on our site.<br>Come and read their testimonials and join our community of satisfied gamers!"
+        button: "See user reviews"
+    preorder:
+        title: "Pre-orders"
+        no_content: "There are no pre-orders at the moment."
+        show_more: "Show more"
+    newsletter:
+        description: "Don't miss our exclusive offers and our latest news on K-GAMING !<br>Join our community of passionate gamers and enjoy our quality products at unbeatable prices.<br>Subscribe now to receive all our news and promotions in advance. and promotions."
+        rgpd:
+            check_msg: "I agree to my data being used for the newsletter"
+            constraint: "You must agree to the use of your data for the newsletter"
+        submit: "Subscribe"
+    gender:
+        title: "Genders"
+        show_more: "Show more"
+
+prevent:
+    title: "Prevention message"
+    content: "<span>Please note that our site is a demonstration platform for educational purposes only. The games presented and the associated payment methods are fictitious and do not represent real transactions.</span><span>Thank you for your understanding.</span>"
+
+
+game:
+    detail:
+        title: "Product detail"
+        stocks:
+            stock: "In stock"
+            available: "Available"
+            some_available: "Available"
+            out_of_stock: "Out of stock"
+            pre_order:
+                order: "Pre-order"
+                available: "Pre-order available"
+        add_to_cart: "Add to cart"
+        buy_now: "Buy now"
+        select_platform: "Select a platform"
+        about:
+            title: "About the game"
+            date_release: "Release date :"
+            genders: "Genders :"
+        pictures:
+            title: "Pictures"
+            no_picture: "No pictures"
+            prev: "Previous"
+            next: "Next"
+        rating:
+            alts:
+                platform_logo: "platform logo for %platform%"
+                user_avatar: "user avatar"
+                default_avatar: "default avatar"
+                cover_for_game: "cover for game %game%"
+            list:
+                title: "List of user reviews"
+                description: "Here is the list of reviews, from the most recent to the oldest."
+                no_rating: "No rating has been published at the moment."
+            game:
+                title: "User ratings"
+                game_rating: "Game rating"
+                game_rating_opinion: "Opinion"
+                no_rating: "No rating associated with this game"
+            posted_at: "<small>Posted on <strong>%date%</strong></small>"
+            updated_at: "<small>Updated on <strong>%date%</strong></small>"
+
+cart:
+    menu:
+        show_cart: "Show cart"
+        clear_cart: "Clear cart"
+        empty_cart: "Your cart is empty"
+        total: "<strong>Total</strong> : %total%"
+
 user:
+    menu:
+        account: "Account"
+        admin: "Administration"
+        newsletter: "Newsletter"
+        my_account: "My account"
+        my_orders: "My orders"
+        my_preference: "My preferences"
+        logout: "Logout"
+        login: "Login"
+        register: "Register"
+    deleted_user: "Deleted user"
     preference:
         theme:
             title: "Theme of the site"

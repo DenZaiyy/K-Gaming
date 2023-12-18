@@ -5,16 +5,8 @@
 {% block body %}
 	<div class="hero-image">
 		<div class="hero-text">
-			<h1>K-gaming : La plateforme incontournable pour les gamers</h1>
-			<p>K-gaming est la destination de choix pour tous les <strong>passionnés</strong> de jeux vidéo.<br> Avec une large sélection
-				de
-				<strong>clés de jeux dématérialisées</strong> à des prix <strong>compétitifs</strong>, nous sommes la plateforme incontournable pour
-				tous
-				les gamers. <br>Faites l'expérience de notre service client de <strong>qualité supérieure</strong> et de notre rapidité
-				de
-				livraison exceptionnelle. <br>Rejoignez la communauté K-gaming dès maintenant et découvrez notre
-				sélection
-				de jeux !</p>
+			<h1>{{ 'home.hero.title'|trans }}</h1>
+			<p>{{ 'home.hero.description'|trans|raw }}</p>
 		</div>
 	</div>
 	<section class="tendencies">
@@ -75,20 +67,18 @@
 			</div>
 		</div>
 		<div class="text-content">
-			Avez-vous déjà consulté les avis des utilisateurs sur K-GAMING ?<br>Nos clients sont ravis de partager leur
-			expérience d'achat de clés de jeux en dématérialisé sur notre site.<br>Venez découvrir leurs témoignages et
-			rejoignez notre communauté de joueurs satisfaits !
+			{{ 'home.rating.content'|trans|raw }}
 		</div>
 		<div class="btn-ratings">
-			<a href="{{ path('rating_list') }}">Voir les avis utilisateurs</a>
+			<a href="{{ path('rating_list') }}">{{ 'home.rating.button'|trans }}</a>
 		</div>
 	</section>
 
 	<section class="preorders">
-		<h2>Précommandes</h2>
+		<h2>{{ 'home.preorder.title'|trans }}</h2>
 		{% if preorders is empty %}
 			<div class="text-content text-center">
-				Il n'y a pas de précommandes pour le moment.
+				{{ 'home.preorder.no_content'|trans }}
 			</div>
 			{% else %}
 				<div class="cards">
@@ -99,7 +89,7 @@
 		{% endif %}
 		{% if preorders|length > 3 %}
 			<div class="show-more">
-				<a href="{{ path('app_show_preorders') }}">Voir plus</a>
+				<a href="{{ path('app_show_preorders') }}">{{ 'home.preorder.show_more'|trans }}</a>
 			</div>
 		{% endif %}
 	</section>
@@ -109,25 +99,20 @@
 			<i class="bi bi-envelope-at-fill"></i>
 		</div>
 		<div class="text-content">
-			Ne manquez pas nos offres exclusives et nos dernières nouveautés sur
-			K-GAMING ! <br>Rejoignez notre communauté de joueurs passionnés et profitez de nos produits de qualité à des
-			prix imbattables. <br>Abonnez-vous dès maintenant pour recevoir toutes nos actualités et nos promotions en
-			avant-première.
+			{{ 'home.newsletter.description'|trans|raw }}
 		</div>
-		<div class="btn-newsletter">
-			<a href="{{ path('newsletter_subscribe') }}">S'inscrire !</a>
-		</div>
+		{{ render(controller('App\\Controller\\Newsletter\\SubscriptionController::subscribe', { form: newsletter })) }}
 	</section>
 
 	<section class="genres">
-		<h2>Genres</h2>
+		<h2>{{ 'home.gender.title'|trans }}</h2>
 		<div class="cards">
 			{% for genre in genres %}
 				{% include 'components/card/_genre.html.twig' %}
 			{% endfor %}
 		</div>
 		<div class="show-more">
-			<a href="{{ path('genre_list') }}">Voir plus</a>
+			<a href="{{ path('genre_list') }}">{{ 'home.gender.show_more'|trans }}</a>
 		</div>
 	</section>
 {% endblock %}

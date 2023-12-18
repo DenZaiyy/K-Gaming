@@ -29,11 +29,13 @@
 		{{ encore_entry_script_tags('app') }}
 	{% endblock %}
 </head>
-<body class="d-flex flex-column h-100" id="top">
-<div class="alert alert-danger text-center d-flex align-items-center flex-column justify-content-center">
-	<span>Veuillez noter que notre site est une plateforme de démonstration à des fins éducatives uniquement. Les jeux présentés ainsi que les moyens de paiement associés sont fictifs et ne représentent pas de transactions réelles.</span>
-	<span>Merci de votre compréhension.</span>
-</div>
+<body class="d-flex flex-column h-100 position-relative" id="top">
+
+{#<div class="prevention alert alert-danger text-center d-flex align-items-center flex-column justify-content-center">
+	<div class="d-none" data->
+
+	</div>
+</div>#}
 {{ render(controller('App\\Controller\\HomeController::navBar')) }}
 <main>
 	{% for key, value in app.flashes %}
@@ -49,13 +51,13 @@
 		<div class="footer">
 			<div class="logo">
 				<a href="{{ path('app_home') }}">
-					<img src="{{ asset('img/logo_Kgaming_baseColor.png') }}" alt="Logo of website">
+					<img src="{{ asset('img/logo_Kgaming_baseColor.png') }}" alt="{{ 'alts.logo'|trans({'%name%': 'K-GAMING'}, 'footer') }}">
 				</a>
 			</div>
 			<div class="links">
-				<a href="">Politique de confidentialité</a>
-				<a href="">Conditions de vente</a>
-				<a href="">CGU</a>
+				<a href="">{{ 'privacy_policy'|trans({}, 'footer')}}</a>
+				<a href="">{{ 'terms_and_conditions_of_sale'|trans({}, 'footer')}}</a>
+				<a href="">{{ 'terms_and_conditions_of_use'|trans({}, 'footer')}}</a>
 			</div>
 			<div class="socials">
 				<a href="">
@@ -70,9 +72,30 @@
 			</div>
 		</div>
 		<hr>
-		<small>K-GAMING &copy; 2023 - Tous droits réservés</small>
+		<small>{{ 'copyright'|trans({'%name%': 'K-GAMING', '%year%': '2023'}, 'footer')}}</small>
 	</div>
 </footer>
+<!-- Button trigger modal -->
+<button type="button" class="prevention" data-bs-toggle="modal" data-bs-target="#exampleModal" title="Informations importantes">
+	<i class="bi bi-exclamation-circle-fill"></i>
+</button>
+
+<!-- Start Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel">{{ 'prevent.title'|trans }}</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body alert alert-danger m-0 text-center d-flex align-items-center flex-column justify-content-center gap-3">
+				{{ 'prevent.content'|trans|raw }}
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Modal -->
+
 <a href="#top" class="scroll-link goUp">
 	<i class="fa-solid fa-arrow-up"></i>
 </a>

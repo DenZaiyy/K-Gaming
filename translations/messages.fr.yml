@@ -2,7 +2,95 @@ locale:
     fr: "Français"
     en: "Anglais"
 
+breadcrumb:
+    home: "Accueil"
+    gender: "Genres"
+
+home:
+    hero:
+        title: "K-gaming : La plateforme incontournable pour les gamers"
+        description: "K-gaming est la destination de choix pour tous les <strong>passionnés</strong> de jeux vidéo.<br> Avec une large sélection de <strong>clés de jeux dématérialisées</strong> à des prix <strong>compétitifs</strong>, nous sommes la plateforme incontournable pour tous les gamers. <br>Faites l'expérience de notre service client de <strong>qualité supérieure</strong> et de notre rapidité de livraison exceptionnelle. <br>Rejoignez la communauté K-gaming dès maintenant et découvrez notre sélection de jeux !"
+    tendencies:
+        title: "Tendances"
+        no_content: "Il n'y a pas de jeux tendances pour le moment."
+    rating:
+        content: "Avez-vous déjà consulté les avis des utilisateurs sur K-GAMING ?<br>Nos clients sont ravis de partager leur expérience d'achat de clés de jeux en dématérialisé sur notre site.<br>Venez découvrir leurs témoignages et rejoignez notre communauté de joueurs satisfaits !"
+        button: "Voir les avis utilisateurs"
+    preorder:
+        title: "Pré-commandes"
+        no_content: "Il n'y a pas de pré-commandes pour le moment."
+        show_more: "Voir plus"
+    newsletter:
+        description: "Ne manquez pas nos offres exclusives et nos dernières nouveautés sur K-GAMING !<br>Rejoignez notre communauté de joueurs passionnés et profitez de nos produits de qualité à des prix imbattables.<br>Abonnez-vous dès maintenant pour recevoir toutes nos actualités et nos promotions en avant-première."
+        rgpd:
+            check_msg: "I agree to my data being used for the newsletter"
+            constraint: "You must agree to the use of your data for the newsletter"
+        submit: "Subscribe"
+    gender:
+        title: "Genres"
+        show_more: "Voir plus"
+
+prevent:
+    title: "Message de prévention"
+    content: "<span>Veuillez noter que notre site est une plateforme de démonstration à des fins éducatives uniquement. Les jeux présentés ainsi que les moyens de paiement associés sont fictifs et ne représentent pas de transactions réelles.</span><span>Merci de votre compréhension.</span>"
+
+game:
+    detail:
+        title: "Détail produit"
+        stocks:
+            stock: "En stock"
+            out_of_stock: "En rupture de stock"
+            pre_order:
+                available: "Pré-commande disponible"
+        add_to_cart: "Ajouter au panier"
+        buy_now: "Acheter maintenant"
+        select_platform: "Sélectionnez une plateforme"
+        about:
+            title: "À propos du jeu"
+            date_release: "Date de sortie"
+            genders: "Genres"
+        pictures:
+            title: "Images"
+            no_picture: "Aucune image"
+            prev: "Précédent"
+            next: "Suivant"
+        rating:
+            alts:
+                platform_logo: "logo de la plateforme"
+                user_avatar: "avatar de l'utilisateur"
+                default_avatar: "avatar par défaut"
+                cover_for_game: "couverture du jeu"
+            list:
+                title: "Liste des avis des utilisateurs"
+                description: "Voici la liste des avis, du plus récent au plus ancien."
+                no_rating: "Aucun avis n'a été publié pour le moment."
+            game:
+                title: "Avis des utilisateurs"
+                game_rating: "Note du jeu"
+                game_rating_opinion: "Avis"
+                no_rating: "Aucun avis associé à ce jeu"
+            posted_at: "<small>Publié le <strong>%date%</strong></small>"
+            updated_at: "<small>Mis à jour le <strong>%date%</strong></small>"
+
+cart:
+    menu:
+        show_cart: "Voir le panier"
+        clear_cart: "Vider le panier"
+        empty_cart: "Votre panier est vide"
+        total: "<strong>Total</strong> : %total%"
+
 user:
+    menu:
+        account: "Compte"
+        admin: "Administration"
+        newsletter: "Newsletter"
+        my_account: "Mon compte"
+        my_orders: "Mes commandes"
+        my_preference: "Mes préférences"
+        logout: "Déconnexion"
+        login: "Connexion"
+        register: "Inscription"
+    deleted_user: "Utilisateur supprimé"
     preference:
         theme:
             title: "Thème du site"
