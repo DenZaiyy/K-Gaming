@@ -22,6 +22,7 @@ import Filter from './modules/Filter'
 new Filter(document.querySelector('.js-filter')); // on instancie la classe Filter avec le formulaire de filtre en paramètre (voir modules\Filter.js)
 
 window.addEventListener('load', (e) => {
+	const lang = document.querySelector('html').lang; // on récupère la valeur de l'attribut lang de la balise html
 	e.preventDefault() // on empêche le comportement par défaut du navigateur (rechargement de la page)
 
 	// START ALERTS
@@ -80,7 +81,7 @@ window.addEventListener('load', (e) => {
 			let url = window.location.pathname; // on récupère l'url de la page
 			let idGame = url.substring(url.lastIndexOf("/") + 1); // on récupère l'id du jeu dans l'url
 
-			window.location.href = "/platform/" + category + "/" + idPlateform + "/" + idGame; // on redirige vers la page avec l'id de la plateforme et du jeu
+			 window.location.href = "/" + lang + "/platform/" + category + "/" + idPlateform + "/" + idGame; // on redirige vers la page avec l'id de la plateforme et du jeu
 		})
 	}
 	// END PLATEFORME CHANGE
@@ -93,7 +94,7 @@ window.addEventListener('load', (e) => {
 		const qtt = game.querySelector(".qtt"); // on récupère l'élément avec la classe qtt
 
 		qtt.addEventListener("change", function () { // on écoute l'événement change sur l'élément
-			window.location.href = "/cart/quantityChange/" + id + "/" + qtt.value; // on redirige vers la page avec l'id du jeu et la quantité
+			window.location.href = "/" + lang + "/cart/quantityChange/" + id + "/" + qtt.value; // on redirige vers la page avec l'id du jeu et la quantité
 		})
 	})
 	// END QUANTITY CHANGE IN CART
@@ -207,4 +208,23 @@ window.addEventListener('load', (e) => {
 		}
 	});
 	// END SCROLL TO TOP BUTTON
+
+	// START HERO IMAGE AUTO HEIGHT
+
+	function setHeroImageHeight() {
+		const heroImage = document.querySelector(".hero-image");
+
+		if (heroImage) {
+			const heroText = document.querySelector(".hero-text");
+			const heroTextHeight = heroText.offsetHeight;
+
+			let size = heroTextHeight + 100;
+			heroImage.style.height = size + "px";
+		}
+	}
+
+	setHeroImageHeight();
+
+	window.addEventListener("resize", setHeroImageHeight);
+	// END HERO IMAGE AUTO HEIGHT
 })
