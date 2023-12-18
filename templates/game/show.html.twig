@@ -7,12 +7,12 @@
 {% block body %}
 	<div class="detailGame">
 		<section class="detail">
-			<h1>Detail produit</h1>
+			<h1>{{ 'game.detail.title'|trans }}</h1>
 			<div class="coverDesc">
 				<div class="cover">
-					<figure>
+					<figure aria-label="Cover">
 						<img src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: gamePlatform.game_label })) }}.jpg"
-						     draggable="false" alt="cover for game: {{ gamePlatform.game_label }}" loading="lazy">
+						     draggable="false" alt="{{ 'game.detail.rating.alts.cover_for_game'|trans({'%game%': gamePlatform.game_label}) }}" loading="lazy">
 					</figure>
 				</div>
 				<div class="desc">
@@ -23,7 +23,7 @@
 						<div class="infos">
 							<div class="plateform">
 								<img src="{{ gamePlatform.platform_logo }}"
-								     alt="logo of {{ gamePlatform.platform_label }}" loading="lazy">
+								     alt="{{ 'game.detail.rating.alts.platform_logo'|trans({'%platform%': gamePlatform.platform_label }) }}" loading="lazy">
 								{{ gamePlatform.platform_label }}
 							</div>
 							
@@ -31,24 +31,24 @@
 								{% if date(game.dateRelease) > date() %}
 									<p>
 										<i class="bi bi-check-lg text-success"></i>
-										Disponible en précommande</p>
+										{{ 'game.detail.stocks.pre_order.available'|trans }}</p>
 								{% else %}
 									{% if gameStock %}
 										{% if gameStock.total > 0 %}
 											<p>
 												<i class="bi bi-check-lg text-success"></i>
-												En stock ({{ gameStock.total }} {{ (gameStock.total > 1) ? 'disponibles' : 'disponible' }})
+												{{ 'game.detail.stocks.stock'|trans }} ({{ gameStock.total }} {{ (gameStock.total > 1) ? 'game.detail.stocks.some_available'|trans|lower : 'game.detail.stocks.available'|trans|lower }})
 											</p>
 										{% else %}
 											<p>
 												<i class="bi bi-x-lg text-danger"></i>
-												En rupture de stock
+												{{ 'game.detail.stocks.out_of_stock'|trans }}
 											</p>
 										{% endif %}
 									{% else %}
 										<p>
 											<i class="bi bi-x-lg text-danger"></i>
-											En rupture de stock
+											{{ 'game.detail.stocks.out_of_stock'|trans }}
 										</p>
 									{% endif %}
 								{% endif %}
@@ -57,7 +57,7 @@
 						
 						<div class="plateform-price">
 							<select class="form-select" name="plateform" id="plateform">
-								<option value="" selected disabled hidden>Selectionner une plateforme</option>
+								<option value="" selected disabled hidden>{{ 'game.detail.select_platform'|trans }}</option>
 								{% for plateform in game.plateforms %}
 									<option value="{{ plateform.slug }}"
 									        data-category="{{ plateform.category.label|lower }}">{{ plateform.label }}</option>
@@ -84,23 +84,25 @@
 							{# Condition permettant de vérifier si la date de sortie du jeu est supérieur à la date actuelle #}
 							{% if date(game.dateRelease) > date() %}
 								{# Si c'est le cas, on affiche un button précommander #}
-								<a href="" class="btn-primary-orange w-100">Précommander</a>
+								<a href="" class="btn-primary-orange w-100">
+									{{ 'game.detail.stocks.pre_order.order'|trans }}</a>
 							{% else %}
 								{# Sinon, on vérfie le nombre de stock est supérieur à 0 et affiche un button ajouter au panier et un button acheter maintenant #}
 								{% if gameStock.total > 0 %}
 									<a href="{{ path('cart_add', {categoryLabel: category, gameSlug: game.slug, platformSlug: gamePlatform.platform_slug}) }}"
-									   class="btn-primary-orange">
+									   class="btn-primary-orange"
+									   aria-label="Cart">
 										<i class="bi bi-cart-plus fa-lg"></i>
 									</a>
 									<a href="{{ path('cart_buy_now', {gameSlug: game.slug, platformSlug: gamePlatform.platform_slug}) }}"
-									   class="btn-primary-orange w-100">Acheter
-										maintenant</a>
+									   class="btn-primary-orange w-100"
+									   aria-label="Buy">{{ 'game.detail.buy_now'|trans }}</a>
 								{% else %}
 									{# Sinon, on affiche les button en les rendant incliquable, en affichant rupture de stock #}
-									<a class="btn-primary-orange disabled">
+									<a class="btn-primary-orange disabled" aria-label="Cart">
 										<i class="bi bi-cart-plus fa-lg"></i>
 									</a>
-									<a class="btn-primary-orange w-100 disabled">Acheter maintenant</a>
+									<a class="btn-primary-orange w-100 disabled" aria-label="Buy">{{ 'game.detail.buy_now'|trans }}</a>
 								{% endif %}
 							{% endif %}
 						</div>
@@ -110,18 +112,18 @@
 		</section>
 		
 		<section class="about mt-5">
-			<h2>A propos</h2>
+			<h2>{{ 'game.detail.about.title'|trans }}</h2>
 			<div class="content mb-5">
 				<div class="description">
 					{{ render(controller('App\\Controller\\GameController::getSummaryGame', { gameLabel: game.label })) }}
 				</div>
 				<div class="infos">
 					<div class="release">
-						<strong>Date de sortie :</strong>
+						<strong>{{ 'game.detail.about.date_release'|trans }}</strong>
 						<p>{{ dateFR(game.dateRelease) }}</p>
 					</div>
 					<div class="genres">
-						<strong>Genres :</strong>
+						<strong>{{ 'game.detail.about.genders'|trans }}</strong>
 						<p>
 							{% for genre in game.genres %}
 								{{ genre.label }}
@@ -135,7 +137,7 @@
 		</section>
 		
 		<section class="screenshots">
-			<h2>Photos</h2>
+			<h2>{{ 'game.detail.pictures.title'|trans }}</h2>
 			<div id="carouselPhotos" class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-inner">
 					{{ render(controller('App\\Controller\\GameController::getScreenshotsGame', { gameLabel: game.label })) }}
@@ -143,22 +145,22 @@
 				<button class="carousel-control-prev" type="button" data-bs-target="#carouselPhotos"
 				        data-bs-slide="prev">
 					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					<span class="visually-hidden">Précédent</span>
+					<span class="visually-hidden">{{ 'game.detail.pictures.prev'|trans }}</span>
 				</button>
 				<button class="carousel-control-next" type="button" data-bs-target="#carouselPhotos"
 				        data-bs-slide="next">
 					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="visually-hidden">Suivant</span>
+					<span class="visually-hidden">{{ 'game.detail.pictures.next'|trans }}</span>
 				</button>
 			</div>
 		</section>
 		
 		<section class="ratings">
-			<h2>Notes utilisateurs</h2>
+			<h2>{{ 'game.detail.rating.game.title'|trans }}</h2>
 			{% if ratings %}
 				<div class="moyenne d-flex justify-content-center gap-2 align-items-center my-3">
-					Note du jeu ({{ ratings|length }}
-					avis) :
+					{{ 'game.detail.rating.game.game_rating'|trans }} ({{ ratings|length }}
+					{{ 'game.detail.rating.game.game_rating_opinion'|trans }}) :
 					{# TODO: Check how to calculate float value of moyenne, for show half star if value is float #}
 					<div class="note d-flex ">
 						{% for i in 1..moyenne|round %}
@@ -178,12 +180,12 @@
 							<div class="card-header d-flex flex-wrap justify-content-between align-items-center">
 								<div class="user d-flex gap-2 align-items-center">
 									{% if rating.user is null %}
-										<img src="{{ asset('img/default.png') }}" alt="image d'avatar par défaut"
+										<img src="{{ asset('img/default.png') }}" alt="{{ 'game.detail.rating.alts.default_avatar'|trans }}"
 										     loading="lazy">
-										Utilisateur supprimé
+										{{ 'user.deleted_user'|trans }}
 									{% else %}
 										<img src="{{ rating.user.avatar }}"
-										     alt="avatar of user {{ rating.user.username }}" loading="lazy">
+										     alt="{{ 'game.detail.rating.alts.user_avatar'|trans }} {{ rating.user.username }}" loading="lazy">
 										{{ rating.user.username }}
 									{% endif %}
 								</div>
@@ -195,25 +197,29 @@
 							<div class="card-footer d-flex flex-wrap justify-content-between align-items-center">
 								<div class="date">
 									{% if rating.updatedAt %}
-										<small>Mis à jour le
-											<strong>{{ fullDateFR(rating.updatedAt) }}</strong>
-										</small>
+										{% if app.request.get('_locale') == "en" %}
+											{{ 'game.detail.rating.updated_at'|trans({"%date%": fullDateTranslated(rating.updatedAt, "en")})|raw }}
+										{% else %}
+											{{ 'game.detail.rating.updated_at'|trans({"%date%": fullDateTranslated(rating.updatedAt, "fr")})|raw }}
+										{% endif %}
 									{% else %}
-										<small>Posté le
-											<strong>{{ fullDateFR(rating.createdAt) }}</strong>
-										</small>
+										{% if app.request.get('_locale') == "en" %}
+											{{ 'game.detail.rating.posted_at'|trans({"%date%": fullDateTranslated(rating.createdAt, "en")})|raw }}
+										{% else %}
+											{{ 'game.detail.rating.posted_at'|trans({"%date%": fullDateTranslated(rating.createdAt, "fr")})|raw }}
+										{% endif %}
 									{% endif %}
 								</div>
 								<div class="platform">
 									<img src="{{ rating.platform.logo }}"
-									     alt="logo de le plateforme {{ rating.platform.label }}">
+									     alt="{{ 'game.detail.rating.alts.platform_logo'|trans }} {{ rating.platform.label }}">
 								</div>
 							</div>
 						</div>
 					{% endfor %}
 				</div>
 			{% else %}
-				<p class="text-center">Aucune note associée à ce jeu</p>
+				<p class="text-center">{{ 'game.detail.rating.game.no_rating'|trans }}</p>
 			{% endif %}
 		</section>
 		{# <section class="videos">

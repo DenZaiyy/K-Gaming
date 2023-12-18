@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Translation\TranslatableMessage;
 use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 
 class BreadCrumbsService extends AbstractController
@@ -31,11 +32,11 @@ class BreadCrumbsService extends AbstractController
 
         if($genre && !$game) {
             $this->breadcrumbs->addRouteItem($genre['label'], $genre['route'], $genre['params']);
-            $this->breadcrumbs->prependRouteItem("Genres", "genre_list");
+            $this->breadcrumbs->prependRouteItem(new TranslatableMessage('breadcrumb.gender', [], 'messages'), "genre_list");
         } else if (!$genre && !$game) {
-            $this->breadcrumbs->prependRouteItem("Genres", "genre_list");
+            $this->breadcrumbs->prependRouteItem(new TranslatableMessage('breadcrumb.gender', [], 'messages'), "genre_list");
         }
 
-        $this->breadcrumbs->prependRouteItem("Accueil", "app_home");
+        $this->breadcrumbs->prependRouteItem(new TranslatableMessage('breadcrumb.home', [], 'messages'), "app_home");
     }
 }
