@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Component\Validator\Constraints\IsTrue;
 
 class RegisterFormType extends AbstractType
@@ -24,22 +25,20 @@ class RegisterFormType extends AbstractType
 				],
 			])
 			->add('isRgpd', CheckboxType::class, [
-				'label' => 'J\'accepte que mes données soient utilisées pour la newsletter',
+				'label' => new TranslatableMessage('home.newsletter.rgpd.check_msg', [], 'messages'),
 				'attr' => [
 					'class' => 'form-check-input',
+					'title' => new TranslatableMessage('home.newsletter.rgpd.check_msg', [], 'messages'),
 				],
 				'required' => true,
 				'constraints' => [
 					new isTrue([
-						'message' => 'Vous devez accepter que vos données soient utilisées pour la newsletter',
+						'message' => new TranslatableMessage('home.newsletter.rgpd.constraint', [], 'messages'),
 					]),
 				]
 			])
 			->add('submit', SubmitType::class, [
-				'label' => 'S\'inscrire',
-				'attr' => [
-					'class' => 'btn btn-outline-primary p-3 w-100',
-				],
+				'label' => new TranslatableMessage('home.newsletter.submit', [], 'messages'),
 			])
 			;
 	}

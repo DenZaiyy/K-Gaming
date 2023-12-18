@@ -25,7 +25,7 @@ class SubscriptionController extends AbstractController
 	 * Fonction permettant de s'inscrire à la newsletter
 	 */
 	#[Route('/subscribe', name: 'subscribe')]
-	public function index(MailerInterface $mailer, Request $request): Response
+	public function subscribe(MailerInterface $mailer, Request $request): Response
 	{
 		$newsletter = new NewsletterUser(); //create a new newsletter user
 		$token = hash('md5', uniqid()); //generate a token with a unique id and hash it with md5
@@ -67,7 +67,6 @@ class SubscriptionController extends AbstractController
 
 		return $this->render('newsletter/subscribe.html.twig', [
 			'form' => $form->createView(),
-            'description' => "Inscrivez-vous à la newsletter de K-GAMING pour recevoir les dernières actualités et promotions !"
 		]);
 	}
 

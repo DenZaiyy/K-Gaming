@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{#{% extends 'base.html.twig' %}
 
 {% block title %}Formulaire newsletter{% endblock %}
 
@@ -8,21 +8,25 @@
 			<div class="card-header p-3">
 				<h1 class="m-0">Inscription Newsletter</h1>
 			</div>
-			<div class="card-body">
-				{{ form_start(form) }}
-				<div class="form-floating mb-3">
-					{{ form_widget(form.email) }}
-					{{ form_label(form.email) }}
-				</div>
-				<div class="mb-3">
-					{{ form_widget(form.isRgpd) }}
-				</div>
-				<div class="text-center mt-5">
-					{{ form_widget(form.submit) }}
-				</div>
+			<div class="card-body">#}
+<div class="newsletter-form">
+	{{ form_start(form, {attr: {class: "gap-3"}}) }}
 
-				{{ form_end(form) }}
+{#	<div class="d-flex flex-column gap-3">#}
+		<div class="d-flex flex-row gap-3">
+			<div class="form-floating w-75">
+				{{ form_widget(form.email) }}
+				{{ form_label(form.email) }}
 			</div>
+			{{ form_widget(form.submit, {attr: {class: "btn-newsletter w-25"}}) }}
+		</div>
+		{{ form_widget(form.isRgpd) }}
+{#	</div>#}
+	{{ form_end(form) }}
+</div>
+
+			{#</div>
 		</div>
 	</div>
 {% endblock %}
+#}
