@@ -18,6 +18,7 @@ This is a e-commerce website for selling games. We are using PayPal and Stripe f
 - Newsletter
 - Game promotion
 - Game status (sellable or not)
+- Locale switcher (EN & FR)
 
 ## Technologies
 - <a href="https://symfony.com/doc/current/setup.html" target="_blank">Symfony 6.2</a>
