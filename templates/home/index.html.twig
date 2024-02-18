@@ -10,10 +10,10 @@
 		</div>
 	</div>
 	<section class="tendencies">
-		<h2>Tendances</h2>
+		<h2>{{ 'home.tendencies.title'|trans }}</h2>
 		{% if tendencies is empty %}
 			<div class="text-content text-center">
-				Il n'y a pas de jeu en tendances pour le moment.
+				{{ 'home.tendencies.no_content'|trans }}
 			</div>
 			{% else %}
 				<div class="cards">

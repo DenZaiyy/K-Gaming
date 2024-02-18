@@ -22,10 +22,13 @@ home:
         show_more: "Voir plus"
     newsletter:
         description: "Ne manquez pas nos offres exclusives et nos dernières nouveautés sur K-GAMING !<br>Rejoignez notre communauté de joueurs passionnés et profitez de nos produits de qualité à des prix imbattables.<br>Abonnez-vous dès maintenant pour recevoir toutes nos actualités et nos promotions en avant-première."
+        email:
+            label: "Adresse e-mail"
+            placeholder: "Entrez votre adresse e-mail"
         rgpd:
-            check_msg: "I agree to my data being used for the newsletter"
-            constraint: "You must agree to the use of your data for the newsletter"
-        submit: "Subscribe"
+            check_msg: "J'accepte que mes données soient utilisées pour la newsletter"
+            constraint: "Vous devez accepter l'utilisation de vos données pour la newsletter"
+        submit: "S'abonner"
     gender:
         title: "Genres"
         show_more: "Voir plus"
