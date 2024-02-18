@@ -22,6 +22,9 @@ home:
         show_more: "Show more"
     newsletter:
         description: "Don't miss our exclusive offers and our latest news on K-GAMING !<br>Join our community of passionate gamers and enjoy our quality products at unbeatable prices.<br>Subscribe now to receive all our news and promotions in advance. and promotions."
+        email:
+            label: "E-mail address"
+            placeholder: "Enter your e-mail address"
         rgpd:
             check_msg: "I agree to my data being used for the newsletter"
             constraint: "You must agree to the use of your data for the newsletter"
