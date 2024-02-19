@@ -46,7 +46,7 @@ class GameKeyFixture extends Fixture
         $manager->flush();
     }
 
-    private function getRandomKey()
+    private function getRandomKey(): string
     {
         $slugger = new AsciiSlugger();
         $uuid = $slugger->slug(strtoupper(bin2hex(random_bytes(8))));
