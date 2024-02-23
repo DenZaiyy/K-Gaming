@@ -21,7 +21,7 @@ This is a e-commerce website for selling games. We are using PayPal and Stripe f
 - Locale switcher (EN & FR)
 
 ## Technologies
-- <a href="https://symfony.com/doc/current/setup.html" target="_blank">Symfony 6.2</a>
+- <a href="https://symfony.com/doc/current/setup.html" target="_blank">Symfony 7</a>
 - MySQL
 - <a href="https://getbootstrap.com/docs/5.3/getting-started/introduction/" target="_blank">Bootstrap 5</a>
 - <a href="https://windows.php.net/download#php-8.2" target="_blank">PHP 8.2</a>
