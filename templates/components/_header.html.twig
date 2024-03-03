@@ -17,7 +17,7 @@
 						{% for plateform in plateforms %}
 							{% if plateform.category.label == category.label %}
 								<a href="{{ path('platform_game', {platformSlug: plateform.slug, categoryLabel: category.label|lower }) }}" class="dropdown-item">
-									<img src="{{ plateform.logo }}" alt="logo of {{ plateform.label }}" loading="lazy">{{ plateform.label }}
+									<img src="{{ asset(plateform.logo) }}" alt="logo of {{ plateform.label }}" loading="lazy">{{ plateform.label }}
 								</a>
 							{% endif %}
 						{% endfor %}

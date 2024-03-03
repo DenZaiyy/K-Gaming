@@ -21,7 +21,7 @@
 									<a href="{{ path('app_show_game_platform', {categoryLabel: item.platform.category.label, platformSlug: item.platform.slug, gameSlug: item.game.slug}) }}">
 										<div class="game-platform d-flex align-items-center gap-2">
 											<div class="platform-logo">
-												<img src="{{ item.platform.logo }}"
+												<img src="{{ asset(item.platform.logo) }}"
 													 draggable="false"
 													 alt="plateforme {{ item.platform.label }}"
 													 loading="lazy">

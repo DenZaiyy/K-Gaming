@@ -22,7 +22,7 @@
 					<div class="flex-content">
 						<div class="infos">
 							<div class="plateform">
-								<img src="{{ gamePlatform.platform_logo }}"
+								<img src="{{ asset(gamePlatform.platform_logo) }}"
 								     alt="{{ 'game.detail.rating.alts.platform_logo'|trans({'%platform%': gamePlatform.platform_label }) }}" loading="lazy">
 								{{ gamePlatform.platform_label }}
 							</div>
@@ -184,7 +184,7 @@
 										     loading="lazy">
 										{{ 'user.deleted_user'|trans }}
 									{% else %}
-										<img src="{{ rating.user.avatar }}"
+										<img src="{{ asset(rating.user.avatar) }}"
 										     alt="{{ 'game.detail.rating.alts.user_avatar'|trans }} {{ rating.user.username }}" loading="lazy">
 										{{ rating.user.username }}
 									{% endif %}
@@ -211,7 +211,7 @@
 									{% endif %}
 								</div>
 								<div class="platform">
-									<img src="{{ rating.platform.logo }}"
+									<img src="{{ asset(rating.platform.logo) }}"
 									     alt="{{ 'game.detail.rating.alts.platform_logo'|trans }} {{ rating.platform.label }}">
 								</div>
 							</div>
