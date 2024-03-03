@@ -8,10 +8,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 use Symfony\Component\Translation\TranslatableMessage;
 
 class GenreCrudController extends AbstractCrudController
@@ -58,6 +58,7 @@ class GenreCrudController extends AbstractCrudController
         yield NumberField::new('id', new TranslatableMessage('gender.table.id', [], 'admin'))->hideOnForm();
         yield TextField::new('label',new TranslatableMessage('gender.table.label', [], 'admin'));
         yield SlugField::new('slug', new TranslatableMessage('gender.table.slug', [], 'admin'))->setTargetFieldName('label');
+		yield ImageField::new('image', new TranslatableMessage('gender.table.image', [], 'admin'))->setBasePath('/img/genres/')->setUploadDir('public/img/genres/')->setUploadedFileNamePattern('[slug].[extension]')->hideOnIndex();
     }
 
 }

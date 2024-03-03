@@ -6,6 +6,7 @@
 parameters:
     file_directory: '%kernel.project_dir%/public/uploads'
     pdf_directory: '%kernel.project_dir%/public/uploads/factures'
+    gender_directory: '%kernel.project_dir%/public/img/genres'
     app.client_id: '%env(CLIENT_ID)%'
     app.authorization: '%env(AUTHORIZATION)%'
     app.stripe_private_key: '%env(STRIPE_PRIVATE_KEY)%'
