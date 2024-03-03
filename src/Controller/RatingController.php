@@ -4,14 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Game;
 use App\Entity\Plateform;
-use App\Entity\Purchase;
 use App\Entity\Rating;
 use App\Form\RatingType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/{_locale<%app.supported_locales%>}/rating', name: 'rating_')]
 class RatingController extends AbstractController

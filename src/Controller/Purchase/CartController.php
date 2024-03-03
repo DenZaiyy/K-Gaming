@@ -4,7 +4,7 @@ namespace App\Controller\Purchase;
 
 use App\Service\CartService;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/{_locale<%app.supported_locales%>}/cart', name: 'cart_')]
