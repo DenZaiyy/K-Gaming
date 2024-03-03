@@ -1,7 +1,7 @@
 <a href="{{ path('app_show_game_genre', {genreSlug: genre.slug}) }}">
     <div class="genreCard">
         <figure>
-            <img src="{{ asset(genre.image) }}" alt="image pour le genre : {{ genre.label }}" aria-label="genre de jeux {{ genre.label|lower }}" loading="lazy">
+            <img src="/img/genres{{ asset(genre.image) }}" alt="{{ 'gender.image.alt'|trans({"%gender%": genre.label}, "gender") }}" aria-label="{{ 'gender.image.aria_label'|trans({"%gender%": genre.label|lower}, "gender") }}" loading="lazy">
             <figcaption>
                 {{ genre.label|upper }}
             </figcaption>

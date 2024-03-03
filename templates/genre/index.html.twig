@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste de genres{% endblock %}
+{% block title %}{{ 'gender.title'|trans({}, 'gender') }}{% endblock %}
 
 {% block body %}
     <section class="listGenres">
 
-        <h1>Liste de genres</h1>
+        <h1>{{ 'gender.title'|trans({}, 'gender') }}</h1>
 
         <div class="cards">
             {% for genre in genres %}

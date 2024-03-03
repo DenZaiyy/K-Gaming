@@ -1,0 +1,5 @@
+gender:
+    title: List of genders
+    image:
+        alt: image for gender %gender%
+        aria_label: type of game %gender%
