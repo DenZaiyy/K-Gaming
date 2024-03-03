@@ -2,10 +2,11 @@
     <div class="gameCard">
         <div class="cover-img">
             <figure>
-                <img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: game.label })) }}.jpg"
+                {#<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: game.label })) }}.jpg"
                      draggable="false"
                      alt="cover for game: {{ game.label }}"
-                     loading="lazy">
+                     aria-label="cover for game: {{ game.label }}"
+                     loading="lazy" />#}
             </figure>
             {% if game.isIsPromotion %}
                 <div class="in-promotion">

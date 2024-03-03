@@ -6,7 +6,7 @@
 	<div class="container user-profil text-center">
 		<div class="user-about d-flex justify-content-center my-2 flex-column w-auto">
 			<div class="avatar mb-3">
-				<img src="{{ user.avatar }}" alt="avatar of {{ user.username }}">
+				<img src="{{ asset(user.avatar) }}" alt="avatar of {{ user.username }}">
 			</div>
 			<div class="username">
 				Pseudo : <strong>{{ user.username }}</strong>
@@ -34,7 +34,7 @@
                                 {% set finalUrl = lastPart|split('.png') %}
                                 {% set avatarUrl = finalUrl|first %}
                                 <a href="{{ path('user_update_avatar', {image: avatarUrl}) }}">
-                                    <img src="{{ avatar }}" alt="randomly avatar {{ loop.index }}" loading="lazy">
+                                    <img src="{{ asset(avatar) }}" alt="randomly avatar {{ loop.index }}" loading="lazy">
                                 </a>
                             {% endfor %}
 						</div>
