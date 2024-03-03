@@ -47,6 +47,7 @@ gender:
         id: "ID"
         label: "Libellé"
         slug: "Slug"
+        image: "Image"
 
 rating:
     index:
