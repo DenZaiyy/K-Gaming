@@ -16,9 +16,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Translation\TranslatableMessage;
-use Symfony\Contracts\Translation\TranslatableInterface;
 
+#[IsGranted('ROLE_ADMIN', message: "No access", statusCode: 403)]
 class DashboardController extends AbstractDashboardController
 {
 	#[Route('/{_locale<%app.supported_locales%>}/admin/', name: 'app_admin')]
@@ -59,11 +60,11 @@ class DashboardController extends AbstractDashboardController
 			MenuItem::linkToCrud(new TranslatableMessage('menu.marketing.newsletter', [], 'admin'), 'fa-solid fa-paper-plane', Newsletter::class),
 			MenuItem::linkToCrud(new TranslatableMessage('menu.marketing.registered_users', [], 'admin'), 'fa-solid fa-users-gear', NewsletterUser::class),
 
-			MenuItem::section(new TranslatableMessage('menu.settings.index', [], 'admin'))->setPermission('ROLE_ADMIN'),
-			MenuItem::linkToUrl(new TranslatableMessage('menu.settings.maintenance', [], 'admin'), 'fa-solid fa-shield-halved', '')->setPermission('ROLE_ADMIN')->setBadge('<X>', 'danger'),
-			MenuItem::linkToRoute(new TranslatableMessage('menu.settings.site_management', [], 'admin'), 'fa-solid fa-user-tie', '')->setPermission('ROLE_ADMIN')->setBadge('<X>', 'danger'),
+			/*MenuItem::section(new TranslatableMessage('menu.settings.index', [], 'admin'))->setPermission('ROLE_ADMIN'),
+			MenuItem::linktoRoute(new TranslatableMessage('menu.settings.maintenance', [], 'admin'), 'fa-solid fa-shield-halved', 'app_admin')->setPermission('ROLE_ADMIN')->setBadge('<X>', 'danger'),
+			MenuItem::linkToRoute(new TranslatableMessage('menu.settings.site_management', [], 'admin'), 'fa-solid fa-user-tie', 'app_admin')->setPermission('ROLE_ADMIN')->setBadge('<X>', 'danger'),
 //			MenuItem::linkToRoute(new TranslatableMessage('menu.settings.method_of_payment', [], 'admin'), 'fa-solid fa-money-check', '')->setPermission('ROLE_ADMIN')->setBadge('Not up', 'danger'),
-			MenuItem::linkToRoute(new TranslatableMessage('menu.settings.administrators', [], 'admin'), 'fa-solid fa-user-tie', '')->setPermission('ROLE_ADMIN')->setBadge('<X>', 'danger'),
+			MenuItem::linkToRoute(new TranslatableMessage('menu.settings.administrators', [], 'admin'), 'fa-solid fa-user-tie', 'app_admin')->setPermission('ROLE_ADMIN')->setBadge('<X>', 'danger'),*/
 		];
 	}
 }
