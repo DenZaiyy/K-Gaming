@@ -7,13 +7,12 @@ use App\Entity\Purchase;
 use App\Entity\RecapDetails;
 use App\Form\OrderType;
 use App\Service\CartService;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/{_locale<%app.supported_locales%>}/order', name: 'order_')]
 class OrderController extends AbstractController

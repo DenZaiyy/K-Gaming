@@ -14,8 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class HomeController extends AbstractController
 {
@@ -55,7 +54,7 @@ class HomeController extends AbstractController
 		$preorders = $em->getRepository(Game::class)->findGamesInPreOrders(3);
 		$genres = $em->getRepository(Genre::class)->findGenres($resultPerPage);
 
-		$newsletter = $this->forward(SubscriptionController::class . 'subscribe', [
+		$newsletter = $this->forward(SubscriptionController::class . '::subscribe', [
 			'request' => $request
 		]);
 //		dd($newsletter);
