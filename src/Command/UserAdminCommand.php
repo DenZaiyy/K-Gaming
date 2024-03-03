@@ -16,6 +16,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 #[AsCommand(
     name: 'app:admin:create',
     description: 'Local command to create admin user fastly',
+	aliases: ['a:a:c', 'admin:create']
 )]
 class UserAdminCommand extends Command
 {
