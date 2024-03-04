@@ -118,7 +118,7 @@ class GameCrudController extends AbstractCrudController
 	    yield FormField::addTab(new TranslatableMessage('game.detail.price_information', [], 'admin'));
 			yield FormField::addColumn(4);
 			yield FormField::addPanel(new TranslatableMessage('game.detail.price', [], 'admin'));
-		        yield MoneyField::new('price', new TranslatableMessage('game.table.price', [], 'admin'))->setCurrency('EUR');
+		        yield MoneyField::new('price', new TranslatableMessage('game.table.price', [], 'admin'))->setCurrency('EUR')->setStoredAsCents(false);
 				yield MoneyField::new('old_price', new TranslatableMessage('game.table.old_price', [], 'admin'))->setCurrency('EUR')->setDisabled(true);
 		    yield FormField::addColumn(4);
 		    yield FormField::addPanel(new TranslatableMessage('game.detail.promotion', [], 'admin'));
@@ -127,7 +127,7 @@ class GameCrudController extends AbstractCrudController
 	    yield FormField::addTab(new TranslatableMessage('game.detail.game_information', [], 'admin'));
 		    yield FormField::addColumn(4);
 		    yield FormField::addPanel()->setHelp(new TranslatableMessage('game.detail.game_platforms_description', [], 'admin'));
-                yield AssociationField::new('plateforms', new TranslatableMessage('game.table.platforms', [], 'admin'))->renderAsNativeWidget();
+                yield AssociationField::new('plateforms', new TranslatableMessage('game.table.platforms', [], 'admin'));
 		    yield FormField::addColumn(4);
 		    yield FormField::addPanel()->setHelp(new TranslatableMessage('game.detail.game_genders_description', [], 'admin'));
                 yield AssociationField::new('genres', new TranslatableMessage('game.table.genders', [], 'admin'));
