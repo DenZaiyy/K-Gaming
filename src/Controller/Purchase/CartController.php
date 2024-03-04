@@ -2,10 +2,15 @@
 
 namespace App\Controller\Purchase;
 
+use App\Entity\Promotion;
 use App\Service\CartService;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Routing\Attribute\Route;
+
 
 #[Route('/{_locale<%app.supported_locales%>}/cart', name: 'cart_')]
 class CartController extends AbstractController
@@ -14,13 +19,48 @@ class CartController extends AbstractController
 	 * La fonction index permet d'afficher le panier et récupérer les données du panier grâce au service CartService
 	 */
 	#[Route('', name: 'index')]
-	public function index(CartService $cartService): Response
+	public function index(CartService $cartService, SessionInterface $session): Response
 	{
+		$promoCode = $session->get('promoCode');
+		$cartDiscount = $session->get('cartDiscount');
+
 		return $this->render('order/cart/index.html.twig', [
 			'cart' => $cartService->getTotal(),
 			'cartTotal' => $cartService->getTotalCart(),
+			'promoCode' => $promoCode,
+			'discount' => $cartDiscount,
+			'discountPercent' => $cartService->getDiscountPercent(),
 			'description' => "Récupérer la liste de vos produits dans le panier"
 		]);
+	}
+
+
+	#[Route('/addPromo', name: 'add_promo')]
+	public function addPromoCode(CartService $cartService, EntityManagerInterface $em, Request $request): Response
+	{
+		$promoCode = $request->request->get('couponCode');
+		$promo = $em->getRepository(Promotion::class)->findOneBy(['coupon' => $promoCode]);
+
+		if(!$promo) {
+			$this->addFlash('danger', 'Le code promo est invalide');
+			return $this->redirectToRoute('cart_index');
+		}
+
+		$cartService->applyPromoCode($promo->getCoupon());
+
+		$this->addFlash('success', 'Le code promo a bien été appliqué');
+
+		return $this->redirectToRoute('cart_index');
+	}
+
+	#[Route('/removePromo', name: 'remove_promo')]
+	public function removePromoCode(CartService $cartService): Response
+	{
+		$cartService->removePromoCode();
+
+		$this->addFlash('success', 'Le code promo a bien été retiré');
+
+		return $this->redirectToRoute('cart_index');
 	}
 	
 	/*
