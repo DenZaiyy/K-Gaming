@@ -51,43 +51,48 @@ body {
 }
 
 // START: style for button
-.btn-primary-orange {
+.btn {
 	display: block;
-	padding: 5px 15px;
+	padding: 5px;
 	border-radius: 10px;
 	background-color: transparent;
-	border: 1px solid var(--orange);
-	color: var(--orange);
 	transition: var(--animationLinear);
 	text-decoration: none;
-	font-size: 1.2rem;
+	font-size: calc(1em + .2vw);
 	text-align: center;
 	height: max-content;
 	
-	&:hover {
-		background-color: var(--orange);
-		color: var(--white);
-		transition: var(--animationLinear);
+	&-primary-orange {
+		border: 1px solid var(--orange);
+		color: var(--orange);
+		
+		&:hover {
+			background-color: var(--orange);
+			color: var(--white);
+			transition: var(--animationLinear);
+		}
 	}
-}
-
-.btn-secondary-blue {
-	display: block;
-	padding: 5px 15px;
-	border-radius: 10px;
-	background-color: transparent;
-	border: 1px solid var(--blue);
-	color: var(--blue);
-	transition: var(--animationLinear);
-	text-decoration: none;
-	font-size: 1.2rem;
-	text-align: center;
-	height: max-content;
 	
-	&:hover {
-		background-color: var(--blue);
-		color: var(--white);
-		transition: var(--animationLinear);
+	&-secondary-blue {
+		border: 1px solid var(--blue);
+		color: var(--blue);
+		
+		&:hover {
+			background-color: var(--blue);
+			color: var(--white);
+			transition: var(--animationLinear);
+		}
+	}
+	
+	&-danger-red {
+		border: 1px solid darkred;
+		color: darkred;
+		
+		&:hover {
+			background-color: darkred;
+			color: var(--white);
+			transition: var(--animationLinear);
+		}
 	}
 }
 // END: style for button
@@ -182,7 +187,7 @@ body {
 		position: relative;
 		display: inline-block;
 
-		.dropdown-toggle {
+		&-toggle {
 			border: none;
 			background: transparent;
 			color: var(--blue);
@@ -200,7 +205,7 @@ body {
 			}
 		}
 
-		.dropdown-menu {
+		&-menu {
 			background-color: var(--white);
 			position: absolute;
 			min-width: 160px;

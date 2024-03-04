@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/{_locale<%app.supported_locales%>}/order', name: 'order_')]
@@ -25,7 +26,7 @@ class OrderController extends AbstractController
 	 * Fonction permettant de créer une commande en sélectionnant une adresse de facturation et le moyen de paiement
 	 */
 	#[Route('/create', name: 'create')]
-	public function index(CartService $cartService, Request $request): Response
+	public function index(CartService $cartService, Request $request, SessionInterface $session): Response
 	{
 		$user = $this->getUser();
 
@@ -43,11 +44,16 @@ class OrderController extends AbstractController
 		$url = $request->headers->get('referer');
 		$this->requestStack->getSession()->set('previousUrl', $url);
 
+		$cartDiscount = $session->get('cartDiscount');
+
+
 		return $this->render('order/index.html.twig', [
 			'form' => $form->createView(),
 			'recapCart' => $cartService->getTotal(),
 			'cartTotal' => $cartService->getTotalCart(),
 			'address' => $address,
+			'discount' => $cartDiscount,
+			'discountPercent' => $cartService->getDiscountPercent(),
             'description' => "Récapitulatif de votre commande sur K-Gaming."
 		]);
 	}
@@ -71,6 +77,11 @@ class OrderController extends AbstractController
 
 		if ($form->isSubmitted() && $form->isValid()) {
 			$delivery = $form->get('addresses')->getData();
+
+			if(!$delivery) {
+				$this->addFlash('danger', 'Vous devez sélectionner une adresse de livraison.');
+				return $this->redirectToRoute('order_create');
+			}
 
 			$deliveryForPurchase = $delivery->getAddress() . '</br>';
 			$deliveryForPurchase .= $delivery->getCp() . ' - ' . $delivery->getCity();
