@@ -46,40 +46,41 @@ body {
   color: gray;
 }
 
-.btn-primary-orange {
+.btn {
   display: block;
-  padding: 5px 15px;
+  padding: 5px;
   border-radius: 10px;
   background-color: transparent;
-  border: 1px solid var(--orange);
-  color: var(--orange);
   transition: var(--animationLinear);
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: calc(1em + 0.2vw);
   text-align: center;
   height: max-content;
+}
+.btn-primary-orange {
+  border: 1px solid var(--orange);
+  color: var(--orange);
 }
 .btn-primary-orange:hover {
   background-color: var(--orange);
   color: var(--white);
   transition: var(--animationLinear);
 }
-
 .btn-secondary-blue {
-  display: block;
-  padding: 5px 15px;
-  border-radius: 10px;
-  background-color: transparent;
   border: 1px solid var(--blue);
   color: var(--blue);
-  transition: var(--animationLinear);
-  text-decoration: none;
-  font-size: 1.2rem;
-  text-align: center;
-  height: max-content;
 }
 .btn-secondary-blue:hover {
   background-color: var(--blue);
+  color: var(--white);
+  transition: var(--animationLinear);
+}
+.btn-danger-red {
+  border: 1px solid darkred;
+  color: darkred;
+}
+.btn-danger-red:hover {
+  background-color: darkred;
   color: var(--white);
   transition: var(--animationLinear);
 }
@@ -153,7 +154,7 @@ body {
   position: relative;
   display: inline-block;
 }
-.header-flex .dropdown .dropdown-toggle {
+.header-flex .dropdown-toggle {
   border: none;
   background: transparent;
   color: var(--blue);
@@ -161,14 +162,14 @@ body {
   font-size: 1em;
   transition: var(--animation);
 }
-.header-flex .dropdown .dropdown-toggle:hover {
+.header-flex .dropdown-toggle:hover {
   color: var(--orange);
   transition: var(--animation);
 }
-.header-flex .dropdown .dropdown-toggle .bi-chevron-down, .header-flex .dropdown .dropdown-toggle .bi-chevron-up {
+.header-flex .dropdown-toggle .bi-chevron-down, .header-flex .dropdown-toggle .bi-chevron-up {
   color: var(--orange);
 }
-.header-flex .dropdown .dropdown-menu {
+.header-flex .dropdown-menu {
   background-color: var(--white);
   position: absolute;
   min-width: 160px;
@@ -179,7 +180,7 @@ body {
   opacity: 0;
   transition: opacity 0.1s ease-out, transform 0.2s ease-out;
 }
-.header-flex .dropdown .dropdown-menu a {
+.header-flex .dropdown-menu a {
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -190,7 +191,7 @@ body {
   transition: var(--animation);
   gap: 10px;
 }
-.header-flex .dropdown .dropdown-menu a:hover {
+.header-flex .dropdown-menu a:hover {
   background-color: var(--orange);
   color: var(--white);
   transition: var(--animation);

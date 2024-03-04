@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Game;
 use App\Entity\Plateform;
+use App\Entity\Promotion;
 use App\Entity\Stock;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,7 +13,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartService extends AbstractController
 {
-    public function __construct(private RequestStack $requestStack, private EntityManagerInterface $em)
+    public function __construct(private readonly RequestStack $requestStack, private readonly EntityManagerInterface $em)
     {
     }
 
@@ -115,6 +116,16 @@ class CartService extends AbstractController
         $this->getSession()->set('cart', $cart);
     }
 
+	public function applyPromoCode($promoCode): void
+	{
+		$this->getSession()->set('promoCode', $promoCode);
+	}
+
+	public function removePromoCode(): void
+	{
+		$this->getSession()->remove('promoCode');
+	}
+
     /*
 	 * Méthode pour vider le panier
 	 */
@@ -158,6 +169,7 @@ class CartService extends AbstractController
     public function getTotalCart(): float|int
     {
         $cart = $this->getSession()->get('cart');
+		$promoCode = $this->getSession()->get('promoCode');
 
         $total = 0;
 
@@ -170,10 +182,38 @@ class CartService extends AbstractController
 
                 $total += $quantity * $price;
             }
+
+	        if($promoCode)
+	        {
+		        $promo = $this->em->getRepository(Promotion::class)->findOneBy(['coupon' => $promoCode]);
+		        if($promo)
+		        {
+			        $discountPrice = $total / 100 * $promo->getPercent();
+			        $total = $total - $discountPrice;
+			        $this->getSession()->set('cartDiscount', $discountPrice);
+		        }
+	        }
         }
 
         return $total;
     }
+
+	public function getDiscountPercent(): float|int
+	{
+		$promoCode = $this->getSession()->get('promoCode');
+		$discountPercent = 0;
+
+		if($promoCode)
+		{
+			$promo = $this->em->getRepository(Promotion::class)->findOneBy(['coupon' => $promoCode]);
+			if($promo)
+			{
+				$discountPercent = $promo->getPercent();
+			}
+		}
+
+		return $discountPercent;
+	}
 
     //function to get the session
     private function getSession(): SessionInterface

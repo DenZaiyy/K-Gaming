@@ -6,6 +6,7 @@ use App\Entity\Game;
 use App\Entity\Genre;
 use App\Entity\Newsletter\Newsletter;
 use App\Entity\Newsletter\NewsletterUser;
+use App\Entity\Promotion;
 use App\Entity\Purchase;
 use App\Entity\Rating;
 use App\Entity\Stock;
@@ -47,6 +48,9 @@ class DashboardController extends AbstractDashboardController
 			MenuItem::linkToCrud(new TranslatableMessage('menu.game.index', [], 'admin'), 'fa-solid fa-gamepad', Game::class),
 			MenuItem::linkToCrud(new TranslatableMessage('menu.game.gender', [], 'admin'), 'fa-solid fa-icons', Genre::class),
 			MenuItem::linkToCrud(new TranslatableMessage('menu.game.rating', [], 'admin'), 'fa-solid fa-star', Rating::class),
+
+			MenuItem::section("Promotion"),
+			MenuItem::linkToCrud("Promotion", 'fa-solid fa-gamepad', Promotion::class),
 
 			/*MenuItem::section(new TranslatableMessage('menu.category.index', [], 'admin')),
 			MenuItem::linkToCrud(new TranslatableMessage('menu.category.platform', [], 'admin'), 'fa-solid fa-gamepad', Plateform::class),*/
