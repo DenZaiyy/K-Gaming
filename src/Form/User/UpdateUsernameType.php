@@ -11,29 +11,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UpdateUsernameType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm (FormBuilderInterface $builder, array $options): void
     {
-        $builder
-            ->add('username', TextType::class, [
-				'label' => 'Nom d\'utilisateur',
-	            'attr' => [
-	            	'placeholder' => 'Nom d\'utilisateur',
-		            'class' => 'form-control'
-	            ]
-            ])
-	        ->add('submit', SubmitType::class, [
-		        'label' => 'Modifier',
-		        'attr' => [
-			        'class' => 'btn-primary-orange'
-		        ]
-	        ])
-        ;
+        $builder->add("username", TextType::class, ["label" => 'Nom d\'utilisateur',
+          "attr" => ["placeholder" => 'Nom d\'utilisateur',
+            "class" => "form-control",],])->add("submit", SubmitType::class, ["label" => "Modifier",
+          "attr" => ["class" => "btn-primary-orange",],]);
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions (OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-            'data_class' => User::class,
-        ]);
+        $resolver->setDefaults(["data_class" => User::class,]);
     }
 }

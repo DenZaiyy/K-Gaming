@@ -22,57 +22,57 @@ class Plateform
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
-    #[ORM\ManyToOne(inversedBy: 'plateforms')]
+    #[ORM\ManyToOne(inversedBy: "plateforms")]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
-    #[ORM\ManyToMany(targetEntity: Game::class, mappedBy: 'plateforms')]
+    #[ORM\ManyToMany(targetEntity: Game::class, mappedBy: "plateforms")]
     private Collection $games;
 
-    #[ORM\OneToMany(mappedBy: 'plateform', targetEntity: Stock::class)]
+    #[ORM\OneToMany(mappedBy: "plateform", targetEntity: Stock::class)]
     private Collection $stocks;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $logo = null;
 
-    #[ORM\OneToMany(mappedBy: 'platform', targetEntity: Rating::class)]
+    #[ORM\OneToMany(mappedBy: "platform", targetEntity: Rating::class)]
     private Collection $ratings;
 
-    public function __construct()
+    public function __construct ()
     {
         $this->games = new ArrayCollection();
         $this->stocks = new ArrayCollection();
         $this->ratings = new ArrayCollection();
     }
 
-    public function __toString(): string
+    public function __toString (): string
     {
         return $this->label;
     }
 
-    public function getId(): ?int
+    public function getId (): ?int
     {
         return $this->id;
     }
 
-    public function getLabel(): ?string
+    public function getLabel (): ?string
     {
         return $this->label;
     }
 
-    public function setLabel(string $label): self
+    public function setLabel (string $label): self
     {
         $this->label = $label;
 
         return $this;
     }
 
-    public function getCategory(): ?Category
+    public function getCategory (): ?Category
     {
         return $this->category;
     }
 
-    public function setCategory(?Category $category): self
+    public function setCategory (?Category $category): self
     {
         $this->category = $category;
 
@@ -82,12 +82,12 @@ class Plateform
     /**
      * @return Collection<int, Game>
      */
-    public function getGames(): Collection
+    public function getGames (): Collection
     {
         return $this->games;
     }
 
-    public function addGame(Game $game): self
+    public function addGame (Game $game): self
     {
         if (!$this->games->contains($game)) {
             $this->games->add($game);
@@ -97,7 +97,7 @@ class Plateform
         return $this;
     }
 
-    public function removeGame(Game $game): self
+    public function removeGame (Game $game): self
     {
         if ($this->games->removeElement($game)) {
             $game->removePlateform($this);
@@ -109,12 +109,12 @@ class Plateform
     /**
      * @return Collection<int, Stock>
      */
-    public function getStocks(): Collection
+    public function getStocks (): Collection
     {
         return $this->stocks;
     }
 
-    public function addStock(Stock $stock): self
+    public function addStock (Stock $stock): self
     {
         if (!$this->stocks->contains($stock)) {
             $this->stocks->add($stock);
@@ -124,7 +124,7 @@ class Plateform
         return $this;
     }
 
-    public function removeStock(Stock $stock): self
+    public function removeStock (Stock $stock): self
     {
         if ($this->stocks->removeElement($stock)) {
             // set the owning side to null (unless already changed)
@@ -136,24 +136,24 @@ class Plateform
         return $this;
     }
 
-    public function getLogo(): ?string
+    public function getLogo (): ?string
     {
         return $this->logo;
     }
 
-    public function setLogo(string $logo): self
+    public function setLogo (string $logo): self
     {
         $this->logo = $logo;
 
         return $this;
     }
 
-    public function getSlug(): ?string
+    public function getSlug (): ?string
     {
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
+    public function setSlug (string $slug): self
     {
         $this->slug = $slug;
 
@@ -163,12 +163,12 @@ class Plateform
     /**
      * @return Collection<int, Rating>
      */
-    public function getRatings(): Collection
+    public function getRatings (): Collection
     {
         return $this->ratings;
     }
 
-    public function addRating(Rating $rating): self
+    public function addRating (Rating $rating): self
     {
         if (!$this->ratings->contains($rating)) {
             $this->ratings->add($rating);
@@ -178,7 +178,7 @@ class Plateform
         return $this;
     }
 
-    public function removeRating(Rating $rating): self
+    public function removeRating (Rating $rating): self
     {
         if ($this->ratings->removeElement($rating)) {
             // set the owning side to null (unless already changed)

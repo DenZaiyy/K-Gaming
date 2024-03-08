@@ -8,7 +8,6 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<Facture>
- *
  * @method Facture|null find($id, $lockMode = null, $lockVersion = null)
  * @method Facture|null findOneBy(array $criteria, array $orderBy = null)
  * @method Facture[]    findAll()
@@ -16,12 +15,12 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class FactureRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct (ManagerRegistry $registry)
     {
         parent::__construct($registry, Facture::class);
     }
 
-    public function save(Facture $entity, bool $flush = false): void
+    public function save (Facture $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +29,7 @@ class FactureRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Facture $entity, bool $flush = false): void
+    public function remove (Facture $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 

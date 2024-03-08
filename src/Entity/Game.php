@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\GameRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -26,18 +27,18 @@ class Game
     private ?float $price = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_release = null;
+    private ?DateTimeInterface $date_release = null;
 
-    #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: 'games')]
+    #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: "games")]
     private Collection $genres;
 
-    #[ORM\ManyToMany(targetEntity: Plateform::class, inversedBy: 'games')]
+    #[ORM\ManyToMany(targetEntity: Plateform::class, inversedBy: "games")]
     private Collection $plateforms;
 
-    #[ORM\OneToMany(mappedBy: 'game', targetEntity: Stock::class)]
+    #[ORM\OneToMany(mappedBy: "game", targetEntity: Stock::class)]
     private Collection $stocks;
 
-    #[ORM\OneToMany(mappedBy: 'game', targetEntity: Rating::class)]
+    #[ORM\OneToMany(mappedBy: "game", targetEntity: Rating::class)]
     private Collection $ratings;
 
     #[ORM\Column]
@@ -52,7 +53,7 @@ class Game
     #[ORM\Column]
     private ?bool $is_sellable = true;
 
-    public function __construct()
+    public function __construct ()
     {
         $this->genres = new ArrayCollection();
         $this->plateforms = new ArrayCollection();
@@ -60,46 +61,46 @@ class Game
         $this->ratings = new ArrayCollection();
     }
 
-    public function __toString(): string
+    public function __toString (): string
     {
         return $this->label;
     }
 
-    public function getId(): ?int
+    public function getId (): ?int
     {
         return $this->id;
     }
 
-    public function getLabel(): ?string
+    public function getLabel (): ?string
     {
         return $this->label;
     }
 
-    public function setLabel(string $label): self
+    public function setLabel (string $label): self
     {
         $this->label = $label;
 
         return $this;
     }
 
-    public function getPrice(): ?float
+    public function getPrice (): ?float
     {
         return $this->price;
     }
 
-    public function setPrice(float $price): self
+    public function setPrice (float $price): self
     {
         $this->price = $price;
 
         return $this;
     }
 
-    public function getDateRelease(): ?\DateTimeInterface
+    public function getDateRelease (): ?DateTimeInterface
     {
         return $this->date_release;
     }
 
-    public function setDateRelease(\DateTimeInterface $date_release): self
+    public function setDateRelease (DateTimeInterface $date_release): self
     {
         $this->date_release = $date_release;
 
@@ -109,12 +110,12 @@ class Game
     /**
      * @return Collection<int, Genre>
      */
-    public function getGenres(): Collection
+    public function getGenres (): Collection
     {
         return $this->genres;
     }
 
-    public function addGenre(Genre $genre): self
+    public function addGenre (Genre $genre): self
     {
         if (!$this->genres->contains($genre)) {
             $this->genres->add($genre);
@@ -123,7 +124,7 @@ class Game
         return $this;
     }
 
-    public function removeGenre(Genre $genre): self
+    public function removeGenre (Genre $genre): self
     {
         $this->genres->removeElement($genre);
 
@@ -133,12 +134,12 @@ class Game
     /**
      * @return Collection<int, Plateform>
      */
-    public function getPlateforms(): Collection
+    public function getPlateforms (): Collection
     {
         return $this->plateforms;
     }
 
-    public function addPlateform(Plateform $plateform): self
+    public function addPlateform (Plateform $plateform): self
     {
         if (!$this->plateforms->contains($plateform)) {
             $this->plateforms->add($plateform);
@@ -147,7 +148,7 @@ class Game
         return $this;
     }
 
-    public function removePlateform(Plateform $plateform): self
+    public function removePlateform (Plateform $plateform): self
     {
         $this->plateforms->removeElement($plateform);
 
@@ -157,12 +158,12 @@ class Game
     /**
      * @return Collection<int, Stock>
      */
-    public function getStocks(): Collection
+    public function getStocks (): Collection
     {
         return $this->stocks;
     }
 
-    public function addStock(Stock $stock): self
+    public function addStock (Stock $stock): self
     {
         if (!$this->stocks->contains($stock)) {
             $this->stocks->add($stock);
@@ -172,7 +173,7 @@ class Game
         return $this;
     }
 
-    public function removeStock(Stock $stock): self
+    public function removeStock (Stock $stock): self
     {
         if ($this->stocks->removeElement($stock)) {
             // set the owning side to null (unless already changed)
@@ -184,12 +185,12 @@ class Game
         return $this;
     }
 
-    public function getSlug(): ?string
+    public function getSlug (): ?string
     {
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
+    public function setSlug (string $slug): self
     {
         $this->slug = $slug;
 
@@ -199,12 +200,12 @@ class Game
     /**
      * @return Collection<int, Rating>
      */
-    public function getRatings(): Collection
+    public function getRatings (): Collection
     {
         return $this->ratings;
     }
 
-    public function addRating(Rating $rating): self
+    public function addRating (Rating $rating): self
     {
         if (!$this->ratings->contains($rating)) {
             $this->ratings->add($rating);
@@ -214,7 +215,7 @@ class Game
         return $this;
     }
 
-    public function removeRating(Rating $rating): self
+    public function removeRating (Rating $rating): self
     {
         if ($this->ratings->removeElement($rating)) {
             // set the owning side to null (unless already changed)
@@ -226,48 +227,48 @@ class Game
         return $this;
     }
 
-    public function isIsPromotion(): ?bool
+    public function isIsPromotion (): ?bool
     {
         return $this->is_promotion;
     }
 
-    public function setIsPromotion(bool $is_promotion): static
+    public function setIsPromotion (bool $is_promotion): static
     {
         $this->is_promotion = $is_promotion;
 
         return $this;
     }
 
-    public function getPromoPercent(): ?float
+    public function getPromoPercent (): ?float
     {
         return $this->promo_percent;
     }
 
-    public function setPromoPercent(?float $promo_percent): static
+    public function setPromoPercent (?float $promo_percent): static
     {
         $this->promo_percent = $promo_percent;
 
         return $this;
     }
 
-    public function getOldPrice(): ?float
+    public function getOldPrice (): ?float
     {
         return $this->old_price;
     }
 
-    public function setOldPrice(?float $old_price): static
+    public function setOldPrice (?float $old_price): static
     {
         $this->old_price = $old_price;
 
         return $this;
     }
 
-    public function isIsSellable(): ?bool
+    public function isIsSellable (): ?bool
     {
         return $this->is_sellable;
     }
 
-    public function setIsSellable(bool $is_sellable): static
+    public function setIsSellable (bool $is_sellable): static
     {
         $this->is_sellable = $is_sellable;
 

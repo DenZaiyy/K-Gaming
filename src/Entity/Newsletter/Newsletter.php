@@ -3,6 +3,9 @@
 namespace App\Entity\Newsletter;
 
 use App\Repository\Newsletter\NewsletterRepository;
+use DateTime;
+use DateTimeInterface;
+use DateTimeZone;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -21,63 +24,63 @@ class Newsletter
     private ?string $content = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $created_at = null;
+    private ?DateTimeInterface $created_at = null;
 
     #[ORM\Column]
     private ?bool $is_sent = false;
 
-	public function __construct()
-	{
-		$this->created_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
-	}
+    public function __construct ()
+    {
+        $this->created_at = new DateTime("now", new DateTimeZone("Europe/Paris"));
+    }
 
-    public function getId(): ?int
+    public function getId (): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName (): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName (string $name): static
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getContent(): ?string
+    public function getContent (): ?string
     {
         return $this->content;
     }
 
-    public function setContent(string $content): static
+    public function setContent (string $content): static
     {
         $this->content = $content;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt (): ?DateTimeInterface
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): static
+    public function setCreatedAt (DateTimeInterface $created_at): static
     {
         $this->created_at = $created_at;
 
         return $this;
     }
 
-    public function isIsSent(): ?bool
+    public function isIsSent (): ?bool
     {
         return $this->is_sent;
     }
 
-    public function setIsSent(bool $is_sent): static
+    public function setIsSent (bool $is_sent): static
     {
         $this->is_sent = $is_sent;
 

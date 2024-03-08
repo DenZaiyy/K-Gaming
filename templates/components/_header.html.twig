@@ -14,10 +14,10 @@
 						{{ category.label }}
 					</button>
 					<div class="dropdown-menu" aria-labelledby="dropdown{{ category.label }}">
-						{% for plateform in plateforms %}
-							{% if plateform.category.label == category.label %}
-								<a href="{{ path('platform_game', {platformSlug: plateform.slug, categoryLabel: category.label|lower }) }}" class="dropdown-item">
-									<img src="{{ asset(plateform.logo) }}" alt="logo of {{ plateform.label }}" loading="lazy">{{ plateform.label }}
+						{% for platform in platforms %}
+							{% if platform.category.label == category.label %}
+								<a href="{{ path('platform_game', {platformSlug: platform.slug, categoryLabel: category.label|lower }) }}" class="dropdown-item">
+									<img src="{{ asset(platform.logo) }}" alt="logo of {{ platform.label }}" loading="lazy">{{ platform.label }}
 								</a>
 							{% endif %}
 						{% endfor %}
@@ -117,10 +117,10 @@
 					<div class="menu-item-{{ loop.index }}">
 						<button class="accordion">{{ category.label }}</button>
 						<div class="panel">
-							{% for plateform in plateforms %}
-								{% if plateform.category.label == category.label %}
-									<a href="{{ path('platform_game', {platformSlug: plateform.slug, categoryLabel: category.label|lower }) }}">
-										{{ plateform.label }}
+							{% for platform in platforms %}
+								{% if platform.category.label == category.label %}
+									<a href="{{ path('platform_game', {platformSlug: platform.slug, categoryLabel: category.label|lower }) }}">
+										{{ platform.label }}
 									</a>
 								{% endif %}
 							{% endfor %}

@@ -18,25 +18,25 @@ class Category
     #[ORM\Column(length: 50)]
     private ?string $label = null;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Plateform::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: "category", targetEntity: Plateform::class, orphanRemoval: true)]
     private Collection $plateforms;
 
-    public function __construct()
+    public function __construct ()
     {
         $this->plateforms = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId (): ?int
     {
         return $this->id;
     }
 
-    public function getLabel(): ?string
+    public function getLabel (): ?string
     {
         return $this->label;
     }
 
-    public function setLabel(string $label): self
+    public function setLabel (string $label): self
     {
         $this->label = $label;
 
@@ -46,12 +46,12 @@ class Category
     /**
      * @return Collection<int, Plateform>
      */
-    public function getPlateforms(): Collection
+    public function getPlateforms (): Collection
     {
         return $this->plateforms;
     }
 
-    public function addPlateform(Plateform $plateform): self
+    public function addPlateform (Plateform $plateform): self
     {
         if (!$this->plateforms->contains($plateform)) {
             $this->plateforms->add($plateform);
@@ -61,7 +61,7 @@ class Category
         return $this;
     }
 
-    public function removePlateform(Plateform $plateform): self
+    public function removePlateform (Plateform $plateform): self
     {
         if ($this->plateforms->removeElement($plateform)) {
             // set the owning side to null (unless already changed)

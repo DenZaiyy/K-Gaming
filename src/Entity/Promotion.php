@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PromotionRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PromotionRepository::class)]
@@ -14,10 +15,10 @@ class Promotion
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $start_at = null;
+    private ?DateTimeImmutable $start_at = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $end_at = null;
+    private ?DateTimeImmutable $end_at = null;
 
     #[ORM\Column]
     private ?int $percent = null;
@@ -25,54 +26,53 @@ class Promotion
     #[ORM\Column(length: 255)]
     private ?string $coupon = null;
 
-
-    public function getId(): ?int
+    public function getId (): ?int
     {
         return $this->id;
     }
 
-    public function getStartAt(): ?\DateTimeImmutable
+    public function getStartAt (): ?DateTimeImmutable
     {
         return $this->start_at;
     }
 
-    public function setStartAt(\DateTimeImmutable $start_at): static
+    public function setStartAt (DateTimeImmutable $start_at): static
     {
         $this->start_at = $start_at;
 
         return $this;
     }
 
-    public function getEndAt(): ?\DateTimeImmutable
+    public function getEndAt (): ?DateTimeImmutable
     {
         return $this->end_at;
     }
 
-    public function setEndAt(\DateTimeImmutable $end_at): static
+    public function setEndAt (DateTimeImmutable $end_at): static
     {
         $this->end_at = $end_at;
 
         return $this;
     }
 
-    public function getPercent(): ?int
+    public function getPercent (): ?int
     {
         return $this->percent;
     }
 
-    public function setPercent(int $percent): static
+    public function setPercent (int $percent): static
     {
         $this->percent = $percent;
 
         return $this;
     }
 
-    public function getCoupon(): ?string
+    public function getCoupon (): ?string
     {
         return $this->coupon;
     }
 
-    public function setCoupon(string $coupon): static
+    public function setCoupon (string $coupon): static
     {
         $this->coupon = $coupon;
 

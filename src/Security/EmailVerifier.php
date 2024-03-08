@@ -12,26 +12,26 @@ use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
 class EmailVerifier
 {
-    public function __construct(
-        private VerifyEmailHelperInterface $verifyEmailHelper,
-        private MailerInterface $mailer,
-        private EntityManagerInterface $entityManager
+    public function __construct (
+      private VerifyEmailHelperInterface $verifyEmailHelper,
+      private MailerInterface $mailer,
+      private EntityManagerInterface $entityManager
     ) {
     }
 
-    public function sendEmailConfirmation(string $verifyEmailRouteName, UserInterface $user, TemplatedEmail $email): void
-    {
+    public function sendEmailConfirmation (
+      string $verifyEmailRouteName,
+      UserInterface $user,
+      TemplatedEmail $email
+    ): void {
         $signatureComponents = $this->verifyEmailHelper->generateSignature(
-            $verifyEmailRouteName,
-            $user->getId(),
-            $user->getEmail(),
-	        ['id' => $user->getId()]
+          $verifyEmailRouteName, $user->getId(), $user->getEmail(), ["id" => $user->getId()]
         );
 
         $context = $email->getContext();
-        $context['signedUrl'] = $signatureComponents->getSignedUrl();
-        $context['expiresAtMessageKey'] = $signatureComponents->getExpirationMessageKey();
-        $context['expiresAtMessageData'] = $signatureComponents->getExpirationMessageData();
+        $context["signedUrl"] = $signatureComponents->getSignedUrl();
+        $context["expiresAtMessageKey"] = $signatureComponents->getExpirationMessageKey();
+        $context["expiresAtMessageData"] = $signatureComponents->getExpirationMessageData();
 
         $email->context($context);
 
@@ -41,7 +41,7 @@ class EmailVerifier
     /**
      * @throws VerifyEmailExceptionInterface
      */
-    public function handleEmailConfirmation(Request $request, UserInterface $user): void
+    public function handleEmailConfirmation (Request $request, UserInterface $user): void
     {
         $this->verifyEmailHelper->validateEmailConfirmation($request->getUri(), $user->getId(), $user->getEmail());
 

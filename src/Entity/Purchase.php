@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\PurchaseRepository;
+use DateTime;
+use DateTimeInterface;
+use DateTimeZone;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -16,18 +19,18 @@ class Purchase
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
-    private ?\DateTimeInterface $created_at = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ["default" => "CURRENT_TIMESTAMP"])]
+    private ?DateTimeInterface $created_at = null;
 
-    #[ORM\OneToMany(mappedBy: 'purchase', targetEntity: Stock::class)]
+    #[ORM\OneToMany(mappedBy: "purchase", targetEntity: Stock::class)]
     private Collection $stock;
 
-    #[ORM\ManyToOne(inversedBy: 'purchase')]
-    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    #[ORM\ManyToOne(inversedBy: "purchase")]
+    #[ORM\JoinColumn(nullable: true, onDelete: "SET NULL")]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(inversedBy: 'purchase')]
-    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    #[ORM\ManyToOne(inversedBy: "purchase")]
+    #[ORM\JoinColumn(nullable: true, onDelete: "SET NULL")]
     private ?Address $address = null;
 
     #[ORM\Column]
@@ -45,7 +48,7 @@ class Purchase
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $paypalOrderId = null;
 
-    #[ORM\OneToMany(mappedBy: 'orderProduct', targetEntity: RecapDetails::class)]
+    #[ORM\OneToMany(mappedBy: "orderProduct", targetEntity: RecapDetails::class)]
     private Collection $recapDetails;
 
     #[ORM\Column(length: 255)]
@@ -54,32 +57,44 @@ class Purchase
     #[ORM\Column(length: 255)]
     private ?string $userFullName = null;
 
-    #[ORM\OneToOne(mappedBy: 'purchase', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: "purchase", cascade: ["persist", "remove"])]
     private ?Facture $facture = null;
 
-    public function __construct()
+    public function __construct ()
     {
         $this->stock = new ArrayCollection();
         $this->recapDetails = new ArrayCollection();
-		$this->created_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+        $this->created_at = new DateTime("now", new DateTimeZone("Europe/Paris"));
     }
 
-    public function __toString(): string
+    public function __toString (): string
     {
         return $this->getReference();
     }
 
-    public function getId(): ?int
+    public function getReference (): ?string
+    {
+        return $this->reference;
+    }
+
+    public function setReference (string $reference): self
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    public function getId (): ?int
     {
         return $this->id;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt (): ?DateTimeInterface
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt (DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
 
@@ -89,12 +104,12 @@ class Purchase
     /**
      * @return Collection<int, Stock>
      */
-    public function getStock(): Collection
+    public function getStock (): Collection
     {
         return $this->stock;
     }
 
-    public function addStock(Stock $stock): self
+    public function addStock (Stock $stock): self
     {
         if (!$this->stock->contains($stock)) {
             $this->stock->add($stock);
@@ -104,7 +119,7 @@ class Purchase
         return $this;
     }
 
-    public function removeStock(Stock $stock): self
+    public function removeStock (Stock $stock): self
     {
         if ($this->stock->removeElement($stock)) {
             // set the owning side to null (unless already changed)
@@ -116,84 +131,72 @@ class Purchase
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getUser (): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser (?User $user): self
     {
         $this->user = $user;
 
         return $this;
     }
 
-    public function getAddress(): ?Address
+    public function getAddress (): ?Address
     {
         return $this->address;
     }
 
-    public function setAddress(?Address $address): self
+    public function setAddress (?Address $address): self
     {
         $this->address = $address;
 
         return $this;
     }
 
-    public function isIsPaid(): ?bool
+    public function isIsPaid (): ?bool
     {
         return $this->isPaid;
     }
 
-    public function setIsPaid(bool $isPaid): self
+    public function setIsPaid (bool $isPaid): self
     {
         $this->isPaid = $isPaid;
 
         return $this;
     }
 
-    public function getMethod(): ?string
+    public function getMethod (): ?string
     {
         return $this->method;
     }
 
-    public function setMethod(string $method): self
+    public function setMethod (string $method): self
     {
         $this->method = $method;
 
         return $this;
     }
 
-    public function getReference(): ?string
-    {
-        return $this->reference;
-    }
-
-    public function setReference(string $reference): self
-    {
-        $this->reference = $reference;
-
-        return $this;
-    }
-
-    public function getStripeSessionId(): ?string
+    public function getStripeSessionId (): ?string
     {
         return $this->stripeSessionId;
     }
 
-    public function setStripeSessionId(?string $stripeSessionId): self
+    public function setStripeSessionId (?string $stripeSessionId): self
     {
         $this->stripeSessionId = $stripeSessionId;
 
         return $this;
     }
 
-    public function getPaypalOrderId(): ?string
+    public function getPaypalOrderId (): ?string
     {
         return $this->paypalOrderId;
     }
 
-    public function setPaypalOrderId(?string $paypalOrderId): self
+    public function setPaypalOrderId (?string $paypalOrderId): self
     {
         $this->paypalOrderId = $paypalOrderId;
 
@@ -203,12 +206,12 @@ class Purchase
     /**
      * @return Collection<int, RecapDetails>
      */
-    public function getRecapDetails(): Collection
+    public function getRecapDetails (): Collection
     {
         return $this->recapDetails;
     }
 
-    public function addRecapDetail(RecapDetails $recapDetail): self
+    public function addRecapDetail (RecapDetails $recapDetail): self
     {
         if (!$this->recapDetails->contains($recapDetail)) {
             $this->recapDetails->add($recapDetail);
@@ -218,7 +221,7 @@ class Purchase
         return $this;
     }
 
-    public function removeRecapDetail(RecapDetails $recapDetail): self
+    public function removeRecapDetail (RecapDetails $recapDetail): self
     {
         if ($this->recapDetails->removeElement($recapDetail)) {
             // set the owning side to null (unless already changed)
@@ -230,36 +233,36 @@ class Purchase
         return $this;
     }
 
-    public function getDelivery(): ?string
+    public function getDelivery (): ?string
     {
         return $this->delivery;
     }
 
-    public function setDelivery(string $delivery): self
+    public function setDelivery (string $delivery): self
     {
         $this->delivery = $delivery;
 
         return $this;
     }
 
-    public function getUserFullName(): ?string
+    public function getUserFullName (): ?string
     {
         return $this->userFullName;
     }
 
-    public function setUserFullName(string $userFullName): self
+    public function setUserFullName (string $userFullName): self
     {
         $this->userFullName = $userFullName;
 
         return $this;
     }
 
-    public function getFacture(): ?Facture
+    public function getFacture (): ?Facture
     {
         return $this->facture;
     }
 
-    public function setFacture(Facture $facture): static
+    public function setFacture (Facture $facture): static
     {
         // set the owning side of the relation if necessary
         if ($facture->getPurchase() !== $this) {
