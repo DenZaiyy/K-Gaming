@@ -1,6 +1,0 @@
-{
-  "tabWidth": 2,
-  "bracketSpacing": true,
-  "bracketSameLine": true,
-  "plugins": ["@prettier/plugin-php"]
-}

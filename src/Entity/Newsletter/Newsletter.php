@@ -3,84 +3,87 @@
 namespace App\Entity\Newsletter;
 
 use App\Repository\Newsletter\NewsletterRepository;
+use DateTime;
+use DateTimeInterface;
+use DateTimeZone;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: NewsletterRepository::class)]
 class Newsletter
 {
-  #[ORM\Id]
-  #[ORM\GeneratedValue]
-  #[ORM\Column]
-  private ?int $id = null;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-  #[ORM\Column(length: 255)]
-  private ?string $name = null;
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
 
-  #[ORM\Column(type: Types::TEXT)]
-  private ?string $content = null;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $content = null;
 
-  #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-  private ?\DateTimeInterface $created_at = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?DateTimeInterface $created_at = null;
 
-  #[ORM\Column]
-  private ?bool $is_sent = false;
+    #[ORM\Column]
+    private ?bool $is_sent = false;
 
-  public function __construct()
-  {
-    $this->created_at = new \DateTime("now", new \DateTimeZone("Europe/Paris"));
-  }
+    public function __construct ()
+    {
+        $this->created_at = new DateTime("now", new DateTimeZone("Europe/Paris"));
+    }
 
-  public function getId(): ?int
-  {
-    return $this->id;
-  }
+    public function getId (): ?int
+    {
+        return $this->id;
+    }
 
-  public function getName(): ?string
-  {
-    return $this->name;
-  }
+    public function getName (): ?string
+    {
+        return $this->name;
+    }
 
-  public function setName(string $name): static
-  {
-    $this->name = $name;
+    public function setName (string $name): static
+    {
+        $this->name = $name;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  public function getContent(): ?string
-  {
-    return $this->content;
-  }
+    public function getContent (): ?string
+    {
+        return $this->content;
+    }
 
-  public function setContent(string $content): static
-  {
-    $this->content = $content;
+    public function setContent (string $content): static
+    {
+        $this->content = $content;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  public function getCreatedAt(): ?\DateTimeInterface
-  {
-    return $this->created_at;
-  }
+    public function getCreatedAt (): ?DateTimeInterface
+    {
+        return $this->created_at;
+    }
 
-  public function setCreatedAt(\DateTimeInterface $created_at): static
-  {
-    $this->created_at = $created_at;
+    public function setCreatedAt (DateTimeInterface $created_at): static
+    {
+        $this->created_at = $created_at;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  public function isIsSent(): ?bool
-  {
-    return $this->is_sent;
-  }
+    public function isIsSent (): ?bool
+    {
+        return $this->is_sent;
+    }
 
-  public function setIsSent(bool $is_sent): static
-  {
-    $this->is_sent = $is_sent;
+    public function setIsSent (bool $is_sent): static
+    {
+        $this->is_sent = $is_sent;
 
-    return $this;
-  }
+        return $this;
+    }
 }

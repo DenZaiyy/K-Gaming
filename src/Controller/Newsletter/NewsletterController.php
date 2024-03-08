@@ -19,131 +19,116 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route("/{_locale<%app.supported_locales%>}/newsletter", name: "newsletter_")]
 class NewsletterController extends AbstractController
 {
-  public function __construct(private EntityManagerInterface $em)
-  {
-  }
-
-  /**
-   * La fonction add permet d'ajouter une newsletter dans la base de données
-   */
-  #[Route("/add", name: "add")]
-  public function prepare(Request $request): Response
-  {
-    $newsletter = new Newsletter();
-    $form = $this->createForm(NewsletterType::class, $newsletter);
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-      $title = strip_tags($form->get("name")->getData());
-      $content = $form->get("content")->getData();
-
-      $newsletter->setName($title);
-      $newsletter->setContent($content);
-      $this->em->persist($newsletter);
-      $this->em->flush();
-
-      $this->addFlash("success", "La newsletter a bien été créée");
-      return $this->redirectToRoute("newsletter_list");
+    public function __construct (private EntityManagerInterface $em)
+    {
     }
 
-    return $this->render("newsletter/form.html.twig", [
-      "form" => $form->createView(),
-      "edit" => false,
-      "description" => "Création d'une nouvelle newsletter",
-    ]);
-  }
+    /**
+     * La fonction add permet d'ajouter une newsletter dans la base de données
+     */
+    #[Route("/add", name: "add")]
+    public function prepare (Request $request): Response
+    {
+        $newsletter = new Newsletter();
+        $form = $this->createForm(NewsletterType::class, $newsletter);
+        $form->handleRequest($request);
 
-  /**
-   * La fonction edit permet de modifier une newsletter dans la base de données
-   */
-  #[Route("/edit/{id}", name: "edit")]
-  public function edit(Request $request, Newsletter $newsletter): Response
-  {
-    $form = $this->createForm(NewsletterType::class, $newsletter);
-    $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $title = strip_tags($form->get("name")->getData());
+            $content = $form->get("content")->getData();
 
-    if ($form->isSubmitted() && $form->isValid()) {
-      $title = strip_tags($form->get("name")->getData());
-      $content = $form->get("content")->getData();
+            $newsletter->setName($title);
+            $newsletter->setContent($content);
+            $this->em->persist($newsletter);
+            $this->em->flush();
 
-      $newsletter->setName($title);
-      $newsletter->setContent($content);
+            $this->addFlash("success", "La newsletter a bien été créée");
+            return $this->redirectToRoute("newsletter_list");
+        }
 
-      $this->em->flush();
-
-      $this->addFlash("success", "La newsletter a bien été modifiée");
-      return $this->redirectToRoute("newsletter_list");
+        return $this->render("newsletter/form.html.twig", ["form" => $form->createView(),
+          "edit" => false,
+          "description" => "Création d'une nouvelle newsletter",]);
     }
 
-    return $this->render("newsletter/form.html.twig", [
-      "form" => $form->createView(),
-      "edit" => $newsletter->getId(),
-      "description" => null,
-    ]);
-  }
+    /**
+     * La fonction edit permet de modifier une newsletter dans la base de données
+     */
+    #[Route("/edit/{id}", name: "edit")]
+    public function edit (Request $request, Newsletter $newsletter): Response
+    {
+        $form = $this->createForm(NewsletterType::class, $newsletter);
+        $form->handleRequest($request);
 
-  /**
-   * La fonction delete permet de supprimer une newsletter dans la base de données
-   */
-  #[Route("/delete/{id}", name: "delete")]
-  public function delete(Newsletter $newsletter): Response
-  {
-    $this->em->remove($newsletter);
-    $this->em->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $title = strip_tags($form->get("name")->getData());
+            $content = $form->get("content")->getData();
 
-    $this->addFlash("success", "La newsletter a bien été supprimée");
-    return $this->redirectToRoute("newsletter_list");
-  }
+            $newsletter->setName($title);
+            $newsletter->setContent($content);
 
-  /**
-   * La fonction list permet d'afficher la liste des newsletters
-   */
-  #[Route("/list", name: "list")]
-  public function list(
-    NewsletterRepository $repository,
-    UserRepository $userRepository
-  ): Response {
-    $newsletters = $repository->findAll();
-    $users = $userRepository->findAll();
+            $this->em->flush();
 
-    return $this->render("newsletter/list.html.twig", [
-      "newsletters" => $newsletters,
-      "users" => $users,
-      "description" => "Liste de toutes les newsletters créées",
-    ]);
-  }
+            $this->addFlash("success", "La newsletter a bien été modifiée");
+            return $this->redirectToRoute("newsletter_list");
+        }
 
-  //	FINISH THIS
-  #[Route("/send/{id}", name: "send")]
-  public function send(
-    Newsletter $newsletter,
-    MailerInterface $mailer
-  ): Response {
-    $users = $this->em
-      ->getRepository(NewsletterUser::class)
-      ->findBy(["is_verified" => true]);
-
-    foreach ($users as $user) {
-      if ($user->isIsVerified()) {
-        $email = (new TemplatedEmail())
-          ->from(
-            new Address("newsletter@k-grischko.fr", "K-Gaming - Newsletter")
-          )
-          ->to($user->getEmail())
-          ->subject($newsletter->getName())
-          ->htmlTemplate("newsletter/emails/send.html.twig")
-          ->context(compact("newsletter", "user"));
-
-        $mailer->send($email);
-      }
+        return $this->render("newsletter/form.html.twig", ["form" => $form->createView(),
+          "edit" => $newsletter->getId(),
+          "description" => null,]);
     }
 
-    $newsletter->setIsSent(true);
-    $this->em->persist($newsletter);
-    $this->em->flush();
+    /**
+     * La fonction delete permet de supprimer une newsletter dans la base de données
+     */
+    #[Route("/delete/{id}", name: "delete")]
+    public function delete (Newsletter $newsletter): Response
+    {
+        $this->em->remove($newsletter);
+        $this->em->flush();
 
-    $this->addFlash("success", "La newsletter a bien été envoyée");
+        $this->addFlash("success", "La newsletter a bien été supprimée");
+        return $this->redirectToRoute("newsletter_list");
+    }
 
-    return $this->redirectToRoute("newsletter_list");
-  }
+    /**
+     * La fonction list permet d'afficher la liste des newsletters
+     */
+    #[Route("/list", name: "list")]
+    public function list (NewsletterRepository $repository, UserRepository $userRepository): Response
+    {
+        $newsletters = $repository->findAll();
+        $users = $userRepository->findAll();
+
+        return $this->render("newsletter/list.html.twig", ["newsletters" => $newsletters,
+          "users" => $users,
+          "description" => "Liste de toutes les newsletters créées",]);
+    }
+
+    //	FINISH THIS
+    #[Route("/send/{id}", name: "send")]
+    public function send (Newsletter $newsletter, MailerInterface $mailer): Response
+    {
+        $users = $this->em->getRepository(NewsletterUser::class)->findBy(["is_verified" => true]);
+
+        foreach ($users as $user) {
+            if ($user->isIsVerified()) {
+                $email = (new TemplatedEmail())->from(
+                  new Address("newsletter@k-grischko.fr", "K-Gaming - Newsletter")
+                )->to($user->getEmail())->subject($newsletter->getName())->htmlTemplate(
+                  "newsletter/emails/send.html.twig"
+                )->context(compact("newsletter", "user"));
+
+                $mailer->send($email);
+            }
+        }
+
+        $newsletter->setIsSent(true);
+        $this->em->persist($newsletter);
+        $this->em->flush();
+
+        $this->addFlash("success", "La newsletter a bien été envoyée");
+
+        return $this->redirectToRoute("newsletter_list");
+    }
 }

@@ -18,73 +18,63 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class HomeController extends AbstractController
 {
-  #[Route("/")]
-  public function indexNoLocale(Request $request): Response
-  {
-    if (!$request->cookies->get("_locale")) {
-      $locale = $request->getDefaultLocale();
-    } else {
-      $locale = $request->cookies->get("_locale");
+    #[Route("/")]
+    public function indexNoLocale (Request $request): Response
+    {
+        if (!$request->cookies->get("_locale")) {
+            $locale = $request->getDefaultLocale();
+        } else {
+            $locale = $request->cookies->get("_locale");
+        }
+
+        $response = $this->redirectToRoute("app_home", ["_locale" => $locale]);
+        $response->headers->setCookie(new Cookie("_locale", $request->getLocale()));
+        $response->send();
+        return $response;
     }
 
-    $response = $this->redirectToRoute("app_home", ["_locale" => $locale]);
-    $response->headers->setCookie(new Cookie("_locale", $request->getLocale()));
-    $response->send();
-    return $response;
-  }
-  /*
-   * Méthode permettant d'afficher la page d'accueil du site avec les informations nécessaires tel que les jeux en tendances, les précommandes et les genres
-   */
-  #[Route("/{_locale<%app.supported_locales%>}", name: "app_home")]
-  public function index(EntityManagerInterface $em, Request $request): Response
-  {
-    $cookies = $request->cookies;
-    $screenWidth = $cookies->get("sw");
+    /*
+     * Méthode permettant d'afficher la page d'accueil du site avec les informations nécessaires tel que les jeux en tendances, les précommandes et les genres
+     */
+    #[Route("/{_locale<%app.supported_locales%>}", name: "app_home")]
+    public function index (EntityManagerInterface $em, Request $request): Response
+    {
+        $cookies = $request->cookies;
+        $screenWidth = $cookies->get("sw");
 
-    if ($screenWidth < 768) {
-      $resultPerPage = 2;
-    } elseif ($screenWidth < 992) {
-      $resultPerPage = 4;
-    } else {
-      $resultPerPage = 6;
+        if ($screenWidth < 768) {
+            $resultPerPage = 2;
+        } else if ($screenWidth < 992) {
+            $resultPerPage = 4;
+        } else {
+            $resultPerPage = 6;
+        }
+
+        $tendencies = $em->getRepository(Stock::class)->findGamesInTendencies(3);
+        $preorders = $em->getRepository(Game::class)->findGamesInPreOrders(3);
+        $genres = $em->getRepository(Genre::class)->findGenres($resultPerPage);
+
+        $newsletter = $this->forward(SubscriptionController::class . "::subscribe", ["request" => $request,]);
+        //		dd($newsletter);
+
+        return $this->render("home/index.html.twig", ["tendencies" => $tendencies,
+          "preorders" => $preorders,
+          "genres" => $genres,
+          "newsletter" => $newsletter,
+          "description" => "Bienvenue sur le site K-GAMING, le site de vente de jeux vidéo en ligne. Retrouvez les dernières nouveautés et les meilleurs jeux du moment.",]
+        );
     }
 
-    $tendencies = $em->getRepository(Stock::class)->findGamesInTendencies(3);
-    $preorders = $em->getRepository(Game::class)->findGamesInPreOrders(3);
-    $genres = $em->getRepository(Genre::class)->findGenres($resultPerPage);
+    /*
+     * Méthode permettant d'afficher la barre de navigation du site en composant twig en lui passant les catégories et les plateformes
+     */
+    public function navBar (EntityManagerInterface $em, CartService $cartService): Response
+    {
+        $categories = $em->getRepository(Category::class)->findAll();
+        $plateforms = $em->getRepository(Plateform::class)->findAll();
 
-    $newsletter = $this->forward(
-      SubscriptionController::class . "::subscribe",
-      [
-        "request" => $request,
-      ]
-    );
-    //		dd($newsletter);
-
-    return $this->render("home/index.html.twig", [
-      "tendencies" => $tendencies,
-      "preorders" => $preorders,
-      "genres" => $genres,
-      "newsletter" => $newsletter,
-      "description" =>
-        "Bienvenue sur le site K-GAMING, le site de vente de jeux vidéo en ligne. Retrouvez les dernières nouveautés et les meilleurs jeux du moment.",
-    ]);
-  }
-
-  /*
-   * Méthode permettant d'afficher la barre de navigation du site en composant twig en lui passant les catégories et les plateformes
-   */
-  public function navBar(
-    EntityManagerInterface $em,
-    CartService $cartService
-  ): Response {
-    $categories = $em->getRepository(Category::class)->findAll();
-    $plateforms = $em->getRepository(Plateform::class)->findAll();
-
-    return $this->render("components/_header.html.twig", [
-      "categories" => $categories,
-      "platforms" => $plateforms,
-      "cartTotal" => $cartService->getTotalCart(),
-    ]);
-  }
+        return $this->render("components/_header.html.twig", ["categories" => $categories,
+          "platforms" => $plateforms,
+          "cartTotal" => $cartService->getTotalCart(),]);
+    }
 }

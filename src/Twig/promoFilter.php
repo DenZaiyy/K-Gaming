@@ -7,13 +7,13 @@ use Twig\TwigFilter;
 
 class promoFilter extends AbstractExtension
 {
-  public function getFilters(): array
-  {
-    return [new TwigFilter("promo", [$this, "promo"])];
-  }
+    public function getFilters (): array
+    {
+        return [new TwigFilter("promo", [$this, "promo"])];
+    }
 
-  public function promo($percentage, string $symbol = "%"): string
-  {
-    return "-" . $percentage . $symbol;
-  }
+    public function promo ($percentage, string $symbol = "%"): string
+    {
+        return "-" . $percentage . $symbol;
+    }
 }

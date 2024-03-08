@@ -7,40 +7,37 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class MultiAvatars extends AbstractController
 {
-  public function __construct(private readonly HttpClientInterface $client)
-  {
-  }
-
-  public function api($imageID)
-  {
-    $response = $this->client->request(
-      "GET",
-      "https://api.multiavatar.com/" . $imageID . ".png"
-    );
-
-    return $response->getInfo("url");
-  }
-
-  public function getRandomUserAvatar($user): string
-  {
-    return $this->api($user . "-" . rand(1, 1000));
-  }
-
-  public function getRandomAvatar(): string
-  {
-    return rand(1, 1000);
-  }
-
-  public function getEightRandomlyAvatar(): array
-  {
-    for ($i = 0; $i < 8; $i++) {
-      $avatars[] = $this->api($this->getRandomAvatar());
+    public function __construct (private readonly HttpClientInterface $client)
+    {
     }
-    return $avatars;
-  }
 
-  public function setAvatarUrl($imageID)
-  {
-    return $this->api($imageID);
-  }
+    public function getRandomUserAvatar ($user): string
+    {
+        return $this->api($user . "-" . rand(1, 1000));
+    }
+
+    public function api ($imageID)
+    {
+        $response = $this->client->request("GET", "https://api.multiavatar.com/" . $imageID . ".png");
+
+        return $response->getInfo("url");
+    }
+
+    public function getEightRandomlyAvatar (): array
+    {
+        for ($i = 0; $i < 8; $i++) {
+            $avatars[] = $this->api($this->getRandomAvatar());
+        }
+        return $avatars;
+    }
+
+    public function getRandomAvatar (): string
+    {
+        return rand(1, 1000);
+    }
+
+    public function setAvatarUrl ($imageID)
+    {
+        return $this->api($imageID);
+    }
 }

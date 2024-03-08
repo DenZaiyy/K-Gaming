@@ -12,22 +12,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class NewsletterType extends AbstractType
 {
-  public function buildForm(FormBuilderInterface $builder, array $options): void
-  {
-    $builder
-      ->add("name", TextType::class)
-      ->add("content", CKEditorType::class)
-      ->add("enregistrer", SubmitType::class, [
-        "attr" => [
-          "class" => "btn-primary-orange",
-        ],
-      ]);
-  }
+    public function buildForm (FormBuilderInterface $builder, array $options): void
+    {
+        $builder->add("name", TextType::class)->add("content", CKEditorType::class)->add(
+          "enregistrer", SubmitType::class, ["attr" => ["class" => "btn-primary-orange",],]
+        );
+    }
 
-  public function configureOptions(OptionsResolver $resolver): void
-  {
-    $resolver->setDefaults([
-      "data_class" => Newsletter::class,
-    ]);
-  }
+    public function configureOptions (OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults(["data_class" => Newsletter::class,]);
+    }
 }

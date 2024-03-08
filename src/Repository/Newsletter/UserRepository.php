@@ -8,7 +8,6 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<NewsletterUser>
- *
  * @method NewsletterUser|null find($id, $lockMode = null, $lockVersion = null)
  * @method NewsletterUser|null findOneBy(array $criteria, array $orderBy = null)
  * @method NewsletterUser[]    findAll()
@@ -16,51 +15,51 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class UserRepository extends ServiceEntityRepository
 {
-  public function __construct(ManagerRegistry $registry)
-  {
-    parent::__construct($registry, NewsletterUser::class);
-  }
-
-  public function save(NewsletterUser $entity, bool $flush = false): void
-  {
-    $this->getEntityManager()->persist($entity);
-
-    if ($flush) {
-      $this->getEntityManager()->flush();
+    public function __construct (ManagerRegistry $registry)
+    {
+        parent::__construct($registry, NewsletterUser::class);
     }
-  }
 
-  public function remove(NewsletterUser $entity, bool $flush = false): void
-  {
-    $this->getEntityManager()->remove($entity);
+    public function save (NewsletterUser $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
 
-    if ($flush) {
-      $this->getEntityManager()->flush();
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
     }
-  }
 
-  //    /**
-  //     * @return Newsletter[] Returns an array of Newsletter objects
-  //     */
-  //    public function findByExampleField($value): array
-  //    {
-  //        return $this->createQueryBuilder('n')
-  //            ->andWhere('n.exampleField = :val')
-  //            ->setParameter('val', $value)
-  //            ->orderBy('n.id', 'ASC')
-  //            ->setMaxResults(10)
-  //            ->getQuery()
-  //            ->getResult()
-  //        ;
-  //    }
+    public function remove (NewsletterUser $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
 
-  //    public function findOneBySomeField($value): ?Newsletter
-  //    {
-  //        return $this->createQueryBuilder('n')
-  //            ->andWhere('n.exampleField = :val')
-  //            ->setParameter('val', $value)
-  //            ->getQuery()
-  //            ->getOneOrNullResult()
-  //        ;
-  //    }
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    //    /**
+    //     * @return Newsletter[] Returns an array of Newsletter objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('n')
+    //            ->andWhere('n.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('n.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
+
+    //    public function findOneBySomeField($value): ?Newsletter
+    //    {
+    //        return $this->createQueryBuilder('n')
+    //            ->andWhere('n.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

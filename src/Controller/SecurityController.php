@@ -8,12 +8,10 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class SecurityController extends AbstractController
 {
-  #[Route("/{_locale<%app.supported_locales%>}/404", name: "app_404")]
-  public function accessDenied(): Response
-  {
-    $this->addFlash("danger", 'La page demandée n\'existe pas');
-    return $this->render("security/exception/404.html.twig", [
-      "description" => "",
-    ]);
-  }
+    #[Route("/{_locale<%app.supported_locales%>}/404", name: "app_404")]
+    public function accessDenied (): Response
+    {
+        $this->addFlash("danger", 'La page demandée n\'existe pas');
+        return $this->render("security/exception/404.html.twig", ["description" => "",]);
+    }
 }
