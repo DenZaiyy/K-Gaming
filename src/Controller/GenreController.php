@@ -11,24 +11,22 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class GenreController extends AbstractController
 {
-	/*
-	 * Méthode permettant d'afficher la liste des genres
-	 */
-    #[Route('/{_locale<%app.supported_locales%>}/genres', name: 'genre_list')]
-    public function index(EntityManagerInterface $em, BreadCrumbsService $breadCrumbsService): Response
-    {
-		$genres = $em->getRepository(Genre::class)->findAll();
+  /*
+   * Méthode permettant d'afficher la liste des genres
+   */
+  #[Route("/{_locale<%app.supported_locales%>}/genres", name: "genre_list")]
+  public function index(
+    EntityManagerInterface $em,
+    BreadCrumbsService $breadCrumbsService
+  ): Response {
+    $genres = $em->getRepository(Genre::class)->findAll();
 
-        $breadCrumbsService->BCGenerate(
-            [],
-            [],
-            [],
-            []
-        );
+    $breadCrumbsService->BCGenerate([], [], [], []);
 
-        return $this->render('genre/index.html.twig', [
-			'genres' => $genres,
-            'description' => "Liste des genres de jeux vidéo disponibles sur le site K-GAMING."
-        ]);
-    }
+    return $this->render("genre/index.html.twig", [
+      "genres" => $genres,
+      "description" =>
+        "Liste des genres de jeux vidéo disponibles sur le site K-GAMING.",
+    ]);
+  }
 }

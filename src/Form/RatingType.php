@@ -12,33 +12,32 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RatingType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
-            ->add('message', TextareaType::class, [
-	            'label' => 'Message',
-	            'required' => false,
-            ])
-	        ->add('note', HiddenType::class, [
-	            'label' => 'Note',
-		        'attr' => [
-					'value' => 0,
-			        'min' => 1,
-			        'max' => 5,
-		        ],
-	            'required' => true,
-	        ])
-	        ->add('submit', SubmitType::class, [
-	            'label' => 'Envoyer',
-	        ])
-        ;
-    }
+  public function buildForm(FormBuilderInterface $builder, array $options): void
+  {
+    $builder
+      ->add("message", TextareaType::class, [
+        "label" => "Message",
+        "required" => false,
+      ])
+      ->add("note", HiddenType::class, [
+        "label" => "Note",
+        "attr" => [
+          "value" => 0,
+          "min" => 1,
+          "max" => 5,
+        ],
+        "required" => true,
+      ])
+      ->add("submit", SubmitType::class, [
+        "label" => "Envoyer",
+      ]);
+  }
 
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => Rating::class,
-	        'user' => null,
-        ]);
-    }
+  public function configureOptions(OptionsResolver $resolver): void
+  {
+    $resolver->setDefaults([
+      "data_class" => Rating::class,
+      "user" => null,
+    ]);
+  }
 }

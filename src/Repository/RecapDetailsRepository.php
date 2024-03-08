@@ -16,51 +16,51 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class RecapDetailsRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, RecapDetails::class);
+  public function __construct(ManagerRegistry $registry)
+  {
+    parent::__construct($registry, RecapDetails::class);
+  }
+
+  public function save(RecapDetails $entity, bool $flush = false): void
+  {
+    $this->getEntityManager()->persist($entity);
+
+    if ($flush) {
+      $this->getEntityManager()->flush();
     }
+  }
 
-    public function save(RecapDetails $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
+  public function remove(RecapDetails $entity, bool $flush = false): void
+  {
+    $this->getEntityManager()->remove($entity);
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+    if ($flush) {
+      $this->getEntityManager()->flush();
     }
+  }
 
-    public function remove(RecapDetails $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
+  //    /**
+  //     * @return RecapDetails[] Returns an array of RecapDetails objects
+  //     */
+  //    public function findByExampleField($value): array
+  //    {
+  //        return $this->createQueryBuilder('r')
+  //            ->andWhere('r.exampleField = :val')
+  //            ->setParameter('val', $value)
+  //            ->orderBy('r.id', 'ASC')
+  //            ->setMaxResults(10)
+  //            ->getQuery()
+  //            ->getResult()
+  //        ;
+  //    }
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-//    /**
-//     * @return RecapDetails[] Returns an array of RecapDetails objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('r.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?RecapDetails
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+  //    public function findOneBySomeField($value): ?RecapDetails
+  //    {
+  //        return $this->createQueryBuilder('r')
+  //            ->andWhere('r.exampleField = :val')
+  //            ->setParameter('val', $value)
+  //            ->getQuery()
+  //            ->getOneOrNullResult()
+  //        ;
+  //    }
 }

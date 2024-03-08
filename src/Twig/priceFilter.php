@@ -7,29 +7,36 @@ use Twig\TwigFilter;
 
 class priceFilter extends AbstractExtension
 {
-    public function getFilters(): array
-    {
-        return [
-            new TwigFilter('price', [$this, 'price']),
-	        new TwigFilter('oldPrice', [$this, 'oldPrice'])
-        ];
+  public function getFilters(): array
+  {
+    return [
+      new TwigFilter("price", [$this, "price"]),
+      new TwigFilter("oldPrice", [$this, "oldPrice"]),
+    ];
+  }
 
-    }
+  public function price(
+    $price,
+    string $symbol = "€",
+    string $separator = ",",
+    string $secondSeparator = " "
+  ): string {
+    //        $finalPrice = $price / 100;
+    $finalPrice = $price;
+    $finalPrice = number_format($finalPrice, 2, $separator, $secondSeparator);
 
-    public function price($price, string $symbol = '€', string $separator = ',', string $secondSeparator = ' '): string
-    {
-//        $finalPrice = $price / 100;
-        $finalPrice = $price;
-        $finalPrice = number_format($finalPrice, 2, $separator, $secondSeparator);
+    return $finalPrice . " " . $symbol;
+  }
 
-        return $finalPrice . ' '. $symbol;
-    }
+  public function oldPrice(
+    $price,
+    string $symbol = "€",
+    string $separator = ",",
+    string $secondSeparator = " "
+  ): string {
+    $finalPrice = $price;
+    $finalPrice = number_format($finalPrice, 0, $separator, $secondSeparator);
 
-	public function oldPrice($price, string $symbol = '€', string $separator = ',', string $secondSeparator = ' '): string
-	{
-		$finalPrice = $price;
-		$finalPrice = number_format($finalPrice, 0, $separator, $secondSeparator);
-
-		return $finalPrice . $symbol;
-	}
+    return $finalPrice . $symbol;
+  }
 }

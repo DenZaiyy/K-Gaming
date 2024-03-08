@@ -1,0 +1,8 @@
+public/build
+public/bundles
+var
+vendor
+coverage
+**/*.css
+**/*.css.map
+node_modules

@@ -7,23 +7,28 @@ html {
   --white: #fffdff;
   --orange: #f44b3a;
   --blue: #263f5d;
-  --waves: invert(21%) sepia(37%) saturate(779%) hue-rotate(173deg) brightness(93%) contrast(91%);
-  --animation: all .3s ease-in-out;
-  --animationLinear: all .2s linear;
+  --waves: invert(21%) sepia(37%) saturate(779%) hue-rotate(173deg)
+    brightness(93%) contrast(91%);
+  --animation: all 0.3s ease-in-out;
+  --animationLinear: all 0.2s linear;
   --textShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  --lightBtn: #FE016C;
+  --lightBtn: #fe016c;
 }
-html .transition, html .transition *, html .transition *::before, html .transition *::after {
+html .transition,
+html .transition *,
+html .transition *::before,
+html .transition *::after {
   transition: cubic-bezier(0.68, -0.55, 0.27, 1.55) 420ms !important;
   transition-delay: 0s !important;
 }
 
 html[data-theme=dark] {
-  --bgColor: #263D5D;
+  --bgColor: #263d5d;
   --white: #263f5d;
   --blue: #fffdff;
-  --waves: invert(92%) sepia(64%) saturate(83%) hue-rotate(267deg) brightness(102%) contrast(101%);
-  --lightBtn: #FFBD07;
+  --waves: invert(92%) sepia(64%) saturate(83%) hue-rotate(267deg)
+    brightness(102%) contrast(101%);
+  --lightBtn: #ffbd07;
 }
 
 body {
@@ -34,7 +39,8 @@ body {
   position: relative;
 }
 
-.fa-eye, .fa-eye-slash {
+.fa-eye,
+.fa-eye-slash {
   position: absolute;
   top: 50%;
   right: 15px;
@@ -42,7 +48,8 @@ body {
   cursor: pointer;
   color: lightgray;
 }
-.fa-eye:hover, .fa-eye-slash:hover {
+.fa-eye:hover,
+.fa-eye-slash:hover {
   color: gray;
 }
 
@@ -85,7 +92,9 @@ body {
   transition: var(--animationLinear);
 }
 
-*, ::before, ::after {
+*,
+::before,
+::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -166,7 +175,8 @@ body {
   color: var(--orange);
   transition: var(--animation);
 }
-.header-flex .dropdown-toggle .bi-chevron-down, .header-flex .dropdown-toggle .bi-chevron-up {
+.header-flex .dropdown-toggle .bi-chevron-down,
+.header-flex .dropdown-toggle .bi-chevron-up {
   color: var(--orange);
 }
 .header-flex .dropdown-menu {
@@ -269,7 +279,8 @@ body {
   font-size: 1.2em;
 }
 
-h2, h1 {
+h2,
+h1 {
   text-transform: uppercase;
   font-family: "Quicksand", sans-serif;
   font-weight: bold;
@@ -402,7 +413,8 @@ main .cards a .gameCard .infos {
   	width: 75%;
   }*/
 }
-main .cards a .gameCard .infos .label, main .cards a .gameCard .infos .price {
+main .cards a .gameCard .infos .label,
+main .cards a .gameCard .infos .price {
   font-family: "Source Sans Pro", sans-serif;
   color: var(--blue);
 }
@@ -436,7 +448,9 @@ main .cards a:hover .gameCard .cover-img .in-promotion {
   transition: var(--animation);
   opacity: 0;
 }
-main .tendencies, main .preorders, main .listGames {
+main .tendencies,
+main .preorders,
+main .listGames {
   padding: 30px 0;
   background-color: var(--white);
 }
@@ -445,7 +459,8 @@ main .listGames .cards {
   grid-template-columns: repeat(3, 0fr);
   grid-gap: 30px;
 }
-main .rating, main .newsletter {
+main .rating,
+main .newsletter {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -454,20 +469,24 @@ main .rating, main .newsletter {
   padding: 50px;
   gap: 5px;
 }
-main .rating .icon, main .newsletter .icon {
+main .rating .icon,
+main .newsletter .icon {
   font-size: 2em;
   color: var(--orange);
 }
-main .rating .stars, main .newsletter .stars {
+main .rating .stars,
+main .newsletter .stars {
   display: flex;
   gap: 5px;
 }
-main .rating .stars .star, main .newsletter .stars .star {
+main .rating .stars .star,
+main .newsletter .stars .star {
   color: var(--orange);
   cursor: pointer;
   font-size: 1.5em;
 }
-main .rating .text-content, main .newsletter .text-content {
+main .rating .text-content,
+main .newsletter .text-content {
   margin-top: 10px;
   width: 70%;
   text-align: center;
@@ -475,20 +494,26 @@ main .rating .text-content, main .newsletter .text-content {
   font-size: 1.3em;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 }
-main .rating .newsletter-form, main .newsletter .newsletter-form {
+main .rating .newsletter-form,
+main .newsletter .newsletter-form {
   margin-top: 20px;
   width: 70%;
 }
-main .rating .newsletter-form form, main .newsletter .newsletter-form form {
+main .rating .newsletter-form form,
+main .newsletter .newsletter-form form {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
 }
-main .rating .btn-ratings, main .newsletter .btn-ratings {
+main .rating .btn-ratings,
+main .newsletter .btn-ratings {
   margin-top: 20px;
 }
-main .rating .btn-ratings, main .rating .btn-newsletter, main .newsletter .btn-ratings, main .newsletter .btn-newsletter {
+main .rating .btn-ratings,
+main .rating .btn-newsletter,
+main .newsletter .btn-ratings,
+main .newsletter .btn-newsletter {
   display: block;
   cursor: pointer;
   background: transparent;
@@ -503,19 +528,27 @@ main .rating .btn-ratings, main .rating .btn-newsletter, main .newsletter .btn-r
   -webkit-box-shadow: 0 4px 8px -4px rgb(0, 0, 0);
   -moz-box-shadow: 0 4px 8px -4px rgb(0, 0, 0);
 }
-main .rating .btn-ratings:hover, main .rating .btn-newsletter:hover, main .newsletter .btn-ratings:hover, main .newsletter .btn-newsletter:hover {
+main .rating .btn-ratings:hover,
+main .rating .btn-newsletter:hover,
+main .newsletter .btn-ratings:hover,
+main .newsletter .btn-newsletter:hover {
   background-color: var(--orange);
   color: var(--white);
   transition: var(--animation);
 }
-main .rating .btn-ratings a, main .rating .btn-newsletter a, main .newsletter .btn-ratings a, main .newsletter .btn-newsletter a {
+main .rating .btn-ratings a,
+main .rating .btn-newsletter a,
+main .newsletter .btn-ratings a,
+main .newsletter .btn-newsletter a {
   color: var(--white);
   text-decoration: none;
 }
-main .genres, main .listGenres {
+main .genres,
+main .listGenres {
   margin-top: 30px;
 }
-main .genres .cards, main .listGenres .cards {
+main .genres .cards,
+main .listGenres .cards {
   /*display: flex;
   flex-wrap: wrap;
   gap: 50px;*/
@@ -525,21 +558,25 @@ main .genres .cards, main .listGenres .cards {
   justify-content: center;
   margin: 0 auto;
 }
-main .genres .cards a, main .listGenres .cards a {
+main .genres .cards a,
+main .listGenres .cards a {
   text-decoration: none;
 }
-main .genres .cards a .genreCard, main .listGenres .cards a .genreCard {
+main .genres .cards a .genreCard,
+main .listGenres .cards a .genreCard {
   color: var(--white);
   border-radius: 10px;
   filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.7));
 }
-main .genres .cards a .genreCard figure, main .listGenres .cards a .genreCard figure {
+main .genres .cards a .genreCard figure,
+main .listGenres .cards a .genreCard figure {
   position: relative;
   border-radius: 10px;
   overflow: hidden;
   margin: 0;
 }
-main .genres .cards a .genreCard figure img, main .listGenres .cards a .genreCard figure img {
+main .genres .cards a .genreCard figure img,
+main .listGenres .cards a .genreCard figure img {
   width: 100%;
   opacity: 0.9;
   aspect-ratio: 3/2;
@@ -547,11 +584,13 @@ main .genres .cards a .genreCard figure img, main .listGenres .cards a .genreCar
   overflow: hidden;
   transition: var(--animation);
 }
-main .genres .cards a .genreCard figure img:hover, main .listGenres .cards a .genreCard figure img:hover {
+main .genres .cards a .genreCard figure img:hover,
+main .listGenres .cards a .genreCard figure img:hover {
   transition: var(--animation);
   transform: scale(1.03);
 }
-main .genres .cards a .genreCard figure figcaption, main .listGenres .cards a .genreCard figure figcaption {
+main .genres .cards a .genreCard figure figcaption,
+main .listGenres .cards a .genreCard figure figcaption {
   position: absolute;
   background: rgba(0, 0, 0, 0.7);
   bottom: 0;
@@ -599,12 +638,14 @@ main .user-profil .user-ratings .ratings .card .card-header .game a img {
   width: 32px;
   height: 32px;
 }
-main .user-profil .user-ratings .ratings .card .card-footer .actions .edit-btn, main .user-profil .user-ratings .ratings .card .card-footer .actions .del-btn {
+main .user-profil .user-ratings .ratings .card .card-footer .actions .edit-btn,
+main .user-profil .user-ratings .ratings .card .card-footer .actions .del-btn {
   font-size: 1.5rem;
   color: var(--blue);
   transition: var(--animation);
 }
-main .user-profil .user-ratings .ratings .card .card-footer .actions .edit-btn:hover, main .user-profil .user-ratings .ratings .card .card-footer .actions .del-btn:hover {
+main .user-profil .user-ratings .ratings .card .card-footer .actions .edit-btn:hover,
+main .user-profil .user-ratings .ratings .card .card-footer .actions .del-btn:hover {
   color: var(--orange) !important;
   transition: var(--animation);
 }
@@ -614,7 +655,8 @@ main .user-profil .user-ratings .ratings .card .card-footer .actions .del-btn {
 main .bi-star-fill {
   color: var(--orange);
 }
-main .bi-star, main .bi-star-fill {
+main .bi-star,
+main .bi-star-fill {
   font-size: 1.3rem;
 }
 main .form-check .form-check-input:checked {
@@ -663,7 +705,8 @@ main .detailGame .detail .coverDesc .desc .infos .plateform img {
   width: 32px;
   height: 32px;
 }
-main .detailGame .detail .coverDesc .desc .plateform-price, main .detailGame .detail .coverDesc .desc .btns {
+main .detailGame .detail .coverDesc .desc .plateform-price,
+main .detailGame .detail .coverDesc .desc .btns {
   display: flex;
 }
 main .detailGame .detail .coverDesc .desc .btns {
@@ -731,7 +774,8 @@ main .detailGame .about .content .infos {
   display: flex;
   flex-direction: column;
 }
-main .detailGame .about .content .infos .release, main .detailGame .about .content .infos .genres {
+main .detailGame .about .content .infos .release,
+main .detailGame .about .content .infos .genres {
   margin: 0;
   display: flex;
   gap: 5px;
@@ -739,10 +783,12 @@ main .detailGame .about .content .infos .release, main .detailGame .about .conte
   font-size: 1.2em;
   color: var(--white);
 }
-main .detailGame .about .content .infos .release strong, main .detailGame .about .content .infos .genres strong {
+main .detailGame .about .content .infos .release strong,
+main .detailGame .about .content .infos .genres strong {
   font-weight: normal;
 }
-main .detailGame .about .content .infos .release p, main .detailGame .about .content .infos .genres p {
+main .detailGame .about .content .infos .release p,
+main .detailGame .about .content .infos .genres p {
   font-weight: lighter;
   margin: 0;
 }
@@ -894,7 +940,7 @@ main .toggle-container .container_toggle {
   visibility: hidden;
 }
 main .toggle-container .container_toggle:checked + label {
-  background: #FFBD07;
+  background: #ffbd07;
 }
 main .toggle-container .container_toggle:checked + label::after {
   left: calc(100% - 5px);
@@ -1049,7 +1095,8 @@ footer .f-flex small {
   color: var(--white);
 }
 
-.burger-btn, .overlay-menu {
+.burger-btn,
+.overlay-menu {
   display: none !important;
 }
 
@@ -1057,7 +1104,7 @@ footer .f-flex small {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #3E3E3E;
+  background-color: #3e3e3e;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -1221,10 +1268,12 @@ footer .f-flex small {
 }
 
 @media screen and (max-width: 575.98px) {
-  .menus, .icons {
+  .menus,
+  .icons {
     display: none !important;
   }
-  .burger-btn, .overlay-menu {
+  .burger-btn,
+  .overlay-menu {
     display: block !important;
   }
   .prevention {
@@ -1235,7 +1284,13 @@ footer .f-flex small {
     min-height: 60vh !important;*/
     background-position: left !important;
   }
-  main .hero-text, main .tendencies, main .rating, main .preorders, main .newsletter, main .genres, main .listGenres {
+  main .hero-text,
+  main .tendencies,
+  main .rating,
+  main .preorders,
+  main .newsletter,
+  main .genres,
+  main .listGenres {
     padding: 20px !important;
   }
   main .hero-text {
@@ -1248,37 +1303,53 @@ footer .f-flex small {
     font-size: 1em !important;
     text-align: justify;
   }
-  main .tendencies .cards, main .preorders .cards, main .content .cards, main .listGames .cards {
+  main .tendencies .cards,
+  main .preorders .cards,
+  main .content .cards,
+  main .listGames .cards {
     display: flex;
     flex-direction: column;
     align-items: center !important;
     gap: 20px !important;
   }
-  main .tendencies .cards a, main .preorders .cards a, main .content .cards a, main .listGames .cards a {
+  main .tendencies .cards a,
+  main .preorders .cards a,
+  main .content .cards a,
+  main .listGames .cards a {
     width: max-content !important;
   }
-  main .tendencies .cards a .gameCard:hover, main .preorders .cards a .gameCard:hover, main .content .cards a .gameCard:hover, main .listGames .cards a .gameCard:hover {
+  main .tendencies .cards a .gameCard:hover,
+  main .preorders .cards a .gameCard:hover,
+  main .content .cards a .gameCard:hover,
+  main .listGames .cards a .gameCard:hover {
     transform: unset !important;
   }
-  main .newsletter .text-content, main .newsletter .newsletter-form, main .rating .text-content, main .rating .newsletter-form {
+  main .newsletter .text-content,
+  main .newsletter .newsletter-form,
+  main .rating .text-content,
+  main .rating .newsletter-form {
     width: 100% !important;
     text-align: justify !important;
   }
-  main .genres, main .listGenres {
+  main .genres,
+  main .listGenres {
     margin: 0 !important;
   }
-  main .genres .cards, main .listGenres .cards {
+  main .genres .cards,
+  main .listGenres .cards {
     flex-wrap: nowrap;
     flex-direction: column;
     gap: 20px !important;
     width: 100%;
     margin: 0;
   }
-  main .genres .cards .genreCard figure img, main .listGenres .cards .genreCard figure img {
+  main .genres .cards .genreCard figure img,
+  main .listGenres .cards .genreCard figure img {
     width: 100% !important;
     max-height: 200px !important;
   }
-  main .genres .cards .genreCard:hover, main .listGenres .cards .genreCard:hover {
+  main .genres .cards .genreCard:hover,
+  main .listGenres .cards .genreCard:hover {
     transform: none !important;
   }
   main .show-more {
@@ -1295,40 +1366,50 @@ footer .f-flex small {
     width: 100%;
     padding: 0;
   }
-  main .login .container .login, main .login .container .register {
+  main .login .container .login,
+  main .login .container .register {
     padding: 20px !important;
   }
-  main .login .container .login .card-body .passwords, main .login .container .register .card-body .passwords {
+  main .login .container .login .card-body .passwords,
+  main .login .container .register .card-body .passwords {
     flex-direction: column !important;
     gap: 10px !important;
   }
-  main .login .container .login .card-body .passwords .col, main .login .container .register .card-body .passwords .col {
+  main .login .container .login .card-body .passwords .col,
+  main .login .container .register .card-body .passwords .col {
     width: 100% !important;
   }
-  main .login .container .login .card-footer, main .login .container .register .card-footer {
+  main .login .container .login .card-footer,
+  main .login .container .register .card-footer {
     align-items: center !important;
   }
-  main .login .container .login .card-footer .actions, main .login .container .register .card-footer .actions {
+  main .login .container .login .card-footer .actions,
+  main .login .container .register .card-footer .actions {
     display: flex !important;
     gap: 10px !important;
   }
-  main .login .container .login .card-footer .actions a, main .login .container .register .card-footer .actions a {
+  main .login .container .login .card-footer .actions a,
+  main .login .container .register .card-footer .actions a {
     font-size: 1.5em;
   }
-  main .login .container .login .checkbox, main .login .container .register .checkbox {
+  main .login .container .login .checkbox,
+  main .login .container .register .checkbox {
     text-align: center !important;
   }
-  main .login .container .login .btns .btns-con-pass, main .login .container .register .btns .btns-con-pass {
+  main .login .container .login .btns .btns-con-pass,
+  main .login .container .register .btns .btns-con-pass {
     flex-direction: column !important;
   }
-  main .login .container .login .btn, main .login .container .register .btn {
+  main .login .container .login .btn,
+  main .login .container .register .btn {
     width: 100% !important;
   }
   main .cart {
     padding: 20px !important;
     flex-direction: column !important;
   }
-  main .cart .cart-item .card, main .cart .summary .card {
+  main .cart .cart-item .card,
+  main .cart .summary .card {
     padding: 20px !important;
   }
   main .cart .cart-item {
@@ -1387,17 +1468,29 @@ footer .f-flex small {
   main .user-profil .user-infos {
     margin: 30px auto !important;
   }
-  main .user-profil .user-infos .settings .avatar, main .user-profil .user-infos .settings .username, main .user-profil .user-infos .settings .email, main .user-profil .user-infos .settings .password {
+  main .user-profil .user-infos .settings .avatar,
+  main .user-profil .user-infos .settings .username,
+  main .user-profil .user-infos .settings .email,
+  main .user-profil .user-infos .settings .password {
     flex-direction: column !important;
   }
-  main .user-profil .user-infos .settings .avatar .infos, main .user-profil .user-infos .settings .username .infos, main .user-profil .user-infos .settings .email .infos, main .user-profil .user-infos .settings .password .infos {
+  main .user-profil .user-infos .settings .avatar .infos,
+  main .user-profil .user-infos .settings .username .infos,
+  main .user-profil .user-infos .settings .email .infos,
+  main .user-profil .user-infos .settings .password .infos {
     width: 100% !important;
   }
-  main .user-profil .user-infos .settings .avatar .card, main .user-profil .user-infos .settings .username .card, main .user-profil .user-infos .settings .email .card, main .user-profil .user-infos .settings .password .card {
+  main .user-profil .user-infos .settings .avatar .card,
+  main .user-profil .user-infos .settings .username .card,
+  main .user-profil .user-infos .settings .email .card,
+  main .user-profil .user-infos .settings .password .card {
     width: 100% !important;
     grid-gap: 10px !important;
   }
-  main .user-profil .user-infos .settings .avatar .card .new-password, main .user-profil .user-infos .settings .username .card .new-password, main .user-profil .user-infos .settings .email .card .new-password, main .user-profil .user-infos .settings .password .card .new-password {
+  main .user-profil .user-infos .settings .avatar .card .new-password,
+  main .user-profil .user-infos .settings .username .card .new-password,
+  main .user-profil .user-infos .settings .email .card .new-password,
+  main .user-profil .user-infos .settings .password .card .new-password {
     flex-direction: column !important;
   }
   main .user-profil .user-address .address {
@@ -1426,7 +1519,8 @@ footer .f-flex small {
     display: flex !important;
     gap: 10px !important;
   }
-  main .detailGame .detail, main .detailGame .about {
+  main .detailGame .detail,
+  main .detailGame .about {
     padding: 20px !important;
   }
   main .detailGame .detail .coverDesc {
@@ -1444,7 +1538,8 @@ footer .f-flex small {
   main .detailGame .about .content .description {
     width: 100% !important;
   }
-  main .detailGame .about .content .infos .release, main .detailGame .about .content .infos .genres {
+  main .detailGame .about .content .infos .release,
+  main .detailGame .about .content .infos .genres {
     padding: 0 !important;
   }
   main .detailGame .screenshots {
