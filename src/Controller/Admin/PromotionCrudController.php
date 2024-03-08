@@ -13,34 +13,27 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class PromotionCrudController extends AbstractCrudController
 {
-    public static function getEntityFqcn(): string
+    public static function getEntityFqcn (): string
     {
         return Promotion::class;
     }
 
-	public function configureActions(Actions $actions): Actions
-	{
-		return $actions
-			->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
-				return $action->setIcon('fa fa-square-plus');
-			})
-			->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
-				return $action->setIcon('fa fa-pen-to-square');
-			})
-			->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
-				return $action->setIcon('fa fa-trash-can');
-			})
-			;
-	}
-
-    public function configureFields(string $pageName): iterable
+    public function configureActions (Actions $actions): Actions
     {
-        return [
-			TextField::new('coupon'),
-	        NumberField::new('percent'),
-	        DateTimeField::new('start_at'),
-	        DateTimeField::new('end_at'),
-        ];
+        return $actions->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
+            return $action->setIcon("fa fa-square-plus");
+        })->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
+            return $action->setIcon("fa fa-pen-to-square");
+        })->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
+            return $action->setIcon("fa fa-trash-can");
+        });
     }
 
+    public function configureFields (string $pageName): iterable
+    {
+        return [TextField::new("coupon"),
+          NumberField::new("percent"),
+          DateTimeField::new("start_at"),
+          DateTimeField::new("end_at"),];
+    }
 }

@@ -1,427 +1,448 @@
 @media screen and (max-width: 575.98px) {
-	.menus, .icons {
-		display: none !important;
-	}
-	
-	.burger-btn, .overlay-menu {
-		display: block !important;
-	}
-	
-	.prevention {
-		bottom: 50px;
-	}
-	
-	// START HOMEPAGE
-	main {
-		.hero-image {
-			/*height: auto !important;
+  .menus,
+  .icons {
+    display: none !important;
+  }
+
+  .burger-btn,
+  .overlay-menu {
+    display: block !important;
+  }
+
+  .prevention {
+    bottom: 50px;
+  }
+
+  // START HOMEPAGE
+  main {
+    .hero-image {
+      /*height: auto !important;
 			min-height: 60vh !important;*/
-			background-position: left !important;
-		}
-		
-		.hero-text, .tendencies, .rating, .preorders, .newsletter, .genres, .listGenres {
-			padding: 20px !important;
-		}
-		
-		.hero-text {
-			width: 100% !important;
-			
-			h1 {
-				font-size: 1.3em !important;
-			}
-			
-			p {
-				font-size: 1em !important;
-				text-align: justify;
-			}
-		}
-		
-		.tendencies, .preorders, .content, .listGames {
-			.cards {
-				display: flex;
-				flex-direction: column;
-				align-items: center !important;
-				gap: 20px !important;
-				
-				a {
-					width: max-content !important;
-					.gameCard {
-						&:hover {
-							transform: unset !important;
-						}
-					}
-				}
-			}
-		}
-		
-		.newsletter, .rating {
-			.text-content, .newsletter-form {
-				width: 100% !important;
-				text-align: justify !important;
-			}
-		}
-		
-		.genres, .listGenres {
-			margin: 0 !important;
-			.cards {
-				flex-wrap: nowrap;
-				flex-direction: column;
-				gap: 20px !important;
-				width: 100%;
-				margin: 0;
-				
-				.genreCard {
-					figure {
-						img {
-							width: 100% !important;
-							max-height: 200px !important;
-							//object-fit: cover !important;
-						}
-					}
-					
-					&:hover {
-						transform: none !important;
-					}
-				}
-			}
-		}
-		
-		.show-more {
-			margin: 20px auto 0 auto !important;
-		}
-		
-		// START LOGIN/REGISTER
-		.login {
-			.container {
-				padding: 20px;
-				margin: 0;
-				
-				.card {
-					width: 100%;
-					
-					.card-body {
-						width: 100%;
-						padding: 0;
-					}
-				}
-				
-				.login, .register {
-					padding: 20px !important;
-					
-					.card-body {
-						.passwords {
-							flex-direction: column !important;
-							gap: 10px !important;
-							
-							.col {
-								width: 100% !important;
-							}
-						}
-					}
-					
-					.card-footer {
-						align-items: center !important;
-						.actions {
-							display: flex !important;
-							gap: 10px !important;
-							a {
-								font-size: 1.5em;
-							}
-						}
-					}
-					
-					.checkbox {
-						text-align: center !important;
-					}
-					
-					.btns {
-						.btns-con-pass {
-							flex-direction: column !important;
-						}
-					}
-					
-					.btn {
-						width: 100% !important;
-					}
-				}
-			}
-		}
-		// END LOGIN/REGISTER
-		
-		//START CART
-		.cart {
-			padding: 20px !important;
-			flex-direction: column !important;
-			
-			.cart-item, .summary {
-				.card {
-					padding: 20px !important;
-				}
-			}
-			
-			.cart-item {
-				width: 100% !important;
-				
-				.card {
-					.game {
-						flex-direction: column !important;
-						justify-content: space-between !important;
-						
-						.about {
-							flex-direction: column !important;
-							align-items: center !important;
-							gap: 10px !important;
-							
-							.infos {
-								flex-direction: row !important;
-								align-items: center !important;
-								gap: 10px !important;
-							}
-						}
-						
-						.price {
-							flex-direction: row !important;
-							justify-content: center !important;
-						}
-					}
-				}
-			}
-			
-			.summary {
-				width: 100% !important;
-			}
-		}
-		//END CART
-		
-		//START ORDER
-		.order {
-			.order-header {
-				flex-direction: column !important;
-				gap: 20px !important;
-				
-				.recap {
-					width: 100% !important;
-				}
-			}
-		}
-		
-		.order-success {
-			.alert {
-				width: 100% !important;
-			}
-			
-			.order-content {
-				width: 100% !important;
-			}
-		}
-		
-		.current-purchase {
-			padding: 20px !important;
-			.cards {
-				.card {
-					width: 100% !important;
-				}
-			}
-		}
-		//END ORDER
-		
-		//START RATING
-		.rating-form {
-			padding: 20px !important;
-			.card {
-				width: 100% !important;
-				padding: 20px !important;
-				
-				.form {
-					.rating {
-						.ratingStars {
-							i {
-								font-size: 2em !important;
-							}
-						}
-					}
-				}
-			}
-		}
-		//END RATING
-		
-		// START USER PROFIL
-		.user-profil {
-			.user-infos {
-				margin: 30px auto !important;
-				.settings {
-					.avatar, .username, .email, .password {
-						flex-direction: column !important;
-						
-						.infos {
-							width: 100% !important;
-						}
-						
-						.card {
-							width: 100% !important;
-							grid-gap: 10px !important;
-							
-							.new-password {
-								flex-direction: column !important;
-							}
-						}
-					}
-				}
-			}
-			
-			.user-address {
-				.address {
-					flex-direction: column !important;
-					
-					.infos {
-						width: 100% !important;
-					}
-					
-					.card {
-						.btns {
-							flex-direction: column !important;
-						}
-					}
-				}
-			}
-			
-			.user-ratings {
-				.ratings {
-					.card {
-						max-width: unset !important;
-						
-						.card-body {
-							width: 100% !important;
-							padding: 10px !important;
-							
-							p {
-								margin: 0 !important;
-							}
-						}
-						
-						.card-footer {
-							align-items: center !important;
-							.actions {
-								display: flex !important;
-								gap: 10px !important;
-							}
-						}
-					}
-				}
-			}
-		}
-		// END USER PROFIL
-		
-		// START DETAILS GAME
-		.detailGame {
-			.detail, .about {
-				padding: 20px !important;
-			}
-			
-			.detail {
-				.coverDesc {
-					flex-direction: column !important;
-					align-items: center !important;
-					gap: unset !important;
-					
-					.desc {
-						.flex-content {
-							gap: 10px !important;
-						}
-					}
-				}
-			}
-			
-			.about {
-				.content {
-					flex-direction: column !important;
-					gap: 20px !important;
-					
-					.description {
-						width: 100% !important;
-					}
-					
-					.infos {
-						.release, .genres {
-							padding: 0 !important;
-						}
-					}
-				}
-			}
-			.screenshots {
-				padding: 20px !important;
-			}
-		}
-		// END DETAILS GAME
-		
-		// START GAME LIST IN PLATFORM
-		.listGames {
-			.toggle-display {
-				display: none !important;
-			}
-			
-			&.container {
-				padding: 20px !important;
-				
-				&.page-content {
-					display: flex !important;
-					flex-direction: column !important;
-					gap: 20px;
-					
-					&.toggle-filters {
-						display: block !important;
-					}
-					
-					&.filter-content {
-						position: unset !important;
-						top: unset !important;
-						
-						&.show {
-							display: block !important;
-						}
-						
-						&.filter {
-							#genres {
-								display: grid;
-								grid-template-columns: repeat(3, 0fr);
-								grid-gap: 10px;
-							}
-							#price-slider {
-								width: 90% !important;
-								margin: 10px auto !important;
-							}
-						}
-					}
-					
-					&.content {
-						&.sorting {
-							justify-content: center !important;
-						}
-						
-						&.pagination-platform {
-							margin-top: 30px !important;
-						}
-					}
-				}
-			}
-		}
-		// END GAME LIST IN PLATFORM
-	}
-	// END HOMEPAGE
-	
-	// START FOOTER
-	footer {
-		.footer {
-			flex-direction: column !important;
-			gap: 20px !important;
-			
-			.links {
-				display: flex;
-				gap: 5px;
-				flex-direction: column;
-				align-items: center;
-			}
-		}
-	}
-	// END FOOTER
+      background-position: left !important;
+    }
+
+    .hero-text,
+    .tendencies,
+    .rating,
+    .preorders,
+    .newsletter,
+    .genres,
+    .listGenres {
+      padding: 20px !important;
+    }
+
+    .hero-text {
+      width: 100% !important;
+
+      h1 {
+        font-size: 1.3em !important;
+      }
+
+      p {
+        font-size: 1em !important;
+        text-align: justify;
+      }
+    }
+
+    .tendencies,
+    .preorders,
+    .content,
+    .listGames {
+      .cards {
+        display: flex;
+        flex-direction: column;
+        align-items: center !important;
+        gap: 20px !important;
+
+        a {
+          width: max-content !important;
+          .gameCard {
+            &:hover {
+              transform: unset !important;
+            }
+          }
+        }
+      }
+    }
+
+    .newsletter,
+    .rating {
+      .text-content,
+      .newsletter-form {
+        width: 100% !important;
+        text-align: justify !important;
+      }
+    }
+
+    .genres,
+    .listGenres {
+      margin: 0 !important;
+      .cards {
+        flex-wrap: nowrap;
+        flex-direction: column;
+        gap: 20px !important;
+        width: 100%;
+        margin: 0;
+
+        .genreCard {
+          figure {
+            img {
+              width: 100% !important;
+              max-height: 200px !important;
+              //object-fit: cover !important;
+            }
+          }
+
+          &:hover {
+            transform: none !important;
+          }
+        }
+      }
+    }
+
+    .show-more {
+      margin: 20px auto 0 auto !important;
+    }
+
+    // START LOGIN/REGISTER
+    .login {
+      .container {
+        padding: 20px;
+        margin: 0;
+
+        .card {
+          width: 100%;
+
+          .card-body {
+            width: 100%;
+            padding: 0;
+          }
+        }
+
+        .login,
+        .register {
+          padding: 20px !important;
+
+          .card-body {
+            .passwords {
+              flex-direction: column !important;
+              gap: 10px !important;
+
+              .col {
+                width: 100% !important;
+              }
+            }
+          }
+
+          .card-footer {
+            align-items: center !important;
+            .actions {
+              display: flex !important;
+              gap: 10px !important;
+              a {
+                font-size: 1.5em;
+              }
+            }
+          }
+
+          .checkbox {
+            text-align: center !important;
+          }
+
+          .btns {
+            .btns-con-pass {
+              flex-direction: column !important;
+            }
+          }
+
+          .btn {
+            width: 100% !important;
+          }
+        }
+      }
+    }
+    // END LOGIN/REGISTER
+
+    //START CART
+    .cart {
+      padding: 20px !important;
+      flex-direction: column !important;
+
+      .cart-item,
+      .summary {
+        .card {
+          padding: 20px !important;
+        }
+      }
+
+      .cart-item {
+        width: 100% !important;
+
+        .card {
+          .game {
+            flex-direction: column !important;
+            justify-content: space-between !important;
+
+            .about {
+              flex-direction: column !important;
+              align-items: center !important;
+              gap: 10px !important;
+
+              .infos {
+                flex-direction: row !important;
+                align-items: center !important;
+                gap: 10px !important;
+              }
+            }
+
+            .price {
+              flex-direction: row !important;
+              justify-content: center !important;
+            }
+          }
+        }
+      }
+
+      .summary {
+        width: 100% !important;
+      }
+    }
+    //END CART
+
+    //START ORDER
+    .order {
+      .order-header {
+        flex-direction: column !important;
+        gap: 20px !important;
+
+        .recap {
+          width: 100% !important;
+        }
+      }
+    }
+
+    .order-success {
+      .alert {
+        width: 100% !important;
+      }
+
+      .order-content {
+        width: 100% !important;
+      }
+    }
+
+    .current-purchase {
+      padding: 20px !important;
+      .cards {
+        .card {
+          width: 100% !important;
+        }
+      }
+    }
+    //END ORDER
+
+    //START RATING
+    .rating-form {
+      padding: 20px !important;
+      .card {
+        width: 100% !important;
+        padding: 20px !important;
+
+        .form {
+          .rating {
+            .ratingStars {
+              i {
+                font-size: 2em !important;
+              }
+            }
+          }
+        }
+      }
+    }
+    //END RATING
+
+    // START USER PROFIL
+    .user-profil {
+      .user-infos {
+        margin: 30px auto !important;
+        .settings {
+          .avatar,
+          .username,
+          .email,
+          .password {
+            flex-direction: column !important;
+
+            .infos {
+              width: 100% !important;
+            }
+
+            .card {
+              width: 100% !important;
+              grid-gap: 10px !important;
+
+              .new-password {
+                flex-direction: column !important;
+              }
+            }
+          }
+        }
+      }
+
+      .user-address {
+        .address {
+          flex-direction: column !important;
+
+          .infos {
+            width: 100% !important;
+          }
+
+          .card {
+            .btns {
+              flex-direction: column !important;
+            }
+          }
+        }
+      }
+
+      .user-ratings {
+        .ratings {
+          .card {
+            max-width: unset !important;
+
+            .card-body {
+              width: 100% !important;
+              padding: 10px !important;
+
+              p {
+                margin: 0 !important;
+              }
+            }
+
+            .card-footer {
+              align-items: center !important;
+              .actions {
+                display: flex !important;
+                gap: 10px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+    // END USER PROFIL
+
+    // START DETAILS GAME
+    .detailGame {
+      .detail,
+      .about {
+        padding: 20px !important;
+      }
+
+      .detail {
+        .coverDesc {
+          flex-direction: column !important;
+          align-items: center !important;
+          gap: unset !important;
+
+          .desc {
+            .flex-content {
+              gap: 10px !important;
+            }
+          }
+        }
+      }
+
+      .about {
+        .content {
+          flex-direction: column !important;
+          gap: 20px !important;
+
+          .description {
+            width: 100% !important;
+          }
+
+          .infos {
+            .release,
+            .genres {
+              padding: 0 !important;
+            }
+          }
+        }
+      }
+      .screenshots {
+        padding: 20px !important;
+      }
+    }
+    // END DETAILS GAME
+
+    // START GAME LIST IN PLATFORM
+    .listGames {
+      .toggle-display {
+        display: none !important;
+      }
+
+      &.container {
+        padding: 20px !important;
+
+        &.page-content {
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 20px;
+
+          &.toggle-filters {
+            display: block !important;
+          }
+
+          &.filter-content {
+            position: unset !important;
+            top: unset !important;
+
+            &.show {
+              display: block !important;
+            }
+
+            &.filter {
+              #genres {
+                display: grid;
+                grid-template-columns: repeat(3, 0fr);
+                grid-gap: 10px;
+              }
+              #price-slider {
+                width: 90% !important;
+                margin: 10px auto !important;
+              }
+            }
+          }
+
+          &.content {
+            &.sorting {
+              justify-content: center !important;
+            }
+
+            &.pagination-platform {
+              margin-top: 30px !important;
+            }
+          }
+        }
+      }
+    }
+    // END GAME LIST IN PLATFORM
+  }
+  // END HOMEPAGE
+
+  // START FOOTER
+  footer {
+    .footer {
+      flex-direction: column !important;
+      gap: 20px !important;
+
+      .links {
+        display: flex;
+        gap: 5px;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  }
+  // END FOOTER
 }
