@@ -11,8 +11,16 @@ class CallApiService extends AbstractController
     {
     }
 
-    // Function to create connection with api (IGDB)
+	public function getInfosByGames (array $games): array
+	{
+		if(!empty($games)) {
+			$gamesString = implode('","', $games);
+			return $this->connectAPI('fields name, summary, cover.image_id, screenshots.image_id; where name = ("' . $gamesString . '");');
+		}
+		return [];
+	}
 
+    // Function to create connection with api (IGDB)
     public function getCoverByGame ($game): array
     {
         // Utilisation de la fonction connectAPI pour se connecter à l'API IGDB
@@ -22,7 +30,6 @@ class CallApiService extends AbstractController
     }
 
     // function to get cover of a game and using the function connectAPI to connect to the api
-
     public function connectAPI ($data): array
     {
         // Effectue une requête HTTP avec la méthode POST sur l'URL de l'API IGDB
@@ -41,7 +48,6 @@ class CallApiService extends AbstractController
     }
 
     // function to get the summary of a game and using the function connectAPI to connect to the api
-
     public function getSummaryByGame ($game): array
     {
         // Utilisation de la fonction connectAPI pour se connecter à l'API IGDB

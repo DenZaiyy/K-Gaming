@@ -108,7 +108,7 @@ class GameRepository extends ServiceEntityRepository
     /*
      * Méthode pour récupérer les jeux en fonction du genre pour la pagination
      */
-    public function findGameByGenrePagination ($genre)
+    public function findGamesByGenrePagination ($genre): \Doctrine\ORM\Query
     {
         return $this->createQueryBuilder("g")->leftJoin("g.genres", "gr")->where("gr.slug = :Genre")->andWhere(
           "g.is_sellable = true"

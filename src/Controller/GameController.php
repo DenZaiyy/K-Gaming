@@ -165,16 +165,34 @@ class GameController extends AbstractController
       Request $request,
       PaginatorInterface $paginator,
       $genreSlug,
-      BreadCrumbsService $breadCrumbsService
+      BreadCrumbsService $breadCrumbsService,
+	    CallApiService $callApiService
     ): Response {
-        $games = $em->getRepository(Game::class)->findGameByGenre(
+        $gamesDB = $em->getRepository(Game::class)->findGameByGenre(
           $genreSlug
         ); // Récupérer la liste des jeux associés à un genre
         $genre = $em->getRepository(Genre::class)->findOneBy(["slug" => $genreSlug]);
 
+	    $games = [];
+
+		$gamesLabel = [];
+
+		foreach($gamesDB as $game) {
+			$gamesLabel[] = $game->getLabel();
+		}
+
+		$gamesInfos = $callApiService->getInfosByGames($gamesLabel);
+		//dd($gamesInfos);
+
+	    foreach($gamesDB as $key => $game) {
+		    $games[] = ["game" => $game, "coverID" => $gamesInfos[$key]["cover"]["image_id"]];
+	    }
+
+	    //dd($games);
+
         // Pagination KNPPaginator
         $pagination = $paginator->paginate(
-          $em->getRepository(Game::class)->findGameByGenrePagination($genre->getSlug()),
+          $games,
           $request->query->get("page", 1), 9
         );
 
@@ -183,6 +201,9 @@ class GameController extends AbstractController
           "style" => "bottom",
           "span_class" => "whatever",]);
         // Fin pagination
+
+
+	    //dd($pagination);
 
         /*$breadcrumbs->addRouteItem($genre->getLabel(), "app_show_game_genre", ['genreSlug' => $genreSlug]);
             $breadcrumbs->prependRouteItem("Genres", "genre_list");
