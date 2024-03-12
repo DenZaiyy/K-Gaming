@@ -3,21 +3,21 @@
 {% block title %}Liste de jeux - {{ genre.label }}{% endblock %}
 
 {% block body %}
-    <section class="listGames">
+	<section class="listGames">
 
-        <h1>{{ genre.label }}</h1>
+		<h1>{{ genre.label }}</h1>
 
-        {% if gameAvailable %}
-            <div class="cards">
-                {% for game in games %}
-                    {% include 'components/card/_card-game.html.twig' %}
-                {% endfor %}
-            </div>
-            <div class="pagination-platform mt-5">
-                {{ knp_pagination_render(games) }}
-            </div>
-        {% else %}
-            <p class="text-center">Aucun jeu pour ce genre</p>
-        {% endif %}
-    </section>
+		{% if games %}
+			<div class="cards">
+				{% for game in games %}
+					{% include 'components/card/_card-game.html.twig' %}
+				{% endfor %}
+			</div>
+			<div class="pagination-platform mt-5">
+				{{ knp_pagination_render(games) }}
+			</div>
+		{% else %}
+			<p class="text-center">Aucun jeu pour ce genre</p>
+		{% endif %}
+	</section>
 {% endblock %}

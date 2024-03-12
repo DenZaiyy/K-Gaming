@@ -3,116 +3,117 @@
 {% block title %}Page d'accueil{% endblock %}
 
 {% block body %}
-	<div class="hero-image">
-		<div class="hero-text">
-			<h1>{{ 'home.hero.title'|trans }}</h1>
-			<p>{{ 'home.hero.description'|trans|raw }}</p>
-		</div>
-	</div>
-	<section class="tendencies">
-		<h2>{{ 'home.tendencies.title'|trans }}</h2>
-		{% if tendencies is empty %}
-			<div class="text-content text-center">
-				{{ 'home.tendencies.no_content'|trans }}
-			</div>
-			{% else %}
-				<div class="cards">
-					{% for tendency in tendencies %}
-						<a href="{{ path('app_show_game', {gameSlug: tendency.slug}) }}">
-							<div class="gameCard">
-								<div class="cover-img">
-									<figure>
-										<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: tendency.label })) }}.jpg"
-											 draggable="false"
-											 alt="cover for game: {{ tendency.label }}"
-											 loading="lazy">
-									</figure>
-									{% if tendency.is_promotion %}
-										<div class="in-promotion">
-											{{ tendency.promo_percent|promo }}
-										</div>
-									{% endif %}
-								</div>
-								<div class="infos">
-									<div class="label">
-										{{ tendency.label }}
-									</div>
-									<div class="price">
-										{{ tendency.price }} €
-									</div>
-								</div>
-							</div>
-						</a>
-					{% endfor %}
-				</div>
-		{% endif %}
-	</section>
+    <div class="hero-image">
+        <div class="hero-text">
+            <h1>{{ 'home.hero.title'|trans }}</h1>
+            <p>{{ 'home.hero.description'|trans|raw }}</p>
+        </div>
+    </div>
+    <section class="tendencies">
+        <h2>{{ 'home.tendencies.title'|trans }}</h2>
+        {% if tendencies is empty %}
+            <div class="text-content text-center">
+                {{ 'home.tendencies.no_content'|trans }}
+            </div>
+        {% else %}
+            <div class="cards">
+                {% for tendency in tendencies %}
+                    {#                    {% include 'components/card/_card-game.html.twig' %} #}
+                    <a href="{{ path('app_show_game', {gameSlug: tendency.slug}) }}">
+                        <div class="gameCard">
+                            <div class="cover-img">
+                                <figure>
+                                    <img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: tendency.label })) }}.jpg"
+                                         draggable="false"
+                                         alt="cover for game: {{ tendency.label }}"
+                                         loading="lazy">
+                                </figure>
+                                {% if tendency.is_promotion %}
+                                    <div class="in-promotion">
+                                        {{ tendency.promo_percent|promo }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="infos">
+                                <div class="label">
+                                    {{ tendency.label }}
+                                </div>
+                                <div class="price">
+                                    {{ tendency.price }} €
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </section>
 
-	<section class="rating">
-		<div class="stars">
-			<div class="star">
-				<i class="bi bi-star-fill"></i>
-			</div>
-			<div class="star">
-				<i class="bi bi-star-fill"></i>
-			</div>
-			<div class="star">
-				<i class="bi bi-star-fill"></i>
-			</div>
-			<div class="star">
-				<i class="bi bi-star-fill"></i>
-			</div>
-			<div class="star">
-				<i class="bi bi-star-fill"></i>
-			</div>
-		</div>
-		<div class="text-content">
-			{{ 'home.rating.content'|trans|raw }}
-		</div>
-		<div class="btn-ratings">
-			<a href="{{ path('rating_list') }}">{{ 'home.rating.button'|trans }}</a>
-		</div>
-	</section>
+    <section class="rating">
+        <div class="stars">
+            <div class="star">
+                <i class="bi bi-star-fill"></i>
+            </div>
+            <div class="star">
+                <i class="bi bi-star-fill"></i>
+            </div>
+            <div class="star">
+                <i class="bi bi-star-fill"></i>
+            </div>
+            <div class="star">
+                <i class="bi bi-star-fill"></i>
+            </div>
+            <div class="star">
+                <i class="bi bi-star-fill"></i>
+            </div>
+        </div>
+        <div class="text-content">
+            {{ 'home.rating.content'|trans|raw }}
+        </div>
+        <div class="btn-ratings">
+            <a href="{{ path('rating_list') }}">{{ 'home.rating.button'|trans }}</a>
+        </div>
+    </section>
 
-	<section class="preorders">
-		<h2>{{ 'home.preorder.title'|trans }}</h2>
-		{% if preorders is empty %}
-			<div class="text-content text-center">
-				{{ 'home.preorder.no_content'|trans }}
-			</div>
-			{% else %}
-				<div class="cards">
-					{% for game in preorders %}
-						{% include 'components/card/_card-game.html.twig' %}
-					{% endfor %}
-				</div>
-		{% endif %}
-		{% if preorders|length > 3 %}
-			<div class="show-more">
-				<a href="{{ path('app_show_preorders') }}">{{ 'home.preorder.show_more'|trans }}</a>
-			</div>
-		{% endif %}
-	</section>
+    <section class="preorders">
+        <h2>{{ 'home.preorder.title'|trans }}</h2>
+        {% if preorders is empty %}
+            <div class="text-content text-center">
+                {{ 'home.preorder.no_content'|trans }}
+            </div>
+        {% else %}
+            <div class="cards">
+                {% for game in preorders %}
+                    {% include 'components/card/_card-game.html.twig' %}
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if preorders|length > 3 %}
+            <div class="show-more">
+                <a href="{{ path('app_show_preorders') }}">{{ 'home.preorder.show_more'|trans }}</a>
+            </div>
+        {% endif %}
+    </section>
 
-	<section class="newsletter">
-		<div class="icon">
-			<i class="bi bi-envelope-at-fill"></i>
-		</div>
-		<div class="text-content">
-			{{ 'home.newsletter.description'|trans|raw }}
-		</div>
-		{{ render(controller('App\\Controller\\Newsletter\\SubscriptionController::subscribe', { form: newsletter })) }}
-	</section>
+    <section class="newsletter">
+        <div class="icon">
+            <i class="bi bi-envelope-at-fill"></i>
+        </div>
+        <div class="text-content">
+            {{ 'home.newsletter.description'|trans|raw }}
+        </div>
+        {{ render(controller('App\\Controller\\Newsletter\\SubscriptionController::subscribe', { form: newsletter })) }}
+    </section>
 
-	<section class="genres">
-		<h2>{{ 'home.gender.title'|trans }}</h2>
-		<div class="cards">
-			{% for genre in genres %}
-				{% include 'components/card/_genre.html.twig' %}
-			{% endfor %}
-		</div>
-		<div class="show-more">
-			<a href="{{ path('genre_list') }}">{{ 'home.gender.show_more'|trans }}</a>
-		</div>
-	</section>
+    <section class="genres">
+        <h2>{{ 'home.gender.title'|trans }}</h2>
+        <div class="cards">
+            {% for genre in genres %}
+                {% include 'components/card/_genre.html.twig' %}
+            {% endfor %}
+        </div>
+        <div class="show-more">
+            <a href="{{ path('genre_list') }}">{{ 'home.gender.show_more'|trans }}</a>
+        </div>
+    </section>
 {% endblock %}
