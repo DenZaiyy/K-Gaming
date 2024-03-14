@@ -36,7 +36,7 @@ analyze-dev:
 .PHONY: install
 install: vendor/autoload.php
 	/opt/alt/alt-nodejs20/root/usr/bin/npm install
-	/opt/cpanel/composer/bin/composer install --no-dev --optimize-autoloader
+	/opt/cpanel/composer/bin/composer install
 	touch vendor/autoload.php
 
 env:	
