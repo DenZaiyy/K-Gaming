@@ -11,13 +11,13 @@ use Symfony\Component\Routing\Attribute\Route;
 class LanguageController extends AbstractController
 {
     #[Route("/change-language/{_locale}", name: "change_language")]
-    public function index (Request $request): Response
+    public function index(Request $request): Response
     {
         $locale = $request->attributes->get("_locale");
         $referer = $request->headers->get("referer");
 
         // Check if the referer URL contains a locale (e.g., 'en' or 'fr')
-        if (preg_match("/\/(en|fr)\//", $referer, $matches)) {
+        if (preg_match("/\/(en|fr)\//", $referer)) {
             $newReferer = preg_replace("/\/(en|fr)\//", "/" . $locale . "/", $referer, 1);
             $redirect = $this->redirect($newReferer);
             $redirect->headers->setCookie(new Cookie("_locale", $locale));

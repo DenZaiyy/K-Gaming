@@ -1,32 +1,32 @@
-<a href="{{ path('app_show_game', {gameSlug: game.slug }) }}">
+<a href="{{ path('app_show_game', {gameSlug: game.game.slug }) }}">
     <div class="gameCard">
         <div class="cover-img">
             <figure>
-                {#<img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ render(controller('App\\Controller\\GameController::getImageIDGame', { gameLabel: game.label })) }}.jpg"
+                <img src="//images.igdb.com/igdb/image/upload/t_cover_big/{{ game.infos.cover.image_id }}.jpg"
                      draggable="false"
-                     alt="cover for game: {{ game.label }}"
-                     aria-label="cover for game: {{ game.label }}"
-                     loading="lazy" />#}
+                     alt="cover for game: {{ game.game.label }}"
+                     aria-label="cover for game: {{ game.game.label }}"
+                     loading="lazy"/>
             </figure>
-            {% if game.isIsPromotion %}
+            {% if game.game.isIsPromotion %}
                 <div class="in-promotion">
-                    {{ game.getPromoPercent|promo }}
+                    {{ game.game.getPromoPercent|promo }}
                 </div>
             {% endif %}
         </div>
         <div class="infos">
             <div class="label">
-                {{ game.label }}
+                {{ game.game.label }}
             </div>
             <div class="price">
-                {{ game.price }} €
+                {{ game.game.price }} €
             </div>
         </div>
-        {% if game.dateRelease > date('now') %}
+        {% if game.game.dateRelease > date('now') %}
             <div class="preco">
                 <div class="badge">Préco</div>
                 <div class="date">
-                    {{ dateFR(game.dateRelease) }}
+                    {{ dateFR(game.game.dateRelease) }}
                 </div>
             </div>
         {% endif %}

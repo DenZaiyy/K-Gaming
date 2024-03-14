@@ -15,12 +15,12 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class GenreRepository extends ServiceEntityRepository
 {
-    public function __construct (ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Genre::class);
     }
 
-    public function save (Genre $entity, bool $flush = false): void
+    public function save(Genre $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -29,7 +29,7 @@ class GenreRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove (Genre $entity, bool $flush = false): void
+    public function remove(Genre $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -42,9 +42,12 @@ class GenreRepository extends ServiceEntityRepository
      * Méthode pour récupérer 6 genres au hasard pour la page d'accueil
      * @return Genre[]
      */
-    public function findGenres ($resultPerPage)
+    public function findGenres($resultPerPage): array
     {
-        return $this->createQueryBuilder("g")->setMaxResults($resultPerPage)->getQuery()->getResult();
+        return $this->createQueryBuilder("g")
+            ->setMaxResults($resultPerPage)
+            ->getQuery()
+            ->getResult();
     }
 
     //    /**

@@ -1,103 +1,111 @@
 <!DOCTYPE html>
 <html lang="{{ app.request.locale }}" class="h-100">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="{{ description }}">
-	<meta name="author" content="Kevin GRISCHKO">
-	<meta name="copyright" content="K-Gaming">
-	<title>K-GAMING - {% block title %}{% endblock %}</title>
-	<link rel="icon"
-	      href="{{ asset('img/logo_Kgaming_fx.png') }}">
-	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-	{% block stylesheets %}
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-		{{ encore_entry_link_tags('app') }}
-	{% endblock %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ description ? description : "" }}">
+    <meta name="author" content="Kevin GRISCHKO">
+    <meta name="copyright" content="K-Gaming">
+    <title>K-GAMING - {% block title %}{% endblock %}</title>
+    <link rel="icon"
+          href="{{ asset('img/logo_Kgaming_fx.png') }}">
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+              crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+              integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+              crossorigin="anonymous" referrerpolicy="no-referrer"/>
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 
-	{% block javascripts %}
-		<script src="https://code.jquery.com/jquery-3.6.4.js"
-				integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous" defer></script>
-		<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js" defer></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous" defer></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"
-				integrity="sha512-i9cEfJwUwViEPFKdC1enz4ZRGBj8YQo6QByFTF92YXHi7waCqyexvRD75S5NVTsSiTv7rKWqG9Y5eFxmRsOn0A=="
-				crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
-		<script src="{{ asset('/tarteaucitron/tarteaucitron.js') }}"></script>
-		{{ encore_entry_script_tags('app') }}
-	{% endblock %}
+    {% block javascripts %}
+        <script src="https://code.jquery.com/jquery-3.6.4.js"
+                integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+                integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+                crossorigin="anonymous" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"
+                integrity="sha512-i9cEfJwUwViEPFKdC1enz4ZRGBj8YQo6QByFTF92YXHi7waCqyexvRD75S5NVTsSiTv7rKWqG9Y5eFxmRsOn0A=="
+                crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+        <script src="{{ asset('/tarteaucitron/tarteaucitron.js') }}"></script>
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
 </head>
 <body class="d-flex flex-column h-100 position-relative" id="top">
 
-{#<div class="prevention alert alert-danger text-center d-flex align-items-center flex-column justify-content-center">
+{# <div class="prevention alert alert-danger text-center d-flex align-items-center flex-column justify-content-center">
 	<div class="d-none" data->
 
 	</div>
-</div>#}
+</div> #}
 {{ render(controller('App\\Controller\\HomeController::navBar')) }}
 <main>
-	{% for key, value in app.flashes %}
-		<div class="alert alert-{{ key }} text-center" role="alert">{{ value[0] }}</div>
-	{% endfor %}
+    {% for key, value in app.flashes %}
+        <div class="alert alert-{{ key }} text-center" role="alert">{{ value[0] }}</div>
+    {% endfor %}
 
-	{% block body %}{% endblock %}
+    {% block body %}{% endblock %}
 </main>
 
 <footer class="footer mt-auto">
-	<img src="{{ asset('img/wave.svg') }}" class="wave-filter" alt="wave for footer" draggable="false">
-	<div class="f-flex">
-		<div class="footer">
-			<div class="logo">
-				<a href="{{ path('app_home') }}">
-					<img src="{{ asset('img/logo_Kgaming_baseColor.png') }}" alt="{{ 'alts.logo'|trans({'%name%': 'K-GAMING'}, 'footer') }}">
-				</a>
-			</div>
-			<div class="links">
-				<a href="">{{ 'privacy_policy'|trans({}, 'footer')}}</a>
-				<a href="">{{ 'terms_and_conditions_of_sale'|trans({}, 'footer')}}</a>
-				<a href="">{{ 'terms_and_conditions_of_use'|trans({}, 'footer')}}</a>
-			</div>
-			<div class="socials">
-				<a href="">
-					<i class="bi bi-facebook"></i>
-				</a>
-				<a href="">
-					<i class="bi bi-twitter"></i>
-				</a>
-				<a href="">
-					<i class="bi bi-instagram"></i>
-				</a>
-			</div>
-		</div>
-		<hr>
-		<small>{{ 'copyright'|trans({'%name%': 'K-GAMING', '%year%': '2023'}, 'footer')}}</small>
-	</div>
+    <img src="{{ asset('img/wave.svg') }}" class="wave-filter" alt="wave for footer" draggable="false">
+    <div class="f-flex">
+        <div class="footer">
+            <div class="logo">
+                <a href="{{ path('app_home') }}">
+                    <img src="{{ asset('img/logo_Kgaming_baseColor.png') }}"
+                         alt="{{ 'alts.logo'|trans({'%name%': 'K-GAMING'}, 'footer') }}">
+                </a>
+            </div>
+            <div class="links">
+                <a href="">{{ 'privacy_policy'|trans({}, 'footer') }}</a>
+                <a href="">{{ 'terms_and_conditions_of_sale'|trans({}, 'footer') }}</a>
+                <a href="">{{ 'terms_and_conditions_of_use'|trans({}, 'footer') }}</a>
+            </div>
+            <div class="socials">
+                <a href="">
+                    <i class="bi bi-facebook"></i>
+                </a>
+                <a href="">
+                    <i class="bi bi-twitter"></i>
+                </a>
+                <a href="">
+                    <i class="bi bi-instagram"></i>
+                </a>
+            </div>
+        </div>
+        <hr>
+        <small>{{ 'copyright'|trans({'%name%': 'K-GAMING', '%year%': '2023'}, 'footer') }}</small>
+    </div>
 </footer>
 <!-- Button trigger modal -->
-<button type="button" class="prevention" data-bs-toggle="modal" data-bs-target="#exampleModal" title="Informations importantes">
-	<i class="bi bi-exclamation-circle-fill"></i>
+<button type="button" class="prevention" data-bs-toggle="modal" data-bs-target="#preventModal"
+        title="Informations importantes">
+    <i class="bi bi-exclamation-circle-fill"></i>
 </button>
 
 <!-- Start Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h1 class="modal-title fs-5" id="exampleModalLabel">{{ 'prevent.title'|trans }}</h1>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body alert alert-danger m-0 text-center d-flex align-items-center flex-column justify-content-center gap-3">
-				{{ 'prevent.content'|trans|raw }}
-			</div>
-		</div>
-	</div>
+<div class="modal fade" id="preventModal" tabindex="-1" aria-labelledby="preventModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="preventModalLabel">{{ 'prevent.title'|trans }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body alert alert-danger m-0 text-center d-flex align-items-center flex-column justify-content-center gap-3">
+                {{ 'prevent.content'|trans|raw }}
+            </div>
+        </div>
+    </div>
 </div>
 <!-- End Modal -->
 
 <a href="#top" class="scroll-link goUp">
-	<i class="fa-solid fa-arrow-up"></i>
+    <i class="fa-solid fa-arrow-up"></i>
 </a>
 </body>
 </html>
