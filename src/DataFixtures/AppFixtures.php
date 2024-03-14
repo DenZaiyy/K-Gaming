@@ -6,21 +6,39 @@ use App\Entity\Category;
 use App\Entity\Game;
 use App\Entity\Genre;
 use App\Entity\Plateform;
+use App\Entity\User;
 use App\Service\CallApiService;
 use DateTime;
 use DateTimeZone;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-class AppFixtures extends Fixture
+class AppFixtures extends Fixture implements FixtureGroupInterface
 {
-    public function __construct(private readonly CallApiService $callApiService, private readonly SluggerInterface $slugger)
+    public function __construct(private readonly CallApiService $callApiService, private readonly SluggerInterface $slugger, private readonly PasswordHasherFactoryInterface $passwordHasherFactory)
     {
+    }
+
+    public static function getGroups(): array
+    {
+        return ['test'];
     }
 
     public function load(ObjectManager $manager): void
     {
+        $user = new User();
+        $user->setRoles(['ROLE_ADMIN']);
+        $user->setEmail('support@k-grischko.fr');
+        $user->setUsername('admin');
+        $user->setPassword($this->passwordHasherFactory->getPasswordHasher(User::class)->hash('admin'));
+        $user->setIsVerified(true);
+        $user->setIsBanned(false);
+        $manager->persist($user);
+
+
         $categories = [
             [
                 'label' => 'PC'

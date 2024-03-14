@@ -22,12 +22,7 @@ class PlateformController extends AbstractController
      * Méthode permettant d'afficher la liste des jeux d'une plateforme en prenant en compte les filtres de recherche en ajax
      */
     #[Route("/{categoryLabel}/{platformSlug}", name: "game")]
-    public function index(
-        EntityManagerInterface $em,
-        Request                $request,
-                               $platformSlug,
-        BreadCrumbsService     $breadCrumbsService
-    ): Response
+    public function index(EntityManagerInterface $em, Request $request, $platformSlug, BreadCrumbsService $breadCrumbsService): Response
     {
         $data = new SearchData(); // Création d'un objet SearchData
         $data->page = $request->get("page", 1); // Récupération de la page en cours sinon 1 par défaut
@@ -65,17 +60,23 @@ class PlateformController extends AbstractController
          * - max : le prix maximum
          */
         if ($request->get("ajax")) {
-            return new JsonResponse(
-                ["content" => $this->renderView("game/platform/_games.html.twig", ["games" => $games,
-                    "platform" => $platform,]),
-                    "sorting" => $this->renderView("game/platform/_sorting.html.twig", ["games" => $games,
-                        "platform" => $platform,]),
-                    "pagination" => $this->renderView("game/platform/_pagination.html.twig", ["games" => $games,
-                        "platform" => $platform]),
-                    "pages" => ceil($games->getTotalItemCount() / $games->getItemNumberPerPage()),
-                    "min" => $min,
-                    "max" => $max,]
-            );
+            return new JsonResponse([
+                "content" => $this->renderView("game/platform/_games.html.twig", [
+                    "games" => $games,
+                    "platform" => $platform
+                ]),
+                "sorting" => $this->renderView("game/platform/_sorting.html.twig", [
+                    "games" => $games,
+                    "platform" => $platform
+                ]),
+                "pagination" => $this->renderView("game/platform/_pagination.html.twig", [
+                    "games" => $games,
+                    "platform" => $platform
+                ]),
+                "pages" => ceil($games->getTotalItemCount() / $games->getItemNumberPerPage()),
+                "min" => $min,
+                "max" => $max
+            ]);
         }
 
         $breadCrumbsService->BCGenerate(["label" => $platform->getCategory()->getLabel(),

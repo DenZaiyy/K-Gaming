@@ -1,3 +1,48 @@
-@media screen and (max-width: 991.98px) {
+@media screen and (min-width: 576px) and (max-width: 991.98px) {
   @import "./_menu-burger";
+
+
+  main {
+
+    .cards {
+      flex-wrap: nowrap;
+    }
+
+    .hero-image {
+      .hero-text {
+        padding: 20px;
+        width: 100%;
+        text-align: justify;
+      }
+    }
+
+    .tendencies, .rating, .preorders, .newsletter, .genres {
+      padding: 20px;
+    }
+
+    .tendencies {
+      .cards {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        width: 400px;
+        margin: auto;
+        justify-content: unset;
+        border-radius: 10px;
+
+        & > a {
+          scroll-snap-align: start;
+          flex-shrink: 0;
+          transform-origin: center center;
+          transition: transform .5s;
+        }
+      }
+    }
+
+    .genres {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
 }

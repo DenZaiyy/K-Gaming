@@ -53,6 +53,7 @@ class HomeController extends AbstractController
         }
 
         $tendencies = $em->getRepository(Stock::class)->findGamesInTendencies(3);
+//        $tendencies = $callApiService->getInfosByGamesStock(["tendencies" => 3]);
         $preorders = $callApiService->getInfosByGames(["preorders" => new DateTime('now', new DateTimeZone('Europe/Paris'))]);
         $genres = $em->getRepository(Genre::class)->findGenres($resultPerPage);
 

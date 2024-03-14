@@ -13,14 +13,12 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 #[AsCommand(name: "admin:coupon:delete:expired", description: "Command to manually delete expired coupons", aliases: ["a:c:d:e"])]
 class AdminCouponDeleteExpiredCommand extends Command
 {
-    public function __construct (
-      private readonly EntityManagerInterface $entityManager,
-      private readonly PromotionRepository $promotionRepository
-    ) {
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly PromotionRepository $promotionRepository)
+    {
         parent::__construct();
     }
 
-    protected function execute (InputInterface $input, OutputInterface $output): int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 

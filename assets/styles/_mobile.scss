@@ -56,6 +56,7 @@
 
         a {
           width: max-content !important;
+
           .gameCard {
             &:hover {
               transform: unset !important;
@@ -77,12 +78,16 @@
     .genres,
     .listGenres {
       margin: 0 !important;
+
       .cards {
-        flex-wrap: nowrap;
+        /*flex-wrap: nowrap;
         flex-direction: column;
         gap: 20px !important;
         width: 100%;
-        margin: 0;
+        margin: 0;*/
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 20px;
 
         .genreCard {
           figure {
@@ -136,9 +141,11 @@
 
           .card-footer {
             align-items: center !important;
+
             .actions {
               display: flex !important;
               gap: 10px !important;
+
               a {
                 font-size: 1.5em;
               }
@@ -161,6 +168,7 @@
         }
       }
     }
+
     // END LOGIN/REGISTER
 
     //START CART
@@ -207,6 +215,7 @@
         width: 100% !important;
       }
     }
+
     //END CART
 
     //START ORDER
@@ -233,17 +242,20 @@
 
     .current-purchase {
       padding: 20px !important;
+
       .cards {
         .card {
           width: 100% !important;
         }
       }
     }
+
     //END ORDER
 
     //START RATING
     .rating-form {
       padding: 20px !important;
+
       .card {
         width: 100% !important;
         padding: 20px !important;
@@ -259,12 +271,14 @@
         }
       }
     }
+
     //END RATING
 
     // START USER PROFIL
     .user-profil {
       .user-infos {
         margin: 30px auto !important;
+
         .settings {
           .avatar,
           .username,
@@ -320,6 +334,7 @@
 
             .card-footer {
               align-items: center !important;
+
               .actions {
                 display: flex !important;
                 gap: 10px !important;
@@ -329,6 +344,7 @@
         }
       }
     }
+
     // END USER PROFIL
 
     // START DETAILS GAME
@@ -369,10 +385,12 @@
           }
         }
       }
+
       .screenshots {
         padding: 20px !important;
       }
     }
+
     // END DETAILS GAME
 
     // START GAME LIST IN PLATFORM
@@ -407,6 +425,7 @@
                 grid-template-columns: repeat(3, 0fr);
                 grid-gap: 10px;
               }
+
               #price-slider {
                 width: 90% !important;
                 margin: 10px auto !important;
@@ -426,6 +445,7 @@
         }
       }
     }
+
     // END GAME LIST IN PLATFORM
   }
   // END HOMEPAGE

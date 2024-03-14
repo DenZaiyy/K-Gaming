@@ -96,6 +96,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 /* ===== Scrollbar CSS ===== */
@@ -397,9 +398,9 @@ main .cards a .gameCard .cover-img figure img {
   -webkit-user-select: none;
   -ms-user-select: none;
   /*&:hover {
-  				  transition: var(--animation);
-  				  transform: scale(1.05);
-  			  }*/
+                    transition: var(--animation);
+                    transform: scale(1.05);
+                }*/
 }
 main .cards a .gameCard .infos {
   display: flex;
@@ -408,8 +409,8 @@ main .cards a .gameCard .infos {
   font-size: 1.2em;
   max-width: 264px;
   /*.label {
-  			  width: 75%;
-  		  }*/
+                width: 75%;
+            }*/
 }
 main .cards a .gameCard .infos .label,
 main .cards a .gameCard .infos .price {
@@ -548,13 +549,12 @@ main .listGenres {
 main .genres .cards,
 main .listGenres .cards {
   /*display: flex;
-  	  flex-wrap: wrap;
-  	  gap: 50px;*/
-  width: 80%;
+        flex-wrap: wrap;
+        gap: 50px;*/
   display: grid;
-  grid-template-columns: repeat(auto-fit, 500px);
-  justify-content: center;
-  margin: 0 auto;
+  grid-template-columns: repeat(3, minmax(200px, 550px));
+  grid-gap: 30px;
+  grid-template-rows: repeat(2, auto);
 }
 main .genres .cards a,
 main .listGenres .cards a {
@@ -803,17 +803,17 @@ main .detailGame .screenshots #carouselPhotos .carousel-inner {
 main .detailGame .videos {
   padding: 30px;
   /*#carouselTrailers {
-  		max-width: 1000px;
-  		margin: 0 auto;
+          max-width: 1000px;
+          margin: 0 auto;
 
-  		.carousel-inner {
-  		  max-height: 500px;
-  		  .carousel-item {
-  			height: 100%;
-  		  }
-  		}
+          .carousel-inner {
+            max-height: 500px;
+            .carousel-item {
+              height: 100%;
+            }
+          }
 
-  	  }*/
+        }*/
 }
 main .detailGame .videos .content {
   width: 50%;
@@ -823,9 +823,9 @@ main .detailGame .videos .content {
 }
 main .ratings .rating-cards {
   /*display: flex;
-  	  flex-wrap: wrap;
-  	  gap: 20px;
-  	  justify-content: center;*/
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;*/
   display: grid;
   grid-template-columns: repeat(auto-fit, 350px);
   justify-content: center;
@@ -1335,11 +1335,14 @@ footer .f-flex small {
   }
   main .genres .cards,
   main .listGenres .cards {
-    flex-wrap: nowrap;
+    /*flex-wrap: nowrap;
     flex-direction: column;
     gap: 20px !important;
     width: 100%;
-    margin: 0;
+    margin: 0;*/
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
   }
   main .genres .cards .genreCard figure img,
   main .listGenres .cards .genreCard figure img {
@@ -1588,6 +1591,148 @@ footer .f-flex small {
     gap: 5px;
     flex-direction: column;
     align-items: center;
+  }
+}
+@media screen and (min-width: 576px) and (max-width: 991.98px) {
+  .overlay-menu {
+    display: block;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow-x: hidden;
+    transition: 0.5s;
+  }
+  .overlay-menu .close-btn {
+    position: absolute;
+    text-decoration: none;
+    color: #818181;
+    top: 0;
+    right: 10px;
+    display: block;
+    transition: 0.3s;
+    font-size: 4rem;
+  }
+  .overlay-content {
+    position: relative;
+    top: 10%;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .overlay-content .cart-menu {
+    background: transparent;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+  }
+  .overlay-content .cart-menu .cart-btn {
+    font-size: 1.7rem;
+    text-decoration: none;
+    color: var(--orange);
+  }
+  .overlay-content hr {
+    width: 90%;
+    margin: 0 auto;
+    border: 1.8px solid var(--orange);
+    color: var(--orange);
+  }
+  .overlay-content .category h2 {
+    font-size: 2rem;
+    margin: 0 !important;
+    color: var(--orange);
+    text-decoration: underline;
+    margin-bottom: 10px !important;
+    padding: 10px;
+  }
+  .overlay-content .category .content {
+    display: flex;
+    flex-direction: column;
+  }
+  .overlay-content .category .content a {
+    padding: 10px;
+    font-size: 1.7rem;
+    text-decoration: none;
+    color: var(--white);
+  }
+  .overlay-content .accordion {
+    background: transparent;
+    color: var(--orange);
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 1.7rem;
+    transition: 0.4s;
+  }
+  .overlay-content .accordion::after {
+    content: "+";
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+  }
+  .overlay-content .active::after {
+    content: "−";
+  }
+  .overlay-content .panel {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+  }
+  .overlay-content .panel a {
+    text-decoration: none;
+    padding: 10px;
+    font-size: 1.5rem;
+    color: var(--white);
+  }
+  .burger-btn {
+    display: block;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+  main .cards {
+    flex-wrap: nowrap;
+  }
+  main .hero-image .hero-text {
+    padding: 20px;
+    width: 100%;
+    text-align: justify;
+  }
+  main .tendencies, main .rating, main .preorders, main .newsletter, main .genres {
+    padding: 20px;
+  }
+  main .tendencies .cards {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    width: 400px;
+    margin: auto;
+    justify-content: unset;
+    border-radius: 10px;
+  }
+  main .tendencies .cards > a {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    transform-origin: center center;
+    transition: transform 0.5s;
+  }
+  main .genres .cards {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

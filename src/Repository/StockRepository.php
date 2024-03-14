@@ -38,6 +38,31 @@ class StockRepository extends ServiceEntityRepository
         }
     }
 
+    public function findGamesStockByOptions(array $options): array
+    {
+        $query = $this->createQueryBuilder("s");
+
+        if (!isset($options)) {
+            return $query->getQuery()->getResult();
+        }
+
+        if (isset($options["tendencies"])) {
+            $query
+                ->select('g.id', 'g.label', 'g.slug', 'g.price', 'g.date_release', 'g.promo_percent', 'g.old_price', 'g.is_promotion')
+                ->leftJoin("s.game", "g")
+                ->leftJoin("s.purchase", "p")
+                ->where("s.is_available = false")
+                ->andWhere("s.purchase IS NOT NULL")
+                ->andWhere("g.is_sellable = true")
+                ->groupBy("g.id", "g.label", "g.slug", "g.price", "g.date_release")
+                ->orderBy("COUNT(s.id)", "DESC")
+                ->setMaxResults($options["tendencies"]);
+
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
     /**
      * Méthode pour récupérer la liste des jeux en tendance
      */

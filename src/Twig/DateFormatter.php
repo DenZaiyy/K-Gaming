@@ -12,18 +12,20 @@ class DateFormatter extends AbstractExtension
 {
     //	getFunctions permet de récupérer dans le fichier twig le nom de la fonction et la fonction à appeler (dateFR)
 
-    public function getFunctions (): array
+    public function getFunctions(): array
     {
-        return [new TwigFunction("dateTranslated", [$this, "dateTranslated"]),
-          new TwigFunction("fullDateTranslated", [$this, "fullDateTranslated"]),];
+        return [
+            new TwigFunction("dateTranslated", [$this, "dateTranslated"]),
+            new TwigFunction("fullDateTranslated", [$this, "fullDateTranslated"])
+        ];
     }
 
     // fonction permettant de formater la date en français et en toute lettre
-    public function dateTranslated (DateTime $date, string $lang): string
+    public function dateTranslated(DateTime $date, string $lang): string
     {
-        if ($lang == "fr") {
+        if ($lang === "fr") {
             $formatter = new IntlDateFormatter("fr_FR", IntlDateFormatter::LONG, IntlDateFormatter::NONE);
-        } else if ($lang == "en") {
+        } elseif ($lang === "en") {
             $formatter = new IntlDateFormatter("en_EN", IntlDateFormatter::LONG, IntlDateFormatter::NONE);
         } else {
             $formatter = new IntlDateFormatter("fr_FR", IntlDateFormatter::LONG, IntlDateFormatter::NONE);
@@ -35,11 +37,11 @@ class DateFormatter extends AbstractExtension
     /*
      * fonction permettant de formater la date en français et en toute lettre
      */
-    public function fullDateTranslated (DateTimeImmutable $date, string $lang): string
+    public function fullDateTranslated(DateTimeImmutable $date, string $lang): string
     {
-        if ($lang == "fr") {
+        if ($lang === "fr") {
             $formatter = new IntlDateFormatter("fr_FR", IntlDateFormatter::LONG, IntlDateFormatter::SHORT);
-        } else if ($lang == "en") {
+        } elseif ($lang === "en") {
             $formatter = new IntlDateFormatter("en_EN", IntlDateFormatter::LONG, IntlDateFormatter::SHORT);
         } else {
             $formatter = new IntlDateFormatter("fr_FR", IntlDateFormatter::LONG, IntlDateFormatter::SHORT);

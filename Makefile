@@ -10,10 +10,17 @@ prepare-test:
 	php bin/console doctrine:schema:update --force --complete --env=test
 	
 fixtures-test:
-	php bin/console doctrine:fixtures:load -n --env=test
+	php bin/console doctrine:fixtures:load --group=test -n --env=test
+
+coverage:
+	php bin/phpunit --coverage-html ./coverage
 
 clear:
 	php bin/console c:c --env=test
+
+.PHONY: fixtures-dev
+fixtures-dev:
+	php bin/console doctrine:fixtures:load --group=dev -n --env=dev
 
 .PHONY: analyze
 analyze : 
@@ -27,10 +34,16 @@ analyze-dev:
 	.vendor/bin/phpstan src
 
 .PHONY: install
-install:
+install: vendor/autoload.php
 	npm install
-	composer install
+	composer install --no-dev --optimize-autoloader
+	touch vendor/autoload.php
 
 env:	
 	cp .env.dist .env.dev.local
 	cp .env.dist .env.test.local
+
+.PHONY: deploy
+
+deploy:
+	ssh -A o2switch 'cd sites/dev.k-gaming.k-grischko.fr && git pull origin develop && make install'
