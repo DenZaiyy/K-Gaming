@@ -14,25 +14,22 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[AsCommand(name: "app:user:create", description: "Local command to create user fastly", aliases: ["a:u:c",
-  "user:create"])]
+    "user:create"])]
 class CreateUserCommand extends Command
 {
-    public function __construct (
-      private UserPasswordHasherInterface $passwordHasher,
-      private EntityManagerInterface $em,
-      private MultiAvatars $avatar
-    ) {
+    public function __construct(private UserPasswordHasherInterface $passwordHasher, private EntityManagerInterface $em, private MultiAvatars $avatar)
+    {
         parent::__construct();
     }
 
-    protected function configure (): void
+    protected function configure(): void
     {
-        $this->addArgument("username", InputArgument::REQUIRED, "set the username for the admin user")->addArgument(
-          "password", InputArgument::REQUIRED, "set the password for the admin user"
-        )->addArgument("email", InputArgument::OPTIONAL, "set the email for the admin user");
+        $this->addArgument("username", InputArgument::REQUIRED, "set the username for the admin user")
+            ->addArgument("password", InputArgument::REQUIRED, "set the password for the admin user")
+            ->addArgument("email", InputArgument::OPTIONAL, "set the email for the admin user");
     }
 
-    protected function execute (InputInterface $input, OutputInterface $output): int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
         $username = $input->getArgument("username");
