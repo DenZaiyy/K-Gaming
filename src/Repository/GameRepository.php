@@ -21,12 +21,12 @@ use Knp\Component\Pager\PaginatorInterface;
  */
 class GameRepository extends ServiceEntityRepository
 {
-    public function __construct (ManagerRegistry $registry, private PaginatorInterface $paginator)
+    public function __construct(ManagerRegistry $registry, private PaginatorInterface $paginator)
     {
         parent::__construct($registry, Game::class);
     }
 
-    public function save (Game $entity, bool $flush = false): void
+    public function save(Game $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -35,7 +35,7 @@ class GameRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove (Game $entity, bool $flush = false): void
+    public function remove(Game $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -45,93 +45,96 @@ class GameRepository extends ServiceEntityRepository
     }
 
     /*
-     * Méthode pour récupérer les jeux en précommande
-     */
-    public function findGamesInPreOrders ($resultPerPage): array
-    {
-        return $this->createQueryBuilder("g")->where("g.date_release > :date")->andWhere(
-          "g.is_sellable = true"
-        )->setParameter("date", new DateTime())->setMaxResults($resultPerPage)->getQuery()->getResult();
-    }
-
-    /*
      * Méthode pour récupérer les jeux en fonction de la plateforme
      */
-    public function findGamesInPlatform ($platformID): array
+    public function findGamesInPlatform($platformID): array
     {
-        return $this->createQueryBuilder("g")/* leftJoin permettant de joindre la table plateform à la table game
-           grâce à la collection de plateform dans l'entité game */ ->leftJoin("g.plateforms", "p")/* where permettant de récupérer les jeux en fonction de la plateforme
-           grâce au marqueur nommé/interrogative (ici :platformID) */ ->where("p.id = :platformID")->andWhere(
-          "g.is_sellable = true"
-        )/* setParameter permettant de définir la valeur du marqueur nommé/interrogative
-           en fonction de la variable $platformID */ ->setParameter(
-          "platformID", $platformID
-        )/* getQuery permettant l'exécution de la requête */ ->getQuery(
-        )/* getResult permettant de récupérer le résultat de la requête sous forme de tableau */ ->getResult();
+        return $this
+            ->createQueryBuilder("g")
+            /* leftJoin permettant de joindre la table plateform à la table game grâce à la collection de plateform dans l'entité game */
+            ->leftJoin("g.plateforms", "p")
+            /* where permettant de récupérer les jeux en fonction de la plateforme grâce au marqueur nommé/interrogative (ici :platformID) */
+            ->where("p.id = :platformID")
+            ->andWhere("g.is_sellable = true")
+            /* setParameter permettant de définir la valeur du marqueur nommé/interrogative en fonction de la variable $platformID */
+            ->setParameter("platformID", $platformID)
+            /* getQuery permettant l'exécution de la requête */
+            ->getQuery()
+            /* getResult permettant de récupérer le résultat de la requête sous forme de tableau */
+            ->getResult();
     }
 
-    /*
+    /**
      * Méthode pour récupérer le détail d'un jeu dans une plateforme
      */
-    public function findOneGameInPlatform ($gameID, $platformID): array
+    public function findOneGameInPlatform($gameID, $platformID): array
     {
-        return $this->createQueryBuilder("g")->select(
-          "g.id AS game_id", "g.label AS game_label", "g.slug AS game_slug", "g.price", "g.old_price",
-          "g.is_promotion AS inPromotion", "g.promo_percent", "g.date_release", "p.id AS platform_id",
-          "p.label as platform_label", "p.slug AS platform_slug", "p.logo as platform_logo"
-        )->leftJoin("g.plateforms", "p")->where("p.id = :platformID")->andWhere("g.is_sellable = true")->andWhere(
-          "g.id = :gameID"
-        )->setParameters(["platformID" => $platformID,
-          "gameID" => $gameID,])->getQuery()->getSingleResult();
+        return $this
+            ->createQueryBuilder("g")
+            ->select("g.id AS game_id", "g.label AS game_label", "g.slug AS game_slug", "g.price", "g.old_price", "g.is_promotion AS inPromotion", "g.promo_percent", "g.date_release", "p.id AS platform_id", "p.label as platform_label", "p.slug AS platform_slug", "p.logo as platform_logo")
+            ->leftJoin("g.plateforms", "p")
+            ->where("p.id = :platformID")
+            ->andWhere("g.is_sellable = true")
+            ->andWhere("g.id = :gameID")
+            ->setParameters([
+                "platformID" => $platformID,
+                "gameID" => $gameID
+            ])
+            ->getQuery()
+            ->getSingleResult();
     }
 
-    /*
-     * Méthode pour récupérer les jeux en précommande en fonction de la date de sortie
-     */
-    public function findGameInPreorder ($date): array
+    public function findGamesByOptions(array $options): array
     {
-        return $this->createQueryBuilder("g")->where("g.date_release > :date")->andWhere(
-          "g.is_sellable = true"
-        )->setParameter("date", $date)->getQuery()->getResult();
-    }
+        $query = $this->createQueryBuilder("g");
 
-    /*
-     * Méthode pour récupérer les jeux en fonction du genre
-     */
-    public function findGameByGenre ($genre): array
-    {
-        return $this->createQueryBuilder("g")->leftJoin("g.genres", "gr")->where("gr.slug = :Genre")->andWhere(
-          "g.is_sellable = true"
-        )->setParameter("Genre", $genre)->getQuery()->getResult();
-    }
+        if (!isset($options)) {
+            return $query->getQuery()->getResult();
+        }
 
-    /*
-     * Méthode pour récupérer les jeux en fonction du genre pour la pagination
-     */
-    public function findGameByGenrePagination ($genre)
-    {
-        return $this->createQueryBuilder("g")->leftJoin("g.genres", "gr")->where("gr.slug = :Genre")->andWhere(
-          "g.is_sellable = true"
-        )->setParameter("Genre", $genre)->getQuery();
+        if (isset($options["preorders"])) {
+            $query->where("g.date_release > :date")->setParameter("date", $options["preorders"]);
+        }
+
+        if (isset($options['gameSlug_Platform'])) {
+            $query
+//                ->select('partial g.{id, label, slug, price, old_price, is_promotion, promo_percent, date_release}')
+//                ->select('g.id', 'g.label', 'g.slug', 'g.price', 'g.old_price', 'g.is_promotion', 'g.promo_percent', 'g.date_release')
+                ->where('g.slug = :Game')
+                ->setParameter('Game', $options['gameSlug_Platform']);
+        }
+
+        if (isset($options['genre'])) {
+            $query->leftJoin("g.genres", "gr")
+                ->where("gr.slug = :Genre")
+                ->setParameter("Genre", $options['genre']);
+        }
+
+        $query->andWhere("g.is_sellable = true");
+        return $query->getQuery()->getResult();
     }
 
     /**
      * Récupère les jeux en fonction de la recherche
      *
      * @param SearchData $search
-     *
+     * @param $platformID
+     * @param $resultPerPage
      * @return PaginationInterface
      */
-    public function findSearch (SearchData $search, $platformID, $resultPerPage): PaginationInterface
+    public function findSearch(SearchData $search, $platformID, $resultPerPage): PaginationInterface
     {
-        $query = $this->getSearchQuery($search, $platformID)->getQuery();
+        $query = $this->getSearchQuery($search, $platformID)
+            ->getQuery();
 
         $pagination = $this->paginator->paginate($query, $search->page, $resultPerPage);
 
-        $pagination->setCustomParameters(["align" => "center",
-          "size" => "small",
-          "style" => "bottom",
-          "span_class" => "whatever",]);
+        $pagination->setCustomParameters([
+            "align" => "center",
+            "size" => "small",
+            "style" => "bottom",
+            "span_class" => "whatever"
+        ]);
 
         return $pagination;
     }
@@ -139,10 +142,10 @@ class GameRepository extends ServiceEntityRepository
     /**
      * Récupère les jeux en lien avec une recherche (SearchData)
      */
-    private function getSearchQuery (SearchData $search, Plateform $platform, $ignorePrice = false): QueryBuilder
+    private function getSearchQuery(SearchData $search, Plateform $platform, $ignorePrice = false): QueryBuilder
     {
         $query = $this->createQueryBuilder("g")->select("g", "gr")->join("g.genres", "gr")->leftJoin(
-          "g.plateforms", "p"
+            "g.plateforms", "p"
         )->andWhere("p.id = :platform")->andWhere("g.is_sellable = true")->setParameter("platform", $platform);
 
         if (!empty($search->q)) {
@@ -177,11 +180,13 @@ class GameRepository extends ServiceEntityRepository
      * Récupère le prix minimum et maximum correspondant à une recherche
      * @return int[]
      */
-    public function findMinMax (SearchData $search, $platformID): array
+    public function findMinMax(SearchData $search, $platformID): array
     {
-        $results = $this->getSearchQuery($search, $platformID, true)->select(
-          "MIN(g.price) as min", "MAX(g.price) as max"
-        )->getQuery()->getScalarResult();
+        $results = $this->getSearchQuery($search, $platformID, true)
+            ->select("MIN(g.price) as min", "MAX(g.price) as max")
+            ->getQuery()
+            ->getScalarResult();
+
         return [(int)$results[0]["min"], (int)$results[0]["max"]];
     }
 }

@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     file_directory: '%kernel.project_dir%/public/uploads'
+    games_cache: '%kernel.project_dir%/public/games'
     pdf_directory: '%kernel.project_dir%/public/uploads/factures'
     gender_directory: '%kernel.project_dir%/public/img/genres'
     app.client_id: '%env(CLIENT_ID)%'
@@ -36,3 +37,7 @@ services:
     App\Service\FileUploader:
         arguments:
             $targetDirectory: '%file_directory%'
+
+    App\Service\CallApiService:
+        arguments:
+            $targetStore: '%games_cache%'
