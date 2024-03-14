@@ -9,6 +9,8 @@ use App\Entity\Plateform;
 use App\Entity\Stock;
 use App\Service\CallApiService;
 use App\Service\CartService;
+use DateTime;
+use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -51,7 +53,7 @@ class HomeController extends AbstractController
         }
 
         $tendencies = $em->getRepository(Stock::class)->findGamesInTendencies(3);
-        $preorders = $callApiService->getInfosByGames(["preorders" => 3]);
+        $preorders = $callApiService->getInfosByGames(["preorders" => new DateTime('now', new DateTimeZone('Europe/Paris'))]);
         $genres = $em->getRepository(Genre::class)->findGenres($resultPerPage);
 
 

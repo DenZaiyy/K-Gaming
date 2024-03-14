@@ -74,7 +74,21 @@ class CallApiService extends AbstractController
         return $response->toArray();
     }
 
+    // Function to get random games from the api (IGDB) for tests fixtures
+    public function getRandomsGames(int $limit): array
+    {
+        $gamesInfos = $this->connectAPI('fields name, slug, release_dates.y; sort release_dates.y desc; where release_dates.y >= 2022 & rating > 80; limit ' . $limit . ';');
+
+        $gamesInfosArray = [];
+        foreach ($gamesInfos as $info) {
+            $gamesInfosArray[] = $info;
+        }
+
+        return $gamesInfosArray;
+    }
+
     // function to get cover of a game and using the function connectAPI to connect to the api
+
     public function getCoverByGame($game): array
     {
         // Utilisation de la fonction connectAPI pour se connecter à l'API IGDB
