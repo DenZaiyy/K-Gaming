@@ -37,6 +37,7 @@ analyze-dev:
 install: vendor/autoload.php
 	/opt/alt/alt-nodejs20/root/usr/bin/npm install
 	/opt/cpanel/composer/bin/composer install
+	/opt/alt/alt-nodejs20/root/usr/bin/npm run build
 	touch vendor/autoload.php
 
 env:	
