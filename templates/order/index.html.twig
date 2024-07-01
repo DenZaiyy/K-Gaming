@@ -65,6 +65,16 @@
 						</div>
 						<div class="card p-3 d-flex flex-column gap-3">
 							<div class="prices">
+								{% if discount is not null %}
+									<div class="tva d-flex justify-content-between">
+										<span>Promotion (-{{ discountPercent}}%) :</span>
+										<span>-{{ discount|price }}</span>
+									</div>
+								{% endif %}
+								<div class="tva d-flex justify-content-between">
+									<span>Sous total :</span>
+									<span>{{ cartTotal|price }}</span>
+								</div>
 								<div class="tva d-flex justify-content-between">
 									{% set TVA = cartTotal / 100 * 20 %}
 									<span>TVA (20%) :</span>

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\GameRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -16,7 +17,7 @@ class Game
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 255)]
     private ?string $label = null;
 
     #[ORM\Column(length: 255)]
@@ -26,18 +27,18 @@ class Game
     private ?float $price = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_release = null;
+    private ?DateTimeInterface $date_release = null;
 
-    #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: 'games')]
+    #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: "games")]
     private Collection $genres;
 
-    #[ORM\ManyToMany(targetEntity: Plateform::class, inversedBy: 'games')]
+    #[ORM\ManyToMany(targetEntity: Plateform::class, inversedBy: "games")]
     private Collection $plateforms;
 
-    #[ORM\OneToMany(mappedBy: 'game', targetEntity: Stock::class)]
+    #[ORM\OneToMany(mappedBy: "game", targetEntity: Stock::class)]
     private Collection $stocks;
 
-    #[ORM\OneToMany(mappedBy: 'game', targetEntity: Rating::class)]
+    #[ORM\OneToMany(mappedBy: "game", targetEntity: Rating::class)]
     private Collection $ratings;
 
     #[ORM\Column]
@@ -94,12 +95,12 @@ class Game
         return $this;
     }
 
-    public function getDateRelease(): ?\DateTimeInterface
+    public function getDateRelease(): ?DateTimeInterface
     {
         return $this->date_release;
     }
 
-    public function setDateRelease(\DateTimeInterface $date_release): self
+    public function setDateRelease(DateTimeInterface $date_release): self
     {
         $this->date_release = $date_release;
 

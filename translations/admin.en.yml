@@ -47,6 +47,7 @@ gender:
         id: "ID"
         label: "Label"
         slug: "Slug"
+        image: "Image"
 
 rating:
     index:
@@ -111,6 +112,7 @@ menu:
         gender: "Genders"
         rating: "Ratings"
     category:
+        singular: "Category"
         index: "Category"
         platform: "Platform"
     store:

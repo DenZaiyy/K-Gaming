@@ -7,31 +7,23 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class MultiAvatars extends AbstractController
 {
-    public function __construct(private readonly HttpClientInterface $client)
+    public function __construct (private readonly HttpClientInterface $client)
     {
     }
 
-    public function api($imageID)
+    public function getRandomUserAvatar ($user): string
     {
-        $response = $this->client->request(
-            'GET',
-            'https://api.multiavatar.com/' . $imageID . '.png',
-        );
-
-        return $response->getInfo('url');
+        return $this->api($user . "-" . rand(1, 1000));
     }
 
-    public function getRandomUserAvatar($user): string
+    public function api ($imageID)
     {
-        return $this->api($user . '-' . rand(1, 1000));
+        $response = $this->client->request("GET", "https://api.multiavatar.com/" . $imageID . ".png");
+
+        return $response->getInfo("url");
     }
 
-    public function getRandomAvatar(): string
-    {
-        return rand(1, 1000);
-    }
-
-    public function getEightRandomlyAvatar(): array
+    public function getEightRandomlyAvatar (): array
     {
         for ($i = 0; $i < 8; $i++) {
             $avatars[] = $this->api($this->getRandomAvatar());
@@ -39,7 +31,12 @@ class MultiAvatars extends AbstractController
         return $avatars;
     }
 
-    public function setAvatarUrl($imageID)
+    public function getRandomAvatar (): string
+    {
+        return rand(1, 1000);
+    }
+
+    public function setAvatarUrl ($imageID)
     {
         return $this->api($imageID);
     }
