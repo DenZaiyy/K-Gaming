@@ -12,8 +12,6 @@ class SecurityController extends AbstractController
     public function accessDenied(): Response
     {
         $this->addFlash('danger', 'La page demandée n\'existe pas');
-        return $this->render('security/exception/404.html.twig', [
-			'description' => ''
-        ]);
+        return $this->render('security/exception/404.html.twig');
     }
 }
