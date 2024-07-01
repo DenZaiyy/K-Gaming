@@ -44,7 +44,7 @@ env:
 	cp .env.dist .env.dev.local
 	cp .env.dist .env.test.local
 
-.PHONY: deploy-dev
+.PHONY: deploy
 
 deploy:
 	ssh -A o2switch 'cd sites/dev.k-gaming.k-grischko.fr && git pull origin develop && make install'
