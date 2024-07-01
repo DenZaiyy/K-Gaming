@@ -7,21 +7,15 @@ use App\Entity\Plateform;
 use App\Entity\Stock;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 
-class GameKeyFixture extends Fixture implements FixtureGroupInterface
+class GameKeyFixture extends Fixture
 {
     private $games;
     private $platforms;
 
-    public static function getGroups(): array
-    {
-        return ['test', 'dev'];
-    }
-
-    public function load(ObjectManager $manager): void
+    public function load (ObjectManager $manager): void
     {
         // Fetch existing games and platforms from the database
         $this->games = $manager->getRepository(Game::class)->findAll();
@@ -52,7 +46,7 @@ class GameKeyFixture extends Fixture implements FixtureGroupInterface
         $manager->flush();
     }
 
-    private function getRandomKey(): string
+    private function getRandomKey (): string
     {
         $slugger = new AsciiSlugger();
         $uuid = $slugger->slug(strtoupper(bin2hex(random_bytes(8))));

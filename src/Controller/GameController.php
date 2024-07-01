@@ -34,7 +34,6 @@ class GameController extends AbstractController
     public function showGame(EntityManagerInterface $em, $gameSlug, BreadCrumbsService $breadCrumbsService): Response
     {
         $game = $em->getRepository(Game::class)->findOneBy(["slug" => $gameSlug]);
-        dd($game);
 
         if (!$game) {
             $this->addFlash("danger", 'Le jeu n\'existe pas');
@@ -79,15 +78,13 @@ class GameController extends AbstractController
             $average = $somme / count($ratings);
         }
 
-        return $this->render("game/show.html.twig", [
-            "game" => $game,
+        return $this->render("game/show.html.twig", ["game" => $game,
             "gameStock" => $gameStock[0],
             "gamePlatform" => $gamePlatform,
             "ratings" => $ratings,
             "average" => $average,
             "category" => strtolower($platform->getCategory()->getLabel()),
-            "description" => "Retrouvez toutes les informations concernant le jeu " . $game->getLabel() . " sur K-Gaming."
-        ]);
+            "description" => "Retrouvez toutes les informations concernant le jeu " . $game->getLabel() . " sur K-Gaming.",]);
     }
 
     /*
