@@ -46,5 +46,5 @@ env:
 
 .PHONY: deploy-dev
 
-deploy-dev:
+deploy:
 	ssh -A o2switch 'cd sites/dev.k-gaming.k-grischko.fr && git pull origin develop && make install'
