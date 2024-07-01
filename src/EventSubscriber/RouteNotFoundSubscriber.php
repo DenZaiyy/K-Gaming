@@ -13,23 +13,18 @@ class RouteNotFoundSubscriber implements EventSubscriberInterface
 {
     private $urlGenerator;
 
-    public function __construct (UrlGeneratorInterface $urlGenerator)
+    public function __construct(UrlGeneratorInterface $urlGenerator)
     {
         $this->urlGenerator = $urlGenerator;
     }
 
-    public static function getSubscribedEvents (): array
-    {
-        return [KernelEvents::EXCEPTION => "onKernelException",];
-    }
-
-    public function onKernelException (ExceptionEvent $event): void
+    public function onKernelException(ExceptionEvent $event): void
     {
         $exception = $event->getThrowable();
 
         if ($exception instanceof NotFoundHttpException) {
             //Generate the URL for the desired redirect destination
-            $redirectUrl = $this->urlGenerator->generate("app_404");
+            $redirectUrl = $this->urlGenerator->generate('app_404');
 
             // Create a new RedirectResponse object with the desired URL
             $response = new RedirectResponse($redirectUrl);
@@ -37,5 +32,12 @@ class RouteNotFoundSubscriber implements EventSubscriberInterface
             // Set the new response object as the response to be sent to the browser
             $event->setResponse($response);
         }
+    }
+
+    public static function getSubscribedEvents() : array
+    {
+        return [
+            KernelEvents::EXCEPTION => 'onKernelException',
+        ];
     }
 }
