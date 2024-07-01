@@ -18,9 +18,9 @@ class RegisterFormType extends AbstractType
 	{
 		$builder
 			->add('email', EmailType::class, [
-				'label' => new TranslatableMessage('home.newsletter.email.label', [], 'messages'),
+				'label' => 'Email',
 				'attr' => [
-					'placeholder' => new TranslatableMessage('home.newsletter.email.placeholder', [], 'messages'),
+					'placeholder' => 'Email',
 					'class' => 'form-control',
 				],
 			])
