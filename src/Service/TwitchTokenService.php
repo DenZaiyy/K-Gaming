@@ -78,14 +78,14 @@ class TwitchTokenService extends AbstractController
         $envContents = file($this->envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
         foreach ($envContents as &$line) {
-            if (str_starts_with($line, 'TWITCH_ACCESS_TOKEN=')) {
+            if (strpos($line, 'TWITCH_ACCESS_TOKEN=') === 0) {
                 $line = 'TWITCH_ACCESS_TOKEN=' . $newAccessToken;
             }
-            if (str_starts_with($line, 'TWITCH_TOKEN_EXPIRES_IN=')) {
+            if (strpos($line, 'TWITCH_TOKEN_EXPIRES_IN=') === 0) {
                 $line = 'TWITCH_TOKEN_EXPIRES_IN=' . $expiresIn;
             }
 
-            if (str_starts_with($line, 'IGDB_AUTHORIZATION=')) {
+            if (strpos($line, 'IGDB_AUTHORIZATION=') === 0) {
                 $line = 'IGDB_AUTHORIZATION="Bearer ' . $newAccessToken . '"';
             }
         }
