@@ -64,8 +64,8 @@ class CallApiService extends AbstractController
                 // En-têtes de la requête (obligatoire)
                 "headers" => [
                     // Client-ID et Authorization sont des en-têtes obligatoires pour se connecter à l'API IGDB
-                    "Client-ID" => $this->getParameter("app.client_id"),
-                    "Authorization" => $this->getParameter("app.authorization")
+                    "Client-ID" => $this->getParameter("app.igdb_client_id"),
+                    "Authorization" => $this->getParameter("app.igdb_authorization")
                 ],
                 // Corps de la requête (obligatoire) avec la requête à effectuer grâce à la variable $data
                 "body" => $data
