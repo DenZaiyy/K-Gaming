@@ -93,11 +93,11 @@ body {
   }
 
   &-danger-red {
-    border: 1px solid darkred;
-    color: darkred;
+    border: 1px solid red;
+    color: red;
 
     &:hover {
-      background-color: darkred;
+      background-color: red;
       color: var(--white);
       transition: var(--animationLinear);
     }
