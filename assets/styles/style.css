@@ -555,6 +555,7 @@ main .listGenres .cards {
   grid-template-columns: repeat(3, minmax(200px, 550px));
   grid-gap: 30px;
   grid-template-rows: repeat(2, auto);
+  padding: 30px;
 }
 main .genres .cards a,
 main .listGenres .cards a {

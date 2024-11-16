@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connexion{% endblock %}
+{% block title %}{{ 'user.menu.login'|trans }}{% endblock %}
 
 {% block body %}
     <div class="login">
@@ -21,7 +21,7 @@
                         {% endfor %}
                     {% endif %}
 
-                    <h1 class="mb-3 font-weight-normal">Connexion</h1>
+                    <h1 class="mb-3 font-weight-normal">{{ 'user.menu.login'|trans }}</h1>
                     <div class="form-floating mb-3">
                         <input type="text" value="{{ last_username }}" name="username" id="inputUsername"
                                class="form-control" autocomplete="username" placeholder="example" required autofocus>

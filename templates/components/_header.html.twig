@@ -49,10 +49,10 @@
 									<p>{{ 'cart.menu.total'|trans({'%total%': cartTotal|price})|raw }}</p>
 								</div>
 							</div>
-							<a href="{{ path('cart_index') }}" class="btn-primary-orange">{{ 'cart.menu.show_cart'|trans }}</a>
+							<a href="{{ path('cart_index') }}" class="btn btn-primary-orange">{{ 'cart.menu.show_cart'|trans }}</a>
 						</div>
 						<div class="dropdown-item">
-							<a href="{{ path('cart_remove_all') }}" class="btn-secondary-blue">{{ 'cart.menu.clear_cart'|trans }}</a>
+							<a href="{{ path('cart_remove_all') }}" class="btn btn-secondary-blue">{{ 'cart.menu.clear_cart'|trans }}</a>
 						</div>
 					{% else %}
 						<div class="dropdown-item">

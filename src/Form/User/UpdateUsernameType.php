@@ -16,7 +16,7 @@ class UpdateUsernameType extends AbstractType
         $builder->add("username", TextType::class, ["label" => 'Nom d\'utilisateur',
           "attr" => ["placeholder" => 'Nom d\'utilisateur',
             "class" => "form-control",],])->add("submit", SubmitType::class, ["label" => "Modifier",
-          "attr" => ["class" => "btn-primary-orange",],]);
+          "attr" => ["class" => "btn btn-primary-orange",],]);
     }
 
     public function configureOptions (OptionsResolver $resolver): void
