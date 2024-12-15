@@ -78,18 +78,21 @@ class TwitchTokenService extends AbstractController
         $envContents = file($this->envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
         foreach ($envContents as &$line) {
-            if (strpos($line, 'TWITCH_ACCESS_TOKEN=') === 0) {
+            if (str_starts_with($line, 'TWITCH_ACCESS_TOKEN=')) {
                 $line = 'TWITCH_ACCESS_TOKEN=' . $newAccessToken;
             }
-            if (strpos($line, 'TWITCH_TOKEN_EXPIRES_IN=') === 0) {
+            if (str_starts_with($line, 'TWITCH_TOKEN_EXPIRES_IN=')) {
                 $line = 'TWITCH_TOKEN_EXPIRES_IN=' . $expiresIn;
             }
 
-            if (strpos($line, 'IGDB_AUTHORIZATION=') === 0) {
+            if (str_starts_with($line, 'IGDB_AUTHORIZATION=')) {
                 $line = 'IGDB_AUTHORIZATION="Bearer ' . $newAccessToken . '"';
             }
         }
 
         file_put_contents($this->envPath, implode(PHP_EOL, $envContents));
+
+        // dump env file for prod using composer dump-env prod
+        exec('composer dump-env prod');
     }
 }
