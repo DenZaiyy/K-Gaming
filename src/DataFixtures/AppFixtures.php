@@ -18,8 +18,11 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AppFixtures extends Fixture implements FixtureGroupInterface
 {
-    public function __construct(private readonly CallApiService $callApiService, private readonly SluggerInterface $slugger, private readonly PasswordHasherFactoryInterface $passwordHasherFactory)
-    {
+    public function __construct(
+        private readonly CallApiService $callApiService,
+        private readonly SluggerInterface $slugger,
+        private readonly PasswordHasherFactoryInterface $passwordHasherFactory
+    ) {
     }
 
     public static function getGroups(): array
@@ -34,6 +37,7 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
         $user->setEmail('support@k-grischko.fr');
         $user->setUsername('admin');
         $user->setPassword($this->passwordHasherFactory->getPasswordHasher(User::class)->hash('admin'));
+        $user->setAvatar("https://api.multiavatar.com/admin-123.png");
         $user->setIsVerified(true);
         $user->setIsBanned(false);
         $manager->persist($user);
@@ -111,7 +115,11 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
             $product->setLabel($platform['label']);
             $product->setSlug($this->slugger->slug($platform['label'])->lower());
             $product->setLogo($platform['logo']);
-            $product->setCategory($manager->getRepository(Category::class)->findOneBy(['label' => $platform['category']]));
+            $product->setCategory(
+                $manager
+                    ->getRepository(Category::class)
+                    ->findOneBy(['label' => $platform['category']])
+            );
             $manager->persist($product);
         }
         $manager->flush();
@@ -209,9 +217,21 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
             $product->setDateRelease(new DateTime('now', new DateTimeZone('Europe/Paris')));
             $product->setIsPromotion(false);
             $product->setIsSellable(true);
-            $product->addGenre($manager->getRepository(Genre::class)->findOneBy(['label' => $genres[random_int(0, count($genres) - 1)]['label']]));
-            $product->addGenre($manager->getRepository(Genre::class)->findOneBy(['label' => $genres[random_int(0, count($genres) - 1)]['label']]));
-            $product->addPlateform($manager->getRepository(Plateform::class)->findOneBy(['label' => $platforms[random_int(0, count($platforms) - 1)]['label']]));
+            $product->addGenre(
+                $manager
+                    ->getRepository(Genre::class)
+                    ->findOneBy(['label' => $genres[random_int(0, count($genres) - 1)]['label']])
+            );
+            $product->addGenre(
+                $manager
+                    ->getRepository(Genre::class)
+                    ->findOneBy(['label' => $genres[random_int(0, count($genres) - 1)]['label']])
+            );
+            $product->addPlateform(
+                $manager
+                    ->getRepository(Plateform::class)
+                    ->findOneBy(['label' => $platforms[random_int(0, count($platforms) - 1)]['label']])
+            );
             $manager->persist($product);
         }
 

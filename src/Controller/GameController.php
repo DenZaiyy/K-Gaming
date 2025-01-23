@@ -33,22 +33,21 @@ class GameController extends AbstractController
     #[Route("/{_locale<%app.supported_locales%>}/{gameSlug}", name: "app_show_game", priority: -1)]
     public function showGame(EntityManagerInterface $em, $gameSlug, BreadCrumbsService $breadCrumbsService): Response
     {
-        $game = $em->getRepository(Game::class)->findOneBy(["slug" => $gameSlug]);
-        dd($game);
+        $game = $this->callApiService->getInfosByGames(["gameSlug_Platform" => $gameSlug]);
 
         if (!$game) {
             $this->addFlash("danger", 'Le jeu n\'existe pas');
             return $this->redirectToRoute("app_404");
         }
 
-        $gameStock = $em->getRepository(Stock::class)->findStockByGameID($game->getId());
-        $gamePlatform = $em->getRepository(Game::class)->findOneGameInPlatform($game->getId(), $gameStock[0]["platform_id"]);
+        $gameStock = $em->getRepository(Stock::class)->findStockByGameID($game[0]['game']->getId());
+        $gamePlatform = $em->getRepository(Game::class)->findOneGameInPlatform($game[0]['game']->getId(), $gameStock[0]["platform_id"]);
         $platform = $em->getRepository(Plateform::class)->findOneBy(["id" => $gamePlatform["platform_id"]]);
         if (!$platform) {
             $this->addFlash("danger", 'La plateforme n\'existe pas');
             return $this->redirectToRoute("app_404");
         }
-        $ratings = $em->getRepository(Rating::class)->findBy(["game" => $game->getId()]);
+        $ratings = $em->getRepository(Rating::class)->findBy(["game" => $game[0]['game']->getId()]);
 
         //TODO: This is a temporary solution until we can refactor the breadcrumbs service
         $breadCrumbsService->BCGenerate([
@@ -63,7 +62,7 @@ class GameController extends AbstractController
                 "platformSlug" => $gamePlatform["platform_slug"]
             ]
         ], [
-            "label" => $game->getLabel(),
+            "label" => $game[0]['game']->getLabel(),
             "route" => "app_show_game",
             "params" => ["gameSlug" => $gameSlug]
         ], []);
@@ -86,7 +85,7 @@ class GameController extends AbstractController
             "ratings" => $ratings,
             "average" => $average,
             "category" => strtolower($platform->getCategory()->getLabel()),
-            "description" => "Retrouvez toutes les informations concernant le jeu " . $game->getLabel() . " sur K-Gaming."
+            "description" => "Retrouvez toutes les informations concernant le jeu " . $game[0]['game']->getLabel() . " sur K-Gaming."
         ]);
     }
 
@@ -96,9 +95,7 @@ class GameController extends AbstractController
     #[Route("/{_locale<%app.supported_locales%>}/platform/{categoryLabel}/{platformSlug}/{gameSlug}", name: "app_show_game_platform")]
     public function showGameInPlatform(EntityManagerInterface $em, $platformSlug, $gameSlug, BreadCrumbsService $breadCrumbsService): Response
     {
-//        $game = $em->getRepository(Game::class)->findOneBy(["slug" => $gameSlug]);
         $game = $this->callApiService->getInfosByGames(["gameSlug_Platform" => $gameSlug]);
-//        dd($game);
         if (!$game) {
             $this->addFlash("danger", 'Le jeu n\'existe pas');
             return $this->redirectToRoute("app_404");

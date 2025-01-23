@@ -93,11 +93,11 @@ body {
   }
 
   &-danger-red {
-    border: 1px solid darkred;
-    color: darkred;
+    border: 1px solid red;
+    color: red;
 
     &:hover {
-      background-color: darkred;
+      background-color: red;
       color: var(--white);
       transition: var(--animationLinear);
     }
@@ -674,6 +674,7 @@ main {
       grid-template-columns: repeat(3, minmax(200px, 550px));
       grid-gap: 30px;
       grid-template-rows: repeat(2, auto);
+      padding: 30px;
       //grid-template-columns: repeat(auto-fit, max(500px));
       //justify-content: center;
       //margin: 0 auto;

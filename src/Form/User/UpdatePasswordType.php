@@ -38,7 +38,7 @@ class UpdatePasswordType extends AbstractType
                 "message" => "Le mot de passe doit contenir au moins 1 majuscule, 1 minuscule, 1 nombre, 1 caractère spéciale et doit faire au moins 12 caractères.",]
             ),],]
         )->add("submit", SubmitType::class, ["label" => "Modifier le mot de passe",
-          "attr" => ["class" => "btn-primary-orange p-2 w-100",],]);
+          "attr" => ["class" => "btn btn-primary-orange p-2 w-100",],]);
     }
 
     public function configureOptions (OptionsResolver $resolver): void

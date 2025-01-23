@@ -18,7 +18,7 @@ class UpdateEmailType extends AbstractType
           "attr" => ["placeholder" => "Adresse email", "class" => "form-control",],
           "constraints" => [new Email(["message" => "Veuillez entrer un email valide.",]),],])->add(
           "submit", SubmitType::class, ["label" => "Modifier",
-          "attr" => ["class" => "btn-primary-orange",],]
+          "attr" => ["class" => "btn btn-primary-orange",],]
         );
     }
 
