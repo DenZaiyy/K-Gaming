@@ -22,6 +22,6 @@
     },
     "dependencies": {
         "flip-toolkit": "^7.1.0",
-        "nouislider": "^15.7.0"
+        "nouislider": "^15.8.1"
     }
 }
